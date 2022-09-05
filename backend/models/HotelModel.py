@@ -14,7 +14,9 @@ class User(db.Model):
     user_contact = db.Column(db.String(10), nullable=False)
     user_profile = db.Column(db.String(10), default="abc.txt")
     user_role = db.Column(db.String(20))
-    hotel_reviews = db.relationship('Review', backref="user")
+    hotel_reviews = db.relationship('Review', backref="user") #Review
+    hotel_booking = db.relationship('Booking', backref="user") #for booking
+    search_history = db.relationship('SearchHistory', backref="user") #for SearchHistory
 
     def __init__(self, userdata) -> None:
         self.user_name = userdata['user_name']
@@ -54,7 +56,9 @@ class Hotel(db.Model):
     extra_parking_rate = db.Column(db.Integer, default=0)
     extra_pillow_rate = db.Column(db.Integer, default=0)
     hotel_facilities = db.Column(JSON, default={})
-    hotel_reviews = db.relationship('Review', backref="hotel")
+    hotel_reviews = db.relationship('Review', backref="hotel") #Review
+    hotel_booking = db.relationship('Booking', backref="hotel") #Booking
+    search_history = db.relationship('SearchHistory', backref="hotel") #SearchHistory
 
 
     def __init__(self, data) -> None:
@@ -114,4 +118,55 @@ class Review(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
 
+    def __init__(self, data) -> None:
+        self.review_id  = data['review_id']
+        self.rating = data['rating']
+        self.description = data['description']
+        self.datetime_posted = data['datetime_posted']
+       
+       
 
+
+
+
+class Booking(db.Model):
+    b_id = db.Column(db.Integer, primary_key=True)
+    check_in_date = db.Column(db.DateTime, nullable=False)
+    check_out_date = db.Column(db.DateTime, nullable=False)
+    status = db.Column(db.Integer, nullable=False)
+    child_count = db.Column(db.Integer, nullable=False)
+    adult_count = db.Column(db.Integer, nullable=False)
+    transaction_id = db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
+    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
+
+
+    def __init__(self, data) -> None:
+        self.b_id  = data['b_id']
+        self.check_in_date = data['check_in_date']
+        self. check_out_date = data['check_out_date']
+        self.status = data['status']
+        self.child_count = data['child_count']
+        self.adult_count = data['adult_count']
+        self.transaction_id = data['transaction_id']
+       
+
+
+
+class SearchHistory(db.Model):
+    ip = db.Column(db.String(200), nullable=False)
+    location = db.Column(db.String(200), nullable=False)
+    last_search_date= db.Column(db.String(200), nullable=False) 
+    number_of_time=db.Column(db.DateTime, nullable=False) 
+    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
+
+    def __init__(self, data) -> None:
+        self.ip = data['ip']
+        self.location = data['location']
+        self. last_search_date = data['last_search_date']
+        self.number_of_time = data['number_of_time']
+        self.child_count = data['child_count']
+        self.adult_count = data['adult_count']
+        self.transaction_id = data['transaction_id']
+      
