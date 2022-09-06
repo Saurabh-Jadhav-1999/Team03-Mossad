@@ -16,20 +16,22 @@ post_parser.add_argument("user_address", str, help="user_address is missing", re
 post_parser.add_argument("user_contact", str, help="user_contact is missing", required=True)
 post_parser.add_argument('user_role', str, help="user role is missing", required=True)
 
+# class to handle /user get post request
 class UserHandler(Resource):
+    # method to get all the users
     @marshal_with(user_representation)
     def get(self):
         result = User.query.all()
         return result, 200
 
-
+    # method to add new user
     @marshal_with(user_representation)
     def post(self):
-        args = post_parser.parse_args()
-        user = isUserExists(args['email'])
+        args = post_parser.parse_args() # parse incoming data validation
+        user = isUserExists(args['email']) # check if user exists 
         if user:
-            abort(400, "user already exists")
-        result = addNewUser(args)
+            abort(400, "user already exists") # return if user does not exists
+        result = addNewUser(args) # adding new user
         return result, 200
 
 
@@ -37,7 +39,7 @@ class UserHandler(Resource):
 def login():
     data = request.json
     validationResult = validateLoginData(data)
-
+ 
     if validationResult.errors:
         return make_response(validationResult.errors, 400)
     

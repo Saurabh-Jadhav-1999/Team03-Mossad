@@ -1,9 +1,6 @@
-from dataclasses import field
-from backend import db
 from flask_restful import fields
-from sqlalchemy.dialects.postgresql import JSON
 
-
+# object to represent data of user model
 user_representation = {
     "user_id": fields.Integer,
     "user_name":fields.String,

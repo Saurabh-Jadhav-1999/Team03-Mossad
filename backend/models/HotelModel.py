@@ -1,10 +1,14 @@
+from dataclasses import field
 from email.policy import default
 from enum import unique
 from backend import db
 from flask_restful import fields
 from sqlalchemy.dialects.postgresql import JSON
 from datetime import date, datetime, timedelta
+from backend.models.UserModel import user_representation
 
+
+# creating user model 
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(200), nullable=False)
@@ -14,8 +18,9 @@ class User(db.Model):
     user_contact = db.Column(db.String(10), nullable=False)
     user_profile = db.Column(db.String(10), default="abc.txt")
     user_role = db.Column(db.String(20))
-    hotel_reviews = db.relationship('Review', backref="user")
+    hotel_reviews = db.relationship('Review', backref="owner")
 
+    # initilize the row values for model
     def __init__(self, userdata) -> None:
         self.user_name = userdata['user_name']
         self.email = userdata['email']
@@ -23,13 +28,58 @@ class User(db.Model):
         self.user_address = userdata['user_address']
         self.user_contact = userdata['user_contact']
         self.user_role = userdata['user_role']
+        # user_profile is not required field so check if present then update or will take default
         if 'user_profile' in userdata.keys():
             self.user_profile = userdata['user_profile']
 
+
+# create a object for hotel model data representations
+hotel_representation = {
+    "hotel_id":fields.Integer,
+    "hotel_name":fields.String,
+    "description":fields.String,
+    "hotel_profile_picture": fields.String,
+    "hotel_images":fields.List(fields.String),
+    "city":fields.String,
+    "state":fields.String,
+    "country":fields.String,
+    "pincode":fields.Integer,
+    "landmark":fields.Integer,
+    "address":fields.String,
+    "exclusive_room_count":fields.Integer,
+    "double_room_count":fields.Integer,
+    "economy_room_count":fields.Integer,
+    "premium_room_count":fields.Integer,
+    "exclusive_room_capacity":fields.Integer,
+    "double_room_capacity":fields.Integer,
+    "economy_room_capacity":fields.Integer,
+    "premium_room_capacity":fields.Integer,
+    "exclusive_room_rate":fields.Integer,
+    "double_room_rate":fields.Integer,
+    "economy_room_rate":fields.Integer,
+    "premium_room_rate":fields.Integer,
+    "allow_pet_cost":fields.Integer,
+    "breakfast_for_people":fields.Integer,
+    "extra_parking_rate":fields.Integer,
+    "extra_pillow_rate":fields.Integer,
+    "hotel_facilities":{
+        "breakfast":fields.Boolean,
+    "dinner":fields.Boolean,
+    "outdoor_sport":fields.Boolean,
+    "swimming_pool":fields.Boolean,
+    "Spa":fields.Boolean,
+    "Room_Service":fields.Boolean,
+    "Living_room":fields.Boolean,
+    "Berbeque":fields.Boolean
+    }
+}
+
+# hotel model 
 class Hotel(db.Model):
     hotel_id = db.Column(db.Integer, primary_key=True)
     hotel_name = db.Column(db.String(200), nullable=False)
     hotel_profile_picture = db.Column(db.String(200), default="https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg")
+    hotel_images = db.Column(db.ARRAY(db.String(500)))
     description = db.Column(db.String(500), nullable=False)
     city = db.Column(db.String(200), nullable=False)
     state = db.Column(db.String(200), nullable=False)
@@ -54,17 +104,18 @@ class Hotel(db.Model):
     extra_parking_rate = db.Column(db.Integer, default=0)
     extra_pillow_rate = db.Column(db.Integer, default=0)
     hotel_facilities = db.Column(JSON, default={})
-    hotel_reviews = db.relationship('Review', backref="hotel")
+    hotel_reviews = db.relationship('Review', backref="hotelreviewed")
 
 
     def __init__(self, data) -> None:
-        self.hotel_name = data['name']
+        self.hotel_name = data['hotel_name']
         self.description = data['description']
         self.city = data['city']
         self.state = data['state']
         self.country = data['country']
         self.pincode = data['pincode']
         self.address = data['address']
+        self.hotel_images = data['hotel_images']
 
         if 'hotel_facilities' in data.keys():
             self.hotel_facilities = data['hotel_facilities']
@@ -104,14 +155,22 @@ class Hotel(db.Model):
         if "extra_pillow_rate" in data.keys():
             self.extra_pillow_rate = data['extra_pillow_rate']
 
-# review_id	hotel_id	user_id	rating_description	rating	date
+# review model data representation object
+review_representation = {
+    "review_id": fields.Integer,
+    "rating": fields.Integer,
+    "description": fields.String,
+    "datetime_posted": fields.String,
+    "owner": fields.Nested(user_representation)
+}
 
+# review model with many table for user and hotel 
 class Review(db.Model):
     review_id = db.Column(db.Integer, primary_key=True)
     rating = db.Column(db.Integer, nullable=False)
-    description = db.Column(db.Integer, nullable=False)
+    description = db.Column(db.String, nullable=False)
     datetime_posted = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
-    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
+    hotel_id  = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
 
 
