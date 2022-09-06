@@ -18,6 +18,8 @@ try:
     # db.drop_all()
 
     from backend.routes.UserRoutes import UserHandler
+    from backend.routes.HotelRoutes import HotelHandler
+    from backend.routes.ReviewRoutes import HandleReview
 
     from backend.models.HotelModel import User, Hotel, Review
 
@@ -25,6 +27,9 @@ try:
     # db.create_all()
 
     api.add_resource(UserHandler, "/user")
+    api.add_resource(HotelHandler, "/hotel")
+    api.add_resource(HandleReview, "/review")
+    print('done with creating routes!')
 except Exception as e:
     print(e)
     print('cannot start application, could not connect to database')

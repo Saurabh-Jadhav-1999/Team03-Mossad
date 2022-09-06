@@ -1,11 +1,13 @@
+from importlib.metadata import requires
 from backend.models.HotelModel import Hotel
 from backend import db, app
-from cerberus import Validation
+from cerberus import Validator
 
-# post request parser
+# validation schema for hotel 
 hotel_schema = {
     "hotel_name": {"type":"string", "required":True},
     "hotel_profile_picture":{"type":"string"},
+    "hotel_images": {"type":"list", "required":True},
     "description":{"type":"string", "required":True},
     "city":{"type":"string", "required":True},
     "state":{"type":"string", "required":True},
@@ -31,7 +33,8 @@ hotel_schema = {
     "extra_pillow_rate":{"type":"integer", 'required':False},
     "hotel_facalities":{
         "type":"dict",
-        "allow_unknown":True,
+        "required":True,
+        "schema":{
         "breakfast":{"type":"boolean", "required":True},
         "dinner":{"type":"boolean", "required":True},
         "outdoor_sport":{"type":"boolean", "required":True},
@@ -40,10 +43,35 @@ hotel_schema = {
         "Room_Service":{"type":"boolean", "required":True},
         "swimming_pool":{"type":"boolean", "required":True},	
         "Spa":{"type":"boolean", "required":True}
+        }
     }
 }
 
+# method to validate hotel details 
 def validateHotelData(data):
-    hotelValidator = Validation(hotel_schema)
+    print("Data in validateHotelData:",data)
+    hotelValidator = Validator(hotel_schema)
     result = hotelValidator.validate(data)
-    return result
+    return hotelValidator
+
+# method to add new hotel input is validated method data 
+def addNewHotel(data):
+    try:
+        hotel = Hotel(data)
+        db.session.add(hotel)
+        db.session.commit()
+        return hotel
+    except Exception as e:
+        print(e)
+        return {"error":e}
+
+# method to get all the hotels
+def getAllHotels():
+    return Hotel.query.all()
+
+# method to get particular hotel by hotel id 
+def getPerticularHotelById(id):
+    try:
+        return Hotel.query.filter_by(hotel_id=id).first()
+    except Exception as e:
+        return {"error:e"}
