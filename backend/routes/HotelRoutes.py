@@ -1,9 +1,9 @@
-from flask_restful import marshal_with, Resource, reqparse
+from flask_restful import marshal_with, Resource, reqparse, fields
 from flask import abort, request, make_response
 from backend.models.HotelModel import User, Hotel, hotel_representation
 from backend.models.UserModel import user_representation
 from backend import db, app
-from backend.services.HotelServices import validateHotelData, addNewHotel, getAllHotels
+from backend.services.HotelServices import validateHotelData, addNewHotel, getAllHotels, validateCityName, getCitiesByName
 
 
 # app.route("/hotel", methods=['POST'])
@@ -35,3 +35,20 @@ class HotelHandler(Resource):
     def get(self):
         result = getAllHotels() # get the hotels
         return result, 200
+    
+# method to get city list
+city_representation = {
+    "city":fields.String
+}
+@marshal_with(city_representation)
+@app.route("/getCityList", methods=["GET"])
+def getCityList():
+    print('hii:',request.json)
+    validationResult = validateCityName(request.json)
+    if validationResult.errors:
+        return make_response(validationResult.errors, 400)
+
+    return make_response(getCitiesByName(request.json['city_name']),200)
+    
+
+    return "hii", 200
