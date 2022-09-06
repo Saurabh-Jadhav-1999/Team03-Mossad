@@ -3,3 +3,4 @@ flask-sqlalchemy
 flask-restful
 pyjwt
 cerberus
+psycopg2

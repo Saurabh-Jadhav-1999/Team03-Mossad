@@ -20,15 +20,18 @@ try:
     from backend.routes.UserRoutes import UserHandler
     from backend.routes.HotelRoutes import HotelHandler
     from backend.routes.ReviewRoutes import HandleReview
+    from backend.routes.BookingRoutes import HandleBooking
 
     from backend.models.HotelModel import User, Hotel, Review
 
     # db.drop_all()
-    # db.create_all()
+    db.create_all()
+    # db.session.query(Review).delete()
 
     api.add_resource(UserHandler, "/user")
     api.add_resource(HotelHandler, "/hotel")
     api.add_resource(HandleReview, "/review")
+    api.add_resource(HandleBooking, "/booking")
     print('done with creating routes!')
 except Exception as e:
     print(e)
