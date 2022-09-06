@@ -1,4 +1,3 @@
-from operator import or_
 from backend.models.HotelModel import Booking, booking_representation
 from backend import db, app
 from cerberus import Validator
