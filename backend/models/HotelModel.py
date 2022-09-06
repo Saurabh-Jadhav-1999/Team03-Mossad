@@ -119,15 +119,10 @@ class Review(db.Model):
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
 
     def __init__(self, data) -> None:
-        self.review_id  = data['review_id']
         self.rating = data['rating']
         self.description = data['description']
         self.datetime_posted = data['datetime_posted']
        
-       
-
-
-
 
 class Booking(db.Model):
     b_id = db.Column(db.Integer, primary_key=True)
@@ -142,7 +137,7 @@ class Booking(db.Model):
 
 
     def __init__(self, data) -> None:
-        self.b_id  = data['b_id']
+       
         self.check_in_date = data['check_in_date']
         self. check_out_date = data['check_out_date']
         self.status = data['status']
