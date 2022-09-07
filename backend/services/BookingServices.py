@@ -3,6 +3,7 @@ from backend import db, app
 from cerberus import Validator
 from flask_restful import marshal_with
 from sqlalchemy import func, or_, and_
+from datetime import timedelta
 
 
 # method to validate booking data
@@ -31,6 +32,32 @@ def validateBookingData(data):
 #     print("total:",total)
 #     return total
 
+# method to get count of booked room on perticular day for particular hotel and room type
+def getAvailabilityCount(data, dte, hotel):
+    from sqlalchemy import func
+    print('getAvailability called')
+    if data['exclusive_room_count'] > 0:
+        cursor = db.session.query(func.sum(Booking.exclusive_count)).filter(Booking.hotel_id==hotel.hotel_id).filter(or_((Booking.check_in_date==dte),and_(dte>Booking.check_in_date, dte<Booking.check_out_date)))
+        total = cursor.scalar()
+        print(f"date:{dte} totalbooked:",total)
+        return ["exclusive_count", hotel.exclusive_room_capacity]
+    if data['economy_room_count'] > 0:
+        cursor = db.session.query(func.sum(Booking.economy_count)).filter(Booking.hotel_id==hotel.hotel_id)
+        total = cursor.scalar()
+        print("total:",total)
+        return ["economy_count", hotel.economy_room_capacity]
+    if data['double_room_count'] > 0:
+        cursor = db.session.query(func.sum(Booking.double_count)).filter(Booking.hotel_id==hotel.hotel_id)
+        total = cursor.scalar()
+        print("total:",total)
+        return ["double_count", hotel.double_room_capacity]
+    if data['premium_room_count'] > 0:
+        cursor = db.session.query(func.sum(Booking.exclusive_count)).filter(Booking.hotel_id==hotel.hotel_id)
+        total = cursor.scalar()
+        print("total:",total)
+        return ["premium_count", hotel.premium_room_capacity]
+    return False
+
 
 # method to check type of room booking for 
 def checkRoomType(data, hotel):
@@ -43,7 +70,7 @@ def checkRoomType(data, hotel):
     if data['economy_room_count'] > 0:
         cursor = db.session.query(func.sum(Booking.economy_count)).filter(Booking.hotel_id==hotel.hotel_id)
         total = cursor.scalar()
-        print("total:",total)
+        print(f"date:{dte} booked room:{total}:")
         return ["economy_count", hotel.economy_room_capacity]
     if data['double_room_count'] > 0:
         cursor = db.session.query(func.sum(Booking.double_count)).filter(Booking.hotel_id==hotel.hotel_id)
@@ -66,6 +93,14 @@ def addBooking(data, user, hotel):
     print('got the roomtype')
     if (data['adult_count']+data['child_count']) <= room_type[1]:
         print('count is okay')
+        delta = data['check_out_date'] - data['check_in_date']
+        
+        # loop over to each date and check if any day having booking more than its capacity
+        for x in range(delta.days):
+            dte = data['check_in_date']+timedelta(days=x)
+            getAvailabilityCount(data, dte, hotel)
+            pass
+
         # # result = checkAvalabilityOfRoomInHotel(data['hotel_id'], data['check_in_date'], data['check_out_date'], room_type[0])
         # booking = Booking(check_in_date=data['check_in_date'], check_out_date=data['check_out_date'], child_count=data['child_count'], adult_count=data['adult_count'], exclusive_count=data['exclusive_room_count'], economy_count=data['economy_room_count'],double_count=data['double_room_count'],premium_count=data['premium_room_count'],bookingowner=user,hotelconcerned=hotel)
         # db.session.add(booking)

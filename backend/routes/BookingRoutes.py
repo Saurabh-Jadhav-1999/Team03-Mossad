@@ -11,6 +11,8 @@ class HandleBooking(Resource):
     # @marshal_with(booking_representation)
     def post(self):
         data = request.json
+        if "check_in_date" not in data.keys() or  "check_out_date" not in data.keys():
+            return {"error": "check_in_date or check_out_date is missing"}, 400
         data['check_in_date'] = datetime.datetime.strptime(data['check_in_date'], "%Y-%m-%d")
         data['check_out_date'] = datetime.datetime.strptime(data['check_out_date'], "%Y-%m-%d")
         # print(data)
