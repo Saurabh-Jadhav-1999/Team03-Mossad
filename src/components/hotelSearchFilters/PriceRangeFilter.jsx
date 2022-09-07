@@ -57,10 +57,11 @@ export default function InputSlider() {
                         size="small"
                         onChange={handleInputChange}
                         onBlur={handleBlur}
+                        textDecoration={'none'}
                         sx={{
                             width: '70%',
                             border: '3px solid #316AFF',
-                            borderRadius: '70px',
+                            borderRadius: '7px',
                             height: '40px',
                             textDecoration: 'none',
                             alignContent: 'center',

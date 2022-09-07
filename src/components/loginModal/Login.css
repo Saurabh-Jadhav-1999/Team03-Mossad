@@ -1,0 +1,221 @@
+.modal {
+    /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); 
+    align-self: center;
+    overflow-y: hidden;
+  }
+  
+  /* Modal Content/Box */
+  .modal-content {
+    /* display: flex;
+    flex-direction: row; */
+    background-color: #fefefe;
+    margin: 9% 30%; /* 15% from the top and centered */
+    border: 1px solid #888;
+    width: auto; /* Could be more or less, depending on screen size */
+  }
+
+  .modal-content-header {
+    border-bottom: 1px solid #e8e8e8;
+    height: 50px;
+  }
+
+  .modal-content-body {
+     padding: 24px;
+     font-size: 14px;
+     word-wrap: break-word;
+     line-height: 1.5;
+  }
+
+  form {
+    display: block;
+  }
+
+  .ant-form {
+    
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    color: rgba(0,0,0,.65);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    list-style: none;
+  }
+
+  .ant-form-item {
+   
+    box-sizing: border-box;
+    padding: 0;
+    color: rgba(0,0,0,.65);
+    font-size: 14px;
+    font-variant: tabular-nums;
+    line-height: 1.5;
+    list-style: none;
+    font-feature-settings: "tnum","tnum";
+    margin: 0 0 24px;
+    vertical-align: top;
+}
+.ant-row {
+  /* display: flex; */
+    /* flex-direction: row; */
+    position: relative;
+    height: auto;
+    margin-right: 0;
+    margin-left: 0;
+    zoom: 1;
+    display: block;
+    box-sizing: border-box;
+}
+
+.ant-form-item-label {
+    display: inline-block;
+    overflow: hidden;
+    line-height: 39.9999px;
+    white-space: nowrap;
+    text-align: right;
+    vertical-align: middle;
+    width: 35%;
+    padding-right: 5px;
+}
+
+.ant-form-item-required:before {
+    display: inline-block;
+    margin-right: 4px;
+    color: #f5222d;
+    font-size: 14px;
+    font-family: SimSun,sans-serif;
+    line-height: 1;
+    content: "*";
+} 
+.ant-input {
+    box-sizing: border-box;
+    margin: 0;
+    font-variant: tabular-nums;
+    list-style: none;
+    -webkit-font-feature-settings: "tnum";
+    font-feature-settings: "tnum","tnum";
+    position: relative;
+    display: inline-block;
+    /* width: 60%; */
+    width: auto;
+    height: 32px;
+    padding: 4px 11px;
+    color: rgba(0,0,0,.65);
+    font-size: 14px;
+    line-height: 1.5;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #d9d9d9;
+    border-radius: 4px;
+    transition: all .3s;
+    overflow: visible;
+}
+  .span-label {
+    font-size: 20px;
+    width: 50px;
+    margin: 0px 10px 35px 100px; 
+  }
+
+  .modal-content-footer {
+        padding: 10px 16px;
+        text-align: right;
+        background: tranparent;
+        border-top: 1px solid #e8e8e8;
+        border-radius: 0 0 4px 4px;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    margin: 10px;
+    font-size: 25px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+  .span-demo {
+    float: left;
+    margin: 13px;
+    font-size: 18px;
+  }
+
+  .btn{
+  line-height: 1.499;
+    position: relative;
+    display: inline-block;
+    font-weight: 400;
+    white-space: nowrap;
+    text-align: center;
+    box-shadow: 0 2px 0 rgb(0 0 0 / 2%);
+    cursor: pointer;
+    transition: all .3s cubic-bezier(.645,.045,.355,1);
+    user-select: none;
+    touch-action: manipulation;
+    height: 32px;
+    padding: 0 15px;
+    font-size: 14px;
+    border-radius: 4px;
+    color: rgba(0,0,0,.65);
+    background-color: #fff;
+    border: 1px solid #d9d9d9;
+}
+
+.btn:hover,
+.btn:focus {
+    color: #1890ff;
+    border-color: #1890ff;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    color: #fff;
+    background-color: #66b0f5;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: #1890ff;
+    border-color: #1890ff;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+}
+
+button {
+    margin: 3px;
+}
+
+/* @media screen and (max-width:420px) {
+
+  .modal-content{
+    min-width:40vw;
+
+      /* flex-direction: column; 
+  }
+} */
+
+@media screen and (max-width: 700px) {
+ .ant-form-item-label{
+  display: inline-block;
+  /* flex-direction: row; */
+  }
+
+  /* .ant-input{
+    width: auto;
+  }*/
+}

@@ -1,0 +1,44 @@
+.mainContainer {
+  margin: 0 30px;
+}
+
+.heading {
+  font-size: x-large !important;
+  font-weight: 600 !important;
+  font-style: normal;
+  padding-bottom: 10px;
+}
+
+.roomBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: fit-content;
+  padding: 15px 15px;
+  width: 600px;
+}
+.boldHeading {
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: larger !important;
+}
+.offer {
+  color: #89898c;
+}
+.rightDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: end;
+}
+.saveAmt {
+  color: #ff9c09;
+  font-size: large;
+}
+.selectBtn {
+  background: #3c71ff !important;
+  border-radius: 9px;
+  width: fit-content;
+  color: white !important;
+  padding: 10px;
+}

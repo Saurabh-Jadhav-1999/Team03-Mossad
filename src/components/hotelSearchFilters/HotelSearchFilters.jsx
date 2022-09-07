@@ -1,4 +1,4 @@
-import { Box, Checkbox, FormControlLabel, Typography, TextField, Stack, Slider } from "@mui/material"
+import { Box, Checkbox, FormControlLabel, Typography, TextField, Stack } from "@mui/material"
 import { SearchOutlined } from "@material-ui/icons"
 import styles from "./HotelSearchFilters.module.css"
 import InputAdornment from '@mui/material/InputAdornment';
@@ -72,7 +72,7 @@ export const HotelSearchFilters = () => {
     return (
         <Box className={styles.filterComponentsContainer}>
             <Box className={styles.searchPropertyContainer}>
-                <Box>
+                <Box className="searchPropertyHeaderContainer">
                     <Typography className={styles.searchPropertyHeader}>
                         Price Range
                     </Typography>

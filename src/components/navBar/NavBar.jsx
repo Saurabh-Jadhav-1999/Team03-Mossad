@@ -1,10 +1,10 @@
 import React from 'react'
 import styles from './NavBar.module.css'
 import { AppBar, Stack, Toolbar, Box } from '@mui/material'
-import { LanguageLogo } from '../../icons/Language'
-import { Logo } from '../../icons/Logo'
-import { Notification } from '../../icons/Notification'
-import { LoginOptionIcon } from "../../icons/LoginOptions"
+import { LanguageLogo } from '../../assets/icons/Language'
+import { Logo } from '../../assets/icons/Logo'
+import { Notification } from '../../assets/icons/Notification'
+import { LoginOptionIcon } from "../../assets/icons/LoginOptions"
 
 export const NavBar = () => {
   return (

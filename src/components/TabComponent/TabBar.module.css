@@ -1,0 +1,17 @@
+.tabContainer {
+  width: fit-content;
+  font-family: "Inter";
+  font-style: normal;
+  border: 1px solid #D1D4D9;}
+
+
+.TabHeadings {
+  color:#326bff;
+  border-color:#326bff; ;
+}
+
+.tabDetail{
+    width: 470px;   
+    /* specify width accordingly */
+    border: 1px solid red;
+}

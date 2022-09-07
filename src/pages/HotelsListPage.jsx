@@ -1,8 +1,10 @@
-import { HotelSearchFilters } from "../components/hotelSearchFilters/HotelSearchFilters"
+import { HotelSearchList } from "../components/hotelSearchList/HotelSearchList"
+import { SearchBar } from "../components/searchBar/SearchBar"
 export const HotelsListPage = () => {
   return (
     <>
-    <HotelSearchFilters/>
+      <SearchBar/>
+      <HotelSearchList />
     </>
   )
 }

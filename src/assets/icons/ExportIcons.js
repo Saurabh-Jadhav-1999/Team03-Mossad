@@ -5,9 +5,9 @@ import { LoginOptionIcon } from "../../images/LoginOptions"
 import { Logo } from "../../images/Logo"
 
 module.exports={
-    LanguageLogo: LanguageLogo,
-    ProfilePicture: ProfilePicture,
-    Notification: Notification,
-    LoginOptionIcon: LoginOptionIcon,
-    Logo: Logo
+    LanguageLogo,
+    ProfilePicture,
+    Notification,
+    LoginOptionIcon,
+    Logo
 }

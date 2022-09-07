@@ -1,8 +1,7 @@
 @import url('https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.css');
 
 .filterComponentsContainer {
-    width: 300px !important;
-    margin-top: 10px !important;
+    width: 25% !important;
 }
 
 .filterPopularHotels {
