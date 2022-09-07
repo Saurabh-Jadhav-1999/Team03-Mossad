@@ -216,13 +216,13 @@ class Booking(db.Model):
 
 
 
-# class SearchHistory(db.Model):
-#     ip = db.Column(db.String(200), nullable=False)
-#     location = db.Column(db.String(200), nullable=False)
-#     last_search_date= db.Column(db.String(200), nullable=False) 
-#     number_of_time=db.Column(db.DateTime, nullable=False) 
-#     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
-#     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
+class SearchHistory(db.Model):
+     ip = db.Column(db.String(200), nullable=False)
+     location = db.Column(db.String(200), nullable=False)
+     last_search_date= db.Column(db.String(200), nullable=False) 
+     number_of_time=db.Column(db.DateTime, nullable=False) 
+     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
+     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
 
 #     def __init__(self, data) -> None:
 #         self.ip = data['ip']
