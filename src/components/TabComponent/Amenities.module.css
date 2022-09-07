@@ -1,0 +1,17 @@
+.heading {
+    font-size: large !important;
+    font-weight: 700 !important;
+    font-style: normal;
+    padding: 25px 0;
+  }
+  .iconStyle{
+    margin-right: 30px;
+    color: #323232;
+  }
+  .aminitiesRow{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding: 7px 0;
+    padding-right: 20px;
+  }

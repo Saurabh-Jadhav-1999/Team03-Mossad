@@ -1,0 +1,28 @@
+.searchDiv {
+
+    background: #FFFFFF;
+    box-shadow: 0px 4px 50px rgba(149, 149, 149, 0.25);
+    border-radius: 12px;
+    width: 1110px;
+    height: 141px;
+    margin: 0 auto;
+    
+    
+}
+
+.container{
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding-top:3%; 
+    justify-content: space-around;
+}
+
+.arrow{
+    z-index: 1;
+    /* margin:0 -80px; */
+    border: 2px black solid;
+    border-radius: 100%;
+    background-color: red;
+    
+}

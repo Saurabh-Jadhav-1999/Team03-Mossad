@@ -1,0 +1,14 @@
+.hotelDetailBox{
+    width: 971px;
+    height: 467px;
+    background: #FAFAFC;
+    border:1px solid #DCDCDE;
+    border-radius:24px;
+    display: flex;
+    flex-direction: row;
+}
+
+.detailsDiv{
+    display: flex;
+    flex-direction: column;
+}

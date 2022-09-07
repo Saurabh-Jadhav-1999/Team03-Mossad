@@ -1,0 +1,41 @@
+.cityDiv {
+  flex: 1;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  /* background-color: bisque; */
+  margin-top: 15px;
+  margin-left: 40px;
+}
+.cityDiv h1 {
+  font-weight: 700;
+  font-size: 40px;
+  line-height: 48px;
+}
+.cityDiv h3 {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+}
+
+.boldRating{
+  font-weight: 600;
+
+}
+
+.cityName {
+  font-weight: "700";
+  font-size: "40px";
+  line-height: "48px";
+  
+}
+.icon {
+  color: #929090;
+  margin-right: 15px;
+  font-size: 25px;
+}
+.starIcon {
+  color: #ff9c09;
+}
