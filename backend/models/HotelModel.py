@@ -64,7 +64,7 @@ hotel_representation = {
     "extra_parking_rate":fields.Integer,
     "extra_pillow_rate":fields.Integer,
     "hotel_facilities":{
-        "breakfast":fields.Boolean,
+    "breakfast":fields.Boolean,
     "dinner":fields.Boolean,
     "outdoor_sport":fields.Boolean,
     "swimming_pool":fields.Boolean,
