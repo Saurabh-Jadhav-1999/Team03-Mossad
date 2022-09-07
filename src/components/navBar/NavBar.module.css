@@ -1,0 +1,45 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/inter-ui/3.19.3/inter.css');
+
+.Appbar{
+    background: 'white';
+}
+
+.pointer{
+    cursor: 'pointer';
+}
+
+.webSiteHeader {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700 ;
+    flex-grow: 1;
+    color: #000000;
+    padding-left: 10px;
+    font-size: 24.4465px;
+}
+
+.currency{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700 ;
+    cursor: pointer;
+    color: #898888;
+}
+
+.divider{
+    border-left: 2px solid #8B8989;
+    height: 40px;
+}
+
+.userProfilePicture img{
+    width: 50px;
+}
+
+.userName{
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700 ;
+    width: 94px;
+    height: 19px;
+    color: #000000;
+}
