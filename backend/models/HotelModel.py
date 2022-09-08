@@ -8,6 +8,7 @@ from datetime import date, datetime, timedelta
 from backend.models.UserModel import user_representation
 
 
+
 # creating user model 
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
@@ -19,6 +20,7 @@ class User(db.Model):
     user_profile = db.Column(db.String(10), default="abc.txt")
     user_role = db.Column(db.String(20))
     hotel_reviews = db.relationship('Review', backref="owner")
+    hotel_booking = db.relationship('Booking', backref="bookingowner") #for booking
 
     # initilize the row values for model
     def __init__(self, userdata) -> None:
@@ -31,6 +33,15 @@ class User(db.Model):
         # user_profile is not required field so check if present then update or will take default
         if 'user_profile' in userdata.keys():
             self.user_profile = userdata['user_profile']
+
+# review model data representation object
+review_representation = {
+    "review_id": fields.Integer,
+    "rating": fields.Integer,
+    "description": fields.String,
+    "datetime_posted": fields.String,
+    "owner": fields.Nested(user_representation)
+}
 
 
 # create a object for hotel model data representations
@@ -71,7 +82,8 @@ hotel_representation = {
     "Room_Service":fields.Boolean,
     "Living_room":fields.Boolean,
     "Berbeque":fields.Boolean
-    }
+    },
+    "hotelreviews": fields.Nested(review_representation)
 }
 
 # hotel model 
@@ -104,8 +116,8 @@ class Hotel(db.Model):
     extra_parking_rate = db.Column(db.Integer, default=0)
     extra_pillow_rate = db.Column(db.Integer, default=0)
     hotel_facilities = db.Column(JSON, default={})
-    hotel_reviews = db.relationship('Review', backref="hotelreviewed")
-
+    hotelreviews = db.relationship('Review', backref="reviewed")
+    hotel_booking = db.relationship('Booking', backref="hotelconcerned") #Booking
 
     def __init__(self, data) -> None:
         self.hotel_name = data['hotel_name']
@@ -155,14 +167,7 @@ class Hotel(db.Model):
         if "extra_pillow_rate" in data.keys():
             self.extra_pillow_rate = data['extra_pillow_rate']
 
-# review model data representation object
-review_representation = {
-    "review_id": fields.Integer,
-    "rating": fields.Integer,
-    "description": fields.String,
-    "datetime_posted": fields.String,
-    "owner": fields.Nested(user_representation)
-}
+
 
 # review model with many table for user and hotel 
 class Review(db.Model):
@@ -175,5 +180,36 @@ class Review(db.Model):
 
 
 # booking temprory table for holding many to many relationship with user and booking table
+# booking representation
+booking_representation = {
+    "b_id": fields.Integer,
+    "check_in_date": fields.String,
+    "check_out_date": fields.String,
+    "status": fields.String,
+    "child_count": fields.Integer,
+    "adult_count": fields.Integer,
+    "transaction_id": fields.Integer,
+    "exclusive_count": fields.Integer,
+    "economy_count": fields.Integer,
+    "double_count": fields.Integer,
+    "premium_count": fields.Integer,
+    "bookingowner": fields.Nested(user_representation),
+    "hotelconcerned": fields.Nested(hotel_representation)
+}
+
+class Booking(db.Model):
+    b_id = db.Column(db.Integer, primary_key=True)
+    check_in_date = db.Column(db.Date, nullable=False)
+    check_out_date = db.Column(db.Date, nullable=False)
+    status = db.Column(db.String, nullable=False, default="Booked")
+    child_count = db.Column(db.Integer, nullable=False)
+    adult_count = db.Column(db.Integer, nullable=False)
+    transaction_id = db.Column(db.Integer, default=None)
+    exclusive_count= db.Column(db.Integer, default=0)
+    economy_count= db.Column(db.Integer, default=0)
+    double_count = db.Column(db.Integer, default=0)
+    premium_count = db.Column(db.Integer, default=0)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
+    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
 
 
