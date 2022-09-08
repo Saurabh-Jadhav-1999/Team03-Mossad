@@ -44,6 +44,7 @@ class HotelHandler(Resource):
 city_representation = {
     "city":fields.String
 }
+
 @marshal_with(city_representation)
 @app.route("/getCityList", methods=["GET"])
 def getCityList():
