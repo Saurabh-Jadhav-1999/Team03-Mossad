@@ -1,7 +1,6 @@
 import React from "react";
-import { Breadcrumbs, Typography, Link } from "@mui/material";
+import { Breadcrumbs, Link } from "@mui/material";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
-import { PropTypes } from "react";
 const Breadcrumb = (props) => {
   function handleClick(event) {
     event.preventDefault();

@@ -2,7 +2,7 @@ import { Box } from "@material-ui/core";
 import React from "react";
 import CityDetails from "./CityDetails";
 import Facility from "./Facility";
-import style from "./HotelDetails.module.css";
+import styles from "./HotelDetails.module.css";
 import HotelImage from "./HotelImage";
 
 const details = {
@@ -17,9 +17,9 @@ const details = {
 };
 export const HotelDetailsCard = () => {
   return (
-    <Box className={style.hotelDetailBox}>
+    <Box className={styles.hotelDetailBox}>
       <HotelImage />
-      <Box className="style.detailsDiv">
+      <Box className={styles.detailsDiv}>
         <CityDetails details={details} />
         <Facility details={details} cityName={"Kochi"} rate={"720"} capacity={"For Two"} />
         {/*props are repeted for demo perpose */}

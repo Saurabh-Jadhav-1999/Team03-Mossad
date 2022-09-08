@@ -1,0 +1,67 @@
+.reviewHeading {
+  font-weight: 600 !important;
+  font-size: 25px !important;
+  font-family: "Inter" !important;
+  font-style: normal !important;
+  margin: 0 0 2vh 0 !important;
+}
+
+.reviewCard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+  margin-left: 1vw;
+}
+.innerDiv {
+  margin: 2vh;
+  width: 40vw;
+}
+
+.detailsDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around;
+  margin-left: 2vw;
+}
+
+.imgDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  /* height: 30vh; */
+}
+.userName {
+  font-weight: 800 !important;
+  font-family: "Inter" !important;
+  font-style: normal !important;
+  /* margin-bottom: 2vh; */
+}
+.userDetails {
+  color: #a4a3a3;
+  /* margin: 2vh 0; */
+}
+
+img {
+  height: 70px;
+  width: 70px;
+}
+
+.starIcon {
+  width: 24px;
+  height: 24px;
+  color: #ff9c09;
+}
+
+.button {
+  background: #e7effc !important;
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  line-height: 18px !important;
+  color: #326bff !important;
+  /* margin: 0 2vw; */
+  width: fit-content;
+  padding: 2vh 3vw !important;
+}

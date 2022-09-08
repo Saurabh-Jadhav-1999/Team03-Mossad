@@ -5,7 +5,7 @@ import Amenities from "./Amenities";
 import style from "./Features.module.css";
 import HotelFeatures from "./HotelFeatures";
 
-const Featuers = () => {
+export const Featuers = () => {
   return (
     <Box className={style.featureContainer} component="span">
       <HotelFeatures />
@@ -14,4 +14,3 @@ const Featuers = () => {
   );
 };
 
-export default Featuers;

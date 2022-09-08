@@ -2,11 +2,8 @@ import React, { Fragment } from "react";
 import styles from "./Confirmation.module.css";
 import {
   Box,
-  Container,
   Typography,
   Grid,
-  TextField,
-  Link,
   Button,
 } from "@mui/material";
 // import "./confirmation.css";
@@ -15,22 +12,22 @@ import confirmation from "../../assets/images/SuccessfullBookingHotelImage.png";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 
 const Confirmation = (props) => {
-  function handleClick(event) {
-    event.preventDefault();
-    console.info("You clicked a breadcrumb.");
-  }
+  // function handleClick(event) {
+  //   event.preventDefault();
+  //   console.info("You clicked a breadcrumb.");
+  // }
 
-  const breadcrumb = [
-    <Link
-      underline="hover"
-      key="1"
-      color="inherit"
-      href="/"
-      onClick={handleClick}
-    >
-      Home
-    </Link>,
-  ];
+  // const breadcrumb = [
+  //   <Link
+  //     underline="hover"
+  //     key="1"
+  //     color="inherit"
+  //     href="/"
+  //     onClick={handleClick}
+  //   >
+  //     Home
+  //   </Link>,
+  // ];
   return (
     <Fragment>
       <div className={`${styles.container}`}>

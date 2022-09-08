@@ -1,17 +1,25 @@
-.tabContainer {
-  width: fit-content;
+/* .tabContainer {
+  width: 771px !important;
   font-family: "Inter";
   font-style: normal;
-  border: 1px solid #D1D4D9;}
+  border: 1px solid #d1d4d9 !important;
+} */
 
+.headingLabel{
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600;
+  color: black;
 
-.TabHeadings {
-  color:#326bff;
-  border-color:#326bff; ;
 }
 
-.tabDetail{
-    width: 470px;   
-    /* specify width accordingly */
-    border: 1px solid red;
+.TabHeadings {
+  color: #326bff;
+  border-color: #326bff;
+}
+
+.tabDetail {
+  width: fit-content;
+  font-weight: 400 !important;
+  font-size: 14px !important;
 }

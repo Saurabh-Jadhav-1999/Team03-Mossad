@@ -17,7 +17,8 @@ const Facility = (props) => {
         <AirplanemodeActiveSharpIcon className={styles.icon} />
         Departure from {props.details.departure}
       </Typography>
-      <Grid container>
+      <Stack spacing={20}
+       direction="row">
         <Grid item xl={6}>
           <Stack direction={"column"}>
             <Typography className={styles.iconDiv}>
@@ -54,7 +55,7 @@ const Facility = (props) => {
           </Button>
           <Button className={styles.btnBook}>Book Now</Button>
         </Grid>
-      </Grid>
+      </Stack>
     </Box>
   );
 };
