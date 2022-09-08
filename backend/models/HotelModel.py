@@ -8,6 +8,7 @@ from datetime import date, datetime, timedelta
 from backend.models.UserModel import user_representation
 
 
+
 # creating user model 
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
@@ -32,6 +33,15 @@ class User(db.Model):
         # user_profile is not required field so check if present then update or will take default
         if 'user_profile' in userdata.keys():
             self.user_profile = userdata['user_profile']
+
+# review model data representation object
+review_representation = {
+    "review_id": fields.Integer,
+    "rating": fields.Integer,
+    "description": fields.String,
+    "datetime_posted": fields.String,
+    "owner": fields.Nested(user_representation)
+}
 
 
 # create a object for hotel model data representations
@@ -64,7 +74,7 @@ hotel_representation = {
     "extra_parking_rate":fields.Integer,
     "extra_pillow_rate":fields.Integer,
     "hotel_facilities":{
-    "breakfast":fields.Boolean,
+        "breakfast":fields.Boolean,
     "dinner":fields.Boolean,
     "outdoor_sport":fields.Boolean,
     "swimming_pool":fields.Boolean,
@@ -156,14 +166,7 @@ class Hotel(db.Model):
         if "extra_pillow_rate" in data.keys():
             self.extra_pillow_rate = data['extra_pillow_rate']
 
-# review model data representation object
-review_representation = {
-    "review_id": fields.Integer,
-    "rating": fields.Integer,
-    "description": fields.String,
-    "datetime_posted": fields.String,
-    "owner": fields.Nested(user_representation)
-}
+
 
 # review model with many table for user and hotel 
 class Review(db.Model):
@@ -174,12 +177,8 @@ class Review(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
     hotel_id  = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
 
-    def __init__(self, data) -> None:
-        self.rating = data['rating']
-        self.description = data['description']
-        self.datetime_posted = data['datetime_posted']
-       
 
+# booking temprory table for holding many to many relationship with user and booking table
 # booking representation
 booking_representation = {
     "b_id": fields.Integer,
@@ -212,24 +211,4 @@ class Booking(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
 
-       
 
-
-
-class SearchHistory(db.Model):
-     ip = db.Column(db.String(200), nullable=False)
-     location = db.Column(db.String(200), nullable=False)
-     last_search_date= db.Column(db.String(200), nullable=False) 
-     number_of_time=db.Column(db.DateTime, nullable=False) 
-     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
-     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
-
-#     def __init__(self, data) -> None:
-#         self.ip = data['ip']
-#         self.location = data['location']
-#         self. last_search_date = data['last_search_date']
-#         self.number_of_time = data['number_of_time']
-#         self.child_count = data['child_count']
-#         self.adult_count = data['adult_count']
-#         self.transaction_id = data['transaction_id']
-      

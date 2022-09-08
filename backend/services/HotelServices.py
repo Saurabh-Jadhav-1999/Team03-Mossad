@@ -1,7 +1,9 @@
+from dataclasses import field
 from importlib.metadata import requires
 from backend.models.HotelModel import Hotel
 from backend import db, app
 from cerberus import Validator
+from flask_restful import fields
 
 # validation schema for hotel 
 hotel_schema = {
@@ -75,3 +77,40 @@ def getPerticularHotelById(id):
         return Hotel.query.filter_by(hotel_id=id).first()
     except Exception as e:
         return {"error:e"}
+    
+# method to validate city name
+def validateCityName(cityname):
+    city_schema = {
+    "city_name": {"type":"string","required":True},
+    }
+    print("Data in validateCityData:",cityname)
+    cityValidator = Validator(city_schema)
+    r = cityValidator.validate(cityname)
+    return cityValidator
+
+
+
+def getCitiesByName(city_name):
+    print("cityname in getCitiesByName:",city_name)
+    result = db.session.query(Hotel.city).filter(Hotel.city.ilike(f"{city_name}%")).distinct().all()
+    # result = Hotel.query.filter(Hotel.city.ilike(f"%{city_name}%")).all()
+    cityList = [s.city for s in result]
+    return cityList
+
+def validateGetHotels(data):
+    validate_schema = {
+        "city_name":{"type":"string", "required":True},
+        "check_in_date": {"type":"date", "required":True},
+        "check_out_date": {"type":"date", "required":True},
+        "adult_count": {"type":'integer', "required":True},
+        "child_count": {"type":"integer", "required":True}
+
+    }
+    validator = Validator(validate_schema)
+    result = validator.validate(data)
+    return validator
+
+def getHotelsByCityName(city_name):
+    print("city name in:",city_name)
+    return Hotel.query.filter_by(city=city_name).all()
+    

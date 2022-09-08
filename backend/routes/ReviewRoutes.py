@@ -29,19 +29,19 @@ class HandleReview(Resource):
         return showReview(review), 200
 
 
-# app.route("/review", methods=['POST'])
-# def reviewAdding():
-#     validateData = validateReviewData(request.json)
+app.route("/review", methods=['POST'])
+def reviewAdding():
+     validateData = validateReviewData(request.json)
 
-#     if validateData.errors:
-#         return make_response(validateData.errors, 400)
+     if validateData.errors:
+         return make_response(validateData.errors, 400)
 
-#     review = addReview(request.json)
+     review = addReview(request.json)
     
-#     return showReview(review), 200
+     return showReview(review), 200
 
-# app.route("/review", methods=["GET"])
-# @marshal_with(review_representation)
-# def getReviews():
+#app.route("/review", methods=["GET"])
+#@marshal_with(review_representation)
+#def getReviews():
 #     data = getReviews()
 #     return data
