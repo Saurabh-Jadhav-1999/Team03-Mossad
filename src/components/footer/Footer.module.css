@@ -1,13 +1,13 @@
 .container {
-  margin-top: 20%;
+  /* margin: auto ; */
   width: 100vw !important;
-
+  
   /* margin-left: -10vw; */
   /* margin:0 !important; */
 }
 
 .container1 {
-
+  
   height: 18vh;
   width: 76vw !important;
   background-color: #326bff;
@@ -37,20 +37,20 @@
 }
 
 .input1 {
-  width: 60% !important;
+    width: 10vw !important;
   border-bottom: 0px !important;
   /* border: 2px white solid !important; */
   padding: 7px;
-  /* margin-top: 1% !important; */
+  margin-top: 1% !important;
   margin-left: 2.5vw !important;
 }
 
 .button1 {
   color: white !important;
-  background-color: #353945!important;
-  /* margin-top: -12.5% !important; */
-  align-self: center;
-  margin-right: 1% !important;
+  background-color: black !important;
+/* margin-top: -12.5% !important; */
+align-self: center;
+  margin-left: 48% !important;
   /* padding: 13px; */
   width: 11vw;
   height: 7vh;
@@ -63,9 +63,7 @@
   /* // fontWeight: 2000; */
   font-size: 11px;
   line-height: 24px;
-  cursor: pointer;
 }
-
 .box1 {
   z-index: 1;
   position: relative;
@@ -74,13 +72,12 @@
   /* margin-left: -3vw; */
   /* margin-bottom: 0 !important; */
 }
-
 .box2 {
   z-index: 99;
   max-width: 100%;
   height: 70vh !important;
   /* margin:0 !important; */
-  margin-top: -5% !important;
+  margin-top:-5% !important;
   /* margin:auto; */
   /* margin-left: -10vw; */
   /* width: max-wid */
@@ -89,7 +86,6 @@
   /* margin-left: 15vw; */
   height: 30vh;
 }
-
 .gridcontainer1 {
   /* margin-top: -10vh !important ; */
   margin-left: 12vw !important;
@@ -111,27 +107,21 @@
   color: grey;
   margin-top: 22px;
 }
-
 .box3 {
-  display: grid;
-  margin-top: 22vh;
-  font-weight: bold !important;
-}
-
-.box4,
-.box5,
-.box6 {
-  width: 10vw !important;
+    display: grid;
+    margin-top:22vh;
+    font-weight: bold !important;
+  }
+.box4,.box5,.box6{
+    width: 10vw !important;
   font-weight: bold !important;
   font-size: 20px;
   margin-top: 22vh;
   padding: 0% !important;
 }
 
-.div2,
-.div3,
-.div4 {
-  width: 10vw;
+.div2 ,.div3,.div4{
+    width: 10vw;
   margin-top: 3vh;
   font-size: 12px;
   line-height: 20px;

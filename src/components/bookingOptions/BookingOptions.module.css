@@ -1,0 +1,69 @@
+.bookingOptionsContainer {
+    margin: 19px;
+    border-radius: 4% !important;
+    height: 500px;
+    width: 370px;
+}
+
+.gridContainer {
+    padding: 20px;
+}
+
+.discountPriceDetailsContainer {
+    letter-spacing: 0em;
+    text-align: left;
+    padding-bottom: 2px;
+}
+
+.originalRoomPrice {
+    font-family: Inter !important;
+    font-weight: 800 !important;
+    font-size: 22px;
+    line-height: 30px;
+}
+
+.labelRoomPricePerNight {
+    font-family: Inter !important;
+    font-weight: 600 !important;
+    font-size: 16px;
+    color: #A4A2A2;
+}
+
+.discountedRoomPrice {
+    font-family: Inter !important;
+    font-weight: 600 !important;
+    font-size: 16px;
+    color: #C9C8C8;
+}
+
+.labelDiscountPercentage {
+    background: #326BFF !important;
+    color: white !important;
+    font-size: 13px;
+    line-height: 18px;
+    border-radius: 35px !important;
+    height: 28px;
+}
+
+.divider {
+    width: 99%;
+    border: 0.5px solid #D1D4D9 !important;
+    background: #D1D4D9 !important;
+}
+
+.datePicker input{
+
+    background: #F4F5F7;
+}
+
+.react-datepicker-wrapper, .react-datepicker__input-container, .react-datepicker-ignore-onclickoutside{
+    width: 1px !important;
+    padding: 0xp;
+}
+
+.datePicker{
+    border: 1px solid white;
+    font-family: Inter !important;
+    font-weight: 300s !important;
+    color: #C9C8C8;
+}
