@@ -31,7 +31,7 @@ const Confirmation = (props) => {
   return (
     <Fragment>
       <div className={`${styles.container}`}>
-        <Breadcrumb />
+        {/* <Breadcrumb /> */}
         <div className={`${styles.div1}`}>
           <Typography variant="h5" className={`${styles.typo1}`}>
             Congratulations!

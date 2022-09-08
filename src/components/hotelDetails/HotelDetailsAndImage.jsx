@@ -1,5 +1,4 @@
 import React, { Fragment } from "react";
-import Breadcrumb from "../breadcrumb/Breadcrumb";
 import { Typography, Rating } from "@mui/material";
 import { Box } from "@mui/material";
 import star from "../../assets/images/HotelRatingIcon.png";
@@ -47,7 +46,7 @@ export const HotelDetailsAndImage = (props) => {
   return (
     <Fragment>
       <div>
-        <Breadcrumb />
+        {/* <Breadcrumb /> */}
         <Box className={`${styles.box4}`}>
           <Typography variant="h4" className={`${styles.typo1}`}>
             {props.details.name}

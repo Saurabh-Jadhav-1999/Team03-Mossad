@@ -2,8 +2,10 @@
    display: flex;
   flex-direction: column;
   align-items: flex-start;
+  justify-content: space-between;
   margin-left: 2vw;
-  width: 50vw;
+  width: 44vw;
+  height: 30%;
 }
 .cityDiv h1 {
   font-weight: 700;

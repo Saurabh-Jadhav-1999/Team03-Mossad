@@ -5,8 +5,9 @@
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    height: 15% !important;
+    height: 25% !important;
     margin: 0 2vw !important;
+    width: 80% !important;
 
 }
 

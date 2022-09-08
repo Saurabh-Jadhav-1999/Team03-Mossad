@@ -17,10 +17,15 @@ export const App = () => {
       password: "johndoe@123",
     };
     async function Login() {
+      const data=JSON.stringify({"city_name":"p"});
+      console.log("data",data)
       axios
-        .post("https://hotelbooking-backend.herokuapp.com/login", userData)
+        .get("https://hotelbooking-backend.herokuapp.com/getCityList", data)
         .then((response) => {
-          // console.log(response.data["x-auth-token"]);          to access x-auth token
+          // console.log(response.data["x-auth-token"]);   
+          //       to access x-auth token
+          console.table(response.data);   
+
         })
         .catch((err) => console.log(err));
     }

@@ -167,7 +167,7 @@ export const HotelSearchFilters = () => {
                                 </Box>
                                 }
                             </Stack>
-                            <hr style={{  width: '80%', color: '#D1D4D9' }} />
+                            <hr className="divider" />
                         </Box>
                     )
                 })}

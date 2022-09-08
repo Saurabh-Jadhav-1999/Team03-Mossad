@@ -23,3 +23,8 @@
     text-align: "left";
     margin-bottom: 10px !important;
 }
+
+.divider{
+     width: 80%;
+      color: #aaa;
+}
