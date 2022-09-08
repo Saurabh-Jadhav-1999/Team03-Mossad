@@ -25,7 +25,7 @@ def addReview(data):
     #get hotel 
     hotel = getPerticularHotelById(data['hotel_id'])
     #create new Review instance
-    review = Review(rating=data['rating'],description=data['description'], datetime_posted=datetime.datetime.utcnow(),owner=user,hotelreviewed=hotel)  
+    review = Review(rating=data['rating'],description=data['description'], datetime_posted=datetime.datetime.utcnow(),owner=user,reviewed=hotel)  
     db.session.add(review)
     db.session.commit()
     return review

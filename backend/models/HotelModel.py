@@ -82,7 +82,8 @@ hotel_representation = {
     "Room_Service":fields.Boolean,
     "Living_room":fields.Boolean,
     "Berbeque":fields.Boolean
-    }
+    },
+    "hotelreviews": fields.Nested(review_representation)
 }
 
 # hotel model 
@@ -115,7 +116,7 @@ class Hotel(db.Model):
     extra_parking_rate = db.Column(db.Integer, default=0)
     extra_pillow_rate = db.Column(db.Integer, default=0)
     hotel_facilities = db.Column(JSON, default={})
-    hotel_reviews = db.relationship('Review', backref="hotelreviewed")
+    hotelreviews = db.relationship('Review', backref="reviewed")
     hotel_booking = db.relationship('Booking', backref="hotelconcerned") #Booking
 
     def __init__(self, data) -> None:

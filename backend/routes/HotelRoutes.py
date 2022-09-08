@@ -1,11 +1,11 @@
 from tabnanny import check
 from flask_restful import marshal_with, Resource, reqparse, fields
 from flask import abort, request, make_response
-from backend.models.HotelModel import User, Hotel, hotel_representation
+from backend.models.HotelModel import User, Hotel, hotel_representation, review_representation
 from backend.models.UserModel import user_representation
 from backend import db, app
 from backend.services.HotelServices import validateHotelData, addNewHotel, getAllHotels, validateCityName, getCitiesByName, validateGetHotels, getHotelsByCityName
-from backend.services.BookingServices import checkHotelAvailability
+from backend.services.BookingServices import checkHotelAvailability, mayuriLogic
 from backend.models.HotelModel import hotel_representation
 import datetime
 
@@ -54,9 +54,6 @@ def getCityList():
 
     return make_response(getCitiesByName(request.json['city_name']),200)
     
-
-
-
 # data representation for new hotel list
 new_hotel_representation = {
     "hotel_id":fields.Integer,
@@ -96,9 +93,11 @@ new_hotel_representation = {
     "Living_room":fields.Boolean,
     "Berbeque":fields.Boolean
     },
-    "available_room_types": fields.List(fields.String)
+    "available_room_types": fields.List(fields.String),
+    "hotelreviews": fields.Nested(review_representation)
 }
 
+# method to show hotel data in hotel_representation format
 @marshal_with(hotel_representation)
 def newDataView(data):
     return data
@@ -124,14 +123,19 @@ def getHotels():
     hotels = getHotelsByCityName(data['city_name'])
    
     availableHotelList = []
+
+
+
+    # get one hotel at time and then check availability
     for x in hotels:
+        # mayuriLogic(data['check_in_date'], data['check_out_date'],x.hotel_id)
         newhotel = newDataView(x)
         lst = checkHotelAvailability(x.hotel_id, data['check_in_date'], data['check_out_date'], data['adult_count'], data['child_count'])
         if len(lst) == 0:
             continue
         print("list:",lst)
         newhotel.update({"available_room_types":lst})
-        print(newhotel)
+        # print(newhotel)
         availableHotelList.append(newhotel)
 
 

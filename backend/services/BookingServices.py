@@ -71,59 +71,82 @@ def checkHotelAvailability(hotel_id, check_in_date, check_out_date, adult_count,
     availableRoomTypes = []
     # check the availability of exclusive_rooms
     countList = []
-    # cursor = db.session.query(func.count(Booking.exclusive_count)).filter(Booking.hotel_id==hotel_id).filter(and_(check_in_date<Booking.check_out_date, check_out_date>=Booking.check_in_date, check_out_date<=Booking.check_in_date, , Booking.adult_count>=adult_count, Booking.child_count>=child_count))
-    # total = cursor.scalar()
-    # print(f'total room booked of exlusive type between {check_in_date}-{check_out_date} is {total}')
 
     for x in range(delta.days):
         dte = check_in_date+timedelta(days=x)
-        # cursor = db.session.query(func.sum(Booking.exclusive_count)).filter(Booking.hotel_id==hotel_id).filter(or_(Booking.check_in_date==dte,and_(dte<Booking.check_out_date, check_out_date>dte, Booking.adult_count>=adult_count, Booking.child_count>=child_count)))
-        cursor = db.session.query(func.sum(Booking.exclusive_count)).filter(and_(Booking.hotel_id==hotel_id)).filter(and_(dte<Booking.check_in_date, dte>=Booking.check_out_date))
-        total = cursor.scalar()
-        print(f"for hotel id {hotel_id} and room_type exclusive for {dte} total booking is {total}")
-        countList.append(total)
+        tempcursor = db.session.query(func.sum(Booking.exclusive_count)).filter(or_(Booking.hotel_id==hotel_id,and_(Booking.hotel_id==hotel_id, dte>Booking.check_in_date, dte<Booking.check_out_date)))
+        cursor = db.session.query(func.sum(Booking.exclusive_count)).filter(and_(Booking.hotel_id==hotel_id, dte==Booking.check_in_date))
+        total1 = cursor.scalar()
+        if total1 == None:
+            total1 = 0
+        cursor = db.session.query(func.sum(Booking.exclusive_count)).filter(and_(Booking.hotel_id==hotel_id, dte>Booking.check_in_date, dte<Booking.check_out_date))
+        total2 = cursor.scalar()
+        if total2 == None:
+            total2 = 0
+        countList.append(total1+total2)
     print(countList)
-    if countList != [] and countList[0]!=None and (max(countList) < hotel.exclusive_room_count):
+    if len(countList)>0 and (max(countList) < hotel.exclusive_room_count) and "exclusive_room" not in availableRoomTypes:
         availableRoomTypes.append("exclusive_room")
 
     countList = []
     for x in range(delta.days):
         dte = check_in_date+timedelta(days=x)
-        # cursor = db.session.query(func.sum(Booking.economy_count)).filter(Booking.hotel_id==hotel_id).filter(or_(Booking.check_in_date==dte,and_(dte<Booking.check_out_date, check_out_date>dte, Booking.adult_count>=adult_count, Booking.child_count>=child_count)))
-        cursor = db.session.query(func.sum(Booking.economy_count)).filter(and_(Booking.hotel_id==hotel_id)).filter(and_(dte<Booking.check_in_date, dte>=Booking.check_out_date))
-        
-        total = cursor.scalar()
-        print(f"for hotel id {hotel_id} and room_type economy for {dte} total booking is {total}")
-        countList.append(total)
-    if countList != [] and countList[0]!=None and (max(countList) < hotel.economy_room_count):
+        cursor = db.session.query(func.sum(Booking.economy_count)).filter(and_(Booking.hotel_id==hotel_id, dte==Booking.check_in_date))
+        total1 = cursor.scalar()
+        if total1 == None:
+            total1 = 0
+        cursor = db.session.query(func.sum(Booking.economy_count)).filter(and_(Booking.hotel_id==hotel_id, dte>Booking.check_in_date, dte<Booking.check_out_date))
+        total2 = cursor.scalar()
+        if total2 == None:
+            total2 = 0
+        countList.append(total1+total2)
+    print(countList)
+    if len(countList)>0 and (max(countList) < hotel.economy_room_count) and "economy_room" not in availableRoomTypes:
+        print("max in economy count:",max(countList))
         availableRoomTypes.append("economy_room")
 
     countList = []
     for x in range(delta.days):
         dte = check_in_date+timedelta(days=x)
-        # cursor = db.session.query(func.sum(Booking.double_count)).filter(Booking.hotel_id==hotel_id).filter(or_(Booking.check_in_date==dte,and_(dte<Booking.check_out_date, check_out_date>dte, Booking.adult_count>=adult_count, Booking.child_count>=child_count)))
-        cursor = db.session.query(func.sum(Booking.double_count)).filter(and_(Booking.hotel_id==hotel_id)).filter(and_(dte<Booking.check_in_date, dte>=Booking.check_out_date))
-        total = cursor.scalar()
-        print(f"for hotel id {hotel_id} and room_type double for {dte} total booking is {total}")
-        countList.append(total)
-    
-    if countList != [] and countList[0]!=None and max(countList) < hotel.double_room_count:
+        cursor = db.session.query(func.sum(Booking.double_count)).filter(and_(Booking.hotel_id==hotel_id, dte==Booking.check_in_date))
+        total1 = cursor.scalar()
+        if total1 == None:
+            total1 = 0
+        cursor = db.session.query(func.sum(Booking.double_count)).filter(and_(Booking.hotel_id==hotel_id, dte>Booking.check_in_date, dte<Booking.check_out_date))
+        total2 = cursor.scalar()
+        if total2 == None:
+            total2 = 0
+        countList.append(total1+total2)
+    print(countList)
+    if len(countList)>0 and (max(countList)<hotel.double_room_count) and "double_room" not in availableRoomTypes:
         availableRoomTypes.append("double_room")
+
 
     countList = []
     for x in range(delta.days):
         dte = check_in_date+timedelta(days=x)
-        # cursor = db.session.query(func.sum(Booking.premium_count)).filter(Booking.hotel_id==hotel_id).filter(or_(Booking.check_in_date==dte,and_(dte<Booking.check_out_date, check_out_date>dte, Booking.adult_count>=adult_count, Booking.child_count>=child_count)))
-        cursor = db.session.query(func.sum(Booking.premium_count)).filter(and_(Booking.hotel_id==hotel_id)).filter(and_(dte<Booking.check_in_date, dte>=Booking.check_out_date))
-        total = cursor.scalar()
-        print(f"for hotel id {hotel_id} and room_type premium for {dte} total booking is {total}")
-        countList.append(total)
-    
-    if countList != [] and countList[0]!=None and max(countList) < hotel.premium_room_count:
-        availableRoomTypes.append("premium_room")
+        cursor = db.session.query(func.sum(Booking.premium_count)).filter(and_(Booking.hotel_id==hotel_id, dte==Booking.check_in_date))
+        total1 = cursor.scalar()
+        if total1 == None:
+            total1 = 0
+        cursor = db.session.query(func.sum(Booking.premium_count)).filter(and_(Booking.hotel_id==hotel_id, dte>Booking.check_in_date, dte<Booking.check_out_date))
+        total2 = cursor.scalar()
+        if total2 == None:
+            total2 = 0
+        countList.append(total1+total2)
 
+    print(countList)
+    if len(countList)>0 and (max(countList)<hotel.premium_room_count) and "premium_room" not in availableRoomTypes:
+        availableRoomTypes.append("premium_room")
+   
     return availableRoomTypes
 
+
+def mayuriLogic(check_in_date, check_out_date, hotel_id):
+    hotel = getPerticularHotelById(hotel_id)
+    cursor = db.session.query(func.sum(Booking.economy_count)).filter(or_(and_(check_in_date<Booking.check_in_date,check_out_date>Booking.check_out_date) , and_(check_in_date==Booking.check_in_date,check_out_date>=Booking.check_out_date) ,and_(check_in_date==Booking.check_in_date ,check_out_date<Booking.check_out_date) ,and_(check_in_date<Booking.check_in_date ,check_out_date>Booking.check_in_date), and_(check_in_date<check_in_date ,check_out_date==Booking.check_in_date),and_(check_in_date>Booking.check_in_date ,check_in_date<Booking.check_out_date),and_(check_in_date>Booking.check_in_date ,check_in_date==Booking.check_out_date)))
+    total = cursor.scalar()
+    print("mayuri op:",total)
 
 # method to check type of room booking for 
 def checkRoomType(data, hotel):
