@@ -81,7 +81,7 @@ def getPerticularHotelById(id):
 # method to validate city name
 def validateCityName(cityname):
     city_schema = {
-    "city_name": {"type":"string","required":True},
+    "city_name": {"type":"string","required":True, "minlength":1},
     }
     print("Data in validateCityData:",cityname)
     cityValidator = Validator(city_schema)
