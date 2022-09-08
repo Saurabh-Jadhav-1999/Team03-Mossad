@@ -1,11 +1,13 @@
 .hotelDetailBox{
-    background: #FAFAFC;
+    /* background: #FAFAFC; */
     border:1px solid #DCDCDE;
     border-radius:24px;
     display: flex;
     flex-direction: row;
     align-items: flex-start;
-    height: fit-content;
+    height: 15% !important;
+    margin: 0 2vw !important;
+
 }
 
 .detailsDiv{

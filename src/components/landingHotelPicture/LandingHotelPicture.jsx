@@ -1,3 +1,4 @@
+import { SearchBar } from '../searchBar/SearchBar'
 import styles from './landingHotelPicture.module.css'
 
 export const LandingHotelPicture = () => {
@@ -6,5 +7,6 @@ export const LandingHotelPicture = () => {
             And Enjoy your
             Journey!</div>
         <img src={require("./HotelDisplayPicture.png")} alt="HotelDisplayPicture" />
+        <SearchBar  className={styles.searchBar}/>
     </div>
 }

@@ -1,5 +1,5 @@
 .mainContainer {
-  margin: 0 30px;
+  width: 58vw;
 }
 
 .heading {
@@ -13,9 +13,9 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: fit-content;
+  /* width: 50vw; */
   padding: 15px 15px;
-  width: 600px;
+  
 }
 .boldHeading {
   font-style: normal !important;

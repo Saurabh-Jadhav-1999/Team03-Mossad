@@ -1,10 +1,13 @@
 import React from "react";
 import { Breadcrumbs, Link } from "@mui/material";
 import NavigateNextIcon from "@mui/icons-material/NavigateNext";
+import { Navigate } from "react-router-dom";
 const Breadcrumb = (props) => {
-  function handleClick(event) {
-    event.preventDefault();
-    console.info("You clicked a breadcrumb.");
+  function navigate(path) {
+    // event.preventDefault();
+    // console.info("You clicked a breadcrumb.");
+    Navigate(path)
+    
   }
 const breadcrumbs = [
     <Link
@@ -12,7 +15,7 @@ const breadcrumbs = [
       key="1"
       color="inherit"
       href="/"
-      onClick={handleClick}
+      onClick={()=> navigate('Home')}
     >
       Home
     </Link>,
@@ -20,8 +23,8 @@ const breadcrumbs = [
       underline="hover"
       key="2"
       color="inherit"
-      href="/hotellist"
-      onClick={handleClick}
+      href="/search-hotels"
+      onClick={()=> navigate('HotelList')}
     >
       Hotel List
     </Link>,
@@ -29,8 +32,8 @@ const breadcrumbs = [
       underline="hover"
       key="3"
       color="inherit"
-      href="/hoteldetails"
-      onClick={handleClick}
+      href="/hotel-details"
+      onClick={()=> navigate('DetailList')}
     >
       Hotel Details
     </Link>,
@@ -38,8 +41,8 @@ const breadcrumbs = [
       underline="hover"
       key="4"
       color="inherit"
-      href="/confirmation"
-      onClick={handleClick}
+      href="/booking-confirmation"
+      onClick={()=> navigate('ConfirmPage')}
     >
       Congratulations
     </Link>

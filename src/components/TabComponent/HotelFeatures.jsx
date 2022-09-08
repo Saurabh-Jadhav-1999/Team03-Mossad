@@ -1,7 +1,7 @@
 import { Box, Typography } from "@material-ui/core";
 import { Stack } from "@mui/system";
 import React from "react";
-import style from "./HotelFeatures.module.css";
+import styles from "./HotelFeatures.module.css";
 import WifiIcon from "@mui/icons-material/Wifi";
 import PoolIcon from "@mui/icons-material/Pool";
 import GolfCourseIcon from "@mui/icons-material/GolfCourse";
@@ -12,27 +12,27 @@ import CoronavirusOutlinedIcon from "@mui/icons-material/CoronavirusOutlined";
 const HotelFeatures = () => {
   return (
     <Box>
-      <Typography className={style.heading}>Hotel Features</Typography>
+      <Typography className={styles.heading}>Hotel Features</Typography>
       <Stack direction={"row"} spacing={2}>
         <Typography component={"span"}>
-          <WifiIcon className={style.iconStyle} /> Wi-fi
+          <WifiIcon className={styles.iconStyle} /> Wi-fi
         </Typography>
         <Typography component={"span"}>
-          <PoolIcon className={style.iconStyle} /> Infinity Pool
+          <PoolIcon className={styles.iconStyle} /> Infinity Pool
         </Typography>
         <Typography component={"span"}>
-          <GolfCourseIcon className={style.iconStyle} /> Golf Course
+          <GolfCourseIcon className={styles.iconStyle} /> Golf Course
         </Typography>
         <Typography component={"span"}>
-          <AirportShuttleOutlinedIcon className={style.iconStyle} /> Airport
+          <AirportShuttleOutlinedIcon className={styles.iconStyle} /> Airport
           Shuttle
         </Typography>
         <Typography component={"span"}>
-          <LocalHospitalOutlinedIcon className={style.iconStyle} /> On Call
+          <LocalHospitalOutlinedIcon className={styles.iconStyle} /> On Call
           Doctor
         </Typography>
         <Typography component={"span"}>
-          <CoronavirusOutlinedIcon className={style.iconStyle} /> Covid safety
+          <CoronavirusOutlinedIcon className={styles.iconStyle} /> Covid safety
           Protocols
         </Typography>
       </Stack>

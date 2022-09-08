@@ -5,6 +5,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers-pro';
 import { AdapterDayjs } from '@mui/x-date-pickers-pro/AdapterDayjs';
 import { DateRangePicker } from '@mui/x-date-pickers-pro/DateRangePicker';
 import styles from './DateSelector.module.css'
+import { Box } from '@mui/material';
 export default function DateSelector() {
   const [value, setValue] = React.useState([null, null]);
 
@@ -22,8 +23,9 @@ export default function DateSelector() {
         renderInput={(startProps, endProps) => (
           <React.Fragment>
             <TextField className={styles.dateInp} {...startProps} />
-            {/* <Box> <SyncAltOutlinedIcon /> </Box> */}
-            <img className="styles.arrow" src={arrow} alt="pic not found" />
+            {/* <Box className={styles.arrow} src={arrow} component="img"  style={{ zIndex: 99 }}/> */}
+            <Box className={styles.arrow}  component="img"  style={{ zIndex: 99 }}/>
+
             <TextField className={styles.dateInp} {...endProps} />
           </React.Fragment>
         )}

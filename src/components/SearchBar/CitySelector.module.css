@@ -1,6 +1,8 @@
 .selectInp{
     background: #F0F1F2;
-    border: "1px solid #CAC8C8";
-    /* border-radius: 9px; */
-    width: 330px;
+    border: "1px solid #CAC8C8" !important;
+    position: relative !important;
+    width: 27vw !important;
+    z-index: 99 !important;
+    /* margin-left:-2vw;   */
   };

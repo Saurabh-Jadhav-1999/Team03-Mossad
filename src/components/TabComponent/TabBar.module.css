@@ -1,21 +1,20 @@
-/* .tabContainer {
-  width: 771px !important;
+.tabContainer {
+  width: 60vw !important;
   font-family: "Inter";
   font-style: normal;
-  border: 1px solid #d1d4d9 !important;
-} */
+  /* border: 1px solid #d1d4d9 !important; */
+}
 
 .headingLabel{
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 600;
-  color: black;
-
+  font-weight: 600 !important;
+  color: black !important;
 }
 
 .TabHeadings {
-  color: #326bff;
-  border-color: #326bff;
+  color: #326bff  !important;
+  border-color: #326bff !important;
 }
 
 .tabDetail {

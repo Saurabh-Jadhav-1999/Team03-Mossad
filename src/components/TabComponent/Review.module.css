@@ -12,10 +12,10 @@
   align-items: center;
   justify-content: space-around;
   margin-left: 1vw;
+
 }
 .innerDiv {
   margin: 2vh;
-  width: 40vw;
 }
 
 .detailsDiv {
@@ -62,6 +62,5 @@ img {
   line-height: 18px !important;
   color: #326bff !important;
   /* margin: 0 2vw; */
-  width: fit-content;
-  padding: 2vh 3vw !important;
+  padding: 1vh 2vw !important;
 }

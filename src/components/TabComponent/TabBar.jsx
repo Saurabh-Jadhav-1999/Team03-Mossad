@@ -4,7 +4,7 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import style from "./TabBar.module.css";
+import styles from "./TabBar.module.css";
 import { Featuers } from "./Featuers";
 import { RoomAndPrice } from "./RoomAndPrice";
 import { Review } from "./Review";
@@ -50,7 +50,7 @@ export const TabBar = (props) => {
   };
   const comment = `We had the most spectacular view. Beautifully appointed rooms. Awesome food & curteous staff. Highly recommend it.`;
   return (
-    <Box>
+    <Box className={styles.tabContainer}>
       <Box>
         <Tabs
           value={value}
@@ -60,35 +60,35 @@ export const TabBar = (props) => {
           <Tab
             label="Description"
             {...a11yProps(0)}
-            className={style.headingLabel}
+            className={styles.headingLabel}
           />
           <Tab
             label="Features"
             {...a11yProps(1)}
-            className={style.headingLabel}
+            className={styles.headingLabel}
           />
           <Tab
             label="Room & Price"
             {...a11yProps(2)}
-            className={style.headingLabel}
+            className={styles.headingLabel}
           />
           <Tab
             label="Review"
             {...a11yProps(3)}
-            className={style.headingLabel}
+            className={styles.headingLabel}
           />
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0} className={style.tabDetail}>
+      <TabPanel value={value} index={0} className={styles.tabDetail}>
         {props.description}
       </TabPanel>
-      <TabPanel value={value} index={1} className={style.tabDetail}>
+      <TabPanel value={value} index={1} className={styles.tabDetail}>
         <Featuers />
       </TabPanel>
-      <TabPanel value={value} index={2} className={style.tabDetail}>
+      <TabPanel value={value} index={2} className={styles.tabDetail}>
         <RoomAndPrice />
       </TabPanel>
-      <TabPanel value={value} index={3} className={style.tabDetail}>
+      <TabPanel value={value} index={3} className={styles.tabDetail}>
         <Review
           userName={"Adam Grant"}
           userCountry="Ireland"

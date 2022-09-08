@@ -7,28 +7,25 @@
     overflow-x: hidden;
   }
   .container {
-    margin-left: -4%;
-    display: flex;
-    /* max-height: 80% !important; */
-    /* flex-wrap: wrap*/
-    gap: 20px;
-    padding: 2rem;
+    display: flex !important;
+    gap: 20px !important;
+    padding: 2rem !important;
   }
   
   img {
-    width: 97%;
-    object-fit: cover;
-    height: 100%;
+    width: 97% !important;
+    object-fit: cover !important;
+    height: 100% !important;
   }
   
   .leftPane {
-    width: 65%;
+    width: 65% !important;
     border-radius: 50px !important;
   }
   
   .rightPane {
-    display: flex;
-    flex-direction: column;
+    display: grid !important;
+    flex-direction: column !important;
     gap: 13px;
     flex-grow: 1;
     border-radius: 50px;
