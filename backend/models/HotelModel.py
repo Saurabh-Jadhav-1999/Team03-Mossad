@@ -215,7 +215,7 @@ class Booking(db.Model):
 
 #SearchHistory model 
 class SearchHistory(db.Model):
-    serachHistory_id = db.Column(db.Integer, primary_key=True)
+    searchHistory_id = db.Column(db.Integer, primary_key=True)
     ip= db.Column(db.String(200), nullable=True)
     location = db.Column(db.String(200),nullable=False)
     search_date = db.Column(db.Date, nullable=False)
