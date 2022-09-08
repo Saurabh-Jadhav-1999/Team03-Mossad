@@ -92,8 +92,25 @@ def validateCityName(cityname):
 
 def getCitiesByName(city_name):
     print("cityname in getCitiesByName:",city_name)
-    result = db.session.query(Hotel.city).filter(Hotel.city.ilike(f"%{city_name}%")).distinct().all()
+    result = db.session.query(Hotel.city).filter(Hotel.city.ilike(f"{city_name}%")).distinct().all()
     # result = Hotel.query.filter(Hotel.city.ilike(f"%{city_name}%")).all()
     cityList = [s.city for s in result]
     return cityList
+
+def validateGetHotels(data):
+    validate_schema = {
+        "city_name":{"type":"string", "required":True},
+        "check_in_date": {"type":"date", "required":True},
+        "check_out_date": {"type":"date", "required":True},
+        "adult_count": {"type":'integer', "required":True},
+        "child_count": {"type":"integer", "required":True}
+
+    }
+    validator = Validator(validate_schema)
+    result = validator.validate(data)
+    return validator
+
+def getHotelsByCityName(city_name):
+    print("city name in:",city_name)
+    return Hotel.query.filter_by(city=city_name).all()
     
