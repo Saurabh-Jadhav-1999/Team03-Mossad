@@ -65,3 +65,8 @@ def login():
     resp = make_response(data, 200)
     resp.headers['x-auth-token'] = token    
     return resp, 200
+
+
+@app.route("/", methods=["GET"])
+def basicRoute():
+    return make_response("Application is running", 200)
