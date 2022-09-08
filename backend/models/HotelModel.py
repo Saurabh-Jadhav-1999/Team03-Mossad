@@ -213,3 +213,23 @@ class Booking(db.Model):
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
 
 
+#SearchHistory model 
+class SearchHistory(db.Model):
+    serachHistory_id = db.Column(db.Integer, primary_key=True)
+    ip= db.Column(db.String(200), nullable=True)
+    location = db.Column(db.String(200),nullable=False)
+    search_date = db.Column(db.Date, nullable=False)
+    number_times= db.Column(db.Integer(500), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
+    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
+
+
+    def __init__(self, data) -> None:
+        self. serachHistory_id= data[' serachHistory_id']
+        self.ip = data['ip']
+        self.location = data['location']
+        self.search_date = data['search_date']
+        self.number_times = data['number_times']
+        self.user_id = data['user_id']
+        self.address = data['address']
+        self.hotel_id = data['hotel_id']
