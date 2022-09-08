@@ -56,12 +56,13 @@ def login():
     # add header x-auth-token generate it using jwt
     payload_data = {
                     "email": user['email'],
-                    "uid": user['user_id']
+                    "uid": user['user_id'],
                 }
     token = jwt.encode(
                     payload=payload_data,
                     key= app.config['SECRET_KEY']
                 )
+    data.update({"x-auth-token":token})
     resp = make_response(data, 200)
     resp.headers['x-auth-token'] = token    
     return resp, 200
