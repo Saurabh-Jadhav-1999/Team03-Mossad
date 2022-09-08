@@ -1,11 +1,15 @@
 from flask import Flask, abort, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import  reqparse, Resource, Api, marshal_with
+from flask_cors import CORS
 
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://efcdpwyl:R05Qw_8OiIW0hG_um1xr4blSG4-ar0Bx@rosie.db.elephantsql.com/efcdpwyl"
 # app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://lccftkvn:iOCW9BYtnRqQakPSMfenW79jR5jvGd7l@rosie.db.elephantsql.com/lccftkvn"
+
+# allow origins
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SECRET_KEY'] = '578c61c660c50e32f4de9edcbbf4c191'
