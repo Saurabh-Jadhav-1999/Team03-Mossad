@@ -1,10 +1,11 @@
 import { Box, Checkbox, FormControlLabel, Typography, TextField, Stack } from "@mui/material"
 import { SearchOutlined } from "@material-ui/icons"
+import { InputSlider } from './PriceRangeFilter'
 import styles from "./HotelSearchFilters.module.css"
 import InputAdornment from '@mui/material/InputAdornment';
-import InputSlider from './PriceRangeFilter'
 
 export const HotelSearchFilters = () => {
+
     const getCheckedFilterProperties = event => {
         if (event.target.checked) {
             console.log(event.target.value, 'is checked')
@@ -66,18 +67,49 @@ export const HotelSearchFilters = () => {
                     defaultChecked: true
                 }
             ]
-        }
+        },
+        {
+            id: 103,
+            filterType: 'Facilties',
+            filterProperties: [
+                {
+                    id: 1,
+                    filterName: 'Outdoor Sports',
+                    defaultChecked: false
+                },
+                {
+                    id: 2,
+                    filterName: 'Barbeque',
+                    defaultChecked: false
+                }, {
+                    id: 3,
+                    filterName: 'Living Room',
+                    defaultChecked: false
+                },
+                {
+                    id: 4,
+                    filterName: 'Room Service',
+                    defaultChecked: false
+                },
+                {
+                    id: 5,
+                    filterName: 'Infinity Pool',
+                    defaultChecked: true
+                },
+                {
+                    id: 6,
+                    filterName: 'Spa',
+                    defaultChecked: false
+                },
+            ]
+        },
     ]
 
     return (
         <Box className={styles.filterComponentsContainer}>
+
+            {/* {Search property input box Container} */}
             <Box className={styles.searchPropertyContainer}>
-                <Box className="searchPropertyHeaderContainer">
-                    <Typography className={styles.searchPropertyHeader}>
-                        Price Range
-                    </Typography>
-                    <InputSlider />
-                </Box>
                 <Typography className={styles.searchPropertyHeader}>
                     Search Property
                 </Typography>
@@ -101,26 +133,46 @@ export const HotelSearchFilters = () => {
                         }}></TextField>
                 </Box>
             </Box>
+            {/* {Search property input box Container END} */}
+
+            {/* {Search filters Container} */}
             <Box className={styles.searchFiltersContainer}>
                 {filtersData.map((filters) => {
                     return (
                         <Box key={filters.id}>
                             <Stack key={filters.id} className={styles.filterPopularHotels}>
+
+                                {/* {Search filters Header} */}
                                 <Typography className={styles.searchPropertyHeader}>
                                     {filters.filterType}
                                 </Typography>
+                                {/* {Search filters Header END} */}
 
+                                {/* {Search filters options} */}
                                 {filters.filterProperties.map((filter) => {
                                     return (
-                                        <FormControlLabel key={filter.id} label={filter.filterName} control={<Checkbox value={filter.filterName} defaultChecked={filter.defaultChecked ? true : false} onChange={getCheckedFilterProperties} sx={{ fontSize: '14px' }} />} />
+                                        <div key={filter.id}>
+                                            <FormControlLabel key={filter.id} label={filter.filterName} control={<Checkbox value={filter.filterName} defaultChecked={filter.defaultChecked ? true : false} onChange={getCheckedFilterProperties} sx={{ fontSize: '14px' }} />} />
+                                        </div>
                                     )
                                 })}
+                                {/* {Search filters options END} */}
+
+                                {filters.filterType === 'Popular Hotels' && <Box className="priceRangeFilterContainer">
+                                    <hr style={{ marginLeft: '-0px', width: '90%', color: '#D1D4D9' }} />
+                                    <Typography className={styles.searchPropertyHeader}>
+                                        Price Range
+                                    </Typography>
+                                    <InputSlider />
+                                </Box>
+                                }
                             </Stack>
-                            <hr style={{ marginRight: '20px', width: '80%', color: '#D1D4D9' }} />
+                            <hr style={{  width: '80%', color: '#D1D4D9' }} />
                         </Box>
                     )
                 })}
             </Box >
+            {/* {Search filters Container END} */}
         </Box>
     )
 }

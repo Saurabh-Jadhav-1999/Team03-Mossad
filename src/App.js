@@ -5,6 +5,7 @@ import { NavBar } from './components/navBar/NavBar';
 import { HotelsListPage } from './pages/HotelsListPage';
 import { Footer } from './components/footer/Footer'
 import { BookingConfirmationDetailsPage } from './pages/BookingConfirmationDetailsPage';
+import { HotelDetailsPage } from './pages/HotelDetailsPage';
 // import { HotelDetailsCard } from './components/HotelDetails/HotelDetailsCard';
 // import {TabBar} from './components/TabComponent/TabBar';
 
@@ -18,6 +19,7 @@ export const App = () => {
         <Routes>
           <Route exact path='/' element={<LandingPage />} />
           <Route exact path='/search-hotels' element={<HotelsListPage />} />
+          <Route exact path='/hotel-details' element={<HotelDetailsPage />} />
           <Route exact path='/booking-confirmation' element={<BookingConfirmationDetailsPage />} />
           <Route path='*' element={<div><hr />NOT FOUND </div>} />
         </Routes>

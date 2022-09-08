@@ -1,16 +1,29 @@
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
+import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Slider from '@mui/material/Slider';
 import MuiInput from '@mui/material/Input';
+import { withStyles } from "@material-ui/core/styles";
 
-const Input = styled(MuiInput)`
-  width: 42px;
-`;
+const ImageSlider = withStyles({
+    root: {
 
-export default function InputSlider() {
-    const [value, setValue] = React.useState(800);
+    },
+    thumb: {
+        color: "#3C71FF",
+    },
+    track: {
+        color: "#3C71FF",
+    },
+    rail: {
+        color: '#dfe2e7',
+        border: "1px solid #b1b4b9"
+    }
+})(Slider);
+
+
+export const InputSlider = () => {
+    const [value, setValue] = useState(800);
     const mark = [
         {
             value: 50,
@@ -39,9 +52,10 @@ export default function InputSlider() {
 
     return (
         <Box sx={{ width: 250 }}>
-            <Grid container spacing={2} alignItems="center">
+            <Grid container alignItems="center">
                 <Grid item xs>
-                    <Slider
+
+                    <ImageSlider
                         value={typeof value === 'number' ? value : 0}
                         onChange={handleSliderChange}
                         step={10}
@@ -52,14 +66,20 @@ export default function InputSlider() {
                     />
                 </Grid>
                 <Grid item>
-                    <Input
+                    <div style={{ width: '40px' }}></div>
+                </Grid>
+                <Grid item>
+                    <MuiInput
+                        hidden
                         value={value}
                         size="small"
                         onChange={handleInputChange}
                         onBlur={handleBlur}
                         textDecoration={'none'}
+                        disableUnderline={true}
                         sx={{
-                            width: '70%',
+                            marginRight: '-20px',
+                            width: '90%',
                             border: '3px solid #316AFF',
                             borderRadius: '7px',
                             height: '40px',

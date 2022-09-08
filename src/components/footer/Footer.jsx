@@ -1,7 +1,17 @@
-import { Button, Box, Grid, TextField } from "@mui/material";
-import React from "react";
+import { Button, style } from "@mui/material";
+import React, { Fragment } from "react";
 import styles from "./Footer.module.css";
 import logo from "../../assets/images/HotelLogo.png";
+import {
+  Box,
+  Container,
+  Typography,
+  Grid,
+  TextField,
+  Link,
+} from "@mui/material";
+import zIndex from "@mui/material/styles/zIndex";
+import { BoltRounded } from "@mui/icons-material";
 
 export const Footer = (props) => {
   return (
@@ -20,15 +30,15 @@ export const Footer = (props) => {
                 variant="standard"
                 InputProps={{
                   disableUnderline: true,
-                  fontWeight: "bold",
+                  fontWeight:"bold",
                 }}
-
+               
                 className={`${styles.input1}`}
                 // type="text"
                 label="Type your email here"
               />
               <Button variant="contained" className={`${styles.button1}`}>
-                <label> Subscribe</label>
+                <label className={`${styles.label1}`}> Subscribe</label>
               </Button>
             </div>
           </div>
@@ -93,3 +103,4 @@ export const Footer = (props) => {
     </footer>
   );
 };
+

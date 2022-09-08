@@ -11,17 +11,7 @@ export const NavBar = () => {
     <AppBar position="static" className={styles.Appbar} sx={{ bgcolor: 'white' }} elevation={0}>
       <Toolbar>
         <Logo />
-        <Box component='span' className={styles.webSiteHeader}
-        //  sx={{
-        //   fontFamily: 'Inter',
-        //   fontStyle: 'normal',
-        //   fontWeight: 700,
-        //   flexGrow: 1,
-        //   color: '#000000',
-        //   paddingLeft: '10px',
-        //   fontSize: '24.4465px'
-        // }}
-        >
+        <Box component='span' className={styles.webSiteHeader}>
           HotelGuide
         </Box>
         <Stack direction='row' sx={{ alignItems: 'center', gap: '20px' }}>
