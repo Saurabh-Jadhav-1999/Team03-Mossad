@@ -1,7 +1,7 @@
 import React from "react";
 import { BookingOptions } from "../bookingOptions/BookingOptions";
 import { HotelDetailsAndImage } from "./HotelDetailsAndImage";
-import { TabBar } from "../tabComponent/TabBar";
+import { TabBar } from "../TabComponent/TabBar";
 import styles from "./HotelDetails.module.css";
 import { Box } from "@mui/system";
 

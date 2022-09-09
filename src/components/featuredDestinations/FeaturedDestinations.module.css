@@ -1,0 +1,27 @@
+.featuredDestinationsImages{
+    border-radius: 15px;
+}
+.featuredDestinationsImageContainer{
+margin-top: 3%;
+justify-content:center ;
+align-items:center ;
+}
+
+.imgGridHeaderContainer{
+    margin-bottom: 6% !important;
+}
+
+.imgGridHeader{
+    font-family: Inter !important;
+    font-weight: 700 !important;
+    font-size: 22px !important;
+}
+
+.imgGridDesc{
+font-family: Inter !important;
+font-size: 9px !important;
+font-weight: 600 !important;
+line-height: 17px !important ;
+letter-spacing: 0em !important;
+color: #73757A !important;
+}

@@ -1,12 +1,11 @@
 import { LandingHotelPicture } from '../components/landingHotelPicture/LandingHotelPicture'
-import { SearchBar } from '../components/searchBar/SearchBar'
+import { FeaturedDestinations } from '../components/featuredDestinations/FeaturedDestinations'
+
 export const LandingPage = () => {
     return (
         <>
             <LandingHotelPicture />
-            {/* <SearchBar 
-            // style={{marginTop:"-10%"}}
-            /> */}
+            <FeaturedDestinations sx={{margin: '10px auto'}}/>
         </>
     )
 }
