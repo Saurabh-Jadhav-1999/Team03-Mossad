@@ -4,7 +4,7 @@ from flask import abort, request, make_response
 from backend.models.HotelModel import User, Hotel, hotel_representation, review_representation
 from backend.models.UserModel import user_representation
 from backend import db, app
-from backend.services.HotelServices import validateHotelData, addNewHotel, getAllHotels, validateCityName, getCitiesByName, validateGetHotels, getHotelsByCityName
+from backend.services.HotelServices import validateHotelData, addNewHotel, getAllHotels, validateCityName, getCitiesByName, validateGetHotels, getHotelsByCityName, showAvailableHotels
 from backend.services.BookingServices import checkHotelAvailability, mayuriLogic
 from backend.models.HotelModel import hotel_representation
 import datetime
@@ -55,48 +55,15 @@ def getCityList():
 
     return make_response(getCitiesByName(request.json['city_name']),200)
     
-# data representation for new hotel list
-new_hotel_representation = {
-    "hotel_id":fields.Integer,
-    "hotel_name":fields.String,
-    "description":fields.String,
-    "hotel_profile_picture": fields.String,
-    "hotel_images":fields.List(fields.String),
-    "city":fields.String,
-    "state":fields.String,
-    "country":fields.String,
-    "pincode":fields.Integer,
-    "landmark":fields.Integer,
-    "address":fields.String,
-    "exclusive_room_count":fields.Integer,
-    "double_room_count":fields.Integer,
-    "economy_room_count":fields.Integer,
-    "premium_room_count":fields.Integer,
-    "exclusive_room_capacity":fields.Integer,
-    "double_room_capacity":fields.Integer,
-    "economy_room_capacity":fields.Integer,
-    "premium_room_capacity":fields.Integer,
-    "exclusive_room_rate":fields.Integer,
-    "double_room_rate":fields.Integer,
-    "economy_room_rate":fields.Integer,
-    "premium_room_rate":fields.Integer,
-    "allow_pet_cost":fields.Integer,
-    "breakfast_for_people":fields.Integer,
-    "extra_parking_rate":fields.Integer,
-    "extra_pillow_rate":fields.Integer,
-    "hotel_facilities":{
-        "breakfast":fields.Boolean,
-    "dinner":fields.Boolean,
-    "outdoor_sport":fields.Boolean,
-    "swimming_pool":fields.Boolean,
-    "Spa":fields.Boolean,
-    "Room_Service":fields.Boolean,
-    "Living_room":fields.Boolean,
-    "Berbeque":fields.Boolean
-    },
-    "available_room_types": fields.List(fields.String),
-    "hotelreviews": fields.Nested(review_representation)
-}
+@marshal_with(city_representation)
+@app.route("/getCityList", methods=["POST"])
+def getCityListByPost():
+    print('hii using post:',request.json)
+    validationResult = validateCityName(request.json)
+    if validationResult.errors:
+        return make_response(validationResult.errors, 400)
+
+    return make_response(getCitiesByName(request.json['city_name']),200)
 
 # method to show hotel data in hotel_representation format
 @marshal_with(hotel_representation)
@@ -105,7 +72,6 @@ def newDataView(data):
 
 
 @app.route("/getHotel", methods=["GET"])
-@marshal_with(new_hotel_representation)
 def getHotels():
     data = request.json
     print(data)
@@ -120,18 +86,20 @@ def getHotels():
         return make_response(validationResult.errors, 400)
 
     print(validationResult.document)
+
     # get the list of hotels present in particular city
     hotels = getHotelsByCityName(data['city_name'])
-   
+    # return error if city_name was incorrect
+    if len(hotels) == 0:
+        return make_response({"error":"No hotels available for given city"}, 400)
+
     availableHotelList = []
-
-
 
     # get one hotel at time and then check availability
     for x in hotels:
         # mayuriLogic(data['check_in_date'], data['check_out_date'],x.hotel_id)
         newhotel = newDataView(x)
-        lst = checkHotelAvailability(x.hotel_id, data['check_in_date'], data['check_out_date'], data['adult_count'], data['child_count'])
+        lst = checkHotelAvailability(x.hotel_id, x,  data['check_in_date'], data['check_out_date'], data['adult_count'], data['child_count'])
         if len(lst) == 0:
             continue
         print("list:",lst)
@@ -140,4 +108,4 @@ def getHotels():
         availableHotelList.append(newhotel)
 
 
-    return availableHotelList, 200
+    return showAvailableHotels(availableHotelList), 200
