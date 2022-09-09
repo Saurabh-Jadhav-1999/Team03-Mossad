@@ -79,6 +79,9 @@ def getHotels():
         return {"error": "check_in_date or check_out_date is missing"}, 400
     data['check_in_date'] = datetime.datetime.strptime(data['check_in_date'], "%Y-%m-%d")
     data['check_out_date'] = datetime.datetime.strptime(data['check_out_date'], "%Y-%m-%d")
+
+    if data['check_out_date'] < data['check_in_date']:
+        return {"error": "invalid check_in, check_out date"}, 400
     
     validationResult = validateGetHotels(data)
 
