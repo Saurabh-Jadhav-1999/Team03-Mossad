@@ -104,8 +104,12 @@ def newDataView(data):
     return data
 
 
-@app.route("/getHotel", methods=["GET"])
+
 @marshal_with(new_hotel_representation)
+def showAvailableHotels(data):
+    return data
+
+@app.route("/getHotel", methods=["GET"])
 def getHotels():
     data = request.json
     print(data)
@@ -113,6 +117,9 @@ def getHotels():
         return {"error": "check_in_date or check_out_date is missing"}, 400
     data['check_in_date'] = datetime.datetime.strptime(data['check_in_date'], "%Y-%m-%d")
     data['check_out_date'] = datetime.datetime.strptime(data['check_out_date'], "%Y-%m-%d")
+
+    if data['check_out_date'] < data['check_in_date']:
+        return {"error": "invalid check_in, check_out date"}
     
     validationResult = validateGetHotels(data)
 
@@ -140,4 +147,4 @@ def getHotels():
         availableHotelList.append(newhotel)
 
 
-    return availableHotelList, 200
+    return showAvailableHotels(availableHotelList), 200
