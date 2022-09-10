@@ -31,6 +31,8 @@ class HandleReview(Resource):
 
 app.route("/review", methods=['POST'])
 def reviewAdding():
+     #print('hii:',request.json)
+
      validateData = validateReviewData(request.json)
 
      if validateData.errors:

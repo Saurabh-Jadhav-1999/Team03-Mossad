@@ -1,7 +1,10 @@
+from logging import Handler
 from flask import Flask, abort, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import  reqparse, Resource, Api, marshal_with
 from flask_cors import CORS
+
+#from backend.routes.HistoryRoutes import HandleHistory
 
 
 app = Flask(__name__)
@@ -25,8 +28,9 @@ try:
     from backend.routes.HotelRoutes import HotelHandler
     from backend.routes.ReviewRoutes import HandleReview
     from backend.routes.BookingRoutes import HandleBooking
+    from backend.routes.HistoryRoutes import HandleHistory
 
-    from backend.models.HotelModel import User, Hotel, Review
+    from backend.models.HotelModel import User, Hotel, Review,SearchHistory
 
     # db.drop_all()
     db.create_all()
@@ -36,6 +40,8 @@ try:
     api.add_resource(HotelHandler, "/hotel")
     api.add_resource(HandleReview, "/review")
     api.add_resource(HandleBooking, "/booking")
+    api.add_resource(HandleHistory,"/history")
+
     print('done with creating routes!')
 except Exception as e:
     print(e)

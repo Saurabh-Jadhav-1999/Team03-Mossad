@@ -212,14 +212,23 @@ class Booking(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
 
-
+#search history representation
+searchHistory_representation = {
+    "searchHistory_id": fields.Integer,
+    "ip": fields.String,
+    "location": fields.String,
+    "search_date": fields.String,
+    "number_times": fields.Integer,
+    "owner": fields.Nested(user_representation),
+    "hotelconcerned": fields.Nested(hotel_representation)
+}
 #SearchHistory model 
 class SearchHistory(db.Model):
     searchHistory_id = db.Column(db.Integer, primary_key=True)
     ip= db.Column(db.String(200), nullable=True)
     location = db.Column(db.String(200),nullable=False)
     search_date = db.Column(db.Date, nullable=False)
-    number_times= db.Column(db.Integer(500), nullable=False)
+    number_times= db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
 
