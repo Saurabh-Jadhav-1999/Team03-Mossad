@@ -139,7 +139,7 @@ export const HotelSearchFilters = () => {
             <Box className={styles.searchFiltersContainer}>
                 {filtersData.map((filters) => {
                     return (
-                        <Box key={filters.id}>
+                        <Box key={filters.id} justifyContent={'center'}>
                             <Stack key={filters.id} className={styles.filterPopularHotels}>
 
                                 {/* {Search filters Header} */}
@@ -152,7 +152,7 @@ export const HotelSearchFilters = () => {
                                 {filters.filterProperties.map((filter) => {
                                     return (
                                         <div key={filter.id}>
-                                            <FormControlLabel key={filter.id} label={filter.filterName} control={<Checkbox value={filter.filterName} defaultChecked={filter.defaultChecked ? true : false} onChange={getCheckedFilterProperties} sx={{ fontSize: '14px' }} />} />
+                                            <FormControlLabel key={filter.id} label={filter.filterName} control={<Checkbox value={filter.filterName} defaultChecked={filter.defaultChecked ? true : false} onChange={getCheckedFilterProperties} sx={{ fontSize: '14px', color: '#A4A2A2' }} />} />
                                         </div>
                                     )
                                 })}
@@ -167,7 +167,7 @@ export const HotelSearchFilters = () => {
                                 </Box>
                                 }
                             </Stack>
-                            <hr className="divider" />
+                            <hr className={styles.divider}/>
                         </Box>
                     )
                 })}

@@ -11,7 +11,7 @@ const details = {
   rating: 4.2,
   reviews: 223,
   location: "Beach Road Kovalam 563465India",
-  date: "15.09.2022-10-09-2022",
+  date: "15.09.2022-10.09.2022",
   departure: "Kochi",
 
 };

@@ -2,11 +2,16 @@
     margin: 19px;
     border-radius: 4% !important;
     height: 500px;
-    width: 370px;
+    width: 350px;
+    border: 1px solid #D1CECE;
 }
 
 .gridContainer {
-    padding: 20px;
+    padding: 20px 25px;
+}
+
+.gridContainer Grid {
+    padding: 10px;
 }
 
 .discountPriceDetailsContainer {
@@ -17,8 +22,8 @@
 
 .originalRoomPrice {
     font-family: Inter !important;
-    font-weight: 800 !important;
-    font-size: 22px;
+    font-weight: 700 !important;
+    font-size: 22px !important;
     line-height: 30px;
 }
 
@@ -51,19 +56,55 @@
     background: #D1D4D9 !important;
 }
 
-.datePicker input{
-
+.datePicker input {
+    width: 7rem;
     background: #F4F5F7;
+    padding: 8% !important;
+    /* padding: 5%; */
 }
 
-.react-datepicker-wrapper, .react-datepicker__input-container, .react-datepicker-ignore-onclickoutside{
-    width: 1px !important;
-    padding: 0xp;
-}
-
-.datePicker{
+.datePicker {
+    align-content: start;
     border: 1px solid white;
+    border-radius: 5px;
     font-family: Inter !important;
     font-weight: 300s !important;
-    color: #C9C8C8;
+    /* margin-left: -5px !important; */
+    /* color: #C9C8C8; */
+}
+
+.btnBookNow {
+    color: white;
+    background-color: #3C71FF !important;
+    text-transform: none !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+}
+
+.bookingNote {
+    text-align: center;
+    font-family: Inter;
+    font-size: 10rem !important;
+    font-weight: 700;
+    line-height: 15px;
+    letter-spacing: 0em;
+    color: #A4A2A2;
+}
+
+.totalBookingPrice {
+    font-family: 'Inter' !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 18px !important;
+    line-height: 22px !important;
+    color: #000000;
+}
+
+.extraFeaturesPrice {
+    font-family: Inter !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 19px !important;
+    letter-spacing: 0em !important;
+    color: #A4A2A2 !important;
 }

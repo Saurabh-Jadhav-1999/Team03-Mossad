@@ -18,7 +18,7 @@ const Facility = (props) => {
         Departure from {props.details.departure}
       </Typography>
       <Stack spacing={20}
-       direction="row">
+        direction="row">
         <Grid item xl={6}>
           <Stack direction={"column"}>
             <Typography className={styles.iconDiv}>
@@ -45,13 +45,13 @@ const Facility = (props) => {
         </Grid>
         <Grid item xl={6} className={styles.btnDiv}>
           <Button className={styles.btnPrice}>
-            <Typography component={"span"}>
-              <AttachMoneyOutlinedIcon />
-              {props.rate}
-            </Typography>
-            <Typography className={styles.capacity}>
-              {props.capacity}
-            </Typography>
+              <Typography component={"span"}>
+                <AttachMoneyOutlinedIcon />
+                {props.rate}
+              </Typography>
+              <Typography className={styles.capacity}>
+                {props.capacity}
+              </Typography>
           </Button>
           <Button className={styles.btnBook}>Book Now</Button>
         </Grid>
