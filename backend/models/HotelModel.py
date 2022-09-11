@@ -214,31 +214,29 @@ class Booking(db.Model):
 
 #search history representation
 searchHistory_representation = {
-    "searchHistory_id": fields.Integer,
-    "ip": fields.String,
+    # "searchHistory_id": fields.Integer,
+   # "ip": fields.String,
     "location": fields.String,
     "search_date": fields.String,
     "number_times": fields.Integer,
-    "owner": fields.Nested(user_representation),
-    "hotelconcerned": fields.Nested(hotel_representation)
+  #  "owner": fields.Nested(user_representation),
+   # "hotelconcerned": fields.Nested(hotel_representation)
 }
 #SearchHistory model 
 class SearchHistory(db.Model):
     searchHistory_id = db.Column(db.Integer, primary_key=True)
-    ip= db.Column(db.String(200), nullable=True)
+    ip= db.Column(db.String(200),default=None)
     location = db.Column(db.String(200),nullable=False)
     search_date = db.Column(db.Date, nullable=False)
     number_times= db.Column(db.Integer, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
-    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
+    user_id = db.Column(db.Integer)
+    hotel_id = db.Column(db.Integer)
 
 
-    def __init__(self, data) -> None:
-        self. serachHistory_id= data[' serachHistory_id']
-        self.ip = data['ip']
-        self.location = data['location']
-        self.search_date = data['search_date']
-        self.number_times = data['number_times']
-        self.user_id = data['user_id']
-        self.address = data['address']
-        self.hotel_id = data['hotel_id']
+    # def __init__(self, data) -> None:
+
+    #     self.location = data['location']
+    #     self.search_date = data['search_date']
+    #     self.number_times = data['number_times']
+    #     self.user_id = data['user_id']
+    #     self.hotel_id = data['hotel_id']

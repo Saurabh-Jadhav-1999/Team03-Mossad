@@ -3,7 +3,8 @@ from backend.services.HistoryServices import validateHistoryData, addHistory, ge
 from backend.models.HotelModel import searchHistory_representation
 from flask import make_response, request
 from flask_restful import marshal_with, Resource
-from datetime import datetime
+import datetime
+
 # method to show data in searchHistory_representation way
 @marshal_with(searchHistory_representation)
 def showHistory(data):
@@ -11,7 +12,8 @@ def showHistory(data):
 
 # class to handle /history api request's
 class HandleHistory(Resource):
-    # route to get all the history
+    
+     # route to get all the history
     @marshal_with(searchHistory_representation)
     def get(self):
         data = getHistory() # get all the history
@@ -20,9 +22,12 @@ class HandleHistory(Resource):
     # route to add new history
     def post(self):
         
+        data=request.json
+        #data.update({​​"search_date":datetime.datetime.utcnow()}​​)
+        data.update({"search_date":datetime.datetime.utcnow()})
 
         validateData = validateHistoryData(request.json) # validate incoming data
-
+        
         if validateData.errors:
             return make_response(validateData.errors, 400) # return error if validation fails
 

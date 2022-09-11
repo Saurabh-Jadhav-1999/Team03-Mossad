@@ -9,10 +9,10 @@ import datetime
 # method to validate input data for history table
 def validateHistoryData(data):
     historySchema = {
-        "searchHistory_id": {"type":"integer", "required":True},
-        "ip": {"type":"string", "required":True},
+        #"searchHistory_id": {"type":"integer", "required":True},
+        # "ip": {"type":"string", "required":True},
         "location": {"type":"string", "required":True},
-        "search_date": {"type":"date", "required":True},
+        "search_date": {"type":"datetime", "required":True},
         "number_times": {"type":"integer", "required":True},
         "user_id": {"type":"integer", "required":True},
         "hotel_id": {"type":"integer", "required":True}
@@ -25,11 +25,11 @@ def validateHistoryData(data):
 # add new history in history model
 def addHistory(data):
     #get user
-    user = getPerticularUser(data['user_id'])
-    #get hotel 
-    hotel = getPerticularHotelById(data['hotel_id'])
+    # get the histroy row by user id and location 
+    # history.number_time + 1
+    # up
     #create new history instance
-    searchHistory = SearchHistory(ip=data['ip'],location=data['location'],search_date=datetime.datetime.utcnow(),number_times=data['number_times'],owner=user,reviewed=hotel)  
+    searchHistory = SearchHistory(location=data['location'],search_date=datetime.datetime.utcnow(),number_times=data['number_times'],user_id=data['user_id'],hotel_id=data['hotel_id'])  
     db.session.add(searchHistory)
     db.session.commit()
     return searchHistory
