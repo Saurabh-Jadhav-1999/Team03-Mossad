@@ -63,7 +63,7 @@ def login():
                     key= app.config['SECRET_KEY']
                 )
     data.update({"x-auth-token":token})
-    resp = make_response(data, 200)
+    resp = make_response({"x-auth-token":token}, 200)
     resp.headers['x-auth-token'] = token    
     return resp, 200
 

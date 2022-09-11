@@ -1,9 +1,9 @@
 from dataclasses import field
 from importlib.metadata import requires
-from backend.models.HotelModel import Hotel
+from backend.models.HotelModel import Hotel, review_representation
 from backend import db, app
 from cerberus import Validator
-from flask_restful import fields
+from flask_restful import fields, marshal_with
 
 # validation schema for hotel 
 hotel_schema = {
@@ -49,6 +49,49 @@ hotel_schema = {
     }
 }
 
+# data representation for new hotel list
+new_hotel_representation = {
+    "hotel_id":fields.Integer,
+    "hotel_name":fields.String,
+    "description":fields.String,
+    "hotel_profile_picture": fields.String,
+    "hotel_images":fields.List(fields.String),
+    "city":fields.String,
+    "state":fields.String,
+    "country":fields.String,
+    "pincode":fields.Integer,
+    "landmark":fields.Integer,
+    "address":fields.String,
+    "exclusive_room_count":fields.Integer,
+    "double_room_count":fields.Integer,
+    "economy_room_count":fields.Integer,
+    "premium_room_count":fields.Integer,
+    "exclusive_room_capacity":fields.Integer,
+    "double_room_capacity":fields.Integer,
+    "economy_room_capacity":fields.Integer,
+    "premium_room_capacity":fields.Integer,
+    "exclusive_room_rate":fields.Integer,
+    "double_room_rate":fields.Integer,
+    "economy_room_rate":fields.Integer,
+    "premium_room_rate":fields.Integer,
+    "allow_pet_cost":fields.Integer,
+    "breakfast_for_people":fields.Integer,
+    "extra_parking_rate":fields.Integer,
+    "extra_pillow_rate":fields.Integer,
+    "hotel_facilities":{
+        "breakfast":fields.Boolean,
+    "dinner":fields.Boolean,
+    "outdoor_sport":fields.Boolean,
+    "swimming_pool":fields.Boolean,
+    "Spa":fields.Boolean,
+    "Room_Service":fields.Boolean,
+    "Living_room":fields.Boolean,
+    "Berbeque":fields.Boolean
+    },
+    "available_room_types": fields.List(fields.String),
+    "hotelreviews": fields.Nested(review_representation)
+}
+
 # method to validate hotel details 
 def validateHotelData(data):
     print("Data in validateHotelData:",data)
@@ -89,7 +132,7 @@ def validateCityName(cityname):
     return cityValidator
 
 
-
+# method to get city names starting from characters
 def getCitiesByName(city_name):
     print("cityname in getCitiesByName:",city_name)
     result = db.session.query(Hotel.city).filter(Hotel.city.ilike(f"{city_name}%")).distinct().all()
@@ -97,6 +140,7 @@ def getCitiesByName(city_name):
     cityList = [s.city for s in result]
     return cityList
 
+# method to validate incoming data for 
 def validateGetHotels(data):
     validate_schema = {
         "city_name":{"type":"string", "required":True},
@@ -110,7 +154,12 @@ def validateGetHotels(data):
     result = validator.validate(data)
     return validator
 
+# method to get all the hotels from particular city
 def getHotelsByCityName(city_name):
     print("city name in:",city_name)
     return Hotel.query.filter_by(city=city_name).all()
-    
+
+# method to show all available hotels matching search criteria in marshel_with format 
+@marshal_with(new_hotel_representation)
+def showAvailableHotels(data):
+    return data

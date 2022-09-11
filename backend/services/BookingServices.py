@@ -61,11 +61,12 @@ def getAvailabilityCount(data, dte, hotel):
         return ["premium_count", hotel.premium_room_capacity]
     return False
 
+
 # method to check whether the hotel is available for that perticular checkin, checkout date by hotel_id
-def checkHotelAvailability(hotel_id, check_in_date, check_out_date, adult_count, child_count):
+def checkHotelAvailability(hotel_id, hotel, check_in_date, check_out_date, adult_count, child_count):
     from sqlalchemy import func
     # get the hotel data
-    hotel = getPerticularHotelById(hotel_id)
+    # hotel = getPerticularHotelById(hotel_id)
 
     delta = check_out_date - check_in_date
     availableRoomTypes = []
@@ -74,7 +75,6 @@ def checkHotelAvailability(hotel_id, check_in_date, check_out_date, adult_count,
 
     for x in range(delta.days):
         dte = check_in_date+timedelta(days=x)
-        tempcursor = db.session.query(func.sum(Booking.exclusive_count)).filter(or_(Booking.hotel_id==hotel_id,and_(Booking.hotel_id==hotel_id, dte>Booking.check_in_date, dte<Booking.check_out_date)))
         cursor = db.session.query(func.sum(Booking.exclusive_count)).filter(and_(Booking.hotel_id==hotel_id, dte==Booking.check_in_date))
         total1 = cursor.scalar()
         if total1 == None:
