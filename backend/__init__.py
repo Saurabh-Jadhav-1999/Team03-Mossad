@@ -45,6 +45,5 @@ try:
     print('done with creating routes!')
 except Exception as e:
     print(e)
-    print('cannot start application, could not connect to database')
-
+    print('cannot start application, could not connect to database')#
 
