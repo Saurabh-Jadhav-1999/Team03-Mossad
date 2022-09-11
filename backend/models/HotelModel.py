@@ -82,8 +82,7 @@ hotel_representation = {
     "Room_Service":fields.Boolean,
     "Living_room":fields.Boolean,
     "Berbeque":fields.Boolean
-    },
-    "hotelreviews": fields.Nested(review_representation)
+    }
 }
 
 # hotel model 

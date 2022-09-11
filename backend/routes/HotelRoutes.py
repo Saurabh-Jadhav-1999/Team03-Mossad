@@ -6,6 +6,7 @@ from backend.models.UserModel import user_representation
 from backend import db, app
 from backend.services.HotelServices import validateHotelData, addNewHotel, getAllHotels, validateCityName, getCitiesByName, validateGetHotels, getHotelsByCityName, showAvailableHotels
 from backend.services.BookingServices import checkHotelAvailability, mayuriLogic
+from backend.services.ReviewServices import averageRating
 from backend.models.HotelModel import hotel_representation
 import datetime
 
@@ -71,27 +72,31 @@ def newDataView(data):
     return data
 
 
-@app.route("/getHotel", methods=["GET, POST"])
+@app.route("/getHotel", methods=["GET", "POST"])
 def getHotels():
     data = request.json
     print(data)
+
+    # check if check_in_date and check_out_date is present
     if "check_in_date" not in data.keys() or  "check_out_date" not in data.keys():
         return {"error": "check_in_date or check_out_date is missing"}, 400
     data['check_in_date'] = datetime.datetime.strptime(data['check_in_date'], "%Y-%m-%d")
     data['check_out_date'] = datetime.datetime.strptime(data['check_out_date'], "%Y-%m-%d")
 
+    # check_in_date, check_out_date validation
     if data['check_out_date'] < data['check_in_date']:
         return {"error": "invalid check_in, check_out date"}, 400
     
-    validationResult = validateGetHotels(data)
+    validationResult = validateGetHotels(data) # validate all other fields
 
     if validationResult.errors:
-        return make_response(validationResult.errors, 400)
+        return make_response(validationResult.errors, 400) # return validation errors if any
 
     print(validationResult.document)
 
     # get the list of hotels present in particular city
     hotels = getHotelsByCityName(data['city_name'])
+
     # return error if city_name was incorrect
     if len(hotels) == 0:
         return make_response({"error":"No hotels available for given city"}, 400)
@@ -102,11 +107,13 @@ def getHotels():
     for x in hotels:
         # mayuriLogic(data['check_in_date'], data['check_out_date'],x.hotel_id)
         newhotel = newDataView(x)
+        rating = averageRating(x.hotel_id)
         lst = checkHotelAvailability(x.hotel_id, x,  data['check_in_date'], data['check_out_date'], data['adult_count'], data['child_count'])
         if len(lst) == 0:
             continue
-        print("list:",lst)
+        # print("list:",lst)
         newhotel.update({"available_room_types":lst})
+        newhotel.update({"rating":rating})
         # print(newhotel)
         availableHotelList.append(newhotel)
 

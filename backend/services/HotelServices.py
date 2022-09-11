@@ -89,7 +89,7 @@ new_hotel_representation = {
     "Berbeque":fields.Boolean
     },
     "available_room_types": fields.List(fields.String),
-    "hotelreviews": fields.Nested(review_representation)
+    "rating": fields.Float
 }
 
 # method to validate hotel details 

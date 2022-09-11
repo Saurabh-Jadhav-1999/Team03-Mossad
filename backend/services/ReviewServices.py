@@ -4,6 +4,9 @@ from backend.services.UserServices import getPerticularUser
 from backend.services.HotelServices import getPerticularHotelById
 from cerberus import Validator
 import datetime
+from sqlalchemy import func
+import math
+
 
 # method to validate input data for review table
 def validateReviewData(data):
@@ -33,3 +36,11 @@ def addReview(data):
 # method to get all the reviews 
 def getReviews():
     return Review.query.all()
+
+# method to return average rating of particular hotel
+def averageRating(hotel_id):
+    result1 = db.session.query(func.avg(Review.rating).label("average rating")).filter(Review.hotel_id==hotel_id).all()
+    result = result1[0]['average rating']
+    if result != None:
+        result = round(result, 1)
+    return result
