@@ -119,7 +119,7 @@ def getPerticularHotelById(id):
     try:
         return Hotel.query.filter_by(hotel_id=id).first()
     except Exception as e:
-        return {"error:e"}
+        return {"error":e}
     
 # method to validate city name
 def validateCityName(cityname):

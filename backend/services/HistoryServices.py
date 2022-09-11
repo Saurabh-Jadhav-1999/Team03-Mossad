@@ -27,7 +27,7 @@ def validateHistoryData(data):
 # validation for building user history based on location and hotel_id
 def validateHistoryDataWithHotel(data):
     history_Schema = {
-            "location":{"type":"string", "required":True},
+            "city_name":{"type":"string", "required":True},
             "user_id" :{"type":"integer", "required":True}, 
             "hotel_id":{"type":"integer", "required":True}      
     }
@@ -66,7 +66,7 @@ def addHistoryByHotelId(data):
                 return showSearchHistoryDataWithHotel(history)
 
         # if user history not exists
-        newHistory = SearchHistory(location=data['location'],user_id=data['user_id'], hotel_id=data['hotel_id'], search_date=datetime.datetime.utcnow(), number_times=1)
+        newHistory = SearchHistory(location=data['city_name'],user_id=data['user_id'], hotel_id=data['hotel_id'], search_date=datetime.datetime.utcnow(), number_times=1)
         db.session.add(newHistory)
         newHistory = db.session.commit()
         return showSearchHistoryDataWithHotel(newHistory)

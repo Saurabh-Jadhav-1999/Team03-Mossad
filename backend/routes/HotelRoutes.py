@@ -162,17 +162,24 @@ def getHotelByHotelId():
 
     # get particular hotel by id
     hotel = getPerticularHotelById(data['hotel_id'])
+
+    # error occured while getting hotel
+    if isinstance(hotel, dict) and "error" in hotel.keys():
+        return make_response(hotel, 400)
+
+    # if hotel not present with given id
     if not hotel:
         return make_response({"error": "invalid hotel id!"}, 400)
 
     # build the user history
-    # user_history = addHistoryByHotelId(data)
+    user_history = addHistoryByHotelId(data)
 
     # add average rating to hotel
     rating = averageRating(hotel.hotel_id)
     hotel = newDataView(hotel)
-    print(hotel)
-    hotel.update({"rating":rating})
+    # print(hotel)
+    hotel.update({"rating":rating}) # update the response 
+
     return showAvailableHotels(hotel), 200
     
 
