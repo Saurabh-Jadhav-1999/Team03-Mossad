@@ -28,11 +28,7 @@ def validateHistoryData(data):
 
 # add new history in history model
 def addHistory(data):
-    #get user
-    # get the histroy row by user id and location 
-    # history.number_time + 1
-
-    #create new history instance
+   
     row1 = db.session.query(SearchHistory).filter(and_(SearchHistory.user_id == data['user_id'], SearchHistory.location == data['location'],SearchHistory.hotel_id==None)).first()
 
     if row1 is not None:
