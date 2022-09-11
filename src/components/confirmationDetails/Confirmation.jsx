@@ -54,7 +54,7 @@ const Confirmation = (props) => {
             fontSize="13px"
             className={`${styles.typo3}`}
           >
-            <img src={star} alt=''/>&nbsp;&nbsp;
+            <img src={star} alt='' className={`${styles.starimg}`}/>&nbsp;&nbsp;
             {props.details.rating}
             <div className={`${styles.div3}`}>
               {" "}

@@ -8,17 +8,19 @@ import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import SubjectOutlinedIcon from "@mui/icons-material/SubjectOutlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
-
+import { Link } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { Stack } from "@mui/system";
+
 const Facility = (props) => {
+  const dispatch=useDispatch();
   return (
     <Box className={styles.facilityDiv}>
       <Typography className={styles.iconDiv}>
         <AirplanemodeActiveSharpIcon className={styles.icon} />
         Departure from {props.details.departure}
       </Typography>
-      <Stack spacing={20}
-       direction="row">
+      <Stack spacing={20} direction="row">
         <Grid item xl={6}>
           <Stack direction={"column"}>
             <Typography className={styles.iconDiv}>
@@ -53,7 +55,16 @@ const Facility = (props) => {
               {props.capacity}
             </Typography>
           </Button>
-          <Button className={styles.btnBook}>Book Now</Button>
+          <Link
+            to="/hotel-details"
+            className={styles.btnBook}
+            onClick={() => {
+              // dispatch(fetchHotelList());
+            }}
+          >
+            Book Now
+          </Link>
+          {/* <Link to="/" className={styles.btnBook}>Book Now</Link> */}
         </Grid>
       </Stack>
     </Box>

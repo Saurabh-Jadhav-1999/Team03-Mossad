@@ -10,10 +10,12 @@ export const SearchBar = () => {
   return (
     <Box className={styles.searchDiv}>
       <Stack className={styles.container}>
-        <Grid item >
+        <Grid item className={styles.griditem1}>
           <CitySelector />
         </Grid>
-        {/* <Box className={styles.arrow} src={arrow} component="img"  style={{ zIndex: 99 }}/> */}
+        <div className={styles.arrowBox}>
+        <Box className={styles.arrow} src={arrow} component="img"  style={{ zIndex: 99 }}/>
+        </div>
         <Grid item >
           <DateSelector />
         </Grid>

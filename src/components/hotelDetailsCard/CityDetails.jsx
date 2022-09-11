@@ -9,28 +9,29 @@ const CityDetails = (props) => {
   return (
     <Box className={style.cityDiv}>
       <Typography className={style.cityName} component="h1">
-        {props.details.cityName}
+        {props.item.state},
+        {props.item.country}
       </Typography>
       <Typography className={style.cityName} component="h3">
-        {props.details.hotelName}
+        {props.item.hotel_name}
       </Typography>
       <Typography className={iconStyles.iconDiv}>
         <Typography component={"span"} >
           <StarIcon className={style.starIcon}/>
         </Typography>
         <Typography className={style.boldRating} component='span'>
-          {props.details.rating}
+          {props.item.hotelreviews.rating}
           </Typography>
-        ({props.details.reviews} reviews)
+        {/* ({props.details.hotelreview[1].reviews} reviews) */}
       </Typography>
       <Grid container>
         <Grid item xl={6} className={iconStyles.iconDiv}>
           <LocationOnTwoToneIcon className={style.icon} />
-          {props.details.location}
+          {props.item.address}
         </Grid>
         <Grid item xl={6} className={iconStyles.iconDiv}>
           <DateRangeOutlinedIcon className={style.icon} />
-          {props.details.date}
+          {/* {props.details.date} */}
         </Grid>
       </Grid>
     </Box>

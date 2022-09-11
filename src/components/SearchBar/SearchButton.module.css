@@ -1,6 +1,8 @@
 .searchBtn{
-    min-height: 6vh;
-    max-width: 10vw;
+    /* max-height: 10vh !important;
+    max-width: 10vw !important; */
+  /* width: 30% !important; */
+    padding: 20% !important;
     background: #3C71FF !important;
     border-radius: 9px !important;
   }

@@ -62,7 +62,7 @@ export const HotelDetailsAndImage = (props) => {
                 {props.details.rating}
                 <div className={`${styles.div1}`}>
                   {" "}
-                  ({props.details.reviews} reviews)
+                  ({props.details.reviews}reviews)
                 </div>
               </Typography>
             </Box>
@@ -94,6 +94,10 @@ export const HotelDetailsAndImage = (props) => {
               readOnly
             />
           </div>
+        </Box>
+        <Box className={`${styles.roomTypeHeading}`}>
+          <Typography variant="h5" style={{fontWeight:"bold"}}>Exclusive room in house</Typography>
+          <Typography variant="h6" style={{fontWeight:"bold",color:"grey"}}>Kovalam,Kerala</Typography>
         </Box>
       </div>
     </Fragment>

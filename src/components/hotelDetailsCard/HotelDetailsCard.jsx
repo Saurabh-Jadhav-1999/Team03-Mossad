@@ -1,5 +1,6 @@
 import { Box } from "@material-ui/core";
 import React from "react";
+import { useSelector } from "react-redux";
 import CityDetails from "./CityDetails";
 import Facility from "./Facility";
 import styles from "./HotelDetails.module.css";
@@ -15,12 +16,15 @@ const details = {
   departure: "Kochi",
 
 };
-export const HotelDetailsCard = () => {
+export const HotelDetailsCard = (props) => {
+  // const hotellist=useSelector((state)=>state.search.hotellist)
   return (
     <Box className={styles.hotelDetailBox}>
-      <HotelImage />
+      <HotelImage  item={props.details}/>
       <Box className={styles.detailsDiv}>
-        <CityDetails details={details} />
+     
+        <CityDetails item={props.details} />
+   
         <Facility details={details} cityName={"Kochi"} rate={"720"} capacity={"For Two"} />
         {/*props are repeted for demo perpose */}
       </Box>

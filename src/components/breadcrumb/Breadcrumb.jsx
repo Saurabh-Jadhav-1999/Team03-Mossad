@@ -54,7 +54,7 @@ const breadcrumbs = [
         separator={<NavigateNextIcon fontSize="small" />}
         aria-label="breadcrumb"
       >
-        {breadcrumbs}
+        {props.links}
       </Breadcrumbs>
     </div>
   );

@@ -6,7 +6,7 @@
     /* margin-top:  5%; */
     position: relative;
     z-index: 1000;
-    width: 85vw;
+    width: 75vw;
 }
 
 .container{
@@ -18,11 +18,24 @@
 }
 
 .arrow{
+    /* border: 2px black solid; */
     z-index: 1;
     border-radius: 100%;
-    max-height: 3%;
-    max-width: 3%;
-    margin: 0 -11%; 
+    max-height: 100%;
+    max-width: 107%;
+  
     position: relative;  
     background: #FFFFFF; 
+}
+.arrowBox{
+    width: 4%;
+    background-color: #FFFFFF !important;
+    /* border-spacing: 9% !important; */
+    /* padding: 2%; */
+    margin: 0 -5.5%; 
+}
+
+.griditem1{
+    color: red;
+    border-radius: 20% !important;
 }
