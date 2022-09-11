@@ -196,6 +196,7 @@ booking_representation = {
     "hotelconcerned": fields.Nested(hotel_representation)
 }
 
+# model for booking a hotel
 class Booking(db.Model):
     b_id = db.Column(db.Integer, primary_key=True)
     check_in_date = db.Column(db.Date, nullable=False)
@@ -210,5 +211,30 @@ class Booking(db.Model):
     premium_count = db.Column(db.Integer, default=0)
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
+
+# representation for SearchHistory
+searchHistory_representation = {
+    "location": fields.String,
+    "search_date": fields.String,
+    "number_times": fields.Integer,
+}
+
+# representation for SearchHistory with hotel_id
+searchHistory_representation_with_hotel = {
+    "hotel_id": fields.Integer,
+    "location": fields.String,
+    "search_date": fields.String,
+    "number_times": fields.Integer,
+}
+
+# model for user's search history
+class SearchHistory(db.Model):
+    searchHistory_id = db.Column(db.Integer, primary_key=True)
+    ip= db.Column(db.String(200),default=None)
+    location = db.Column(db.String(200),nullable=False)
+    search_date = db.Column(db.DateTime, nullable=False)
+    number_times= db.Column(db.Integer, nullable=False)
+    user_id = db.Column(db.Integer, nullable=False)
+    hotel_id = db.Column(db.Integer, default=None)
 
 

@@ -24,6 +24,7 @@ try:
     from backend.routes.HotelRoutes import HotelHandler
     from backend.routes.ReviewRoutes import HandleReview
     from backend.routes.BookingRoutes import HandleBooking
+    from backend.routes.HistoryRoutes import HandleHistory
 
     from backend.models.HotelModel import User, Hotel, Review
 
@@ -31,10 +32,11 @@ try:
     db.create_all()
     # db.session.query(Review).delete()
 
-    api.add_resource(UserHandler, "/user")
-    api.add_resource(HotelHandler, "/hotel")
-    api.add_resource(HandleReview, "/review")
-    api.add_resource(HandleBooking, "/booking")
+    api.add_resource(UserHandler, "/user")  # route for handling user
+    api.add_resource(HotelHandler, "/hotel") # route for handling hotel
+    api.add_resource(HandleReview, "/review") # route for handling review
+    api.add_resource(HandleBooking, "/booking") # route for handling booking
+    api.add_resource(HandleHistory,"/history") # route for handling user's search history
     print('done with creating routes!')
 except Exception as e:
     print(e)

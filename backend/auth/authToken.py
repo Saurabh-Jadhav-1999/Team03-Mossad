@@ -17,5 +17,6 @@ def token_required(request):
         request.json.update({"email":current_user.email, "user_id":current_user.user_id})
         return request
     except Exception as e:
+        # print(e)
         return {"error": "invalid token"}
         # returns the current logged in users contex to the routes

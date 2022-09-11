@@ -4,12 +4,14 @@ from flask import abort, request, make_response
 from backend.models.HotelModel import User, Hotel, hotel_representation, review_representation
 from backend.models.UserModel import user_representation
 from backend import db, app
-from backend.services.HotelServices import validateHotelData, addNewHotel, getAllHotels, validateCityName, getCitiesByName, validateGetHotels, getHotelsByCityName, showAvailableHotels
+from backend.services.HotelServices import validateHotelData, addNewHotel, getAllHotels, validateCityName, getCitiesByName, validateGetHotels, getHotelsByCityName, showAvailableHotels, getPerticularHotelById
 from backend.services.BookingServices import checkHotelAvailability, mayuriLogic
 from backend.services.ReviewServices import averageRating
+from backend.services.HistoryServices import addHistoryByHotelId
 from backend.models.HotelModel import hotel_representation
 import datetime
 from backend.auth.authToken import token_required
+from backend.services.HistoryServices import validateHistoryData, validateHistoryDataWithHotel
 
 
 # app.route("/hotel", methods=['POST'])
@@ -50,7 +52,11 @@ city_representation = {
 @marshal_with(city_representation)
 @app.route("/getCityList", methods=["GET"])
 def getCityList():
-    print('hii:',request.json)
+     # token validtion code 
+    token_result = token_required(request)
+    if  isinstance(token_result, dict)  and "error" in token_result.keys():
+        print('error found')
+        return make_response(token_result, 400)
     validationResult = validateCityName(request.json)
     if validationResult.errors:
         return make_response(validationResult.errors, 400)
@@ -136,5 +142,37 @@ def getHotels():
         # print(newhotel)
         availableHotelList.append(newhotel)
 
-
     return showAvailableHotels(availableHotelList), 200
+
+@app.route("/getHotelById", methods=['POST'])
+def getHotelByHotelId():
+     # token validtion code 
+    token_result = token_required(request)
+    print(token_result)
+    if  isinstance(token_result, dict)  and "error" in token_result.keys():
+        print('error found')
+        return make_response(token_result, 400) # return error if token authorization fails
+    
+    data = request.json
+
+    # validate incoming data
+    validationResult = validateHistoryDataWithHotel(data)
+    if validationResult.errors:
+        return make_response({"errors":validationResult.errors}, 400)
+
+    # get particular hotel by id
+    hotel = getPerticularHotelById(data['hotel_id'])
+    if not hotel:
+        return make_response({"error": "invalid hotel id!"}, 400)
+
+    # build the user history
+    # user_history = addHistoryByHotelId(data)
+
+    # add average rating to hotel
+    rating = averageRating(hotel.hotel_id)
+    hotel = newDataView(hotel)
+    print(hotel)
+    hotel.update({"rating":rating})
+    return showAvailableHotels(hotel), 200
+    
+
