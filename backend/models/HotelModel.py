@@ -230,7 +230,7 @@ class SearchHistory(db.Model):
     search_date = db.Column(db.Date, nullable=False)
     number_times= db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer)
-    hotel_id = db.Column(db.Integer)
+    hotel_id = db.Column(db.Integer,default=None)
 
 
     # def __init__(self, data) -> None:
