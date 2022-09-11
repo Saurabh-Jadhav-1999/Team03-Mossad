@@ -3,40 +3,67 @@ import axios from "axios";
 
 const initialState = {
   location: "",
-  checkIn: "asd",
+  checkIn: "",
   checkOut: "",
   hotellist: [],
   status: "",
-  citylist: ['Pune'],
+  citylist: ["Pune"],
 };
 export const fetchHotelList = createAsyncThunk(
   "searchHotel/fetchHotelList",
-  (_, thunkAPI) => {
-    return axios
-      .get("https://hotelbooking-backend.herokuapp.com/hotel")
-      .then((response) => {
-        console.log(response.data, "from axios");
-        return response.data;
-      })
-      .catch((error) => error);
+  async ({ location, checkIn, checkOut }, thunkAPI) => {
+    try {
+      const config = {
+        headers: {
+          "x-auth-token":
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidWlkIjoxfQ.sZsoyYE35wAuHH4Fn1EgYPi1BNMN6ew_Og9oJvNdZRU",
+        },
+      };
+      const bodyParameters = {
+        city_name: `${location}`,
+        check_in_date: `${checkIn}`,
+        check_out_date: `${checkOut}`,
+        adult_count: 1,
+        child_count: 2,
+      };
+
+      // console.log(bodyParameters, "valuen of body params of axios ");
+      return axios
+        .post(
+          "https://hotelbooking-backend.herokuapp.com/getHotel",
+
+          bodyParameters,
+          config
+        )
+        .then((response) => {
+          return response.data;
+        });
+    } catch (error) {
+      return error;
+    }
   }
 );
 export const fetchCityList = createAsyncThunk(
   "searchHotel/fetchCityList",
-  async (location , thunkAPI) => {
+  async (location, thunkAPI) => {
     try {
-      const bodyParameters = {
-        "city_name": location,
+      const config = {
+        headers: {
+          "x-auth-token":
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidWlkIjoxfQ.sZsoyYE35wAuHH4Fn1EgYPi1BNMN6ew_Og9oJvNdZRU",
+        },
       };
-      console.log(location,"location from bodyparameters")
-      console.log(bodyParameters,"body parameters")
+      const bodyParameters = {
+        city_name: location,
+      };
+
       return axios
         .post(
           "https://hotelbooking-backend.herokuapp.com/getCityList",
-          bodyParameters
+          bodyParameters,
+          config
         )
         .then((response) => {
-          console.log(response.data, "from city list axios");
           return response.data;
         });
     } catch (error) {
@@ -50,13 +77,15 @@ export const searchSlice = createSlice({
   initialState: initialState,
   reducers: {
     setLocation: (state = initialState, action) => {
-      state.location = action.payload.location;
+      state.location = action.payload;
     },
     setCheckIn: (state = initialState, action) => {
-      state.checkIn = action.payload.checkIn;
+      // console.log(action.payload,"checkin from slice")
+      state.checkIn = action.payload;
     },
     setCheckOut: (state = initialState, action) => {
-      state.checkOut = action.payload.checkOut;
+      // console.log(action.payload,"checkout from slice");
+      state.checkOut = action.payload;
     },
   },
   extraReducers: {
@@ -65,8 +94,8 @@ export const searchSlice = createSlice({
     },
     [fetchHotelList.fulfilled]: (state, action) => {
       state.status = "succeeded";
-      console.log(state.current, "222");
       state.hotellist = action.payload;
+      // console.log(state.hotellist, "from fetch hotel list reducers");
     },
 
     [fetchCityList.pending]: (state, action) => {
@@ -74,8 +103,9 @@ export const searchSlice = createSlice({
     },
     [fetchCityList.fulfilled]: (state, action) => {
       state.status = "succeeded";
-      state.citylist = action.payload;
-      state.location=action.payload[0];
+      state.citylist = action.payload.cities;
+
+      state.location = action.payload.cities;
     },
   },
 });

@@ -15,37 +15,37 @@ const breadcrumbs = [
       key="1"
       color="inherit"
       href="/"
-      onClick={()=> navigate('Home')}
+      onClick={()=> console.log("navigated") }
     >
       Home
     </Link>,
-    <Link
-      underline="hover"
-      key="2"
-      color="inherit"
-      href="/search-hotels"
-      onClick={()=> navigate('HotelList')}
-    >
-      Hotel List
-    </Link>,
-    <Link
-      underline="hover"
-      key="3"
-      color="inherit"
-      href="/hotel-details"
-      onClick={()=> navigate('DetailList')}
-    >
-      Hotel Details
-    </Link>,
-    <Link
-      underline="hover"
-      key="4"
-      color="inherit"
-      href="/booking-confirmation"
-      onClick={()=> navigate('ConfirmPage')}
-    >
-      Congratulations
-    </Link>
+    // <Link
+    //   underline="hover"
+    //   key="2"
+    //   color="inherit"
+    //   href="/search-hotels"
+    //   onClick={()=> navigate('HotelList')}
+    // >
+    //   Hotel List
+    // </Link>,
+    // <Link
+    //   underline="hover"
+    //   key="3"
+    //   color="inherit"
+    //   href="/hotel-details"
+    //   onClick={()=> navigate('DetailList')}
+    // >
+    //   Hotel Details
+    // </Link>,
+    // <Link
+    //   underline="hover"
+    //   key="4"
+    //   color="inherit"
+    //   href="/booking-confirmation"
+    //   onClick={()=> navigate('ConfirmPage')}
+    // >
+    //   Congratulations
+    // </Link>
   ];
  
   return (

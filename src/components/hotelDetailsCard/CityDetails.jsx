@@ -20,7 +20,7 @@ const CityDetails = (props) => {
           <StarIcon className={style.starIcon}/>
         </Typography>
         <Typography className={style.boldRating} component='span'>
-          {props.item.hotelreviews.rating}
+          {/* {props.item.hotelreviews.rating} */}
           </Typography>
         {/* ({props.details.hotelreview[1].reviews} reviews) */}
       </Typography>

@@ -9,20 +9,21 @@ import styles from "./DateSelector.module.css";
 import { Box } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { setCheckIn, setCheckOut } from "../../slices/searchSlice";
-
+// import
 import moment from "moment";
 export default function DateSelector() {
-  let formattedDate = "";
-  // useEffect(() => {
-  //   return () => {
-  //     let date = value; // value from your state
-  //      formattedDate = moment(date).format('DD/MM/YYYY');
-  //   };
-  // }, [value])
-
+  const cIn = useSelector((state) => state.search.checkIn);
+  // console.log(cIn, "useSelector checkin");
+  const cOut = useSelector((state) => state.search.checkOut);
+  // console.log(cOut, "useSelector checkout");
+  let date = [];
   const dispatch = useDispatch();
   const [value, setValue] = React.useState([null, null]);
-
+  useEffect(() => {
+    date = value;
+    // console.log(cIn, "check in from daterange picker");
+    // console.log(cOut, "checkout from daterange picker");
+  }, [value, cIn, cOut]);
   return (
     <LocalizationProvider
       dateAdapter={AdapterDayjs}
@@ -34,20 +35,30 @@ export default function DateSelector() {
         format="MM/dd/yyyy"
         onChange={(newValue) => {
           setValue(newValue);
-          // console.log(typeof date);
 
-          let dateMDY = `${value.getDate()}-${value.getMonth() + 1}-${value.getFullYear()}`;
-          // let date = value; // value from your state
-          // formattedDate = moment(date).format("DD/MM/YYYY");
-          alert(dateMDY);
+          if (newValue[0] != null && newValue[1] != null) {
+            const checkInDateValue = moment(new Date(newValue[0])).format(
+              "YYYY-MM-DD"
+            );
+            const checkOutDateValue = moment(new Date(newValue[1])).format(
+              "YYYY-MM-DD"
+            );
+
+            dispatch(setCheckIn(checkInDateValue), () => {});
+            dispatch(setCheckOut(checkOutDateValue), () => {});
+            console.log("Check-In Date: ", checkInDateValue);
+            console.log("Check-Out Date: ", checkOutDateValue);
+          }
         }}
         renderInput={(startProps, endProps) => (
           <React.Fragment>
             <TextField
+              value={value}
               className={styles.dateInp}
               {...startProps}
               onChange={(e) => {
-                dispatch(setCheckIn({ checkIn: e.target.value }));
+                // console.log(value,"date value from state of compoenet")
+                // dispatch(setCheckIn(value));
               }}
             />
             <Box
@@ -59,8 +70,10 @@ export default function DateSelector() {
             {/* <Box className={styles.arrow}  component="img"  style={{ zIndex: 99 }}/> */}
 
             <TextField
+              value={value}
               onChange={(e) => {
-                dispatch(setCheckOut({ location: e.target.value }));
+                // console.log(value,"date value from state of compoenet")
+                // dispatch(setCheckOut({ location: e.target.value }));
               }}
               className={styles.dateInp}
               {...endProps}
