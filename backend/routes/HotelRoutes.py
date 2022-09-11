@@ -9,6 +9,7 @@ from backend.services.BookingServices import checkHotelAvailability, mayuriLogic
 from backend.services.ReviewServices import averageRating
 from backend.models.HotelModel import hotel_representation
 import datetime
+from backend.auth.authToken import token_required
 
 
 # app.route("/hotel", methods=['POST'])
@@ -43,7 +44,7 @@ class HotelHandler(Resource):
     
 # method to get city list
 city_representation = {
-    "city":fields.String
+    "cities":fields.List(fields.String)
 }
 
 @marshal_with(city_representation)
@@ -57,14 +58,26 @@ def getCityList():
     return make_response(getCitiesByName(request.json['city_name']),200)
     
 @marshal_with(city_representation)
+def showCityList(data):
+    return data
+
 @app.route("/getCityList", methods=["POST"])
 def getCityListByPost():
-    print('hii using post:',request.json)
+    # token validtion code 
+    token_result = token_required(request)
+    if  isinstance(token_result, dict)  and "error" in token_result.keys():
+        print('error found')
+        return make_response(token_result, 400)
+
+    # validate incoming data
     validationResult = validateCityName(request.json)
     if validationResult.errors:
         return make_response(validationResult.errors, 400)
 
-    return make_response(getCitiesByName(request.json['city_name']),200)
+    # get list of cities starting from character provided
+    cityListData = getCitiesByName(request.json['city_name'])
+    # print('before returning data:',cityListData)
+    return make_response({"cities":cityListData},200)
 
 # method to show hotel data in hotel_representation format
 @marshal_with(hotel_representation)
@@ -74,6 +87,12 @@ def newDataView(data):
 
 @app.route("/getHotel", methods=["GET", "POST"])
 def getHotels():
+    # token validtion code 
+    token_result = token_required(request)
+    if  isinstance(token_result, dict)  and "error" in token_result.keys():
+        print('error found')
+        return make_response(token_result, 400)
+
     data = request.json
     print(data)
 

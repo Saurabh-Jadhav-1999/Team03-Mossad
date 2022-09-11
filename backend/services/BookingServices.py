@@ -25,10 +25,12 @@ def validateBookingData(data):
         "child_count": {"type":"integer", "required":True},
         "adult_count": {"type":"integer", "required":True},
         "user_id": {"type":"integer", "required":True},
-        "hotel_id": {"type":"integer", "required":True}
+        "hotel_id": {"type":"integer", "required":True},
+        "total_cost": {"type": "float", "required":True}
     }
 
     bookingValidator = Validator(booking_validation_schema)
+    bookingValidator.allow_unknown = True
     result = bookingValidator.validate(data)
     return bookingValidator
 
@@ -145,22 +147,32 @@ def checkRoomType(data, hotel):
         cursor = db.session.query(func.max(Booking.exclusive_count)).filter(Booking.hotel_id==hotel.hotel_id).filter(and_(Booking.check_in_date<=data['check_out_date'], Booking.check_out_date>=data['check_in_date']))
         total = cursor.scalar()
         print("total:",total)
-        return ["exclusive_count", hotel.exclusive_room_capacity]
+        return ["exclusive_room", hotel.exclusive_room_capacity]
     if "economy_room_count" in data.keys() and data['economy_room_count'] > 0:
         cursor = db.session.query(func.sum(Booking.economy_count)).filter(Booking.hotel_id==hotel.hotel_id)
         total = cursor.scalar()
-        return ["economy_count", hotel.economy_room_capacity]
+        return ["economy_room", hotel.economy_room_capacity]
     if "double_room_count" in data.keys() and data['double_room_count'] > 0:
         cursor = db.session.query(func.sum(Booking.double_count)).filter(Booking.hotel_id==hotel.hotel_id)
         total = cursor.scalar()
         print("total:",total)
-        return ["double_count", hotel.double_room_capacity]
+        return ["double_room", hotel.double_room_capacity]
     if "premium_room_count" in data.keys() and data['premium_room_count'] > 0:
         cursor = db.session.query(func.sum(Booking.exclusive_count)).filter(Booking.hotel_id==hotel.hotel_id)
         total = cursor.scalar()
         print("total:",total)
-        return ["premium_count", hotel.premium_room_capacity]
+        return ["premium_room", hotel.premium_room_capacity]
     return False
+
+# method to get all the booking
+def getBookings():
+    return Booking.query.all()
+
+# method to show booking details in particular format
+@marshal_with(booking_representation)
+def showBooking(data):
+    return data
+
 
 # method to add new booking
 def addBooking(data, user, hotel):
@@ -174,19 +186,27 @@ def addBooking(data, user, hotel):
         delta = data['check_out_date'] - data['check_in_date']
         
         # result = checkAvalabilityOfRoomInHotel(data['hotel_id'], data['check_in_date'], data['check_out_date'], room_type[0])
+        availableResult = checkHotelAvailability(hotel.hotel_id, hotel, data['check_in_date'], data['check_out_date'], data['adult_count'], data['child_count'])
+        print('available result:',availableResult)
+        if len(availableResult) == 0:
+            print('returning error by length')
+            return {"error": "The room you looking for is not available for searched dated's"}
+        if room_type[0] not in availableResult:
+            print("room type:",room_type[0])
+            print('return error due to not available room')
+            return {"error": "The room you looking for is not available for searched date's"}
+
         booking = Booking(check_in_date=data['check_in_date'], check_out_date=data['check_out_date'], child_count=data['child_count'], adult_count=data['adult_count'], exclusive_count=data['exclusive_room_count'], economy_count=data['economy_room_count'],double_count=data['double_room_count'],premium_count=data['premium_room_count'],bookingowner=user,hotelconcerned=hotel)
         db.session.add(booking)
         db.session.commit()
-        return booking
-    return "Hii"
-    print('returning error')
+        response = {
+            "b_id": booking.b_id,
+            "check_in_date": booking.check_in_date,
+            "check_out_date": booking.check_out_date,
+            "guest_count": booking.adult_count+booking.child_count,
+            "total_cost": data['total_cost'],
+            "hotel_profile_picture": hotel.hotel_profile_picture
+        }
+        return response
     
 
-# method to get all the booking
-def getBookings():
-    return Booking.query.all()
-
-# method to show booking details in perticular format
-@marshal_with(booking_representation)
-def showBooking(data):
-    return data

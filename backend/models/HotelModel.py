@@ -192,7 +192,7 @@ booking_representation = {
     "economy_count": fields.Integer,
     "double_count": fields.Integer,
     "premium_count": fields.Integer,
-    "bookingowner": fields.Nested(user_representation),
+    # "bookingowner": fields.Nested(user_representation),
     "hotelconcerned": fields.Nested(hotel_representation)
 }
 

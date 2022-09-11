@@ -6,6 +6,7 @@ from backend import db, app
 from backend.services.UserServices import isUserExists, addNewUser, validateLoginData
 import json
 import jwt
+from backend.auth.authToken import token_required
 
 # post request parser
 post_parser = reqparse.RequestParser()
@@ -70,4 +71,10 @@ def login():
 
 @app.route("/", methods=["GET"])
 def basicRoute():
+    print("before token validation:",request.json)
+    token_result = token_required(request)
+    print(token_result)
+    if  type(token_result)==dict({}) and "error" in token_result.keys():
+        return token_result
+    print("after token validation:",request.json) 
     return make_response("Application is running", 200)

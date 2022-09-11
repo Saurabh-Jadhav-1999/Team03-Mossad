@@ -5,13 +5,21 @@ from backend.services.BookingServices import validateBookingData, addBooking, ge
 from backend.services.UserServices import getPerticularUser
 from backend.services.HotelServices import getPerticularHotelById
 import datetime
+from backend.auth.authToken import token_required
 
 
 class HandleBooking(Resource):
     # @marshal_with(booking_representation)
     def post(self):
+        # token validtion code 
+        token_result = token_required(request)
+        if  isinstance(token_result, dict)  and "error" in token_result.keys():
+            print('error found')
+            return make_response(token_result, 400)
+
+
         data = request.json
-        # check if checkin , checkut date is present
+        # check if checkin , checkout date is present
         if "check_in_date" not in data.keys() or  "check_out_date" not in data.keys():
             return {"error": "check_in_date or check_out_date is missing"}, 400
 
@@ -22,10 +30,10 @@ class HandleBooking(Resource):
         if data['check_out_date'] < data['check_in_date']:
             return {"error": "check_in_date must be less than check_out_date"}
         # print(data)
-        
+
         validationResult = validateBookingData(data)
         if validationResult.errors:
-            print('returning error')
+            # print('returning error')
             print(validationResult.errors)
             return make_response(validationResult.errors, 400)
         
@@ -42,8 +50,13 @@ class HandleBooking(Resource):
             return make_response("hotel not found", 400)
 
         result = addBooking(data, user, hotel)
-        return showBooking(result), 200
+        
+        if "error" in result.keys():
+            return make_response(result, 400)
 
+        print(result)
+
+        return make_response(result, 200)
     @marshal_with(booking_representation)
     def get(self):
         data = getBookings()
