@@ -1,6 +1,6 @@
 from dataclasses import field
 from importlib.metadata import requires
-from backend.models.HotelModel import Hotel, review_representation
+from backend.models.HotelModel import Hotel, review_representation, facality_representation
 from backend import db, app
 from cerberus import Validator
 from flask_restful import fields, marshal_with
@@ -29,24 +29,24 @@ hotel_schema = {
     "economy_room_rate": {"type":"integer", "required":False},
     "double_room_rate": {"type":"integer", "required":False},
     "premium_room_rate": {"type":"integer", "required":False},
-    "allow_pet_cost": {"type":"integer", "required":False},
-    "breakfast_for_people": {"type":"integer", "required":False},
-    "extra_parking_rate":{"type":"integer", "required":False},
-    "extra_pillow_rate":{"type":"integer", 'required':False},
-    "hotel_facalities":{
-        "type":"dict",
-        "required":True,
-        "schema":{
-        "breakfast":{"type":"boolean", "required":True},
-        "dinner":{"type":"boolean", "required":True},
-        "outdoor_sport":{"type":"boolean", "required":True},
-        "Berbeque":{"type":"boolean", "required":True},
-        "Living_room":{"type":"boolean", "required":True},
-        "Room_Service":{"type":"boolean", "required":True},
-        "swimming_pool":{"type":"boolean", "required":True},	
-        "Spa":{"type":"boolean", "required":True}
-        }
-    }
+    # "allow_pet_cost": {"type":"integer", "required":False},
+    # "breakfast_for_people": {"type":"integer", "required":False},
+    # "extra_parking_rate":{"type":"integer", "required":False},
+    # "extra_pillow_rate":{"type":"integer", 'required':False},
+    # "hotel_facalities":{
+    #     "type":"dict",
+    #     "required":True,
+    #     "schema":{
+    #     "breakfast":{"type":"boolean", "required":True},
+    #     "dinner":{"type":"boolean", "required":True},
+    #     "outdoor_sport":{"type":"boolean", "required":True},
+    #     "Berbeque":{"type":"boolean", "required":True},
+    #     "Living_room":{"type":"boolean", "required":True},
+    #     "Room_Service":{"type":"boolean", "required":True},
+    #     "swimming_pool":{"type":"boolean", "required":True},	
+    #     "Spa":{"type":"boolean", "required":True}
+    #     }
+    # }
 }
 
 # data representation for new hotel list
@@ -60,7 +60,7 @@ new_hotel_representation = {
     "state":fields.String,
     "country":fields.String,
     "pincode":fields.Integer,
-    "landmark":fields.Integer,
+    "landmark":fields.String,
     "address":fields.String,
     "exclusive_room_count":fields.Integer,
     "double_room_count":fields.Integer,
@@ -74,22 +74,10 @@ new_hotel_representation = {
     "double_room_rate":fields.Integer,
     "economy_room_rate":fields.Integer,
     "premium_room_rate":fields.Integer,
-    "allow_pet_cost":fields.Integer,
-    "breakfast_for_people":fields.Integer,
-    "extra_parking_rate":fields.Integer,
-    "extra_pillow_rate":fields.Integer,
-    "hotel_facilities":{
-        "breakfast":fields.Boolean,
-    "dinner":fields.Boolean,
-    "outdoor_sport":fields.Boolean,
-    "swimming_pool":fields.Boolean,
-    "Spa":fields.Boolean,
-    "Room_Service":fields.Boolean,
-    "Living_room":fields.Boolean,
-    "Berbeque":fields.Boolean
-    },
+    "hotelfacalities": fields.Nested(facality_representation),
     "available_room_types": fields.List(fields.String),
-    "rating": fields.Float
+    "rating": fields.Float,
+    "total_reviews": fields.Integer
 }
 
 # method to validate hotel details 

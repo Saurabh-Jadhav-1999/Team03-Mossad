@@ -74,3 +74,6 @@ def addHistoryByHotelId(data):
 # method to get all the history 
 def getHistory():
     return SearchHistory.query.all()
+
+
+# method to get user history

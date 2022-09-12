@@ -139,10 +139,18 @@ def getHotels():
             continue
         # print("list:",lst)
         newhotel.update({"available_room_types":lst})
-        newhotel.update({"rating":rating})
+        newhotel.update({"rating":rating[0]}) # update the response add average rating
+        newhotel.update({"total_reviews":rating[1]})
         # print(newhotel)
         availableHotelList.append(newhotel)
 
+    # print("total hotels present in city:",len(hotels))
+    # print("80 perc of avilable hotel: ", int(len(hotels)*0.8))
+    # print('total length of available hotel:', len(availableHotelList))
+    # check if available rooms are less than 20% of all avilable rooms if yes apply discount
+    if  len(availableHotelList) <= (len(hotels)-int(len(hotels)*0.8)):
+        print('must apply price increment for hotels')
+        
     return showAvailableHotels(availableHotelList), 200
 
 @app.route("/getHotelById", methods=['POST'])
@@ -155,6 +163,9 @@ def getHotelByHotelId():
         return make_response(token_result, 400) # return error if token authorization fails
     
     data = request.json
+    if data is None or "hotel_id" not in data.keys():
+        return make_response({"error":"hotel_id is missing"}, 400)
+
     data['hotel_id'] = int(data['hotel_id'])
     # validate incoming data
     validationResult = validateHistoryDataWithHotel(data)
@@ -179,7 +190,8 @@ def getHotelByHotelId():
     rating = averageRating(hotel.hotel_id)
     hotel = newDataView(hotel)
     # print(hotel)
-    hotel.update({"rating":rating}) # update the response 
+    hotel.update({"rating":rating[0]}) # update the response add average rating
+    hotel.update({"total_reviews":rating[1]})
 
     return showAvailableHotels(hotel), 200
     

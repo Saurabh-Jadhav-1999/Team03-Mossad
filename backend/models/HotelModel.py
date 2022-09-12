@@ -43,6 +43,23 @@ review_representation = {
     "owner": fields.Nested(user_representation)
 }
 
+# facality representation 
+facality_representation = {
+    "allow_pet_cost":fields.Integer,
+    "breakfast_for_person":fields.Integer,
+    "extra_parking_cost":fields.Integer,
+    "extra_pillow_cost":fields.Integer,
+    "breakfast":fields.Boolean,
+    "dinner":fields.Boolean,
+    "out_door_sport":fields.Boolean,
+    "swimming_pool":fields.Boolean,
+    "spa":fields.Boolean,
+    "room_service":fields.Boolean,
+    "living_room":fields.Boolean,
+    "barbeque":fields.Boolean,
+    "free_wifi": fields.Boolean
+}
+
 
 # create a object for hotel model data representations
 hotel_representation = {
@@ -55,7 +72,7 @@ hotel_representation = {
     "state":fields.String,
     "country":fields.String,
     "pincode":fields.Integer,
-    "landmark":fields.Integer,
+    "landmark":fields.String,
     "address":fields.String,
     "exclusive_room_count":fields.Integer,
     "double_room_count":fields.Integer,
@@ -69,20 +86,7 @@ hotel_representation = {
     "double_room_rate":fields.Integer,
     "economy_room_rate":fields.Integer,
     "premium_room_rate":fields.Integer,
-    "allow_pet_cost":fields.Integer,
-    "breakfast_for_people":fields.Integer,
-    "extra_parking_rate":fields.Integer,
-    "extra_pillow_rate":fields.Integer,
-    "hotel_facilities":{
-        "breakfast":fields.Boolean,
-    "dinner":fields.Boolean,
-    "outdoor_sport":fields.Boolean,
-    "swimming_pool":fields.Boolean,
-    "Spa":fields.Boolean,
-    "Room_Service":fields.Boolean,
-    "Living_room":fields.Boolean,
-    "Berbeque":fields.Boolean
-    }
+    "hotelfacalities": fields.Nested(facality_representation)
 }
 
 # hotel model 
@@ -110,11 +114,7 @@ class Hotel(db.Model):
     economy_room_capacity = db.Column(db.Integer, default=0)
     double_room_capacity = db.Column(db.Integer, default=0)
     premium_room_capacity = db.Column(db.Integer, default=0)
-    allow_pet_cost = db.Column(db.Integer, default = 0)
-    breakfast_for_people = db.Column(db.Integer, default=0)
-    extra_parking_rate = db.Column(db.Integer, default=0)
-    extra_pillow_rate = db.Column(db.Integer, default=0)
-    hotel_facilities = db.Column(JSON, default={})
+    hotelfacalities = db.relationship("Facality", backref="hotelfacality")
     hotelreviews = db.relationship('Review', backref="reviewed")
     hotel_booking = db.relationship('Booking', backref="hotelconcerned") #Booking
 
@@ -127,9 +127,6 @@ class Hotel(db.Model):
         self.pincode = data['pincode']
         self.address = data['address']
         self.hotel_images = data['hotel_images']
-
-        if 'hotel_facilities' in data.keys():
-            self.hotel_facilities = data['hotel_facilities']
 
         if "hotel_profile_picture" in data.keys():
             self.hotel_profile_picture = data['hotel_profile_picture']
@@ -154,18 +151,26 @@ class Hotel(db.Model):
             self.premium_room_rate = data['premium_room_rate']
             self.premium_room_capacity = data['premium_room_capacity'] 
 
-        if "allow_pet_cost" in data.keys():
-            self.allow_pet_cost = data['allow_pet_cost']
+        if "landmark" in data.keys():
+            self.landmark = data['landmark']
 
-        if "breakfast_for_people" in data.keys():
-            self.breakfast_for_people = data['breakfast_for_people']
-
-        if "extra_parking_rate" in data.keys():
-            self.extra_parking_rate = data['extra_parking_rate']
-
-        if "extra_pillow_rate" in data.keys():
-            self.extra_pillow_rate = data['extra_pillow_rate']
-
+# facility model for hotel
+class Facality(db.Model):
+    hotel = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
+    facality_id = db.Column(db.Integer, primary_key=True)
+    breakfast = db.Column(db.Boolean, default = False)
+    dinner = db.Column(db.Boolean, default = False)
+    out_door_sport = db.Column(db.Boolean, default = False)
+    swimming_pool = db.Column(db.Boolean, default = False)
+    spa = db.Column(db.Boolean, default = False)
+    room_service = db.Column(db.Boolean, default = False)
+    living_room = db.Column(db.Boolean, default = False)
+    barbeque = db.Column(db.Boolean, default = False)
+    allow_pet_cost = db.Column(db.Float, nullable = False)
+    breakfast_for_person = db.Column(db.Integer, nullable=False)
+    extra_parking_cost = db.Column(db.Float, nullable=False)
+    extra_pillow_cost = db.Column(db.Integer, nullable=False)
+    free_wifi = db.Column(db.Boolean, default = False)
 
 
 # review model with many table for user and hotel 
