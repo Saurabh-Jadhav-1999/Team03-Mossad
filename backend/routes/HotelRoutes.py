@@ -138,7 +138,9 @@ def getHotels():
             continue
         # print("list:",lst)
         newhotel.update({"available_room_types":lst})
-        newhotel.update({"rating":rating})
+        newhotel.update({"rating":rating[0]}) #adding rating to hotel
+        newhotel.update({"total_reviews":rating[1]}) # adding total reviews for hotel
+
         # print(newhotel)
         availableHotelList.append(newhotel)
 
