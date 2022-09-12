@@ -19,21 +19,40 @@ import {
   fetchHotelDetails,
 } from "../../slices/getHotelDetailsSlice";
 const Facility = (props) => {
-  let navigate = useNavigate(); 
-  const routeChange = () =>{ 
-    let path = `/hotel-details`; 
+  let navigate = useNavigate();
+  const routeChange = () => {
+    let path = `/hotel-details`;
     navigate(path);
-  }
+  };
 
-  const [idd,setIdd]=useState();  // function navi(path) {
+  const bookNowHandler = async(callbackFunc) => {
+    await setIdd(props.details.hotel_id);
+    await dispatch(setHotelId(idd));
+    await dispatch(setCityName(props.details.city));
+    // dispatch(fetchHotelDetails({ idd, city_name }));
+    // var data=hotellist.hasOwnProperty(`hotel_id:${idd}`);
+    await callbackFunc();
+  };
+
+  const bookNowBtnHandler = async() => {
+    var data = hotellist.filter((val) => {
+      if (val.hotel_id === idd) return val;
+    });
+    console.log(data, "filter useSelector hotellist from facility");
+  };
+
+  const [idd, setIdd] = useState(); // function navi(path) {
   //   navigate("/DetailList");
   // }
   // console.log(props.details,"props from facility");
   const hId = useSelector((state) => state.getHotelDetails.hotel_id);
 
   const city_name = useSelector((state) => state.getHotelDetails.city_name);
-  console.log(hId, "useSelector hid");
-  console.log(city_name, "useSelector city_name");
+
+  const hotellist = useSelector((state) => state.search.hotellist);
+  // console.log(hotellist,"hotellist useselector without filter");
+  // console.log(hId, "useSelector hid");
+  // console.log(city_name, "useSelector city_name");
   const dispatch = useDispatch();
   return (
     <Box className={styles.facilityDiv}>
@@ -58,7 +77,7 @@ const Facility = (props) => {
             </Typography>
             <Typography className={styles.iconDiv}>
               <LanguageOutlinedIcon className={styles.icon} />
-              Visite Hotel Website
+              Visit Hotel Website
             </Typography>
             <Typography className={styles.iconDiv}>
               <SubjectOutlinedIcon className={styles.icon} />
@@ -78,20 +97,17 @@ const Facility = (props) => {
           </Button>
           {/* {console.log(props.details.hotel_id,"hotel id from button");
               console.log(props.details.city_name,"city name from button")} */}
-          <Link
-            to="/hotel-details"
+          <Button
+            // to="/hotel-details"
             className={styles.btnBook}
             onClick={() => {
               // let hid
-              setIdd(props.details.hotel_id);
-              dispatch(setHotelId(idd));
-              dispatch(setCityName(props.details.city));
-              dispatch(fetchHotelDetails({ idd, city_name }));
+              bookNowHandler(bookNowBtnHandler);
               // routeChange();
             }}
           >
             Book Now
-          </Link>
+          </Button>
           {/* <Link to="/" className={styles.btnBook}>Book Now</Link> */}
         </Grid>
       </Stack>
