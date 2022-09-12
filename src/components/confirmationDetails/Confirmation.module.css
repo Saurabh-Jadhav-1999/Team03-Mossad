@@ -27,7 +27,8 @@
 .typo3 {
   font-weight: bold !important;
   display: flex !important;
-  justify-content: inline !important;
+  justify-content: center;
+  /* justify-content: inline !important; */
 }
 .typo5 {
   font-size: 20px;
@@ -197,4 +198,8 @@
   justify-content: inline;
   margin-top: 3vh;
   margin-left: 2%;
+}
+.starimg{
+  width:16% !important;
+  /* height: 2%; */
 }

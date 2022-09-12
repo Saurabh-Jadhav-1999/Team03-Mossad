@@ -6,17 +6,13 @@ import { HotelsListPage } from "./pages/HotelsListPage";
 import { Footer } from "./components/footer/Footer";
 import { BookingConfirmationDetailsPage } from "./pages/BookingConfirmationDetailsPage";
 import { HotelDetailsPage } from "./pages/HotelDetailsPage";
-import { getData } from './components/services/useAxios'
-import Breadcrumb from "./components/breadcrumb/Breadcrumb";
 
 export const App = () => {
-
 
   return (
     <>
       <Router>
         <NavBar />
-        <Breadcrumb />
         <Routes>
           <Route exact path="/" element={<LandingPage name="Home" />} />
           <Route exact path="/search-hotels" element={<HotelsListPage name="HotelList" />} />
@@ -33,10 +29,7 @@ export const App = () => {
               </div>
             }
           />
-
         </Routes>
-        {/* <Breadcrumb /> */}
-
         <Footer />
       </Router>
 

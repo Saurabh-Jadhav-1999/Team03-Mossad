@@ -2,7 +2,6 @@ import { Stack, Grid, Paper, Box, Typography, Select, FormControl, MenuItem, Inp
 import styles from "./BookingOptions.module.css"
 import Button from "@mui/material/Button"
 import { BookingDatePickers } from "./BookingDatePickers"
-import { useState } from "react";
 
 const features = [
     {
@@ -52,18 +51,6 @@ export const BookingOptions = () => {
                 </Grid>
                 <hr className={styles.divider} />
                 <Grid item xs={12}>
-                    {/* <Grid container direction={'column'} className={styles.datePicker} justifyContent="space-between">
-                        <Grid item className={styles.labelRoomPricePerNight}>Check-In
-                            <Box>
-                                <BookingDatePickers className={styles.datePicker} />
-                            </Box>
-                        </Grid>
-                        <Grid item className={styles.labelRoomPricePerNight}>Check-Out
-                            <Box>
-                                <BookingDatePickers className={styles.datePicker} />
-                            </Box>
-                        </Grid>
-                    </Grid> */}
                     <Stack direction={'row'} justifyContent={"space-between"}>
                         <Box className={styles.datePicker}>
                             <Box className={styles.labelRoomPricePerNight} sx={{ marginBottom: '5px' }}>Check-In</Box>

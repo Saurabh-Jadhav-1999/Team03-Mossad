@@ -1,6 +1,7 @@
-.searchBtn{
-    min-height: 6vh;
-    max-width: 10vw;
-    background: #3C71FF !important;
-    border-radius: 9px !important;
-  }
+.searchBtn {
+  min-height: 6vh;
+  max-width: 10vw;
+  background: #3C71FF !important;
+  border-radius: 9px !important;
+  text-transform: none !important;
+}

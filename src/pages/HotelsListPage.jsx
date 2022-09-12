@@ -1,9 +1,37 @@
+import Breadcrumb from "../components/breadcrumb/Breadcrumb"
 import { HotelSearchList } from "../components/hotelSearchList/HotelSearchList"
 import { SearchBar } from "../components/searchBar/SearchBar"
+import { Link } from "react-router-dom"
+
 export const HotelsListPage = () => {
+
+  const breadcrumbs = [
+    <Link
+      underline="hover"
+      to="/"
+      key="1"
+      color="inherit"
+      href="/"
+      style={{ textDecoration: 'none', color: "grey" }}
+    >
+      Home
+    </Link>,
+    <Link
+      to="/search-hotels"
+      underline="hover"
+      key="2"
+      color="inherit"
+      href="/search-hotels"
+      // onClick={()=> navigate('HotelList')}
+      style={{ textDecoration: 'none', color: "black" }}
+    >
+      Hotel List
+    </Link>
+  ];
   return (
     <>
-      <SearchBar/>
+      <Breadcrumb links={breadcrumbs} />
+      <SearchBar />
       <HotelSearchList />
     </>
   )

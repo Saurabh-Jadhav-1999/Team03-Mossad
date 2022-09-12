@@ -1,37 +1,62 @@
 import React, { Fragment } from "react";
 import styles from "./Confirmation.module.css";
-import {
-  Box,
-  Typography,
-  Grid,
-  Button,
-} from "@mui/material";
+import { Box, Typography, Grid, Button, Breadcrumbs } from "@mui/material";
 // import "./confirmation.css";
 import star from "../../assets/images/HotelRatingIcon.png";
 import confirmation from "../../assets/images/SuccessfullBookingHotelImage.png";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
-
+import { Link,Navigate } from "react-router-dom";
 const Confirmation = (props) => {
-  // function handleClick(event) {
-  //   event.preventDefault();
-  //   console.info("You clicked a breadcrumb.");
-  // }
-
-  // const breadcrumb = [
-  //   <Link
-  //     underline="hover"
-  //     key="1"
-  //     color="inherit"
-  //     href="/"
-  //     onClick={handleClick}
-  //   >
-  //     Home
-  //   </Link>,
-  // ];
+  function navigate(path) {
+    Navigate(path);
+  }
+  const breadcrumbs = [
+    <Link
+      underline="hover"
+      to="/"
+      key="1"
+      color="inherit"
+      href="/"
+      style={{ textDecoration: "none", color: "grey" }}
+    >
+      Home
+    </Link>,
+    <Link
+      to="/search-hotels"
+      underline="hover"
+      key="2"
+      color="inherit"
+      href="/search-hotels"
+      onClick={() => navigate("HotelList")}
+      style={{ textDecoration: "none", color: "grey" }}
+    >
+      Hotel List
+    </Link>,
+    <Link
+      to="/hotel-details"
+      underline="hover"
+      key="3"
+      color="inherit"
+      href="/search-hotels"
+      style={{ textDecoration: "none", color: "grey" }}
+    >
+      Hotel Details
+    </Link>,
+    <Link
+      to="/booking-confirmation"
+      underline="hover"
+      key="4"
+      color="inherit"
+      href="/search-hotels"
+      style={{ textDecoration: "none", color: "black" }}
+    >
+      Congratulations
+    </Link>,
+  ];
   return (
     <Fragment>
       <div className={`${styles.container}`}>
-        {/* <Breadcrumb /> */}
+        <Breadcrumb links={breadcrumbs} />
         <div className={`${styles.div1}`}>
           <Typography variant="h5" className={`${styles.typo1}`}>
             Congratulations!
@@ -54,7 +79,8 @@ const Confirmation = (props) => {
             fontSize="13px"
             className={`${styles.typo3}`}
           >
-            <img src={star} alt=''/>&nbsp;&nbsp;
+            <img src={star} alt="" className={`${styles.starimg}`} />
+            &nbsp;&nbsp;
             {props.details.rating}
             <div className={`${styles.div3}`}>
               {" "}
@@ -90,23 +116,20 @@ const Confirmation = (props) => {
                     </div>
                   </Box>
                 </Grid>
-                <Grid item  className={`${styles.griditem1}`}>
+                <Grid item className={`${styles.griditem1}`}>
                   <div className={`${styles.div9}`}>
                     <div className={`${styles.box3}`}>
                       <div className={`${styles.box4}`}>
                         {" "}
                         <div className={`${styles.div10}`}>
-                        Reserve details
+                          Reserve details
                           <Typography
                             variant="h5"
                             className={`${styles.typo4}`}
-                          >
-                           
-                          </Typography>
+                          ></Typography>
                         </div>
                       </div>
                       <div className={`${styles.div11}`}>
-                   
                         <div className={`${styles.div12}`}>
                           <Box>Booking code</Box>
                           <Box>Date</Box>
@@ -128,12 +151,12 @@ const Confirmation = (props) => {
             <Grid item xs={12} lg={8}>
               {" "}
               <div className={`${styles.div14}`}>
-                <img src={confirmation} height="510px" width="750px" alt=''/>
+                <img src={confirmation} height="510px" width="750px" alt="" />
               </div>
             </Grid>
           </div>
         </div>
-        <Button variant="contained" className={`${styles.button1}`}>
+        <Button variant="contained" className={`${styles.button1}`} href="/">
           Back to Home Page
         </Button>{" "}
       </div>

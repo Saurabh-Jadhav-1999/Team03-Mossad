@@ -1,13 +1,19 @@
 .dateInp {
     background: #F0F1F2 !important;
     border: "1px solid #CAC8C8";
-    width: 15vw;
+    width: 10vw;
+    /* display: flex !important;
+    justify-content: center; */
   }
   .arrow{
+    /* border: 2px black solid; */
     border-radius: 100%;
-    max-height: 5%;
-    max-width: 5%;
+    max-height: 8%;
+    max-width: 8%;
+    margin-left: -1.5%;
+    margin-right:-1.5% ;
     position: relative;  
     background: #FFFFFF; 
+    align-self: center;
     /* padding: 5%; */
 }

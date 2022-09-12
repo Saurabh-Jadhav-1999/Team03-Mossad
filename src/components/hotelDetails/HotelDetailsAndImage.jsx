@@ -7,49 +7,14 @@ import styles from "./HotelDetailsAndImage.module.css";
 import ImageGrid from "../imageGrid/ImageGrid";
 
 export const HotelDetailsAndImage = (props) => {
-  // function handleClick(event) {
-  //   event.preventDefault();
-  //   console.info("You clicked a breadcrumb.");
-  // }
-  // const breadcrumbs = [
-  //   <Link
-  //     underline="hover"
-  //     key="1"
-  //     color="inherit"
-  //     href="/ḥotellist"
-  //     onClick={handleClick}
-  //   >
-  //     Home
-  //   </Link>,
-  //   <Link
-  //     underline="hover"
-  //     key="2"
-  //     color="inherit"
-  //     href="/ḥotellist"
-  //     onClick={handleClick}
-  //   >
-  //     Home
-  //   </Link>,
-  // ];
-  // const images = [
-  //   "https://cdn.pixabay.com/photo/2012/11/21/10/24/building-66789_1280.jpg",
-  //   "https://cdn.pixabay.com/photo/2016/03/28/09/34/bedroom-1285156_1280.jpg",
-  //   "https://cdn.pixabay.com/photo/2019/05/28/00/15/indoors-4234071_1280.jpg",
-  //   "https://cdn.pixabay.com/photo/2021/02/03/00/10/receptionists-5975962_1280.jpg",
-  // ];
-  // const fstyle = {
-
-  //   borderRadius: "50px"
-
-  // }
-
+  
   return (
     <Fragment>
       <div>
         {/* <Breadcrumb /> */}
         <Box className={`${styles.box4}`}>
           <Typography variant="h4" className={`${styles.typo1}`}>
-            {props.details.name}
+            {props.details.hotel_name}
           </Typography>
           <Box className={`${styles.box1}`}>
             <Box>
@@ -62,7 +27,7 @@ export const HotelDetailsAndImage = (props) => {
                 {props.details.rating}
                 <div className={`${styles.div1}`}>
                   {" "}
-                  ({props.details.reviews} reviews)
+                  ({props.details.reviews}reviews)
                 </div>
               </Typography>
             </Box>
@@ -70,7 +35,7 @@ export const HotelDetailsAndImage = (props) => {
             <div className={`${styles.box2}`}>
               <LocationOnOutlinedIcon style={{ marginRight: "10px" }} />
               <Typography variant="body2" className={`${styles.typo3}`}>
-                Beach Road,Kovalam 695527 India
+                {props.details.city}
               </Typography>
             </div>
           </Box>
@@ -94,6 +59,10 @@ export const HotelDetailsAndImage = (props) => {
               readOnly
             />
           </div>
+        </Box>
+        <Box className={`${styles.roomTypeHeading}`}>
+          <Typography variant="h5" style={{fontWeight:"bold"}}>Exclusive room in house</Typography>
+          <Typography variant="h6" style={{fontWeight:"bold",color:"grey"}}>Kovalam,Kerala</Typography>
         </Box>
       </div>
     </Fragment>

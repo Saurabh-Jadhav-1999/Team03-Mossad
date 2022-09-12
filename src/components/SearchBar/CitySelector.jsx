@@ -1,20 +1,40 @@
 import { Autocomplete, TextField } from "@mui/material";
-import React from "react";
-import style from './CitySelector.module.css'
-
-const cities = [{ name: "Pune" }, { name: "Mumbai" }, { name: "Jaipur" }];
+import { React} from "react";
+import styles from "./CitySelector.module.css";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchCityList} from "./../../slices/searchSlice";
 
 function CitySelector() {
+  const dispatch = useDispatch();
+
+  const citylist = useSelector((state) => state.search.citylist)
+  
   return (
     <>
+
       <Autocomplete
-      className={style.selectInp}
+        className={styles.selectInp}
         id="city"
         freeSolo
-        options={cities.map((option) => option.name)}
-        renderInput={(params) => <TextField {...params} label="Location" placeholder="Where do you want to go?"/>}
-      />
+        options={
+          citylist.map((option) => option)
+        }
+        renderInput={(params) => (
+          <TextField
+            className={styles.txtfld1}
+            {...params}
+            label="Location"
+            placeholder="Where do you want to go?"
+            onChange={(e) => {
+              // dispatch(setLocation({ location: e.target.value }));
+              //  console.log(e.target.value,"clg from fetchcitylist dispatch")
+              dispatch(fetchCityList(e.target.value));
+              // .then((e)=> console.log(location,"from slice loaction"));
 
+            }}
+          />
+        )}
+      />
     </>
   );
 }
