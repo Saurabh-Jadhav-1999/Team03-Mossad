@@ -128,6 +128,7 @@ def getHotels():
 
     availableHotelList = []
 
+
     # get one hotel at time and then check availability
     for x in hotels:
         # mayuriLogic(data['check_in_date'], data['check_out_date'],x.hotel_id)
@@ -154,7 +155,7 @@ def getHotelByHotelId():
         return make_response(token_result, 400) # return error if token authorization fails
     
     data = request.json
-
+    data['hotel_id'] = int(data['hotel_id'])
     # validate incoming data
     validationResult = validateHistoryDataWithHotel(data)
     if validationResult.errors:
