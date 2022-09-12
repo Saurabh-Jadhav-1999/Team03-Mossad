@@ -1,31 +1,3 @@
-<<<<<<< HEAD
-
-
-
-from backend import db, app  
-import backend.models.HotelModel
-from sqlalchemy import desc
-
-from backend.models.HotelModel import SearchHistory,Hotel,Review
-from backend.models.HotelModel import SearchHistory
-from backend.services.UserServices import getPerticularUser
-from backend.services.HotelServices import getPerticularHotelById
-from cerberus import Validator
-import datetime
-from datetime import date
-from sqlalchemy import func, or_, and_
-
-# method to validate input data for history table
-def validateHistoryData(data):
-    historySchema = {
-        #"searchHistory_id": {"type":"integer", "required":True},
-        # "ip": {"type":"string", "required":True},
-        "location": {"type":"string", "required":True},
-       # "search_date": {"type":"datetime", "required":True},
-      #  "number_times": {"type":"integer", "required":True},
-        "user_id": {"type":"integer", "required":True},
-     #   "hotel_id": {"type":"integer", "required":True}
-=======
 from operator import and_
 from cerberus import Validator
 from backend.models.HotelModel import SearchHistory
@@ -45,7 +17,6 @@ def validateHistoryData(data):
     historySchema = {
         "location": {"type":"string", "required":True},
         "user_id": {"type":"integer", "required":True},
->>>>>>> 82866e4e90e4de7f8ecd2a669953b4b1bd649e05
     }
 
     historyValidator = Validator(historySchema)
@@ -53,21 +24,6 @@ def validateHistoryData(data):
     result = historyValidator.validate(data)
     return historyValidator
 
-<<<<<<< HEAD
-# add new history in history model
-def addHistory(data):
-   
-    row1 = db.session.query(SearchHistory).filter(and_(SearchHistory.user_id == data['user_id'], SearchHistory.location == data['location'],SearchHistory.hotel_id==None)).first()
-
-    if row1 is not None:
-        row1.number_times=row1.number_times+1
-        row1.search_date=datetime.datetime.utcnow()
-        db.session.commit()
-        return row1
-         
-    else:
-        
-=======
 # validation for building user history based on location and hotel_id
 def validateHistoryDataWithHotel(data):
     history_Schema = {
@@ -92,16 +48,11 @@ def addHistory(data):
         db.session.commit()
         return row1
     else:
->>>>>>> 82866e4e90e4de7f8ecd2a669953b4b1bd649e05
         searchHistory = SearchHistory(location=data['location'],search_date=datetime.datetime.utcnow(),number_times=1,user_id=data['user_id'])  
         db.session.add(searchHistory)
         db.session.commit()
         return searchHistory
 
-<<<<<<< HEAD
-
-
-=======
 # method to add user history by hotel_id, location, user_id
 def addHistoryByHotelId(data):
         # check if user have already history with given details
@@ -119,17 +70,10 @@ def addHistoryByHotelId(data):
         db.session.add(newHistory)
         newHistory = db.session.commit()
         return showSearchHistoryDataWithHotel(newHistory)
->>>>>>> 82866e4e90e4de7f8ecd2a669953b4b1bd649e05
 
 # method to get all the history 
 def getHistory():
     return SearchHistory.query.all()
-<<<<<<< HEAD
-    
-
-
-=======
 
 
 # method to get user history
->>>>>>> 82866e4e90e4de7f8ecd2a669953b4b1bd649e05
