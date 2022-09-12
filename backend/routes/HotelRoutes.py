@@ -4,10 +4,14 @@ from flask import abort, request, make_response
 from backend.models.HotelModel import User, Hotel, hotel_representation, review_representation
 from backend.models.UserModel import user_representation
 from backend import db, app
-from backend.services.HotelServices import validateHotelData, addNewHotel, getAllHotels, validateCityName, getCitiesByName, validateGetHotels, getHotelsByCityName
+from backend.services.HotelServices import validateHotelData, addNewHotel, getAllHotels, validateCityName, getCitiesByName, validateGetHotels, getHotelsByCityName, showAvailableHotels, getPerticularHotelById
 from backend.services.BookingServices import checkHotelAvailability, mayuriLogic
+from backend.services.ReviewServices import averageRating
+from backend.services.HistoryServices import addHistoryByHotelId
 from backend.models.HotelModel import hotel_representation
 import datetime
+from backend.auth.authToken import token_required
+from backend.services.HistoryServices import validateHistoryData, validateHistoryDataWithHotel
 
 
 # app.route("/hotel", methods=['POST'])
@@ -42,61 +46,44 @@ class HotelHandler(Resource):
     
 # method to get city list
 city_representation = {
-    "city":fields.String
+    "cities":fields.List(fields.String)
 }
 
 @marshal_with(city_representation)
 @app.route("/getCityList", methods=["GET"])
 def getCityList():
-    print('hii:',request.json)
+     # token validtion code 
+    token_result = token_required(request)
+    if  isinstance(token_result, dict)  and "error" in token_result.keys():
+        print('error found')
+        return make_response(token_result, 400)
     validationResult = validateCityName(request.json)
     if validationResult.errors:
         return make_response(validationResult.errors, 400)
 
     return make_response(getCitiesByName(request.json['city_name']),200)
     
-# data representation for new hotel list
-new_hotel_representation = {
-    "hotel_id":fields.Integer,
-    "hotel_name":fields.String,
-    "description":fields.String,
-    "hotel_profile_picture": fields.String,
-    "hotel_images":fields.List(fields.String),
-    "city":fields.String,
-    "state":fields.String,
-    "country":fields.String,
-    "pincode":fields.Integer,
-    "landmark":fields.Integer,
-    "address":fields.String,
-    "exclusive_room_count":fields.Integer,
-    "double_room_count":fields.Integer,
-    "economy_room_count":fields.Integer,
-    "premium_room_count":fields.Integer,
-    "exclusive_room_capacity":fields.Integer,
-    "double_room_capacity":fields.Integer,
-    "economy_room_capacity":fields.Integer,
-    "premium_room_capacity":fields.Integer,
-    "exclusive_room_rate":fields.Integer,
-    "double_room_rate":fields.Integer,
-    "economy_room_rate":fields.Integer,
-    "premium_room_rate":fields.Integer,
-    "allow_pet_cost":fields.Integer,
-    "breakfast_for_people":fields.Integer,
-    "extra_parking_rate":fields.Integer,
-    "extra_pillow_rate":fields.Integer,
-    "hotel_facilities":{
-        "breakfast":fields.Boolean,
-    "dinner":fields.Boolean,
-    "outdoor_sport":fields.Boolean,
-    "swimming_pool":fields.Boolean,
-    "Spa":fields.Boolean,
-    "Room_Service":fields.Boolean,
-    "Living_room":fields.Boolean,
-    "Berbeque":fields.Boolean
-    },
-    "available_room_types": fields.List(fields.String),
-    "hotelreviews": fields.Nested(review_representation)
-}
+@marshal_with(city_representation)
+def showCityList(data):
+    return data
+
+@app.route("/getCityList", methods=["POST"])
+def getCityListByPost():
+    # token validtion code 
+    token_result = token_required(request)
+    if  isinstance(token_result, dict)  and "error" in token_result.keys():
+        print('error found')
+        return make_response(token_result, 400)
+
+    # validate incoming data
+    validationResult = validateCityName(request.json)
+    if validationResult.errors:
+        return make_response(validationResult.errors, 400)
+
+    # get list of cities starting from character provided
+    cityListData = getCitiesByName(request.json['city_name'])
+    # print('before returning data:',cityListData)
+    return make_response({"cities":cityListData},200)
 
 # method to show hotel data in hotel_representation format
 @marshal_with(hotel_representation)
@@ -104,40 +91,108 @@ def newDataView(data):
     return data
 
 
-@app.route("/getHotel", methods=["GET"])
-@marshal_with(new_hotel_representation)
+@app.route("/getHotel", methods=["GET", "POST"])
 def getHotels():
+    # token validtion code 
+    token_result = token_required(request)
+    if  isinstance(token_result, dict)  and "error" in token_result.keys():
+        print('error found')
+        return make_response(token_result, 400)
+
     data = request.json
     print(data)
+
+    # check if check_in_date and check_out_date is present
     if "check_in_date" not in data.keys() or  "check_out_date" not in data.keys():
         return {"error": "check_in_date or check_out_date is missing"}, 400
     data['check_in_date'] = datetime.datetime.strptime(data['check_in_date'], "%Y-%m-%d")
     data['check_out_date'] = datetime.datetime.strptime(data['check_out_date'], "%Y-%m-%d")
+
+    # check_in_date, check_out_date validation
+    if data['check_out_date'] < data['check_in_date']:
+        return {"error": "invalid check_in, check_out date"}, 400
     
-    validationResult = validateGetHotels(data)
+    validationResult = validateGetHotels(data) # validate all other fields
 
     if validationResult.errors:
-        return make_response(validationResult.errors, 400)
+        return make_response(validationResult.errors, 400) # return validation errors if any
 
     print(validationResult.document)
+
     # get the list of hotels present in particular city
     hotels = getHotelsByCityName(data['city_name'])
-   
-    availableHotelList = []
 
+    # return error if city_name was incorrect
+    if len(hotels) == 0:
+        return make_response({"error":"No hotels available for given city"}, 400)
+
+    availableHotelList = []
 
 
     # get one hotel at time and then check availability
     for x in hotels:
         # mayuriLogic(data['check_in_date'], data['check_out_date'],x.hotel_id)
         newhotel = newDataView(x)
-        lst = checkHotelAvailability(x.hotel_id, data['check_in_date'], data['check_out_date'], data['adult_count'], data['child_count'])
+        rating = averageRating(x.hotel_id)
+        lst = checkHotelAvailability(x.hotel_id, x,  data['check_in_date'], data['check_out_date'], data['adult_count'], data['child_count'])
         if len(lst) == 0:
             continue
-        print("list:",lst)
+        # print("list:",lst)
         newhotel.update({"available_room_types":lst})
+        newhotel.update({"rating":rating[0]}) # update the response add average rating
+        newhotel.update({"total_reviews":rating[1]})
         # print(newhotel)
         availableHotelList.append(newhotel)
 
+    # print("total hotels present in city:",len(hotels))
+    # print("80 perc of avilable hotel: ", int(len(hotels)*0.8))
+    # print('total length of available hotel:', len(availableHotelList))
+    # check if available rooms are less than 20% of all avilable rooms if yes apply discount
+    if  len(availableHotelList) <= (len(hotels)-int(len(hotels)*0.8)):
+        print('must apply price increment for hotels')
+        
+    return showAvailableHotels(availableHotelList), 200
 
-    return availableHotelList, 200
+@app.route("/getHotelById", methods=['POST'])
+def getHotelByHotelId():
+     # token validtion code 
+    token_result = token_required(request)
+    print(token_result)
+    if  isinstance(token_result, dict)  and "error" in token_result.keys():
+        print('error found')
+        return make_response(token_result, 400) # return error if token authorization fails
+    
+    data = request.json
+    if data is None or "hotel_id" not in data.keys():
+        return make_response({"error":"hotel_id is missing"}, 400)
+
+    data['hotel_id'] = int(data['hotel_id'])
+    # validate incoming data
+    validationResult = validateHistoryDataWithHotel(data)
+    if validationResult.errors:
+        return make_response({"errors":validationResult.errors}, 400)
+
+    # get particular hotel by id
+    hotel = getPerticularHotelById(data['hotel_id'])
+
+    # error occured while getting hotel
+    if isinstance(hotel, dict) and "error" in hotel.keys():
+        return make_response(hotel, 400)
+
+    # if hotel not present with given id
+    if not hotel:
+        return make_response({"error": "invalid hotel id!"}, 400)
+
+    # build the user history
+    user_history = addHistoryByHotelId(data)
+
+    # add average rating to hotel
+    rating = averageRating(hotel.hotel_id)
+    hotel = newDataView(hotel)
+    # print(hotel)
+    hotel.update({"rating":rating[0]}) # update the response add average rating
+    hotel.update({"total_reviews":rating[1]})
+
+    return showAvailableHotels(hotel), 200
+    
+

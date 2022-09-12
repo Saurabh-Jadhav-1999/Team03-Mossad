@@ -1,9 +1,9 @@
 from dataclasses import field
 from importlib.metadata import requires
-from backend.models.HotelModel import Hotel
+from backend.models.HotelModel import Hotel, review_representation, facality_representation
 from backend import db, app
 from cerberus import Validator
-from flask_restful import fields
+from flask_restful import fields, marshal_with
 
 # validation schema for hotel 
 hotel_schema = {
@@ -29,24 +29,55 @@ hotel_schema = {
     "economy_room_rate": {"type":"integer", "required":False},
     "double_room_rate": {"type":"integer", "required":False},
     "premium_room_rate": {"type":"integer", "required":False},
-    "allow_pet_cost": {"type":"integer", "required":False},
-    "breakfast_for_people": {"type":"integer", "required":False},
-    "extra_parking_rate":{"type":"integer", "required":False},
-    "extra_pillow_rate":{"type":"integer", 'required':False},
-    "hotel_facalities":{
-        "type":"dict",
-        "required":True,
-        "schema":{
-        "breakfast":{"type":"boolean", "required":True},
-        "dinner":{"type":"boolean", "required":True},
-        "outdoor_sport":{"type":"boolean", "required":True},
-        "Berbeque":{"type":"boolean", "required":True},
-        "Living_room":{"type":"boolean", "required":True},
-        "Room_Service":{"type":"boolean", "required":True},
-        "swimming_pool":{"type":"boolean", "required":True},	
-        "Spa":{"type":"boolean", "required":True}
-        }
-    }
+    # "allow_pet_cost": {"type":"integer", "required":False},
+    # "breakfast_for_people": {"type":"integer", "required":False},
+    # "extra_parking_rate":{"type":"integer", "required":False},
+    # "extra_pillow_rate":{"type":"integer", 'required':False},
+    # "hotel_facalities":{
+    #     "type":"dict",
+    #     "required":True,
+    #     "schema":{
+    #     "breakfast":{"type":"boolean", "required":True},
+    #     "dinner":{"type":"boolean", "required":True},
+    #     "outdoor_sport":{"type":"boolean", "required":True},
+    #     "Berbeque":{"type":"boolean", "required":True},
+    #     "Living_room":{"type":"boolean", "required":True},
+    #     "Room_Service":{"type":"boolean", "required":True},
+    #     "swimming_pool":{"type":"boolean", "required":True},	
+    #     "Spa":{"type":"boolean", "required":True}
+    #     }
+    # }
+}
+
+# data representation for new hotel list
+new_hotel_representation = {
+    "hotel_id":fields.Integer,
+    "hotel_name":fields.String,
+    "description":fields.String,
+    "hotel_profile_picture": fields.String,
+    "hotel_images":fields.List(fields.String),
+    "city":fields.String,
+    "state":fields.String,
+    "country":fields.String,
+    "pincode":fields.Integer,
+    "landmark":fields.String,
+    "address":fields.String,
+    "exclusive_room_count":fields.Integer,
+    "double_room_count":fields.Integer,
+    "economy_room_count":fields.Integer,
+    "premium_room_count":fields.Integer,
+    "exclusive_room_capacity":fields.Integer,
+    "double_room_capacity":fields.Integer,
+    "economy_room_capacity":fields.Integer,
+    "premium_room_capacity":fields.Integer,
+    "exclusive_room_rate":fields.Integer,
+    "double_room_rate":fields.Integer,
+    "economy_room_rate":fields.Integer,
+    "premium_room_rate":fields.Integer,
+    "hotelfacalities": fields.Nested(facality_representation),
+    "available_room_types": fields.List(fields.String),
+    "rating": fields.Float,
+    "total_reviews": fields.Integer
 }
 
 # method to validate hotel details 
@@ -76,20 +107,21 @@ def getPerticularHotelById(id):
     try:
         return Hotel.query.filter_by(hotel_id=id).first()
     except Exception as e:
-        return {"error:e"}
+        return {"error":e}
     
 # method to validate city name
 def validateCityName(cityname):
     city_schema = {
-    "city_name": {"type":"string","required":True, "minlength":1},
+    "city_name": {"type":"string","required":True, "minlength":1}
     }
     print("Data in validateCityData:",cityname)
     cityValidator = Validator(city_schema)
+    cityValidator.allow_unknown = True
     r = cityValidator.validate(cityname)
     return cityValidator
 
 
-
+# method to get city names starting from characters
 def getCitiesByName(city_name):
     print("cityname in getCitiesByName:",city_name)
     result = db.session.query(Hotel.city).filter(Hotel.city.ilike(f"{city_name}%")).distinct().all()
@@ -98,6 +130,7 @@ def getCitiesByName(city_name):
     print(cityList)
     return cityList
 
+# method to validate incoming data for 
 def validateGetHotels(data):
     validate_schema = {
         "city_name":{"type":"string", "required":True},
@@ -108,10 +141,16 @@ def validateGetHotels(data):
 
     }
     validator = Validator(validate_schema)
+    validator.allow_unknown = True
     result = validator.validate(data)
     return validator
 
+# method to get all the hotels from particular city
 def getHotelsByCityName(city_name):
     print("city name in:",city_name)
     return Hotel.query.filter_by(city=city_name).all()
-    
+
+# method to show all available hotels matching search criteria in marshel_with format 
+@marshal_with(new_hotel_representation)
+def showAvailableHotels(data):
+    return data

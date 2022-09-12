@@ -8,8 +8,8 @@ from flask_cors import CORS
 
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://efcdpwyl:R05Qw_8OiIW0hG_um1xr4blSG4-ar0Bx@rosie.db.elephantsql.com/efcdpwyl"
-# app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://lccftkvn:iOCW9BYtnRqQakPSMfenW79jR5jvGd7l@rosie.db.elephantsql.com/lccftkvn"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://efcdpwyl:R05Qw_8OiIW0hG_um1xr4blSG4-ar0Bx@rosie.db.elephantsql.com/efcdpwyl"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://lccftkvn:iOCW9BYtnRqQakPSMfenW79jR5jvGd7l@rosie.db.elephantsql.com/lccftkvn"
 
 # allow origins
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -30,11 +30,12 @@ try:
     from backend.routes.BookingRoutes import HandleBooking
     from backend.routes.HistoryRoutes import HandleHistory
     from backend.routes.showTopHistoryRoute import HandleHistoryTop
+    from backend.routes.FacalityRoute import HandleFacality
 
     from backend.models.HotelModel import User, Hotel, Review,SearchHistory
 
     # db.drop_all()
-    db.create_all()
+    # db.create_all()
     # db.session.query(Review).delete()
 
     api.add_resource(UserHandler, "/user")
@@ -43,6 +44,12 @@ try:
     api.add_resource(HandleBooking, "/booking")
     api.add_resource(HandleHistory,"/history")
     api.add_resource(HandleHistoryTop,"/showTopHistory")
+    api.add_resource(UserHandler, "/user")  # route for handling user
+    api.add_resource(HotelHandler, "/hotel") # route for handling hotel
+    api.add_resource(HandleReview, "/review") # route for handling review
+    api.add_resource(HandleBooking, "/booking") # route for handling booking
+    api.add_resource(HandleHistory,"/history") # route for handling user's search history
+    api.add_resource(HandleFacality, "/facality") # route for adding facalities to particular hotel
     print('done with creating routes!')
 except Exception as e:
     print(e)

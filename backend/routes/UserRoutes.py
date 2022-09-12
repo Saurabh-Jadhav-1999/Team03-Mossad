@@ -6,6 +6,7 @@ from backend import db, app
 from backend.services.UserServices import isUserExists, addNewUser, validateLoginData
 import json
 import jwt
+from backend.auth.authToken import token_required
 
 # post request parser
 post_parser = reqparse.RequestParser()
@@ -56,17 +57,24 @@ def login():
     # add header x-auth-token generate it using jwt
     payload_data = {
                     "email": user['email'],
-                    "uid": user['user_id']
+                    "uid": user['user_id'],
                 }
     token = jwt.encode(
                     payload=payload_data,
                     key= app.config['SECRET_KEY']
                 )
-    resp = make_response(data, 200)
+    data.update({"x-auth-token":token})
+    resp = make_response({"x-auth-token":token}, 200)
     resp.headers['x-auth-token'] = token    
     return resp, 200
 
 
 @app.route("/", methods=["GET"])
 def basicRoute():
+    print("before token validation:",request.json)
+    token_result = token_required(request)
+    print(token_result)
+    if  type(token_result)==dict({}) and "error" in token_result.keys():
+        return token_result
+    print("after token validation:",request.json) 
     return make_response("Application is running", 200)
