@@ -3,6 +3,9 @@
 
 from backend import db, app  
 import backend.models.HotelModel
+from sqlalchemy import desc
+
+from backend.models.HotelModel import SearchHistory,Hotel,Review
 from backend.models.HotelModel import SearchHistory
 from backend.services.UserServices import getPerticularUser
 from backend.services.HotelServices import getPerticularHotelById
@@ -52,3 +55,6 @@ def addHistory(data):
 # method to get all the history 
 def getHistory():
     return SearchHistory.query.all()
+    
+
+

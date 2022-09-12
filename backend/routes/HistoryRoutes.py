@@ -15,7 +15,7 @@ def showHistory(data):
 # class to handle /history api request's
 class HandleHistory(Resource):
     
-     # route to get all the history
+    # route to get all the history
     @marshal_with(searchHistory_representation)
     def get(self):
         data = getHistory() # get all the history

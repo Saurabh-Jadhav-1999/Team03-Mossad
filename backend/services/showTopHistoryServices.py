@@ -26,12 +26,12 @@ def validateReviewData(data):
 
 # show top five hotels(according to top ratings) in city 
 def showTopHistory(data):
-    #most frequently city comes first select that city
+     #most frequently city comes first select that city
     res1=db.session.query(SearchHistory).order_by(desc(SearchHistory.number_times)).first()
     #most frequently city comes first select that city and stored int city_name
     city_name=res1.location
     #select hotel.name,hotel.id,Review.rating from Hotel join Review on Hotel.hotel_id=Review.hotel_id where hotel.cityName==city_name and orderby des(rating) and limit==5
-    res2=db.session.query((Hotel.hotel_name,Hotel.hotel_id,Review.rating).join(Hotel,Hotel.hotel_id==Review.hotel_id)).filter_by(Hotel.city==city_name).order_by(desc(Review.rating)).limit(5).all()
+    res2=db.session.query(Hotel.hotel_name,Hotel.hotel_id,Review.rating).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==city_name).order_by(desc(Review.rating)).limit(5).all()
     #iterate 
     hotelid = [i.hotel_id for i in res2]
     print(hotelid)
