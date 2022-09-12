@@ -29,6 +29,7 @@ try:
     from backend.routes.ReviewRoutes import HandleReview
     from backend.routes.BookingRoutes import HandleBooking
     from backend.routes.HistoryRoutes import HandleHistory
+    from backend.routes.showTopHistoryRoute import HandleHistoryTop
 
     from backend.models.HotelModel import User, Hotel, Review,SearchHistory
 
@@ -41,7 +42,7 @@ try:
     api.add_resource(HandleReview, "/review")
     api.add_resource(HandleBooking, "/booking")
     api.add_resource(HandleHistory,"/history")
-
+    api.add_resource(HandleHistoryTop,"/showTopHistory")
     print('done with creating routes!')
 except Exception as e:
     print(e)

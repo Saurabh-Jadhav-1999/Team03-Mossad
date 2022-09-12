@@ -1,3 +1,5 @@
+
+
 from backend import app, db
 from backend.services.HistoryServices import validateHistoryData, addHistory, getHistory
 from backend.models.HotelModel import searchHistory_representation

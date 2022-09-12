@@ -176,7 +176,7 @@ class Review(db.Model):
     description = db.Column(db.String, nullable=False)
     datetime_posted = db.Column(db.DateTime)
     user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
-    hotel_id  = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
+    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
 
 
 # booking temprory table for holding many to many relationship with user and booking table
