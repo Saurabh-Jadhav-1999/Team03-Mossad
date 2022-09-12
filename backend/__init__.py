@@ -5,7 +5,7 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://efcdpwyl:R05Qw_8OiIW0hG_um1xr4blSG4-ar0Bx@rosie.db.elephantsql.com/efcdpwyl"
-# app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://lccftkvn:iOCW9BYtnRqQakPSMfenW79jR5jvGd7l@rosie.db.elephantsql.com/lccftkvn"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://xcqgjvbd:m2mMRxVQp3X5j6cBgp7YlJgX1Qo3LjuI@rosie.db.elephantsql.com/xcqgjvbd"
 
 # allow origins
 cors = CORS(app, resources={r"/*": {"origins": "*"}})

@@ -154,6 +154,9 @@ def getHotelByHotelId():
         return make_response(token_result, 400) # return error if token authorization fails
     
     data = request.json
+    if data is not None and 'hotel_id' not in data.keys():
+         return make_response({"error":"hotel_id is missing"}, 400)
+   
     data['hotel_id'] = int(data['hotel_id'])
     # validate incoming data
     validationResult = validateHistoryDataWithHotel(data)
@@ -178,7 +181,8 @@ def getHotelByHotelId():
     rating = averageRating(hotel.hotel_id)
     hotel = newDataView(hotel)
     # print(hotel)
-    hotel.update({"rating":rating}) # update the response 
+    hotel.update({"rating":rating[0]}) # update the response add average rating
+    hotel.update({"total_reviews":rating[1]}) # update the response add total reviews for hotel
 
     return showAvailableHotels(hotel), 200
     
