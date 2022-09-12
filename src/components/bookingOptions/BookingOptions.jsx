@@ -1,10 +1,8 @@
 import { Stack, Grid, Paper, Box, Typography, Select, FormControl, MenuItem, InputLabel, Checkbox, FormControlLabel } from "@mui/material"
 import styles from "./BookingOptions.module.css"
 import Button from "@mui/material/Button"
-import DatePicker from "react-datepicker"
-import "react-datepicker/dist/react-datepicker.css";
+import { BookingDatePickers } from "./BookingDatePickers"
 import { useState } from "react";
-import "./BookingOptions.module.css"
 
 const features = [
     {
@@ -33,8 +31,6 @@ const features = [
     }]
 
 export const BookingOptions = () => {
-    const [date, setDate] = useState(new Date());
-    const setDateHandler = (date) => setDate(date);
 
     return (
         <Paper elevation={0} className={styles.bookingOptionsContainer}>
@@ -56,23 +52,37 @@ export const BookingOptions = () => {
                 </Grid>
                 <hr className={styles.divider} />
                 <Grid item xs={12}>
-                    <Grid container className={styles.datePicker} justifyContent="space-between">
-                        <Grid item>Check-In
-                            <Box><DatePicker selected={date} className={styles.datePicker} onChange={setDateHandler} /></Box>
+                    {/* <Grid container direction={'column'} className={styles.datePicker} justifyContent="space-between">
+                        <Grid item className={styles.labelRoomPricePerNight}>Check-In
+                            <Box>
+                                <BookingDatePickers className={styles.datePicker} />
+                            </Box>
                         </Grid>
-                        <Grid item >Check-Out
-                            <Box><DatePicker selected={date} className={styles.datePicker} onChange={setDateHandler} /></Box>
+                        <Grid item className={styles.labelRoomPricePerNight}>Check-Out
+                            <Box>
+                                <BookingDatePickers className={styles.datePicker} />
+                            </Box>
                         </Grid>
-                    </Grid>
+                    </Grid> */}
+                    <Stack direction={'row'} justifyContent={"space-between"}>
+                        <Box className={styles.datePicker}>
+                            <Box className={styles.labelRoomPricePerNight} sx={{ marginBottom: '5px' }}>Check-In</Box>
+                            <BookingDatePickers className={styles.datePicker} />
+                        </Box>
+                        <Box className={styles.datePicker}>
+                            <Box className={styles.labelRoomPricePerNight} sx={{ marginBottom: '5px' }}>Check-Out</Box>
+                            <BookingDatePickers className={styles.datePicker} />
+                        </Box>
+                    </Stack>
                 </Grid>
                 <Grid item xs={12}>
-                    <Typography sx={{ marginBottom: '10px' }}>Guest</Typography>
+                    <Typography className={styles.labelRoomPricePerNight} sx={{ marginBottom: '10px' }}>Guest</Typography>
                     <Stack direction={'row'} gap={2} >
                         <Box sx={{ width: '40%' }}>
                             <FormControl fullWidth size="small">
-                                <InputLabel id="demo-simple-select-label">Adults</InputLabel>
+                                <InputLabel id="label-adult">Adults</InputLabel>
                                 <Select
-                                    labelId="demo-simple-select-label"
+                                    labelId="label-adult"
                                     label="Adult"
                                     defaultValue=""
                                 >
@@ -83,11 +93,11 @@ export const BookingOptions = () => {
                             </FormControl>
                         </Box>
                         <Box sx={{ width: '40%' }}>
-                            <FormControl fullWidth size="small">
-                                <InputLabel id="demo-simple-select-label">Children</InputLabel>
+                            <FormControl fullWidth size="small" >
+                                <InputLabel id="label-check-out">Children</InputLabel>
                                 <Select
                                     fullWidth
-                                    labelId="demo-simple-select-label"
+                                    labelId="label-check-out"
                                     label="Children"
                                     defaultValue=""
                                 >
@@ -117,7 +127,7 @@ export const BookingOptions = () => {
 
                 <Grid item xs={12}>
                     <Stack direction={'row'} justifyContent={'space-between'}>
-                        <Typography component={'span'} className={styles.labelRoomPricePerNight}>Total Payement</Typography>
+                        <Typography component={'span'} className={styles.labelRoomPricePerNight}>Total Payment</Typography>
                         <Typography component={'span'} className={styles.totalBookingPrice}>$2955</Typography>
                     </Stack>
                 </Grid>

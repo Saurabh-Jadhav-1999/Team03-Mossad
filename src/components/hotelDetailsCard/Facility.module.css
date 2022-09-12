@@ -28,14 +28,12 @@
 .btnDiv {
   display: flex !important;
   flex-direction: column !important; 
-  /* align-items: flex-end !important; */
   justify-content: space-between !important;
-  /* margin-left: auto; */
 }
 
 .btnPrice {
+  margin-top: 32% !important;
   background: #eaebec !important;
-  /* width: 172px; */
   height: 53px;
   border-radius: 30px !important;
 }
@@ -58,6 +56,7 @@
 .btnBook {
   width: 150px;
   height: 53px;
+  margin-top: 10px !important;
   background: #3c71ff !important;
   border-radius: 30px !important;
   color: white !important;

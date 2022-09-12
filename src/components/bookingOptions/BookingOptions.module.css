@@ -1,9 +1,10 @@
 .bookingOptionsContainer {
     margin: 19px;
     border-radius: 4% !important;
-    height: 500px;
+    height: 44%;
     width: 350px;
     border: 1px solid #D1CECE;
+    padding-bottom: 10px;
 }
 
 .gridContainer {
@@ -51,26 +52,30 @@
 }
 
 .divider {
-    width: 99%;
+    width: 99% !important;
     border: 0.5px solid #D1D4D9 !important;
     background: #D1D4D9 !important;
 }
 
-.datePicker input {
-    width: 7rem;
-    background: #F4F5F7;
-    padding: 8% !important;
-    /* padding: 5%; */
+.datePicker {
+    align-content: start !important;
+    border: 1px solid white !important;
+    border-radius: 5px !important;
+    font-family: Inter !important;
+    font-weight: 300 !important;
+    margin-left: -5px !important;
+    color: #C9C8C8 !important;
 }
 
-.datePicker {
-    align-content: start;
-    border: 1px solid white;
-    border-radius: 5px;
-    font-family: Inter !important;
-    font-weight: 300s !important;
-    /* margin-left: -5px !important; */
-    /* color: #C9C8C8; */
+.datePicker input {
+    font-size: 75% !important;
+    width: 5rem !important;
+    background: #F4F5F7 !important;
+    padding: 8% !important;
+}
+
+.datePicker button{
+    color: #C9C8C8 !important;
 }
 
 .btnBookNow {

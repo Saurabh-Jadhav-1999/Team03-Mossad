@@ -45,13 +45,13 @@ const Facility = (props) => {
         </Grid>
         <Grid item xl={6} className={styles.btnDiv}>
           <Button className={styles.btnPrice}>
-              <Typography component={"span"}>
-                <AttachMoneyOutlinedIcon />
-                {props.rate}
-              </Typography>
-              <Typography className={styles.capacity}>
-                {props.capacity}
-              </Typography>
+            <Typography component={"span"}>
+              <AttachMoneyOutlinedIcon />
+              {props.rate}
+            </Typography>
+            <Typography className={styles.capacity} sx={{fontSize:'10px'}}>
+              {props.capacity}
+            </Typography>
           </Button>
           <Button className={styles.btnBook}>Book Now</Button>
         </Grid>

@@ -33,7 +33,7 @@ export const HotelSearchFilters = () => {
                 },
                 {
                     id: 4,
-                    filterName: 'No Prepayement',
+                    filterName: 'No Prepayment',
                     defaultChecked: false
                 }]
         },
@@ -152,15 +152,15 @@ export const HotelSearchFilters = () => {
                                 {filters.filterProperties.map((filter) => {
                                     return (
                                         <div key={filter.id}>
-                                            <FormControlLabel key={filter.id} label={filter.filterName} control={<Checkbox value={filter.filterName} defaultChecked={filter.defaultChecked ? true : false} onChange={getCheckedFilterProperties} sx={{ fontSize: '14px', color: '#A4A2A2' }} />} />
+                                            <FormControlLabel key={filter.id} label={filter.filterName} control={<Checkbox value={filter.filterName} defaultChecked={filter.defaultChecked ? true : false} onChange={getCheckedFilterProperties} sx={{ fontSize: '12px', color: '#A4A2A2' }} />} />
                                         </div>
                                     )
                                 })}
                                 {/* {Search filters options END} */}
 
                                 {filters.filterType === 'Popular Hotels' && <Box className="priceRangeFilterContainer">
-                                    <hr style={{ marginLeft: '-0px', width: '90%', color: '#D1D4D9' }} />
-                                    <Typography className={styles.searchPropertyHeader}>
+                                    <hr style={{ marginLeft: '-0px', width: '90%', color: '#D1D4D9', marginTop:"8%" }} />
+                                    <Typography className={styles.searchPropertyHeader} sx={{marginTop:"8%"}}>
                                         Price Range
                                     </Typography>
                                     <InputSlider />

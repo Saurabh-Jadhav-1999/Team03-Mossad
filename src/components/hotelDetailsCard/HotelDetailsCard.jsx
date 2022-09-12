@@ -1,9 +1,9 @@
-import { Box } from "@material-ui/core";
+import { Box, Grid } from "@material-ui/core";
 import React from "react";
 import CityDetails from "./CityDetails";
 import Facility from "./Facility";
 import styles from "./HotelDetails.module.css";
-import HotelImage from "./HotelImage";
+import { HotelImage } from "./HotelImage";
 
 const details = {
   cityName: "Kerala,India",
@@ -17,13 +17,18 @@ const details = {
 };
 export const HotelDetailsCard = () => {
   return (
-    <Box className={styles.hotelDetailBox}>
-      <HotelImage />
-      <Box className={styles.detailsDiv}>
-        <CityDetails details={details} />
-        <Facility details={details} cityName={"Kochi"} rate={"720"} capacity={"For Two"} />
-        {/*props are repeted for demo perpose */}
-      </Box>
-    </Box>
+    <Grid container className={styles.hotelDetailBox} direction="row">
+      <Grid container>
+        <Grid item className={styles.hotelImage}>
+          <HotelImage />
+        </Grid>
+        <Grid item>
+          <Grid container className={styles.detailsDiv}>
+            <Grid item><CityDetails details={details} /></Grid>
+            <Grid item><Facility details={details} cityName={"Kochi"} rate={"720"} capacity={"For Two"} /></Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Grid>
   );
 };
