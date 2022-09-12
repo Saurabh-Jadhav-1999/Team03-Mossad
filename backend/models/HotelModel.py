@@ -89,7 +89,7 @@ hotel_representation = {
     "hotelfacalities": fields.Nested(facality_representation)
 }
 
-# hotel model 
+# Hotel model 
 class Hotel(db.Model):
     hotel_id = db.Column(db.Integer, primary_key=True)
     hotel_name = db.Column(db.String(200), nullable=False)
@@ -243,7 +243,7 @@ searchHistory_representation_with_hotel = {
     "number_times": fields.Integer,
 }
 
-# model for user's search history
+# model for user's search history 
 class SearchHistory(db.Model):
     searchHistory_id = db.Column(db.Integer, primary_key=True)
     ip= db.Column(db.String(200),default=None)

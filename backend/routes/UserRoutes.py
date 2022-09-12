@@ -9,6 +9,8 @@ import jwt
 from backend.auth.authToken import token_required
 
 # post request parser
+#Parsers are responsible for taking the content of the request body as a bytestream,
+# and transforming it into a native Python data representation.
 post_parser = reqparse.RequestParser()
 post_parser.add_argument("user_name", str, help="user_name is missing", required=True)
 post_parser.add_argument("email", str, help="email is missing", required=True)
@@ -54,7 +56,12 @@ def login():
         print('Both are not equal')
         abort(400, {'error':"Invalid email or password"})
 
-    # add header x-auth-token generate it using jwt
+#Header contains the algorithms like RSA or HMACSHA256 and the information of the type of Token.
+#Signature { base64urlencoded (header) +”.”+ base64urlencoded (payload) +”.”+ secret }
+# add header x-auth-token generate it using jwt
+#A combination of all headers, payload and signatures converts into JWT TOKEN. 
+#Payload contains the information of rows, i.e., user credentials.
+
     payload_data = {
                     "email": user['email'],
                     "uid": user['user_id'],
