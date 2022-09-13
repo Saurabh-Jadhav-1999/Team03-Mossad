@@ -34,6 +34,7 @@
   font-size: 20px;
   margin-left: 3% !important;
   font-weight: bold !important;
+  line-height: 2.2 !important;
 }
 
 .div3 {
@@ -200,6 +201,19 @@
   margin-left: 2%;
 }
 .starimg{
-  width:16% !important;
+  margin-right: 4px;
+  width:30px !important;
+  height: 30px !important;
   /* height: 2%; */
+}
+
+.hotelimg{
+  border-radius: 30px;
+}
+
+.hotelrating{
+  margin-top: 2% !important;
+  font-size: 16px;
+  color: grey !important;
+  margin-left: 5px;
 }

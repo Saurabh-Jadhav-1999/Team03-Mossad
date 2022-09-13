@@ -8,10 +8,10 @@ import styles from "./TabBar.module.css";
 import { Featuers } from "./Featuers";
 import { RoomAndPrice } from "./RoomAndPrice";
 import { Review } from "./Review";
-
+import { useSelector } from "react-redux";
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-
+  
   return (
     <div
       role="tabpanel"
@@ -48,8 +48,11 @@ export const TabBar = (props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  const status = useSelector((state) => state.getHotelDetails.status);
   const comment = `We had the most spectacular view. Beautifully appointed rooms. Awesome food & curteous staff. Highly recommend it.`;
   return (
+    <React.Fragment> 
+  
     <Box >
       <Box className={styles.tabContainer}>
         <Tabs value={value} onChange={handleChange}>
@@ -95,5 +98,7 @@ export const TabBar = (props) => {
         />
       </TabPanel>
     </Box>
+   
+    </React.Fragment>
   );
 };

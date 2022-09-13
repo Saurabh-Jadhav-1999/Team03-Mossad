@@ -7,14 +7,15 @@ import styles from "./HotelDetailsAndImage.module.css";
 import ImageGrid from "../imageGrid/ImageGrid";
 import { useState, useEffect, useMemo } from "react";
 import { useSelector } from "react-redux";
-import Loader from "rsuite/Loader";
+// import Loader from "rsuite/Loader";
+import Loading from "../loader/Loader";
 import CircularProgress from "@mui/material/CircularProgress";
 // import LinearProgress from '@mui/material/LinearProgress';
 export const HotelDetailsAndImage = (props) => {
   const [img, setImg] = useState(false);
   setTimeout(() => {
     setImg(true);
-  }, 13000);
+  }, 4000);
 
   const status = useSelector((state) => state.getHotelDetails.status);
   // console.log(status, "Status of api ");
@@ -23,8 +24,10 @@ export const HotelDetailsAndImage = (props) => {
   );
   return (
     <Fragment>
+     
+      
       <div>
-        {/* <Breadcrumb /> */}
+   
         <Box className={`${styles.box4}`}>
           <Typography variant="h4" className={`${styles.typo1}`}>
             {hoteldetails.hotel_name} {hoteldetails.city} {hoteldetails.state}
@@ -58,7 +61,7 @@ export const HotelDetailsAndImage = (props) => {
           {img === false ? (
             <CircularProgress color="secondary" />
           ) : (
-            <ImageGrid links={hoteldetails.hotel_images} />
+            <ImageGrid links={hoteldetails.hotel_images} stat={status}/>
           )}
         
         </Box>
@@ -69,14 +72,14 @@ export const HotelDetailsAndImage = (props) => {
           <div className={`${styles.tags4}`}>Top Value</div>
           <div className={`${styles.tags5}`}>Building</div>
           <div className={`${styles.rating}`}>
-            {img === true ? (
+            {/* {img === true ? ( */}
               <Rating
                 name="read-only"
                 value={hoteldetails.rating}
                 precision={0.1}
                 readOnly
               />
-            ) : null}
+            {/* ) : null} */}
           </div>
         </Box>
         <Box className={`${styles.roomTypeHeading}`}>
@@ -91,6 +94,7 @@ export const HotelDetailsAndImage = (props) => {
           </Typography>
         </Box>
       </div>
+{/* )} */}
     </Fragment>
   );
 };

@@ -6,8 +6,7 @@ const initialState = {
   hotel_name:"",
   noOfPassengers: "",
   totalCost: 0,
-  totalAdult: "",
-  totalChild: "",
+  status:"",
   city_name: "",
   allow_to_bring_pet: "",
   lunch_per_person_per_day: "",
@@ -78,12 +77,7 @@ export const bookNowSlice = createSlice({
     setTotalCost: (state = initialState, action) => {
       state.totalCost = action.payload;
     },
-    setAdultCount: (state = initialState, action) => {
-      state.totalAdult = action.payload;
-    },
-    setChildCount: (state = initialState, action) => {
-      state.totalChild = action.payload;
-    },
+   
     setCityName: (state = initialState, action) => {
       state.city_name = action.payload;
     },
@@ -122,7 +116,13 @@ export const bookNowSlice = createSlice({
   extraReducers: {
     [finalBookNow.pending]: (state, action) => {
       state.status = "loading";
+
     },
+    [finalBookNow.rejected]: (state, action) => {
+      state.status = "rejected";
+
+    },
+    
     [finalBookNow.fulfilled]: (state, action) => {
       state.status = "succeeded";
       state.finalbooking = action.payload;
@@ -141,8 +141,7 @@ export const bookNowSlice = createSlice({
 
 export const {
   setHotelId,
-  setAdultCount,
-  setChildCount,
+ 
   setNoOfPassengers,
   setAllowToBringPet,
   setExtraPillow,

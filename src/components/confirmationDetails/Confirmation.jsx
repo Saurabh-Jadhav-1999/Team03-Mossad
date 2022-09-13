@@ -7,10 +7,13 @@ import confirmation from "../../assets/images/SuccessfullBookingHotelImage.png";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 import { Link,Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import Loading from "../loader/Loader";
+
 const Confirmation = (props) => {
   function navigate(path) {
     Navigate(path);
   }
+  const status = useSelector((state) => state.bookNow.status);
 
   const bookingdetails=useSelector(state=>state.bookNow.finalbooking);
   const hotelname=useSelector(state=>state.getHotelDetails.hotelDetails.hotel_name);
@@ -65,6 +68,13 @@ const Confirmation = (props) => {
   ];
   return (
     <Fragment>
+        {status=="loading" ? (
+            // <CircularProgress color="secondary" />
+            <div >
+              <Loading />
+              <Typography variant="h5" style={{fontFamily:"inter",marginLeft:"36vw"}}>Wait a moment, We are working :)</Typography>
+            </div>
+          ) : (
       <div className={`${styles.container}`}>
         <Breadcrumb links={breadcrumbs} />
         <div className={`${styles.div1}`}>
@@ -90,12 +100,13 @@ const Confirmation = (props) => {
             className={`${styles.typo3}`}
           >
             <img src={star} alt="" className={`${styles.starimg}`} />
-            &nbsp;&nbsp;
-            {hotelrating}
-            <div className={`${styles.div3}`}>
-              {" "}
-              ({props.details.reviews} reviews)
-            </div>
+            <span className={`${styles.hotelrating}`}>
+                  <span style={{ color: "black", marginRight: "6px" }}>
+                    {hotelrating}
+                  </span>{" "}
+                  (234 reviews)
+                </span>
+                <span></span>
           </Typography>
           <Typography className={`${styles.typo5}`}>
             {1} {roomtype}
@@ -161,7 +172,7 @@ const Confirmation = (props) => {
             <Grid item xs={12} lg={8}>
               {" "}
               <div className={`${styles.div14}`}>
-                <img src={bookingdetails.hotel_profile_picture} height="510px" width="750px" alt="" />
+                <img  className={`${styles.hotelimg}`} src={bookingdetails.hotel_profile_picture} height="510px" width="750px" alt="" />
               </div>
             </Grid>
           </div>
@@ -170,6 +181,7 @@ const Confirmation = (props) => {
           Back to Home Page
         </Button>{" "}
       </div>
+          )}
     </Fragment>
   );
 };
