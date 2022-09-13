@@ -185,7 +185,10 @@ def getHotels():
         # availableHotelList.append("dynamic_price_hike")
         return make_response([showAvailableHotels(availableHotelList), {"dynamic_hike_price":True}], 200)
         
-    return make_response({"hotel_list":showAvailableHotels(availableHotelList), "dynamic_hike_price":False}, 200)
+    newdata = showAvailableHotels(availableHotelList)
+    # newdata.append({"dynamic_hike_price":False})
+    return make_response(newdata, 200)
+    # return make_response({"dynamic_hike_price":False,"hotel_list":showAvailableHotels(availableHotelList)}, 200)
 
 @app.route("/getHotelById", methods=['POST'])
 def getHotelByHotelId():
