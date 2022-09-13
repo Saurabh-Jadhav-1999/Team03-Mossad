@@ -4,6 +4,7 @@ from backend.models.HotelModel import booking_representation
 from backend.services.BookingServices import validateBookingData, addBooking, getBookings, showBooking
 from backend.services.UserServices import getPerticularUser
 from backend.services.HotelServices import getPerticularHotelById
+from backend.services.UserServices import getCurrentDate
 import datetime
 from backend.auth.authToken import token_required
 
@@ -26,6 +27,14 @@ class HandleBooking(Resource):
         # convert string date to date format
         data['check_in_date'] = datetime.datetime.strptime(data['check_in_date'], "%Y-%m-%d")
         data['check_out_date'] = datetime.datetime.strptime(data['check_out_date'], "%Y-%m-%d")
+
+         # check if check in date is greater than current date
+        current_date = getCurrentDate()
+        if data['check_in_date'] < current_date or data['check_out_date'] < current_date:
+            return make_response({"error":"check_in_date and check_out_date must greater than equal to current date"})
+
+
+
         #check if checkout is less than check in
         if data['check_out_date'] < data['check_in_date']:
             return {"error": "check_in_date must be less than check_out_date"}
@@ -51,7 +60,7 @@ class HandleBooking(Resource):
 
         result = addBooking(data, user, hotel)
         
-        if "error" in result.keys():
+        if  isinstance(result, dict) and "error" in result.keys():
             return make_response(result, 400)
 
         print(result)

@@ -116,19 +116,19 @@ def checkHotelAvailability(hotel_id, hotel, check_in_date, check_out_date, adult
     print("primium room booking for all days:", prim_count_lsit)
     print("*"*10)
     # check and add exclusive rooms to array
-    if max(exclu_count_list) < hotel.exclusive_room_count:
+    if max(exclu_count_list) < hotel.exclusive_room_count and (adult_count+child_count)<=hotel.exclusive_room_capacity:
         availableRoomTypes.append("exclusive_room")
 
     #check and add economy rooms to array
-    if max(eco_count_list) < hotel.economy_room_count:
+    if max(eco_count_list) < hotel.economy_room_count and (adult_count+child_count)<=hotel.economy_room_capacity:
         availableRoomTypes.append("economy_room")
 
     # check and add double rooms to array
-    if max(double_count_list) < hotel.double_room_count:
+    if max(double_count_list) < hotel.double_room_count and (adult_count+child_count)<=hotel.double_room_capacity:
         availableRoomTypes.append("double_room")
 
     # check and add primum room to array
-    if max(prim_count_lsit) < hotel.premium_room_count:
+    if max(prim_count_lsit) < hotel.premium_room_count and (adult_count+child_count)<=hotel.premium_room_capacity:
         availableRoomTypes.append("premium_room")
 
     return availableRoomTypes
@@ -178,11 +178,13 @@ def showBooking(data):
 def addBooking(data, user, hotel):
     # get the user
     room_type = checkRoomType(data, hotel)
+
     if room_type == False:
         return {"error":"please select room type to continue"}
-    print('got the roomtype')
-    if (data['adult_count']+data['child_count']) <= room_type[1]:
-        print('count is okay')
+    # print('got the roomtype')
+
+    if (data['adult_count']+data['child_count']) <= room_type[1]: # check if passenger count is less equal room capacity
+        
         delta = data['check_out_date'] - data['check_in_date']
         
         # result = checkAvalabilityOfRoomInHotel(data['hotel_id'], data['check_in_date'], data['check_out_date'], room_type[0])
@@ -191,22 +193,39 @@ def addBooking(data, user, hotel):
         if len(availableResult) == 0:
             print('returning error by length')
             return {"error": "The room you looking for is not available for searched dated's"}
+
+        # if room type user searching for is not available for given detail's return error
         if room_type[0] not in availableResult:
             print("room type:",room_type[0])
             print('return error due to not available room')
             return {"error": "The room you looking for is not available for searched date's"}
 
+        # changing room type for user response
+        if "economy_room" in room_type:
+            room_type[0] = "Economy Room"
+        if "double_room" in room_type:
+            room_type[0] = "Double Room"
+        if "exclusive_room" in room_type:
+            room_type[0] = "Exclusive Room"
+        if "premium_room" in room_type:
+            room_type[0] = "Premium Room"
+
+        # add new booking 
         booking = Booking(check_in_date=data['check_in_date'], check_out_date=data['check_out_date'], child_count=data['child_count'], adult_count=data['adult_count'], exclusive_count=data['exclusive_room_count'], economy_count=data['economy_room_count'],double_count=data['double_room_count'],premium_count=data['premium_room_count'],bookingowner=user,hotelconcerned=hotel)
         db.session.add(booking)
         db.session.commit()
+        
+        # create response to send 
         response = {
             "b_id": booking.b_id,
-            "check_in_date": booking.check_in_date,
-            "check_out_date": booking.check_out_date,
+            # "check_in_date": booking.check_in_date,
+            # "check_out_date": booking.check_out_date,
             "guest_count": booking.adult_count+booking.child_count,
             "total_cost": data['total_cost'],
-            "hotel_profile_picture": hotel.hotel_profile_picture
+            "room_type": room_type[0]
+            # "hotel_profile_picture": hotel.hotel_profile_picture
         }
         return response
-    
+    else:
+        return {"error":"invalid guest count!"}
 

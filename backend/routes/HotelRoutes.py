@@ -11,7 +11,8 @@ from backend.services.HistoryServices import addHistoryByHotelId
 from backend.models.HotelModel import hotel_representation
 import datetime
 from backend.auth.authToken import token_required
-from backend.services.HistoryServices import validateHistoryData, validateHistoryDataWithHotel
+from backend.services.HistoryServices import validateHistoryData, validateHistoryDataWithHotel, addHistory
+from backend.services.UserServices import getCurrentDate
 
 
 # app.route("/hotel", methods=['POST'])
@@ -56,12 +57,19 @@ def getCityList():
     token_result = token_required(request)
     if  isinstance(token_result, dict)  and "error" in token_result.keys():
         print('error found')
-        return make_response(token_result, 400)
-    validationResult = validateCityName(request.json)
+        return make_response(token_result, 400) # return error if something wrong with token validation
+    
+    validationResult = validateCityName(request.json) # validate the input data from user
+
     if validationResult.errors:
         return make_response(validationResult.errors, 400)
 
-    return make_response(getCitiesByName(request.json['city_name']),200)
+    cityListResult = getCitiesByName(request.json['city_name']) # get the list of cities 
+
+    if len(cityListResult) == 0:
+        return make_response("", 400) # if no cities found then return 400 error with no result
+
+    return make_response(cityListResult,200) # if cities found then return cities
     
 @marshal_with(city_representation)
 def showCityList(data):
@@ -69,6 +77,27 @@ def showCityList(data):
 
 @app.route("/getCityList", methods=["POST"])
 def getCityListByPost():
+  # token validtion code 
+    token_result = token_required(request)
+    if  isinstance(token_result, dict)  and "error" in token_result.keys():
+        print('error found')
+        return make_response(token_result, 400) # return error if something wrong with token validation
+    
+    validationResult = validateCityName(request.json) # validate the input data from user
+
+    if validationResult.errors:
+        return make_response(validationResult.errors, 400)
+
+    cityListResult = getCitiesByName(request.json['city_name']) # get the list of cities 
+
+    if len(cityListResult) == 0:
+        return make_response("", 400) # if no cities found then return 400 error with no result
+
+    return make_response({"cities":cityListResult},200) # if cities found then return cities
+
+
+
+
     # token validtion code 
     token_result = token_required(request)
     if  isinstance(token_result, dict)  and "error" in token_result.keys():
@@ -99,8 +128,8 @@ def getHotels():
         print('error found')
         return make_response(token_result, 400)
 
-    data = request.json
-    print(data)
+    data = request.json # store the data passed by user in object
+    # print(data)
 
     # check if check_in_date and check_out_date is present
     if "check_in_date" not in data.keys() or  "check_out_date" not in data.keys():
@@ -117,7 +146,7 @@ def getHotels():
     if validationResult.errors:
         return make_response(validationResult.errors, 400) # return validation errors if any
 
-    print(validationResult.document)
+    # print(validationResult.document)
 
     # get the list of hotels present in particular city
     hotels = getHotelsByCityName(data['city_name'])
@@ -144,13 +173,26 @@ def getHotels():
         # print(newhotel)
         availableHotelList.append(newhotel)
 
-    return showAvailableHotels(availableHotelList), 200
+    # build user history
+    addHistory({"user_id":data['user_id'],"location":data['city_name']})
+
+    # print("total hotels present in city:",len(hotels))
+    # print("80 perc of avilable hotel: ", int(len(hotels)*0.8))
+    # print('total length of available hotel:', len(availableHotelList))
+    # check if available rooms are less than 20% of all avilable rooms if yes apply discount
+    if  len(availableHotelList) <= (len(hotels)-int(len(hotels)*0.8)):
+        print('must apply price increment for hotels')
+        # availableHotelList.append("dynamic_price_hike")
+        return make_response([showAvailableHotels(availableHotelList), {"dynamic_hike_price":True}], 200)
+        
+    return make_response([showAvailableHotels(availableHotelList), {"dynamic_hike_price":False}], 200)
 
 @app.route("/getHotelById", methods=['POST'])
 def getHotelByHotelId():
      # token validtion code 
     token_result = token_required(request)
-    print(token_result)
+    # print(token_result)
+
     if  isinstance(token_result, dict)  and "error" in token_result.keys():
         print('error found')
         return make_response(token_result, 400) # return error if token authorization fails
@@ -163,7 +205,7 @@ def getHotelByHotelId():
     # validate incoming data
     validationResult = validateHistoryDataWithHotel(data)
     if validationResult.errors:
-        return make_response({"errors":validationResult.errors}, 400)
+        return make_response({"errors":validationResult.errors}, 400) # return error if user
 
     # get particular hotel by id
     hotel = getPerticularHotelById(data['hotel_id'])
@@ -176,16 +218,19 @@ def getHotelByHotelId():
     if not hotel:
         return make_response({"error": "invalid hotel id!"}, 400)
 
+    # add hotel city as location in data need for building history
+    data.update({"location": hotel.city})
+
     # build the user history
     user_history = addHistoryByHotelId(data)
 
-    # add average rating to hotel
+    # get average rating by hotel_id
     rating = averageRating(hotel.hotel_id)
     hotel = newDataView(hotel)
     # print(hotel)
     hotel.update({"rating":rating[0]}) # update the response add average rating
     hotel.update({"total_reviews":rating[1]}) # update the response add total reviews for hotel
 
-    return showAvailableHotels(hotel), 200
+    return make_response(showAvailableHotels(hotel), 200)
     
 
