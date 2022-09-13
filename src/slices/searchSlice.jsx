@@ -9,6 +9,7 @@ const initialState = {
   status: "",
   citylist: ["Pune"],
 };
+
 export const fetchHotelList = createAsyncThunk(
   "searchHotel/fetchHotelList",
   async ({ location, checkIn, checkOut }, thunkAPI) => {

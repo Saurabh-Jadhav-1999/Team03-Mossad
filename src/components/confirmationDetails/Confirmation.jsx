@@ -5,21 +5,31 @@ import { Box, Typography, Grid, Button, Breadcrumbs } from "@mui/material";
 import star from "../../assets/images/HotelRatingIcon.png";
 import confirmation from "../../assets/images/SuccessfullBookingHotelImage.png";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
-import { Link,Navigate } from "react-router-dom";
+import { Link, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
+import moment from "moment/moment";
 const Confirmation = (props) => {
   function navigate(path) {
     Navigate(path);
   }
+  
+  const bookingdetails = useSelector(state => state.bookNow.finalbooking);
+  const hotelname = useSelector(state => state.getHotelDetails.hotelDetails.hotel_name);
+  const hotelstate = useSelector(state => state.getHotelDetails.hotelDetails.state);
+  const hotelrating = useSelector(state => state.getHotelDetails.hotelDetails.rating);
+  const city = useSelector(state => state.getHotelDetails.hotelDetails.city);
+  const checkin = useSelector(state => state.search.checkIn);
+  const checkout = useSelector(state => state.search.checkOut);
+  const roomtype = useSelector(state => state.bookNow.room_type);
+  
+  const formatDate = () => {
+    const checkIn = moment(new Date(checkin)).format('MMMM DD')
+    const checkOut = moment(new Date(checkout)).format('MMMM DD')
+    const reservationYear = moment(new Date(checkin)).format('YYYY')
+    
+    return checkIn +" - "+ checkOut + " " + reservationYear
+  }
 
-  const bookingdetails=useSelector(state=>state.bookNow.finalbooking);
-  const hotelname=useSelector(state=>state.getHotelDetails.hotelDetails.hotel_name);
-  const hotelstate=useSelector(state=>state.getHotelDetails.hotelDetails.state);
-  const hotelrating=useSelector(state=>state.getHotelDetails.hotelDetails.rating);
-  const city=useSelector(state=>state.getHotelDetails.hotelDetails.city);
-  const checkin=useSelector(state=>state.search.checkIn);
-  const checkout=useSelector(state=>state.search.checkOut);
-  const roomtype=useSelector(state=>state.bookNow.room_type);
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -115,7 +125,8 @@ const Confirmation = (props) => {
                   <Box className={`${styles.box1}`}>
                     <div className={`${styles.div5}`}>Dates</div>
                     <div className={`${styles.div6}`}>
-                      {checkin}-{checkout}
+                      {/* {checkin}-{checkout} */}
+                      {formatDate()}
                     </div>
                   </Box>
                   <Box className={`${styles.box2}`}>

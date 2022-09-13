@@ -4,8 +4,8 @@ import React from "react";
 import { useState } from "react";
 import styles  from './PersonSelector.module.css'
 export const PersonSelector = () => {
-  const [adult, setAdult] = useState();
-  const [child, setChild] = useState();
+  const [adult, setAdult] = useState(2);
+  const [child, setChild] = useState(1);
 
   function handleAdultChange(event) {
     setAdult(event.target.value);

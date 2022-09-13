@@ -2,19 +2,9 @@ import { HotelSearchFilters } from "../hotelSearchFilters/HotelSearchFilters";
 import { HotelDetailsCard } from "../hotelDetailsCard/HotelDetailsCard";
 import { Stack } from "@mui/material";
 import { useSelector } from "react-redux";
-import { Fragment ,useState} from "react";
+import { Fragment, useState } from "react";
 import CircularProgress from '@mui/material/CircularProgress';
-
-
-const details = {
-  cityName: "Kerala,India",
-  hotelName: "The Leela Kovalam",
-  rating: 4.2,
-  reviews: 223,
-  location: "Beach Road Kovalam 563465India",
-  date: "15.09.2022-10.09.2022",
-  departure: "Kochi",
-};
+import { useEffect } from "react";
 
 export const HotelSearchList = () => {
   const [img, setImg] = useState(false);
@@ -22,6 +12,9 @@ export const HotelSearchList = () => {
   setTimeout(() => {
     setImg(true);
   }, 4000);
+  useEffect(() => {
+    // console.table(hotellist);  
+  }, [hotellist])
 
 
   return (
@@ -31,14 +24,12 @@ export const HotelSearchList = () => {
         <HotelSearchFilters />
         <Stack direction={"column"} spacing={2}>
           {img === false ? (
-          <CircularProgress color="secondary" />
+            <CircularProgress color="secondary" />
           ) : (
             hotellist.map((item) => (
               <HotelDetailsCard key={item.hotel_id} details={item} />
             ))
           )}
-
-          {/* <HotelDetailsCard  details={details} /> */}
         </Stack>
       </Stack>
     </Fragment>

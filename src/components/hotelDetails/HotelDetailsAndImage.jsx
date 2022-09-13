@@ -5,9 +5,9 @@ import star from "../../assets/images/HotelRatingIcon.png";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import styles from "./HotelDetailsAndImage.module.css";
 import ImageGrid from "../imageGrid/ImageGrid";
-import { useState, useEffect, useMemo } from "react";
+import { useState } from "react";
 import { useSelector } from "react-redux";
-import Loader from "rsuite/Loader";
+
 import CircularProgress from "@mui/material/CircularProgress";
 // import LinearProgress from '@mui/material/LinearProgress';
 export const HotelDetailsAndImage = (props) => {
@@ -30,18 +30,18 @@ export const HotelDetailsAndImage = (props) => {
             {hoteldetails.hotel_name} {hoteldetails.city} {hoteldetails.state}
           </Typography>
           <Box className={`${styles.box1}`}>
-            <Box style={{ display: "flex", justifyContent: "center",marginRight:"2%" }}>
-             
+            <Box style={{ display: "flex", justifyContent: "center", marginRight: "2%" }}>
+
               <Typography
                 variant="subtitle1"
                 fontSize="14px"
                 className={`${styles.typo2}`}
               >
-                 <img src={star} className={`${styles.img1}`} alt="" />
-                 
+                <img src={star} className={`${styles.img1}`} alt="" />
+
                 <span className={`${styles.div1}`}>
-                <span style={{color:"black",marginRight:"6px"}}>{hoteldetails.rating}</span>  (234 reviews)
-           
+                  <span style={{ color: "black", marginRight: "6px" }}>{hoteldetails.rating}</span>  (234 reviews)
+
                 </span>
               </Typography>
             </Box>
@@ -60,7 +60,7 @@ export const HotelDetailsAndImage = (props) => {
           ) : (
             <ImageGrid links={hoteldetails.hotel_images} />
           )}
-        
+
         </Box>
         <Box className={`${styles.tagbox}`}>
           <div className={`${styles.tags1}`}>{hoteldetails.rating}</div>

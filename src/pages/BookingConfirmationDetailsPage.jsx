@@ -1,5 +1,6 @@
 import Confirmation from '../components/confirmationDetails/Confirmation'
 
+
 const confirm = {
     name: "The Leela kovalam kerala",
     dates: "September 15-22 2022",
@@ -20,6 +21,7 @@ const confirm = {
 }
 
 export const BookingConfirmationDetailsPage = () => {
+
     return (
         <>
             <Confirmation details={confirm} />
