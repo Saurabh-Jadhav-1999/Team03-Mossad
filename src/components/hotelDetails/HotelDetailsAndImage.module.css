@@ -84,35 +84,42 @@ align-items: inline;
 .box1 {
     margin-left: 2% !important;
     display: flex;
-    justify-content: inline;
+    /* justify-content: center; */
     margin-top: 20px
 }
 
 .typo2 {
     font-weight: bold !important;
-    display: flex;
-    justify-content: center;
+    display: flex !important;
+    justify-content: center !important;
     /* font-weight: bold !important; */
 }
 
+.typo3{
+    font-size: 12px;
+    font-family: Inter;
+}
 .img1 {
     margin-right: 10px;
-    width:14% !important;
-    height: min-content;
-    width: min-content;
+    width:30px !important;
+    height: 30px !important;
+    /* height: min-content;
+    width: min-content; */
 }
 
 .div1 {
+    margin-top: 2% !important;
+    /* width: 20% !important; */
     color: grey !important;
     margin-left: 5px;
-    display: flex;
-    flex-direction: column;
+    /* display: flex !important; */
+    /* flex-direction: row; */
 }
 
 .box2 {
     display: flex;
     justify-content: center;
-    margin-left: 5%;
+    margin-left: 3%;
     /* width: 10%;  */
 }
 
@@ -125,9 +132,9 @@ align-items: inline;
     border-radius: 100px;
     margin-left: 5% !important;
     margin-top: 28px; */
-    margin-left: 4vw;
+    margin-left: 1vw;
 
-  margin-top: 4% !important;
+  margin-top: -1% !important;
 }
 
 .gridcontainer1 {

@@ -19,7 +19,7 @@ export const App = () => {
           <Route
             exact path="/booking-confirmation" element={<BookingConfirmationDetailsPage />} name="ConfirmPage"
           />
-          <Route exact path="/hotel-details" element={<HotelDetailsPage name="DetailList" />} />
+          <Route exact path="/hotel-details/*" element={<HotelDetailsPage name="DetailList" />} />
           <Route
             path="*"
             element={

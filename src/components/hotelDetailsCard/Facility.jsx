@@ -17,35 +17,16 @@ import {
   setHotelId,
   setCityName,
   fetchHotelDetails,
+  setHotelDetails,
 } from "../../slices/getHotelDetailsSlice";
 
 const Facility = (props) => {
-  let navigate = useNavigate();
-  const routeChange = () => {
-    let path = `/hotel-details`;
-    navigate(path);
-  };
+  const hoteldetails = useSelector(
+    (state) => state.getHotelDetails.hotelDetails
+  );
 
-  const bookNowHandler = async (callbackFunc) => {
-    await setIdd(props.details.hotel_id);
-    await dispatch(setHotelId(idd));
-    await dispatch(setCityName(props.details.city));
-    // dispatch(fetchHotelDetails({ idd, city_name }));
-    // var data=hotellist.hasOwnProperty(`hotel_id:${idd}`);
-    await callbackFunc();
-  };
+  // const [idd, setIdd] = useState();
 
-  const bookNowBtnHandler = async () => {
-    var data = hotellist.filter((val) => {
-      if (val.hotel_id === idd) return val;
-    });
-    console.log(data, "filter useSelector hotellist from facility");
-  };
-
-  const [idd, setIdd] = useState(); // function navi(path) {
-  //   navigate("/DetailList");
-  // }
-  // console.log(props.details,"props from facility");
   const hId = useSelector((state) => state.getHotelDetails.hotel_id);
 
   const city_name = useSelector((state) => state.getHotelDetails.city_name);
@@ -53,6 +34,19 @@ const Facility = (props) => {
   const hotellist = useSelector((state) => state.search.hotellist);
 
   const dispatch = useDispatch();
+
+  let navigate = useNavigate();
+
+   function handleSubmit() {
+    dispatch(setHotelId(props.details.hotel_id));
+    dispatch(setCityName(props.details.city));
+    // console.log(hId,"useSelector from hotel id from get hotel details slice");
+    // console.log(city_name,"useSelector from  cityname from get hotel details slice")
+    navigate(
+      `/hotel-details/?id=${props.details.hotel_id}&city_name=${props.details.city}`
+    );
+  }
+
   return (
     <Box className={styles.facilityDiv}>
       <Typography className={styles.iconDiv}>
@@ -97,10 +91,7 @@ const Facility = (props) => {
             type="button"
             // to="/hotel-details"
             className={styles.btnBook}
-            onClick={() => {
-              bookNowHandler(bookNowBtnHandler);
-            }}
-          >
+            onClick={handleSubmit}>
             Book Now
           </button>
         </Grid>

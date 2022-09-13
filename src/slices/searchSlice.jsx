@@ -87,6 +87,7 @@ export const searchSlice = createSlice({
       // console.log(action.payload,"checkout from slice");
       state.checkOut = action.payload;
     },
+    
   },
   extraReducers: {
     [fetchHotelList.pending]: (state, action) => {

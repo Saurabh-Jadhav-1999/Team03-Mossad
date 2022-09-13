@@ -10,7 +10,7 @@ const initialState = {
 
 export const fetchHotelDetails = createAsyncThunk(
   "getHotelDetails/fetchHotelDetails",
-  async ({ hId, city_name}, thunkAPI) => {
+  async ({ idFromUrl,cityNameFromUrl }, thunkAPI) => {
     try {
       const config = {
         headers: {
@@ -18,24 +18,25 @@ export const fetchHotelDetails = createAsyncThunk(
             "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidWlkIjoxfQ.sZsoyYE35wAuHH4Fn1EgYPi1BNMN6ew_Og9oJvNdZRU",
         },
       };
-    //   console.log(typeof(hId),"ytypew of hId")
-      const id=hId;
-    //   console.log(id,"id from hId")
-        //  console.log(`${hId}`,"hotel id from axios");
-        //  console.log(`${city_name}`,"city name from axios");
+
+      const id=idFromUrl;
+      // console.log(id,"id from idfromurl")
+        //  console.log(idFromUrl,"hotel id from axios");
+        //  console.log(cityNameFromUrl,"city name from axios");
       const bodyParameters = {
-        hotel_id: id,
-        city_name:`${city_name}`,
+        hotel_id: `${idFromUrl}`,
+        city_name:`${cityNameFromUrl}`,
       };
-      return axios
+     return axios
         .post(
           "https://hotelbooking-backend.herokuapp.com/getHotelById",
           bodyParameters,
           config
         )
         .then((response) => {
-          return response.data;
-        //   console.log(response.data, "from axios get hotel details");
+         return response.data;
+        console.log(axios,"axios from axios")
+        //   // console.log(response.data, "from axios get hotel details");
         });
     } catch (error) {
       return error;
@@ -53,6 +54,9 @@ export const getHotelDetailsSlice = createSlice({
     setCityName: (state = initialState, action) => {
       state.city_name = action.payload;
     },
+    setHotelDetails:(state=initialState,action)=>{
+      state.hotelDetails=action.payload;
+    }
   },
   extraReducers: {
     [fetchHotelDetails.pending]: (state, action) => {
@@ -60,12 +64,14 @@ export const getHotelDetailsSlice = createSlice({
     },
     [fetchHotelDetails.fulfilled]: (state, action) => {
       state.status = "succeeded";
-    //   console.log(action.payload, "payload from fetchhoteldetails");
-    //   console.log(action.payload, "action payload from hotel details");
+      // console.log(state.status,"status from extrareducers")
+      // console.log(action.payload, "payload from fetchhoteldetails");
+      // console.log(action.payload, "action payload from hotel details");
       state.hotelDetails = action.payload;
+      // console.log(state.hotelDetails,"hotel details from extra reducers")
     },
   },
 });
 
-export const { setHotelId, setCityName } = getHotelDetailsSlice.actions;
+export const { setHotelId, setCityName,setHotelDetails } = getHotelDetailsSlice.actions;
 export default getHotelDetailsSlice.reducer;

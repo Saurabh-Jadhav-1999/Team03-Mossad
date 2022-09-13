@@ -37,7 +37,7 @@
 }
 
 .input1 {
-    width: 11vw !important;
+    width: 13vw !important;
   border-bottom: 0px !important;
   /* border: 2px white solid !important; */
   padding: 7px;
@@ -50,7 +50,7 @@
   background-color: black !important;
 /* margin-top: -12.5% !important; */
 align-self: center;
-  margin-left: 47% !important;
+  margin-left: 42% !important;
   /* padding: 13px; */
   width: 11vw;
   height: 7vh;

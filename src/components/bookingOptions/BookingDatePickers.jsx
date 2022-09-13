@@ -5,7 +5,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 
 
-export const BookingDatePickers = () => {
+export const BookingDatePickers = (props) => {
     const [value, setValue] = React.useState(new Date());
 
     const handleChange = (newValue) => {
@@ -15,8 +15,8 @@ export const BookingDatePickers = () => {
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
-                inputFormat="MM/DD/YYYY"
-                value={value}
+                inputFormat="YYYY/MM/DD"
+                value={props.date}
                 onChange={handleChange}
                 renderInput={(params) => <TextField {...params} />}
                 minDate={new Date()}

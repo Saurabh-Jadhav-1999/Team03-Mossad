@@ -1,126 +1,317 @@
-import { Stack, Grid, Paper, Box, Typography, Select, FormControl, MenuItem, InputLabel, Checkbox, FormControlLabel } from "@mui/material"
-import styles from "./BookingOptions.module.css"
-import Button from "@mui/material/Button"
-import { BookingDatePickers } from "./BookingDatePickers"
-
+import {
+  Stack,
+  Grid,
+  Paper,
+  Box,
+  Typography,
+  Select,
+  FormControl,
+  MenuItem,
+  InputLabel,
+  Checkbox,
+  FormControlLabel,
+} from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import styles from "./BookingOptions.module.css";
+import Button from "@mui/material/Button";
+import { BookingDatePickers } from "./BookingDatePickers";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setHotelId,
+  setAdultCount,
+  setChildCount,
+  setNoOfPassengers,
+  setAllowToBringPet,
+  setExtraPillow,
+  setLunchPerPersonPerDay,
+  setCityName,
+  setParking,
+  setTotalCost,
+  unsetAllowToBringPet,
+  unsetLunchPerPersonPerDay,
+  unsetParking,
+  finalBookNow,
+} from "./../../slices/bookNowSlice";
 const features = [
-    {
-        id: 1,
-        name: 'Allow to bring pet',
-        price: '$15',
-        value: 15
-    },
-    {
-        id: 2,
-        name: 'Lunch per person per day',
-        price: '$24',
-        value: 24
-    },
-    {
-        id: 3,
-        name: 'Parking',
-        price: '$5',
-        value: 5
-    },
-    {
-        id: 4,
-        name: 'Extra Pillow',
-        price: 'Free',
-        value: 0
-    }]
+  {
+    id: 1,
+    name: "Allow to bring pet",
+    price: "$15",
+    value: 15,
+  },
+  {
+    id: 2,
+    name: "Lunch per person per day",
+    price: "$24",
+    value: 24,
+  },
+  {
+    id: 3,
+    name: "Parking",
+    price: "$5",
+    value: 5,
+  },
+  {
+    id: 4,
+    name: "Extra Pillow",
+    price: "Free",
+    value: 0,
+  },
+];
 
 export const BookingOptions = () => {
+  let dispatch = useDispatch();
+  let navigate = useNavigate();
+  const hotelid=useSelector(state=>state.getHotelDetails.hotel_id)
+  const hotelname=useSelector(state=>state.getHotelDetails.hotel_name);
+  const checkin = useSelector((state) => state.search.checkIn);
+  const checkout = useSelector((state) => state.search.checkOut);
+  const adultcount = useSelector((state) => state.bookNow.totalAdult);
+  const childcount = useSelector((state) => state.bookNow.totalChild);
+  const pet = useSelector((state) => state.bookNow.allow_to_bring_pet);
+  const lunch = useSelector((state) => state.bookNow.lunch_per_person_per_day);
+  const parking = useSelector((state) => state.bookNow.parking);
+  const extrapillow = useSelector((state) => state.bookNow.extra_pillow);
+  const totalcost=useSelector(state=>state.bookNow.totalCost);
+  const roomTypeCost=useSelector(state=>state.bookNow.room_type_cost);
+  //   console.log(adultcount,"adultcount from booknow slice");
+  //   console.log(childcount,"child count from booknow slice")
+  //   console.log(checkin,"checkin useselector from bookingoptons");
+  //   console.log(checkout,"checkout useselector from bookingoptions")
+  return (
+    <Paper elevation={0} className={styles.bookingOptionsContainer}>
+      <Grid
+        container
+        justifyContent="center"
+        alignItems="center"
+        gap={2}
+        className={styles.gridContainer}
+      >
+        <Grid
+          container
+          justifyContent="space-between"
+          className={styles.discountPriceDetailsContainer}
+        >
+          <span>
+            <Typography component={"span"} className={styles.originalRoomPrice}>
+              ${roomTypeCost}
+            </Typography>
+            <Typography
+              component={"span"}
+              className={styles.labelRoomPricePerNight}
+              paddingRight={2}
+            >
+              /night
+            </Typography>
+            <Typography
+              component={"span"}
+              className={styles.discountedRoomPrice}
+            >
+              $576
+            </Typography>
+          </span>
+          <Grid item>
+            <Button
+              variant="contained"
+              disabled
+              disableElevation
+              className={styles.labelDiscountPercentage}
+            >
+              20% OFF
+            </Button>
+          </Grid>
+        </Grid>
+        <hr className={styles.divider} />
+        <Grid item xs={12}>
+          <Stack direction={"row"} justifyContent={"space-between"}>
+            <Box className={styles.datePicker}>
+              <Box
+                className={styles.labelRoomPricePerNight}
+                sx={{ marginBottom: "5px" }}
+              >
+                Check-In
+              </Box>
+              <BookingDatePickers
+                className={styles.datePicker}
+                date={checkin}
+                onChange={(e) => {
+                  console.log(e, "e from check in date picker");
+                }}
+              />
+            </Box>
+            <Box className={styles.datePicker}>
+              <Box
+                className={styles.labelRoomPricePerNight}
+                sx={{ marginBottom: "5px" }}
+              >
+                Check-Out
+              </Box>
+              <BookingDatePickers
+                className={styles.datePicker}
+                date={checkout}
+              />
+            </Box>
+          </Stack>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography
+            className={styles.labelRoomPricePerNight}
+            sx={{ marginBottom: "10px" }}
+          >
+            Guest
+          </Typography>
+          <Stack direction={"row"} gap={2}>
+            <Box sx={{ width: "40%" }}>
+              <FormControl fullWidth size="small">
+                <InputLabel id="label-adult">Adults</InputLabel>
+                <Select
+                  labelId="label-adult"
+                  label="Adult"
+                  defaultValue=""
+                  onChange={(e) => {
+                    // console.log(e.target.value, "adult count");
+                    dispatch(setAdultCount(e.target.value));
+                  }}
+                >
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            <Box sx={{ width: "40%" }}>
+              <FormControl fullWidth size="small">
+                <InputLabel id="label-check-out">Children</InputLabel>
+                <Select
+                  fullWidth
+                  labelId="label-check-out"
+                  label="Children"
+                  defaultValue=""
+                  onChange={(e) => {
+                    // console.log(e.target.value, "child count");
+                    dispatch(setChildCount(e.target.value));
+                  }}
+                >
+                  <MenuItem value={0}>0</MenuItem>
+                  <MenuItem value={1}>1</MenuItem>
+                  <MenuItem value={2}>2</MenuItem>
+                  <MenuItem value={3}>3</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+          </Stack>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography
+            component={"span"}
+            className={styles.labelRoomPricePerNight}
+          >
+            Extra Features
+          </Typography>
+          <Stack direction={"column"}>
+            {features.map((feature) => {
+              return (
+                <div key={feature.id}>
+                  <Stack direction={"row"} justifyContent={"space-between"}>
+                    <FormControlLabel
+                      key={feature.id}
+                      label={feature.name}
+                      control={
+                        <Checkbox
+                          key={feature.id}
+                          value={feature.value}
+                          sx={{ fontSize: "14px", color: "#A4A2A2" }}
+                          onClick={(e) => {
+                            console.log(
+                              e.target.checked,
+                              "e.checked from features"
+                            );
+                            console.log(e, "e from features");
+                            console.log(e.target.key, "e.key from features");
+                            switch (feature.id) {
+                              case 1:
+                                if (e.target.checked) {
+                                  dispatch(setAllowToBringPet(e.target.value));
+                                  console.log(pet, "value from booknow slice");
+                                }
+                                else if(!e.target.checked){
+                                    dispatch(unsetAllowToBringPet(e.target.value));
+                                }
+                                break;
+                              case 2:
+                                if (e.target.checked) {
+                                  dispatch(
+                                    setLunchPerPersonPerDay(e.target.value)
+                                  )
+                                }
+                                  else if(!e.target.checked){
+                                    dispatch(unsetLunchPerPersonPerDay(e.target.value));
+                                }
+                                  console.log(lunch, "value from booknow slice");
+                                
+                                break;
+                              case 3:
+                                if (e.target.checked) {
+                                  dispatch(setParking(e.target.value));
+                                }
+                                else if(!e.target.checked){
+                                    dispatch(unsetParking(e.target.value));
+                                }
+                                  console.log(parking, "value from booknow slice");
+                                
+                                break;
+                            //   case 4:
+                            //     if (e.target.checked) {
+                            //       dispatch(setExtraPillow(e.target.value));
+                            //       else(e.target.unchecked){
+                            //         dispatch(unsetE(e.target.value));
+                            //     }
+                            //       console.log(extrapillow, "value from booknow slice");
+                            //     }
+                            }
+                          }}
+                        />
+                      }
+                    />
+                    <Typography className={styles.extraFeaturesPrice}>
+                      {feature.price}
+                    </Typography>
+                  </Stack>
+                </div>
+              );
+            })}
+          </Stack>
+        </Grid>
 
-    return (
-        <Paper elevation={0} className={styles.bookingOptionsContainer}>
-            <Grid
-                container
-                justifyContent="center"
-                alignItems="center"
-                gap={2}
-                className={styles.gridContainer}>
-                <Grid container justifyContent="space-between" className={styles.discountPriceDetailsContainer}>
-                    <span>
-                        <Typography component={'span'} className={styles.originalRoomPrice}>$720</Typography>
-                        <Typography component={'span'} className={styles.labelRoomPricePerNight} paddingRight={2}>/night</Typography>
-                        <Typography component={'span'} className={styles.discountedRoomPrice}>$576</Typography>
-                    </span>
-                    <Grid item>
-                        <Button variant="contained" disabled disableElevation className={styles.labelDiscountPercentage}>20% OFF</Button>
-                    </Grid>
-                </Grid>
-                <hr className={styles.divider} />
-                <Grid item xs={12}>
-                    <Stack direction={'row'} justifyContent={"space-between"}>
-                        <Box className={styles.datePicker}>
-                            <Box className={styles.labelRoomPricePerNight} sx={{ marginBottom: '5px' }}>Check-In</Box>
-                            <BookingDatePickers className={styles.datePicker} />
-                        </Box>
-                        <Box className={styles.datePicker}>
-                            <Box className={styles.labelRoomPricePerNight} sx={{ marginBottom: '5px' }}>Check-Out</Box>
-                            <BookingDatePickers className={styles.datePicker} />
-                        </Box>
-                    </Stack>
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography className={styles.labelRoomPricePerNight} sx={{ marginBottom: '10px' }}>Guest</Typography>
-                    <Stack direction={'row'} gap={2} >
-                        <Box sx={{ width: '40%' }}>
-                            <FormControl fullWidth size="small">
-                                <InputLabel id="label-adult">Adults</InputLabel>
-                                <Select
-                                    labelId="label-adult"
-                                    label="Adult"
-                                    defaultValue=""
-                                >
-                                    <MenuItem value={1}>1</MenuItem>
-                                    <MenuItem value={2}>2</MenuItem>
-                                    <MenuItem value={3}>3</MenuItem>
-                                </Select>
-                            </FormControl>
-                        </Box>
-                        <Box sx={{ width: '40%' }}>
-                            <FormControl fullWidth size="small" >
-                                <InputLabel id="label-check-out">Children</InputLabel>
-                                <Select
-                                    fullWidth
-                                    labelId="label-check-out"
-                                    label="Children"
-                                    defaultValue=""
-                                >
-                                    <MenuItem value={0}>0</MenuItem>
-                                    <MenuItem value={1}>1</MenuItem>
-                                    <MenuItem value={2}>2</MenuItem>
-                                    <MenuItem value={3}>3</MenuItem>
-                                </Select>
-                            </FormControl></Box>
-                    </Stack>
-                </Grid>
-                <Grid item xs={12}>
-                    <Typography component={'span'} className={styles.labelRoomPricePerNight}>Extra Features</Typography>
-                    <Stack direction={'column'}>
-                        {features.map((feature) => {
-                            return (
-                                <div key={feature.id}>
-                                    <Stack direction={'row'} justifyContent={'space-between'}>
-                                        <FormControlLabel key={feature.id} label={feature.name} control={<Checkbox value={feature.price} sx={{ fontSize: '14px', color: '#A4A2A2' }} />} />
-                                        <Typography className={styles.extraFeaturesPrice}>{feature.price}</Typography>
-                                    </Stack>
-                                </div>
-                            )
-                        })}
-                    </Stack>
-                </Grid>
-
-                <Grid item xs={12}>
-                    <Stack direction={'row'} justifyContent={'space-between'}>
-                        <Typography component={'span'} className={styles.labelRoomPricePerNight}>Total Payment</Typography>
-                        <Typography component={'span'} className={styles.totalBookingPrice}>$2955</Typography>
-                    </Stack>
-                </Grid>
-                <Grid item xs={12}><Button variant="contained" fullWidth className={styles.btnBookNow}>Book Now</Button></Grid>
-            </Grid>
-            <Grid item xs={12} className={styles.bookingNote}><Typography sx={{ fontSize: '8%' }}>You will not get charged yet</Typography></Grid>
-        </Paper >
-    )
-}
+        <Grid item xs={12}>
+          <Stack direction={"row"} justifyContent={"space-between"}>
+            <Typography
+              component={"span"}
+              className={styles.labelRoomPricePerNight}
+            >
+              Total Payment
+            </Typography>
+            <Typography component={"span"} className={styles.totalBookingPrice}>
+              ${totalcost}
+            </Typography>
+          </Stack>
+        </Grid>
+        <Grid item xs={12}>
+          <Button variant="contained" fullWidth className={styles.btnBookNow}
+          onClick={(e)=>{
+            dispatch(finalBookNow({checkin,checkout,adultcount,childcount,hotelid,totalcost}));
+            navigate('/booking-confirmation');
+          }}
+          >
+            Book Now
+          </Button>
+        </Grid>
+      </Grid>
+      <Grid item xs={12} className={styles.bookingNote}>
+        <Typography sx={{ fontSize: "8%" }}>
+          You will not get charged yet
+        </Typography>
+      </Grid>
+    </Paper>
+  );
+};

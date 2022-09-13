@@ -5,7 +5,12 @@ import { Stack } from "@mui/system";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import { Grid } from "@mui/material";
+import { setRoomType,setRoomTypeCost } from "../../slices/bookNowSlice";
+import {useSelector,useDispatch} from "react-redux"
 const Room = (props) => {
+  const dispatch=useDispatch();
+  const roomtype=useSelector(state=>state.bookNow.room_type);
+  const roomtypecost=useSelector(state=>state.bookNow.room_type_cost);
   return (
     <Paper elevation={3} className={styles.roomBox} component="div">
       <Box className={styles.leftDiv}>
@@ -35,7 +40,16 @@ const Room = (props) => {
          <Typography component={"span"} className={styles.offerCondition}>
           Amount before discount ${props.basePrice}/night
         </Typography>
-        <button type='button' className={styles.selectBtn} >select </button>
+        <button type='button' className={styles.selectBtn} 
+        onClick={(e)=>{
+          if(roomtype!==props.roomType&&roomtypecost!==props.basePrice){
+           dispatch(setRoomType(props.roomType));
+           dispatch(setRoomTypeCost(props.basePrice));
+          }
+          
+ 
+         }}
+        >select </button>
       </Box>
     </Paper>
   );
