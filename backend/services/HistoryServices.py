@@ -2,9 +2,9 @@ from operator import and_
 from cerberus import Validator
 from backend.models.HotelModel import SearchHistory
 import datetime
-from sqlalchemy import and_
+from sqlalchemy import and_, desc, func, distinct
 from backend import db
-from backend.models.HotelModel import searchHistory_representation_with_hotel
+from backend.models.HotelModel import searchHistory_representation_with_hotel, Hotel, Review
 from flask_restful import marshal_with
 
 # method to show db result in search_history_with_hotel format
@@ -27,7 +27,6 @@ def validateHistoryData(data):
 # validation for building user history based on location and hotel_id
 def validateHistoryDataWithHotel(data):
     history_Schema = {
-            "city_name":{"type":"string", "required":True},
             "user_id" :{"type":"integer", "required":True}, 
             "hotel_id":{"type":"integer", "required":True}      
     }
@@ -56,7 +55,7 @@ def addHistory(data):
 # method to add user history by hotel_id, location, user_id
 def addHistoryByHotelId(data):
         # check if user have already history with given details
-        history = SearchHistory.query.filter(and_(SearchHistory.hotel_id==data['hotel_id'], SearchHistory.user_id==data['user_id'], SearchHistory.hotel_id==data['hotel_id'])).first()
+        history = SearchHistory.query.filter(and_(SearchHistory.user_id==data['user_id'], SearchHistory.hotel_id==data['hotel_id'])).first()
 
         # if user have already present update number_times count
         if history is not None:
@@ -66,7 +65,7 @@ def addHistoryByHotelId(data):
                 return showSearchHistoryDataWithHotel(history)
 
         # if user history not exists
-        newHistory = SearchHistory(location=data['city_name'],user_id=data['user_id'], hotel_id=data['hotel_id'], search_date=datetime.datetime.utcnow(), number_times=1)
+        newHistory = SearchHistory(location=data['location'],user_id=data['user_id'], hotel_id=data['hotel_id'], search_date=datetime.datetime.utcnow(), number_times=1)
         db.session.add(newHistory)
         newHistory = db.session.commit()
         return showSearchHistoryDataWithHotel(newHistory)
@@ -77,3 +76,15 @@ def getHistory():
 
 
 # method to get user history
+def getUserHistory(user_id, location):
+    res1= db.session.query(SearchHistory).filter(and_(SearchHistory.user_id==user_id,SearchHistory.hotel_id==None)).order_by(SearchHistory.number_times.desc()).first()
+    # mostSearchCity = db.Session.query(SearchHistory).filter(and_(SearchHistory.user_id==user_id, SearchHistory.hotel_id==None,SearchHistory.number_times==func.max(SearchHistory.number_times))).first()
+    
+    print("most searched city by user:",res1.location)
+
+    # getting top 5 hotels in that city
+
+    res2=db.session.query(Hotel.hotel_name,Hotel.hotel_id,Review.rating).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==res1.location).order_by(desc(Review.rating)).limit(5).all()
+    # res2=db.session.query(distinct(Hotel.hotel_id)).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==res1.location).order_by(desc(Review.rating)).limit(5).all()
+    
+    print(res2)

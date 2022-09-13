@@ -8,6 +8,8 @@ import json
 import jwt
 from backend.auth.authToken import token_required
 
+from backend.services.HistoryServices import getUserHistory
+
 # post request parser
 post_parser = reqparse.RequestParser()
 post_parser.add_argument("user_name", str, help="user_name is missing", required=True)
@@ -57,7 +59,7 @@ def login():
     # add header x-auth-token generate it using jwt
     payload_data = {
                     "email": user['email'],
-                    "uid": user['user_id'],
+                    "user_id": user['user_id'],
                 }
     token = jwt.encode(
                     payload=payload_data,
@@ -71,10 +73,16 @@ def login():
 
 @app.route("/", methods=["GET"])
 def basicRoute():
-    print("before token validation:",request.json)
+
+    # print("before token validation:",request.json)
     token_result = token_required(request)
-    print(token_result)
+    # print(token_result)
     if  type(token_result)==dict({}) and "error" in token_result.keys():
         return token_result
-    print("after token validation:",request.json) 
+    # print("after token validation:",request.json) 
+
+    # call the get search suggestion
+    getUserHistory(request.json.get("user_id"), "Mumbai")
+
+
     return make_response("Application is running", 200)

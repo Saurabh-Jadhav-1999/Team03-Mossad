@@ -5,7 +5,12 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://efcdpwyl:R05Qw_8OiIW0hG_um1xr4blSG4-ar0Bx@rosie.db.elephantsql.com/efcdpwyl"
-app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://lccftkvn:iOCW9BYtnRqQakPSMfenW79jR5jvGd7l@rosie.db.elephantsql.com/lccftkvn"
+
+# db url for testing
+# app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://lccftkvn:iOCW9BYtnRqQakPSMfenW79jR5jvGd7l@rosie.db.elephantsql.com/lccftkvn"
+
+# final testing with new facality model and updated code testing
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://nlxvhwkd:8tBh0PJcR6C5U1-o2XyCC89hEh4DQGnv@rosie.db.elephantsql.com/nlxvhwkd"
 
 # allow origins
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
@@ -16,10 +21,9 @@ app.config['SECRET_KEY'] = '578c61c660c50e32f4de9edcbbf4c191'
 api = Api(app)
 
 try:
-    db = SQLAlchemy(app)
+    db = SQLAlchemy(app) # create db object
 
-    # db.drop_all()
-
+    # import route handlers
     from backend.routes.UserRoutes import UserHandler
     from backend.routes.HotelRoutes import HotelHandler
     from backend.routes.ReviewRoutes import HandleReview

@@ -57,7 +57,9 @@ facality_representation = {
     "room_service":fields.Boolean,
     "living_room":fields.Boolean,
     "barbeque":fields.Boolean,
-    "free_wifi": fields.Boolean
+    "free_wifi": fields.Boolean,
+    "free_cancellation": fields.Boolean,
+    "no_prepayment": fields.Boolean
 }
 
 
@@ -94,8 +96,8 @@ class Hotel(db.Model):
     hotel_id = db.Column(db.Integer, primary_key=True)
     hotel_name = db.Column(db.String(200), nullable=False)
     hotel_profile_picture = db.Column(db.String(200), default="https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg")
-    hotel_images = db.Column(db.ARRAY(db.String(500)))
-    description = db.Column(db.String(500), nullable=False)
+    hotel_images = db.Column(db.ARRAY(db.String(2500)))
+    description = db.Column(db.String(2000), nullable=False)
     city = db.Column(db.String(200), nullable=False)
     state = db.Column(db.String(200), nullable=False)
     country = db.Column(db.String(200), nullable=False)
@@ -171,6 +173,8 @@ class Facality(db.Model):
     extra_parking_cost = db.Column(db.Float, nullable=False)
     extra_pillow_cost = db.Column(db.Integer, nullable=False)
     free_wifi = db.Column(db.Boolean, default = False)
+    free_cancellation = db.Column(db.Boolean, default=False)
+    no_prepayment = db.Column(db.Boolean, default=False)
 
 
 # review model with many table for user and hotel 
