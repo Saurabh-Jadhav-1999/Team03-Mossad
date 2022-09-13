@@ -74,10 +74,6 @@ export const BookingOptions = () => {
   const extrapillow = useSelector((state) => state.bookNow.extra_pillow);
   const totalcost=useSelector(state=>state.bookNow.totalCost);
   const roomTypeCost=useSelector(state=>state.bookNow.room_type_cost);
-  //   console.log(adultcount,"adultcount from booknow slice");
-  //   console.log(childcount,"child count from booknow slice")
-  //   console.log(checkin,"checkin useselector from bookingoptons");
-  //   console.log(checkout,"checkout useselector from bookingoptions")
   return (
     <Paper elevation={0} className={styles.bookingOptionsContainer}>
       <Grid

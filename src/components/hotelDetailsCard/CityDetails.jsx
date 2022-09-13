@@ -24,8 +24,7 @@ const CityDetails = (props) => {
         </Typography>
         <Typography className={styles.boldRating} component="span">
           {/* {props.item.hotelreviews.rating} */}
-
-          {/* {props.item.rating} */}
+          {props.item.rating}
         </Typography>
         {/* ({props.details.hotelreview[1].reviews} reviews) */}
 

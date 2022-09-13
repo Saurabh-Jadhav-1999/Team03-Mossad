@@ -18,6 +18,7 @@ const details = {
   departure: "Kochi",
 };
 export const HotelDetailsCard = (props) => {
+  console.log(props);
   return (
     <Grid container className={styles.hotelDetailBox}>
       <Grid container>

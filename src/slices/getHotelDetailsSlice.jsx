@@ -64,11 +64,7 @@ export const getHotelDetailsSlice = createSlice({
     },
     [fetchHotelDetails.fulfilled]: (state, action) => {
       state.status = "succeeded";
-      // console.log(state.status,"status from extrareducers")
-      // console.log(action.payload, "payload from fetchhoteldetails");
-      // console.log(action.payload, "action payload from hotel details");
       state.hotelDetails = action.payload;
-      // console.log(state.hotelDetails,"hotel details from extra reducers")
     },
   },
 });
