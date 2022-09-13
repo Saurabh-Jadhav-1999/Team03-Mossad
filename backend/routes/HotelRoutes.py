@@ -180,10 +180,11 @@ def getHotels():
     # print("80 perc of avilable hotel: ", int(len(hotels)*0.8))
     # print('total length of available hotel:', len(availableHotelList))
     # check if available rooms are less than 20% of all avilable rooms if yes apply discount
-    if  len(availableHotelList) <= (len(hotels)-int(len(hotels)*0.8)):
+    if  len(availableHotelList)>1 and  len(availableHotelList) <= (len(hotels)-int(len(hotels)*0.8)):
         print('must apply price increment for hotels')
         # availableHotelList.append("dynamic_price_hike")
-        return make_response([showAvailableHotels(availableHotelList), {"dynamic_hike_price":True}], 200)
+        return make_response(newdata, 200)
+        # return make_response([showAvailableHotels(availableHotelList), {"dynamic_hike_price":True}], 200)
         
     newdata = showAvailableHotels(availableHotelList)
     # newdata.append({"dynamic_hike_price":False})
