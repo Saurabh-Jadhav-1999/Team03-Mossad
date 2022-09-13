@@ -1,5 +1,4 @@
-import { Box, Grid, Typography } from "@material-ui/core";
-import { Stack } from "@mui/system";
+import { Box } from "@material-ui/core";
 import React from "react";
 import Amenities from "./Amenities";
 import style from "./Features.module.css";

@@ -3,11 +3,10 @@ import axios from "axios";
 
 const initialState = {
   hotelId: "",
-  hotel_name:"",
+  hotel_name: "",
   noOfPassengers: "",
   totalCost: 0,
-  totalAdult: "",
-  totalChild: "",
+  status: "",
   city_name: "",
   allow_to_bring_pet: "",
   lunch_per_person_per_day: "",
@@ -15,7 +14,6 @@ const initialState = {
   room_type: "",
   room_type_cost: 0,
   finalbooking: [],
-  // extra_pillow: "",
 };
 
 export const finalBookNow = createAsyncThunk(
@@ -28,13 +26,13 @@ export const finalBookNow = createAsyncThunk(
       const config = {
         headers: {
           "x-auth-token":
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidWlkIjoxfQ.sZsoyYE35wAuHH4Fn1EgYPi1BNMN6ew_Og9oJvNdZRU",
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidXNlcl9pZCI6MX0.8ZJAWETPMMyxQygChY7t3d1GdrxGo16UQ_MkF6D-OGg",
         },
       };
-      const cost=parseInt(totalcost);
-      const hid=parseInt(hotelid);
-      const acnt=parseInt(adultcount);
-      const ccnt=parseInt(childcount);
+      const cost = parseInt(totalcost);
+      const hid = parseInt(hotelid);
+      const acnt = parseInt(adultcount);
+      const ccnt = parseInt(childcount);
       const bodyParameters = {
         check_in_date: `${checkin}`,
         check_out_date: `${checkout}`,
@@ -78,12 +76,7 @@ export const bookNowSlice = createSlice({
     setTotalCost: (state = initialState, action) => {
       state.totalCost = action.payload;
     },
-    setAdultCount: (state = initialState, action) => {
-      state.totalAdult = action.payload;
-    },
-    setChildCount: (state = initialState, action) => {
-      state.totalChild = action.payload;
-    },
+
     setCityName: (state = initialState, action) => {
       state.city_name = action.payload;
     },
@@ -122,27 +115,24 @@ export const bookNowSlice = createSlice({
   extraReducers: {
     [finalBookNow.pending]: (state, action) => {
       state.status = "loading";
+
     },
+    [finalBookNow.rejected]: (state, action) => {
+      state.status = "rejected";
+
+    },
+
     [finalBookNow.fulfilled]: (state, action) => {
       state.status = "succeeded";
       state.finalbooking = action.payload;
       console.log(state.finalbooking, "extra reducer from finalbooknow");
     },
-    // [fetchHotelList.pending]: (state, action) => {
-    //   state.status = "loading";
-    // },
-    // [fetchHotelList.fulfilled]: (state, action) => {
-    //   state.status = "succeeded";
-    //   state.hotellist = action.payload;
-    //   console.log(state.hotellist, "from fetch hotel list reducers");
-    // },
   },
 });
 
 export const {
   setHotelId,
-  setAdultCount,
-  setChildCount,
+
   setNoOfPassengers,
   setAllowToBringPet,
   setExtraPillow,

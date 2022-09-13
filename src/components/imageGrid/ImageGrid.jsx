@@ -1,50 +1,53 @@
 import React, { Fragment } from "react";
-
 import styles from "./ImageGrid.module.css";
+import { useState} from "react";
+import { setImageLoadStatus } from "../../slices/getHotelDetailsSlice";
+import { useDispatch } from "react-redux";
 
 const ImageGrid = (props) => {
-  // const images = [
-  //   "https://cdn.pixabay.com/photo/2012/11/21/10/24/building-66789_1280.jpg",
-  //   "https://cdn.pixabay.com/photo/2016/03/28/09/34/bedroom-1285156_1280.jpg",
-  //   "https://cdn.pixabay.com/photo/2019/05/28/00/15/indoors-4234071_1280.jpg",
-  //   "https://cdn.pixabay.com/photo/2021/02/03/00/10/receptionists-5975962_1280.jpg",
-  // ];
+  const [imgsLoaded, setImgsLoaded] = useState(0);
+  const dispatch = useDispatch();
+
+  const imgLoadHandler = () => {
+    console.log(imgsLoaded);
+    let imgLoadCount = imgsLoaded + 1;
+
+    setImgsLoaded(imgLoadCount);
+    if (imgLoadCount === 4) {
+      console.log('success');
+      dispatch(setImageLoadStatus(true));
+    }
+  }
   return (
     <Fragment>
       <div className={styles.container}>
         <div className={styles.leftPane}>
           <img
-            // src="https://algedra.ae/files/blog/minimalism/shutterstock_102801122256.jpg"
             src={`${props.links[0]}`}
             alt=""
             style={{ borderRadius: "50px 0px 0px 50px" }}
+            onLoad={imgLoadHandler}
           />
         </div>
         <div className={styles.rightPane}>
-          {/* <div> */}
           <img
-            // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQASmcf18-IhnOC3fI-mm9WTAxsMN72uyfjDA&usqp=CAU"
             src={`${props.links[1]}`}
             alt=""
             style={{ borderRadius: "0px 50px 0px 0px" }}
+            onLoad={imgLoadHandler}
           />
-          {/* </div> */}
-          {/* <div> */}
-            <img
-              // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQASmcf18-IhnOC3fI-mm9WTAxsMN72uyfjDA&usqp=CAU"
-              src={props.links[2]}
-              alt=""
-              styles={{ borderRadius: "50px 0px 0px 50px " }}
-            />
-          {/* </div> */}
-          {/* <div> */}
-            <img
-              // src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQASmcf18-IhnOC3fI-mm9WTAxsMN72uyfjDA&usqp=CAU"
-              src={`${props.links[3]}`}
-              alt=""
-              style={{ borderRadius: "0px 0px 50px 0px" }}
-            />
-          {/* </div> */}
+          <img
+            src={props.links[2]}
+            alt=""
+            styles={{ borderRadius: "50px 0px 0px 50px " }}
+            onLoad={imgLoadHandler}
+          />
+          <img
+            src={`${props.links[3]}`}
+            alt=""
+            style={{ borderRadius: "0px 0px 50px 0px" }}
+            onLoad={imgLoadHandler}
+          />
         </div>
       </div>
     </Fragment>

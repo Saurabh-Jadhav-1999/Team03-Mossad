@@ -1,4 +1,4 @@
-import { Box, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import React from "react";
 import { useSelector } from "react-redux";
 import CityDetails from "./CityDetails";
@@ -8,8 +8,8 @@ import { HotelImage } from "./HotelImage";
 
 export const HotelDetailsCard = (props) => {
 
-  const checkInDate = useSelector((state)=> state.search.checkIn)
-  const checkOutDate = useSelector((state)=> state.search.checkOut)
+  const checkInDate = useSelector((state) => state.search.checkIn)
+  const checkOutDate = useSelector((state) => state.search.checkOut)
 
   return (
     <Grid container className={styles.hotelDetailBox}>
@@ -20,7 +20,7 @@ export const HotelDetailsCard = (props) => {
         <Grid item className={styles.detailsDiv}>
           <Grid container>
             <Grid item>
-              <CityDetails item={props.details} checkInDate={checkInDate} checkOutDate={checkOutDate}/>
+              <CityDetails item={props.details} checkInDate={checkInDate} checkOutDate={checkOutDate} />
             </Grid>
             <Grid item>
               <Facility

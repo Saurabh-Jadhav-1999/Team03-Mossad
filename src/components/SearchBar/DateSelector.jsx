@@ -7,35 +7,16 @@ import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import styles from "./DateSelector.module.css";
 import { Box } from "@mui/material";
 import moment from "moment/moment";
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCheckIn, setCheckOut } from "../../slices/searchSlice";
 
 export default function DateSelector() {
   const [dateValues, setDateValues] = React.useState([null, null]);
-
-  const cIn = useSelector((state) => state.search.checkIn);
-  const cOut = useSelector((state) => state.search.checkOut);
-
-  let date = [];
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    date = dateValues;
-  }, [dateValues, cIn, cOut]);
+const checkin=useSelector(state=>state.search.checkIn);
+const checkout=useSelector(state=>state.search.checkOut);
 
-  const dateValueHandler = (newValue) => {
-    if (newValue[0] != null && newValue[1] != null) {
-      const checkInDateValue = moment(new Date(newValue[0])).format(
-        "YYYY-MM-DD"
-      );
-      const checkOutDateValue = moment(new Date(newValue[1])).format(
-        "YYYY-MM-DD"
-      );
-
-      setDateValues([checkInDateValue, checkOutDateValue]);
-    }
-  };
   return (
     <LocalizationProvider
       dateAdapter={AdapterDayjs}
@@ -43,6 +24,7 @@ export default function DateSelector() {
     >
       <DateRangePicker
         minDate={new Date()}
+        disablePast
         clearable
         value={dateValues}
         format="MM/dd/yyyy"
@@ -59,17 +41,15 @@ export default function DateSelector() {
 
             dispatch(setCheckIn(checkInDateValue), () => {});
             dispatch(setCheckOut(checkOutDateValue), () => {});
-            // console.log("Check-In Date: ", checkInDateValue);
-            // console.log("Check-Out Date: ", checkOutDateValue);
           }
         }}
         renderInput={(startProps, endProps) => (
           <React.Fragment>
             <TextField
-              value={dateValues}
+              value={checkin}
               className={styles.dateInp}
               {...startProps}
-              onChange={(e) => {}}
+             
             />
             <Box
               className={styles.arrow}
@@ -77,14 +57,10 @@ export default function DateSelector() {
               component="img"
               style={{ zIndex: 99 }}
             />
-            {/* <Box className={styles.arrow}  component="img"  style={{ zIndex: 99 }}/> */}
-
+       
             <TextField
-              value={dateValues}
-              onChange={(e) => {
-                // console.log(value,"date value from state of compoenet")
-                // dispatch(setCheckOut({ location: e.target.value }));
-              }}
+              value={checkout}
+           
               className={styles.dateInp}
               {...endProps}
             />

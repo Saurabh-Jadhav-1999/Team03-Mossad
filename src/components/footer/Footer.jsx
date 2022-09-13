@@ -1,19 +1,17 @@
-import { Button, style } from "@mui/material";
-import React, { Fragment } from "react";
+import { Button } from "@mui/material";
+import React from "react";
 import styles from "./Footer.module.css";
 import logo from "../../assets/images/HotelLogo.png";
+import { ToastContainer, toast } from "react-toastify";
 import {
   Box,
-  Container,
-  Typography,
   Grid,
   TextField,
-  Link,
 } from "@mui/material";
-import zIndex from "@mui/material/styles/zIndex";
-import { BoltRounded } from "@mui/icons-material";
 
+import "react-toastify/dist/ReactToastify.css";
 export const Footer = (props) => {
+  const notify = () => toast("Email Sent !");
   return (
     <footer>
       <div className={`${styles.container}`}>
@@ -28,17 +26,25 @@ export const Footer = (props) => {
             <div className={`${styles.div1}`}>
               <TextField
                 variant="standard"
+                type={"email"}
                 InputProps={{
                   disableUnderline: true,
-                  fontWeight:"bold",
+                  fontWeight: "bold",
                 }}
-               
                 className={`${styles.input1}`}
-                // type="text"
+          
                 label="Type your email here"
               />
-              <Button variant="contained" className={`${styles.button1}`}>
+              <Button
+                variant="contained"
+                className={`${styles.button1}`}
+                onClick={()=>{
+                  notify();
+                }
+                }
+              >
                 <label className={`${styles.label1}`}> Subscribe</label>
+                <ToastContainer />
               </Button>
             </div>
           </div>
@@ -58,7 +64,7 @@ export const Footer = (props) => {
                   height="40px"
                   width="155vw"
                   className={`${styles.boximg}`}
-                  alt=''
+                  alt=""
                 />
                 <label className={`${styles.label2}`}>
                   {" "}
@@ -103,4 +109,3 @@ export const Footer = (props) => {
     </footer>
   );
 };
-

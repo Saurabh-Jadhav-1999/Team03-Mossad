@@ -6,37 +6,33 @@ const initialState = {
   city_name: "",
   hotelDetails: [],
   status: "",
+  imgsLoaded: false
 };
 
 export const fetchHotelDetails = createAsyncThunk(
   "getHotelDetails/fetchHotelDetails",
-  async ({ idFromUrl,cityNameFromUrl }, thunkAPI) => {
+  async ({ idFromUrl, cityNameFromUrl }, thunkAPI) => {
     try {
       const config = {
         headers: {
           "x-auth-token":
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidWlkIjoxfQ.sZsoyYE35wAuHH4Fn1EgYPi1BNMN6ew_Og9oJvNdZRU",
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidXNlcl9pZCI6MX0.8ZJAWETPMMyxQygChY7t3d1GdrxGo16UQ_MkF6D-OGg",
         },
       };
 
-      const id=idFromUrl;
-      // console.log(id,"id from idfromurl")
-        //  console.log(idFromUrl,"hotel id from axios");
-        //  console.log(cityNameFromUrl,"city name from axios");
       const bodyParameters = {
         hotel_id: `${idFromUrl}`,
-        city_name:`${cityNameFromUrl}`,
+        city_name: `${cityNameFromUrl}`,
       };
-     return axios
+      return axios
         .post(
           "https://hotelbooking-backend.herokuapp.com/getHotelById",
           bodyParameters,
           config
         )
         .then((response) => {
-         return response.data;
-        console.log(axios,"axios from axios")
-        //   // console.log(response.data, "from axios get hotel details");
+          return response.data;
+
         });
     } catch (error) {
       return error;
@@ -54,8 +50,11 @@ export const getHotelDetailsSlice = createSlice({
     setCityName: (state = initialState, action) => {
       state.city_name = action.payload;
     },
-    setHotelDetails:(state=initialState,action)=>{
-      state.hotelDetails=action.payload;
+    setHotelDetails: (state = initialState, action) => {
+      state.hotelDetails = action.payload;
+    },
+    setImageLoadStatus: (state = initialState, action) => {
+      state.imgsLoaded = action.payload;
     }
   },
   extraReducers: {
@@ -73,5 +72,5 @@ export const getHotelDetailsSlice = createSlice({
   },
 });
 
-export const { setHotelId, setCityName,setHotelDetails } = getHotelDetailsSlice.actions;
+export const { setHotelId, setCityName, setHotelDetails, setImageLoadStatus } = getHotelDetailsSlice.actions;
 export default getHotelDetailsSlice.reducer;

@@ -2,10 +2,10 @@ import { Box, Typography } from "@material-ui/core";
 import styles from "./Room.module.css";
 import React from "react";
 import Room from "./Room";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 const offers = ["Free Wi-fi", "Breakfast for two people", "Non Refundable"];
 export const RoomAndPrice = () => {
-  const dispatch = useDispatch();
+
   const room_price_and_types = useSelector(
     (state) => state.getHotelDetails.hotelDetails
   );

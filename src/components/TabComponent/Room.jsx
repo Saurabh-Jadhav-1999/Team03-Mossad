@@ -1,9 +1,7 @@
-import { Box, Button, Paper, Typography } from "@material-ui/core";
+import { Box, Paper, Typography } from "@material-ui/core";
 import styles from "./Room.module.css";
 import React from "react";
-import { Stack } from "@mui/system";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
-import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
 import { Grid } from "@mui/material";
 import { setRoomType,setRoomTypeCost } from "../../slices/bookNowSlice";
 import {useSelector,useDispatch} from "react-redux"
