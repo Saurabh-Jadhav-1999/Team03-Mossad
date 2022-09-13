@@ -6,10 +6,20 @@ import star from "../../assets/images/HotelRatingIcon.png";
 import confirmation from "../../assets/images/SuccessfullBookingHotelImage.png";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 import { Link,Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Confirmation = (props) => {
   function navigate(path) {
     Navigate(path);
   }
+
+  const bookingdetails=useSelector(state=>state.bookNow.finalbooking);
+  const hotelname=useSelector(state=>state.getHotelDetails.hotelDetails.hotel_name);
+  const hotelstate=useSelector(state=>state.getHotelDetails.hotelDetails.state);
+  const hotelrating=useSelector(state=>state.getHotelDetails.hotelDetails.rating);
+  const city=useSelector(state=>state.getHotelDetails.hotelDetails.city);
+  const checkin=useSelector(state=>state.search.checkIn);
+  const checkout=useSelector(state=>state.search.checkOut);
+  const roomtype=useSelector(state=>state.bookNow.room_type);
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -70,7 +80,7 @@ const Confirmation = (props) => {
         </div>
         <div className={`${styles.div16}`}>
           <Typography className={`${styles.typo2}`} variant="h4">
-            The Leela Kovalam Kerala
+            The {hotelname} {city} {hotelstate}
           </Typography>
         </div>
         <div className={`${styles.div17}`}>
@@ -81,14 +91,14 @@ const Confirmation = (props) => {
           >
             <img src={star} alt="" className={`${styles.starimg}`} />
             &nbsp;&nbsp;
-            {props.details.rating}
+            {hotelrating}
             <div className={`${styles.div3}`}>
               {" "}
               ({props.details.reviews} reviews)
             </div>
           </Typography>
           <Typography className={`${styles.typo5}`}>
-            {props.details.room_count} {props.details.hotel_room_type}
+            {1} {roomtype}
           </Typography>
         </div>
         <div>
@@ -105,14 +115,14 @@ const Confirmation = (props) => {
                   <Box className={`${styles.box1}`}>
                     <div className={`${styles.div5}`}>Dates</div>
                     <div className={`${styles.div6}`}>
-                      {props.details.dates}
+                      {checkin}-{checkout}
                     </div>
                   </Box>
                   <Box className={`${styles.box2}`}>
                     {" "}
                     <div className={`${styles.div7}`}>Travelers</div>
                     <div className={`${styles.div8}`}>
-                      {props.details.travelers} Passengers
+                      {bookingdetails.guest_count} Passengers
                     </div>
                   </Box>
                 </Grid>
@@ -137,10 +147,10 @@ const Confirmation = (props) => {
                           <Box>Payment Method</Box>
                         </div>
                         <div className={`${styles.div13}`}>
-                          <Box>{props.details.bookingCode}</Box>
-                          <Box>{props.details.date}</Box>
-                          <Box>{props.details.total}</Box>
-                          <Box>{props.details.Payment}</Box>
+                          <Box>{bookingdetails.b_id}</Box>
+                          <Box>{checkin}</Box>
+                          <Box>{bookingdetails.total_cost}</Box>
+                          <Box>Credit card</Box>
                         </div>
                       </div>
                     </div>
@@ -151,7 +161,7 @@ const Confirmation = (props) => {
             <Grid item xs={12} lg={8}>
               {" "}
               <div className={`${styles.div14}`}>
-                <img src={confirmation} height="510px" width="750px" alt="" />
+                <img src={bookingdetails.hotel_profile_picture} height="510px" width="750px" alt="" />
               </div>
             </Grid>
           </div>

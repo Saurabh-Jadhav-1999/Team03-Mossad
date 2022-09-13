@@ -8,7 +8,7 @@
   }
   .container {
     display: flex !important;
-    gap: 20px !important;
+    gap: 15px !important;
     padding: 2rem !important;
   }
   
@@ -26,7 +26,7 @@
   .rightPane {
     display: grid !important;
     flex-direction: column !important;
-    gap: 13px;
+    gap: 10px;
     flex-grow: 1;
     border-radius: 50px;
   }

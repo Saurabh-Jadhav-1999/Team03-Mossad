@@ -5,11 +5,10 @@ import { TabBar } from "../TabComponent/TabBar";
 import styles from "./HotelDetails.module.css";
 import { Box } from "@mui/system";
 import Breadcrumb from "../breadcrumb/Breadcrumb";
-import { Link,Navigate } from "react-router-dom";
-import { useSelector,useDispatch } from "react-redux";
+import { Link, Navigate, useLocation } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchHotelDetails } from "./../../slices/getHotelDetailsSlice";
 const confirm = {
-
-
   hotel_name: "The Leela kovalam kerala",
 
   dates: "September 15-22 2022",
@@ -41,7 +40,7 @@ const confirm = {
   tag4: "Top Value",
 
   tag5: "Buidling",
-  city:"Beack kovalam"
+  city: "Beack kovalam",
 };
 
 const description = `The Raviz Kovalam sits on a cliff, offering panoramic views of the Kovalam shoreline and the Arabian Sea. It is steps away from a private beach, and features a spa.\n
@@ -49,60 +48,62 @@ Rooms at The Raviz Kovalam Beach combine wooden décor with modern amenities lik
 The outdoor pool and the fitness centre both overlook the sea. The Raviz Kovalam also has a game room and tennis court. Travel services include tour and ticketing arrangements and car rental.\n`;
 
 export const HotelDetails = () => {
- const hoteldetails=useSelector((state)=>state.getHotelDetails.hotelDetails);
- console.log(hoteldetails,"useSelector hotel details")
-  const dispatch=useDispatch();
-  function navigate(path) {
+  let location = useLocation();
+
+  let dispatch = useDispatch();
+  const idFromUrl = new URLSearchParams(location.search).get("id");
+  const cityNameFromUrl = new URLSearchParams(location.search).get("city_name");
+
+  dispatch(fetchHotelDetails({ idFromUrl, cityNameFromUrl }));
+
+  const hoteldetails = useSelector( (state) => state.getHotelDetails.hotelDetails );
  
-    Navigate(path)
-    
-  }
+
   const breadcrumbs = [
     <Link
-    underline="hover"
-    to="/"
-    key="1"
-    color="inherit"
-    href="/"
-    // onClick={()=> navigate('Home')}
-    style={{ textDecoration: 'none' ,color:"grey"}}
-  >
-    Home
-  </Link>,
-  <Link
-  to="/search-hotels"
-    underline="hover"
-    key="2"
-    color="inherit"
-    href="/search-hotels"
-    // onClick={()=> navigate('HotelList')}
-    style={{ textDecoration: 'none',color:"grey" }}
-  >
-    Hotel List
-  </Link>,
-   <Link
-   to="/hotel-details"
-     underline="hover"
-     key="2"
-     color="inherit"
-     href="/hotel-details"
-     // onClick={()=> navigate('HotelList')}
-     style={{ textDecoration: 'none',color:"black" }}
-   >
-     Hotel Details
-   </Link>
+      underline="hover"
+      to="/"
+      key="1"
+      color="inherit"
+      href="/"
+      // onClick={()=> navigate('Home')}
+      style={{ textDecoration: "none", color: "grey" }}
+    >
+      Home
+    </Link>,
+    <Link
+      to="/search-hotels"
+      underline="hover"
+      key="2"
+      color="inherit"
+      href="/search-hotels"
+      // onClick={()=> navigate('HotelList')}
+      style={{ textDecoration: "none", color: "grey" }}
+    >
+      Hotel List
+    </Link>,
+    <Link
+      to="/hotel-details"
+      underline="hover"
+      key="2"
+      color="inherit"
+      href="/hotel-details"
+      // onClick={()=> navigate('HotelList')}
+      style={{ textDecoration: "none", color: "black" }}
+    >
+      Hotel Details
+    </Link>,
   ];
   return (
     <Fragment>
-      <Breadcrumb links={breadcrumbs}/>
-    <div className={styles.container}>
-      
-      <HotelDetailsAndImage details={confirm} />
-      <Box className={styles.bottomDiv}>
-        <TabBar description={description} />
-        <BookingOptions />
-      </Box>
-    </div>
+      <Breadcrumb links={breadcrumbs} />
+      <div className={styles.container}>
+        <HotelDetailsAndImage details={hoteldetails} />
+        <Box className={styles.bottomDiv}>
+          <TabBar description={hoteldetails} />
+          <BookingOptions />
+        </Box>
+      </div>
     </Fragment>
   );
 };

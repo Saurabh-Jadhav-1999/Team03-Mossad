@@ -80,7 +80,7 @@ export const TabBar = (props) => {
         </Tabs>
       </Box>
       <TabPanel value={value} index={0} className={styles.tabDetail}>
-        {props.description}
+        {props.description.description}
       </TabPanel>
       <TabPanel value={value} index={1} className={styles.tabDetail}>
         <Featuers />

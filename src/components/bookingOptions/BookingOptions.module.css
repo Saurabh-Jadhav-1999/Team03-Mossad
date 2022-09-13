@@ -1,12 +1,18 @@
 .bookingOptionsContainer {
     margin: 19px;
     border-radius: 4% !important;
-    height: 500px;
-    width: 370px;
+    height: 44%;
+    width: 350px;
+    border: 1px solid #D1CECE;
+    padding-bottom: 10px;
 }
 
 .gridContainer {
-    padding: 20px;
+    padding: 20px 25px;
+}
+
+.gridContainer Grid {
+    padding: 10px;
 }
 
 .discountPriceDetailsContainer {
@@ -17,8 +23,8 @@
 
 .originalRoomPrice {
     font-family: Inter !important;
-    font-weight: 800 !important;
-    font-size: 22px;
+    font-weight: 700 !important;
+    font-size: 22px !important;
     line-height: 30px;
 }
 
@@ -46,24 +52,64 @@
 }
 
 .divider {
-    width: 99%;
+    width: 99% !important;
     border: 0.5px solid #D1D4D9 !important;
     background: #D1D4D9 !important;
 }
 
-.datePicker input{
-
-    background: #F4F5F7;
-}
-
-.react-datepicker-wrapper, .react-datepicker__input-container, .react-datepicker-ignore-onclickoutside{
-    width: 1px !important;
-    padding: 0xp;
-}
-
-.datePicker{
-    border: 1px solid white;
+.datePicker {
+    align-content: start !important;
+    border: 1px solid white !important;
+    border-radius: 5px !important;
     font-family: Inter !important;
-    font-weight: 300s !important;
-    color: #C9C8C8;
+    font-weight: 300 !important;
+    margin-left: -5px !important;
+    color: #C9C8C8 !important;
+}
+
+.datePicker input {
+    font-size: 75% !important;
+    width: 5rem !important;
+    background: #F4F5F7 !important;
+    padding: 8% !important;
+}
+
+.datePicker button{
+    color: #C9C8C8 !important;
+}
+
+.btnBookNow {
+    color: white;
+    background-color: #3C71FF !important;
+    text-transform: none !important;
+    border-radius: 8px !important;
+    box-shadow: none !important;
+}
+
+.bookingNote {
+    text-align: center;
+    font-family: Inter;
+    font-size: 10rem !important;
+    font-weight: 700;
+    line-height: 15px;
+    letter-spacing: 0em;
+    color: #A4A2A2;
+}
+
+.totalBookingPrice {
+    font-family: 'Inter' !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    font-size: 18px !important;
+    line-height: 22px !important;
+    color: #000000;
+}
+
+.extraFeaturesPrice {
+    font-family: Inter !important;
+    font-size: 16px !important;
+    font-weight: 400 !important;
+    line-height: 19px !important;
+    letter-spacing: 0em !important;
+    color: #A4A2A2 !important;
 }
