@@ -60,7 +60,7 @@ class HandleBooking(Resource):
 
         result = addBooking(data, user, hotel)
         
-        if "error" in result.keys():
+        if  isinstance(result, dict) and "error" in result.keys():
             return make_response(result, 400)
 
         print(result)

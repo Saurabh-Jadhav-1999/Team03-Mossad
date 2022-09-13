@@ -226,5 +226,6 @@ def addBooking(data, user, hotel):
             # "hotel_profile_picture": hotel.hotel_profile_picture
         }
         return response
-    
+    else:
+        return {"error":"invalid guest count!"}
 
