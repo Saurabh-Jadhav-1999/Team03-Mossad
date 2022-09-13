@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import {token} from './token'
 
 const initialState = {
   hotel_id: "",
@@ -14,8 +15,7 @@ export const fetchHotelDetails = createAsyncThunk(
     try {
       const config = {
         headers: {
-          "x-auth-token":
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidWlkIjoxfQ.sZsoyYE35wAuHH4Fn1EgYPi1BNMN6ew_Og9oJvNdZRU",
+          "x-auth-token":token
         },
       };
 

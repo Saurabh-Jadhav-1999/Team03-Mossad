@@ -3,16 +3,28 @@ import { Box } from "@mui/system";
 import React from "react";
 import { useState } from "react";
 import styles  from './PersonSelector.module.css'
+import {useSelector,useDispatch} from "react-redux";
+import { setAdultCount,setChildCount } from "../../slices/searchSlice";
 export const PersonSelector = () => {
-  const [adult, setAdult] = useState();
-  const [child, setChild] = useState();
-
+  const [adult, setAdult] = useState(1);
+  const [child, setChild] = useState(0);
+  const adultcount=useSelector(state=>state.search.totalAdult);
+  const childcount=useSelector(state=>state.search.totalChild);
+  // console.log(ad,"adult count from slice");
+ 
+const dispatch=useDispatch();
   function handleAdultChange(event) {
+    dispatch(setAdultCount(event.target.value));
     setAdult(event.target.value);
+  
+   
   }
   function handleChildChange(event) {
+    dispatch(setChildCount(event.target.value));
     setChild(event.target.value);
   }
+    
+    
   return (
     <Box className={styles.selectBox}>
       <FormControl fullWidth className={styles.Inp}>
@@ -24,6 +36,7 @@ export const PersonSelector = () => {
           label="Adult"
           onChange={handleAdultChange}
         >
+         
           <MenuItem value={1}>1</MenuItem>
           <MenuItem value={2}>2</MenuItem>
           <MenuItem value={3}>3</MenuItem>
@@ -40,7 +53,7 @@ export const PersonSelector = () => {
           label="Child"
           onChange={handleChildChange}
         >
-          <MenuItem value={0}>0</MenuItem>
+           <MenuItem value={0}>0</MenuItem>
           <MenuItem value={1}>1</MenuItem>
           <MenuItem value={2}>2</MenuItem>
           <MenuItem value={3}>3</MenuItem>

@@ -6,9 +6,10 @@ import { fetchCityList } from "./../../slices/searchSlice";
 
 function CitySelector() {
   const dispatch = useDispatch();
-
+  const city=useSelector(state=>state.search.location);
   const citylist = useSelector((state) => state.search.citylist);
-
+// console.log(city,"city is set in");
+// console.log(citylist,"city list is set in");
   return (
     <>
       <Autocomplete
@@ -20,6 +21,7 @@ function CitySelector() {
           <TextField
             className={styles.txtfld1}
             {...params}
+           value={city}
             label="Location"
             placeholder="Where do you want to go?"
             onChange={(e) => {

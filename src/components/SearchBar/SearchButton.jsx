@@ -10,6 +10,8 @@ export const SearchButton = () => {
   const location = useSelector((state) => state.search.location);
   const checkIn = useSelector((state) => state.search.checkIn);
   const checkOut = useSelector((state) => state.search.checkOut);
+  const adultcount=useSelector(state=>state.search.totalAdult);
+  const childcount=useSelector(state=>state.search.totalChild);
   const navigate = useNavigate();
 
   const navigateTo = () => {
@@ -21,8 +23,8 @@ export const SearchButton = () => {
         className={style.searchBtn}
         variant="contained"
         size="large"
-        onClick={() => {
-          dispatch(fetchHotelList({ location, checkIn, checkOut }));
+        onClick={(e) => {
+          dispatch(fetchHotelList({ location, checkIn, checkOut,adultcount,childcount }));
           navigateTo();
         }}
       >

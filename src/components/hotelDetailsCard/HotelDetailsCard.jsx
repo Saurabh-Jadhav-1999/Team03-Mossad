@@ -1,24 +1,23 @@
-import { Box, Grid } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
 import React from "react";
-import { useSelector } from "react-redux";
 import CityDetails from "./CityDetails";
 import Facility from "./Facility";
 import styles from "./HotelDetailsCard.module.css";
 import { HotelImage } from "./HotelImage";
 
-const details = {
-  cityName: "Kerala,India",
-  hotelName: "The Leela Kovalam",
-  state: "Goa",
-  country: "India",
-  rating: 4.2,
-  reviews: 223,
-  location: "Beach Road Kovalam 563465India",
-  date: "15.09.2022-10.09.2022",
-  departure: "Kochi",
-};
+// const details = {
+//   cityName: "Kerala,India",
+//   hotelName: "The Leela Kovalam",
+//   state: "Goa",
+//   country: "India",
+//   rating: 4.2,
+//   reviews: 223,
+//   location: "Beach Road Kovalam 563465India",
+//   date: "15.09.2022-10.09.2022",
+//   departure: "Kochi",
+// };
 export const HotelDetailsCard = (props) => {
-  console.log(props);
+  // console.log(props);
   return (
     <Grid container className={styles.hotelDetailBox}>
       <Grid container>
@@ -33,8 +32,8 @@ export const HotelDetailsCard = (props) => {
             <Grid item>
               <Facility
                 details={props.details}
-                cityName={"Kochi"}
-                rate={"720"}
+                cityName={props.details.city}
+                rate={props.details.double_room_rate}
                 capacity={"For Two"}
               />
             </Grid>

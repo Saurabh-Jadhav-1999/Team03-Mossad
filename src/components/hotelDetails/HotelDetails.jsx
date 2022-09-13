@@ -1,63 +1,32 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { BookingOptions } from "../bookingOptions/BookingOptions";
 import { HotelDetailsAndImage } from "./HotelDetailsAndImage";
 import { TabBar } from "../TabComponent/TabBar";
 import styles from "./HotelDetails.module.css";
 import { Box } from "@mui/system";
 import Breadcrumb from "../breadcrumb/Breadcrumb";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchHotelDetails } from "./../../slices/getHotelDetailsSlice";
-const confirm = {
-  hotel_name: "The Leela kovalam kerala",
-
-  dates: "September 15-22 2022",
-
-  travelers: "3",
-
-  bookingCode: "FD_158456",
-
-  date: "15.08.2022",
-
-  total: "$1000",
-
-  Payment: "Credit Card",
-
-  rating: 4.19,
-
-  reviews: "234",
-
-  hotel_room_type: "Exclusive room",
-
-  room_count: "1",
-
-  tag1: "5.0",
-
-  tag2: "Perfect",
-
-  tag3: "Hotels",
-
-  tag4: "Top Value",
-
-  tag5: "Buidling",
-  city: "Beack kovalam",
-};
-
-const description = `The Raviz Kovalam sits on a cliff, offering panoramic views of the Kovalam shoreline and the Arabian Sea. It is steps away from a private beach, and features a spa.\n
-Rooms at The Raviz Kovalam Beach combine wooden décor with modern amenities like a flat-screen TV and tea/coffee making facilities. Each room provides views of the garden or the sea.\n
-The outdoor pool and the fitness centre both overlook the sea. The Raviz Kovalam also has a game room and tennis court. Travel services include tour and ticketing arrangements and car rental.\n`;
+import Loading from "../loader/Loader";
+import { Typography } from "@material-ui/core";
 
 export const HotelDetails = () => {
+  let dispatch = useDispatch();
   let location = useLocation();
 
-  let dispatch = useDispatch();
   const idFromUrl = new URLSearchParams(location.search).get("id");
   const cityNameFromUrl = new URLSearchParams(location.search).get("city_name");
 
-  dispatch(fetchHotelDetails({ idFromUrl, cityNameFromUrl }));
+  useEffect(() => {
+    return () => {
+      dispatch(fetchHotelDetails({ idFromUrl, cityNameFromUrl }));
+    };
+  }, []);
 
-  const hoteldetails = useSelector( (state) => state.getHotelDetails.hotelDetails );
- 
+  const hoteldetails = useSelector(
+    (state) => state.getHotelDetails.hotelDetails
+  );
 
   const breadcrumbs = [
     <Link
@@ -94,15 +63,30 @@ export const HotelDetails = () => {
       Hotel Details
     </Link>,
   ];
+  const status = useSelector((state) => state.getHotelDetails.status);
   return (
     <Fragment>
       <Breadcrumb links={breadcrumbs} />
       <div className={styles.container}>
-        <HotelDetailsAndImage details={hoteldetails} />
-        <Box className={styles.bottomDiv}>
-          <TabBar description={hoteldetails} />
-          <BookingOptions />
-        </Box>
+        {status == "loading" ? (
+          <div>
+            <Loading />
+            <Typography
+              variant="h5"
+              style={{ fontFamily: "inter", marginLeft: "37vw" }}
+            >
+              Wait a moment, We are working :)
+            </Typography>
+          </div>
+        ) : (
+          <>
+            <HotelDetailsAndImage details={hoteldetails} />
+            <Box className={styles.bottomDiv}>
+              <TabBar description={hoteldetails} />
+              <BookingOptions />
+            </Box>
+          </>
+        )}
       </div>
     </Fragment>
   );
