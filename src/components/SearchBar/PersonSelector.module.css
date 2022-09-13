@@ -1,0 +1,15 @@
+.selectBox{
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    width: 16vw !important;
+}
+
+.Inp{
+    width: 13vw !important;
+    background: #F0F1F2;
+    border: "1px solid #CAC8C8" !important;
+    position: relative !important;
+    margin:0 1vw !important;
+}

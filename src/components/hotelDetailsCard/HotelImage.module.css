@@ -1,8 +1,5 @@
-.hotelImage img {
-  width: 100% !important;
-  height: 467px !important;
-  max-height: 100% !important;
-  border-radius: 24px 0px 0px 24px;
-  margin-left: -1px;
-  margin-top: -1px;
+.img {
+  border-radius: 24px 0px 0px 24px !important;
+  margin-left: -1px !important;
+  margin-top: -1px !important;
 }

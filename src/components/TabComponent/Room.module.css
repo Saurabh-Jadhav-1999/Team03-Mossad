@@ -1,12 +1,11 @@
 .mainContainer {
-  width: 58vw;
+  width: 63vw !important;
 }
 
 .heading {
   font-size: x-large !important;
   font-weight: 600 !important;
-  font-style: normal;
-  padding-bottom: 10px;
+  font-style: normal !important;
 }
 
 .roomBox {
@@ -15,20 +14,35 @@
   justify-content: space-between;
   /* width: 50vw; */
   padding: 15px 15px;
-  
+  margin: 3vh !important;
+border: 1px solid #E1DFDF !important;
+border-radius: 10px !important;
 }
 .boldHeading {
+  display: flex !important;
+  align-items: center !important;
+  margin: 2vh 0;
   font-style: normal !important;
   font-weight: 600 !important;
   font-size: 20px !important;
-  display:flex;
-  flex-direction: row;
-  align-items: baseline;
-  /* justify-content: ; */
+
 }
 .offer {
   color: #89898c;
+  font-size: 15px !important;
+  display: flex !important;
+  align-items: center !important;
 }
+
+.offerCondition{
+  color: #89898c;
+  font-size: 11px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+
+
 .rightDiv {
   display: flex;
   flex-direction: column;
@@ -45,20 +59,32 @@
 .saveAmt {
   color: #ff9c09;
   font-size: large;
+  display: flex !important;
+  align-items: center !important;
 }
 .selectBtn {
   background: #3c71ff !important;
   border-radius: 9px;
-  width: fit-content;
+  border: none;
   color: white !important;
-  padding: 10px;
+  padding: 5% !important;
+  width: 6.5vw !important;
+  text-transform: none !important;
+  font-weight: 400 !important;
 }
-.offerDiv
-{
-  display: inline;
- 
+.offerDiv {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  /* margin: 1vh 0 !important; */
+  font-size: 11px !important;
 }
-.checkedIcon{
-  color: #13AC2B;
-  margin-right: 15px;
+.checkedIcon {
+  color: #13ac2b !important;
+  margin-right: 15px !important;
+  height: 15px !important;
+}
+
+.icon{
+  margin-right: -1 !important;
 }

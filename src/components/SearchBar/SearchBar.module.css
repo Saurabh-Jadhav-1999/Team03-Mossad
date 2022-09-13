@@ -5,15 +5,16 @@
     margin: auto auto;
     position: relative;
     z-index: 1000;
-    width: 75vw;
+    width: 80vw;
 }
 
 .container {
     display: flex !important;
     flex-direction: row !important;
     align-items: center !important;
-    justify-content: space-around;
-    padding: 3% 0;
+    justify-content: flex-start !important;
+    padding: 3% 0 !important;
+    margin: 0 2vw!important;
 }
 
 .arrow {
@@ -28,10 +29,6 @@
 
 .arrowBox {
     width: 3% !important;
-    margin: 0 -16.5% !important;
+    margin: 0 -1% !important;
 }
 
-.griditem1 {
-    color: red;
-    border-radius: 20% !important;
-}

@@ -6,13 +6,16 @@
 
   }
   
-  span{
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-  }
+ 
   .iconStyle{
-    margin-right: 10px;
+    margin-right: 1vw;
     color: #323232;
+
   }
+
+  .features{
+    font-size: 12px !important;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center;
+    }

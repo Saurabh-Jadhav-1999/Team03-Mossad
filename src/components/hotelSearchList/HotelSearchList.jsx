@@ -4,6 +4,15 @@ import { Stack } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Fragment } from "react";
 
+const details = {
+  cityName: "Kerala,India",
+  hotelName: "The Leela Kovalam",
+  rating: 4.2,
+  reviews: 223,
+  location: "Beach Road Kovalam 563465India",
+  date: "15.09.2022-10.09.2022",
+  departure: "Kochi",
+};
 export const HotelSearchList = () => {
   const hotellist = useSelector((state) => state.search.hotellist);
 
@@ -18,6 +27,8 @@ export const HotelSearchList = () => {
               (<HotelDetailsCard key={item.hotel_id} details={item} />)
             )
           )}
+
+          {/* <HotelDetailsCard  details={details} /> */}
         </Stack>
       </Stack>
     </Fragment>

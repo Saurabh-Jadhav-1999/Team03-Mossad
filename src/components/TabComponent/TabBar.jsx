@@ -50,13 +50,9 @@ export const TabBar = (props) => {
   };
   const comment = `We had the most spectacular view. Beautifully appointed rooms. Awesome food & curteous staff. Highly recommend it.`;
   return (
-    <Box className={styles.tabContainer}>
-      <Box>
-        <Tabs
-          value={value}
-          onChange={handleChange}
-          aria-label="basic tabs example"
-        >
+    <Box >
+      <Box className={styles.tabContainer}>
+        <Tabs value={value} onChange={handleChange}>
           <Tab
             label="Description"
             {...a11yProps(0)}
@@ -101,4 +97,3 @@ export const TabBar = (props) => {
     </Box>
   );
 };
-

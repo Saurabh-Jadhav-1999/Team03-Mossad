@@ -26,7 +26,7 @@ const Facility = (props) => {
     navigate(path);
   };
 
-  const bookNowHandler = async(callbackFunc) => {
+  const bookNowHandler = async (callbackFunc) => {
     await setIdd(props.details.hotel_id);
     await dispatch(setHotelId(idd));
     await dispatch(setCityName(props.details.city));
@@ -35,7 +35,7 @@ const Facility = (props) => {
     await callbackFunc();
   };
 
-  const bookNowBtnHandler = async() => {
+  const bookNowBtnHandler = async () => {
     var data = hotellist.filter((val) => {
       if (val.hotel_id === idd) return val;
     });
@@ -51,9 +51,7 @@ const Facility = (props) => {
   const city_name = useSelector((state) => state.getHotelDetails.city_name);
 
   const hotellist = useSelector((state) => state.search.hotellist);
-  // console.log(hotellist,"hotellist useselector without filter");
-  // console.log(hId, "useSelector hid");
-  // console.log(city_name, "useSelector city_name");
+
   const dispatch = useDispatch();
   return (
     <Box className={styles.facilityDiv}>
@@ -61,8 +59,7 @@ const Facility = (props) => {
         <AirplanemodeActiveSharpIcon className={styles.icon} />
         Departure from {props.details.departure}
       </Typography>
-      <Stack spacing={20}
-        direction="row">
+      <Stack direction="row">
         <Grid item xl={6}>
           <Stack direction={"column"}>
             <Typography className={styles.iconDiv}>
@@ -88,29 +85,24 @@ const Facility = (props) => {
           </Stack>
         </Grid>
         <Grid item xl={6} className={styles.btnDiv}>
-          <Button className={styles.btnPrice}>
-            <Typography component={"span"}>
-              <AttachMoneyOutlinedIcon />
-              {props.rate}
-            </Typography>
-            <Typography className={styles.capacity} sx={{fontSize:'10px'}}>
+          <button type="button" className={styles.btnPrice}>
+            <Typography component={"span"}>${props.rate}</Typography>
+
+            <Typography className={styles.capacity}>
               {props.capacity}
             </Typography>
-          </Button>
-          {/* {console.log(props.details.hotel_id,"hotel id from button");
-              console.log(props.details.city_name,"city name from button")} */}
-          <Button
+          </button>
+
+          <button
+            type="button"
             // to="/hotel-details"
             className={styles.btnBook}
             onClick={() => {
-              // let hid
               bookNowHandler(bookNowBtnHandler);
-              // routeChange();
             }}
           >
             Book Now
-          </Button>
-          {/* <Link to="/" className={styles.btnBook}>Book Now</Link> */}
+          </button>
         </Grid>
       </Stack>
     </Box>

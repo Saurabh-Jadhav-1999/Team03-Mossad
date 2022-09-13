@@ -9,9 +9,18 @@
     color: #323232;
   }
   .aminitiesRow{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding: 7px 0;
-    padding-right: 20px;
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 2vh 0 !important;
+    padding-right: 2vw !important;
+    font-size: 12px !important;
+  }
+  .amenitiesDiv{
+      margin-top: 4vh;
+      border: none;
+      border-top: 1px solid #D1D4D9;
+      width: 58vw;
+    
+   
   }

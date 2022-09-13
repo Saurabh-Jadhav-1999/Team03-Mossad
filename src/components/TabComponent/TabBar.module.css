@@ -2,7 +2,9 @@
   width: 60vw !important;
   font-family: "Inter";
   font-style: normal;
-  /* border: 1px solid #d1d4d9 !important; */
+  border-top: 1px solid #d1d4d9 !important;
+  border-bottom: 1px solid #d1d4d9 !important;
+  
 }
 
 .headingLabel{
@@ -10,6 +12,7 @@
   font-style: normal;
   font-weight: 600 !important;
   color: black !important;
+  /* border: 1px solid #D1D4D9; */
 }
 
 .TabHeadings {
@@ -18,7 +21,7 @@
 }
 
 .tabDetail {
-  width: fit-content;
+  width: 60vw;
   font-weight: 400 !important;
   font-size: 14px !important;
 }

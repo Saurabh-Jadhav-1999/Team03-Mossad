@@ -1,4 +1,4 @@
-import { Button, Grid, Paper, Stack, Typography } from "@mui/material";
+import { Button, Grid, Paper, Rating, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import styles from "./Review.module.css";
@@ -14,11 +14,8 @@ export const Review = (props) => {
       </Typography>
       <Paper className={styles.reviewCard}>
         <Box className={styles.innerDiv}>
-          {/* <img src='../../assets/images/ProfileReviewUserOneImg.png'/> */}
           <Box className={styles.imgDiv}>
-            <Box>
-              <img src={imgPath} alt="pic not found" />
-            </Box>
+            <img src={imgPath} alt="pic not found" />
             <Box className={styles.detailsDiv}>
               <Typography className={styles.userName} component="h3">
                 {props.userName}
@@ -27,25 +24,26 @@ export const Review = (props) => {
                 {props.userCountry}
               </Typography>
               <Typography className={styles.userDetails} component="p">
-                {props.follwers} follewers,{props.reviews} Reviews
+                {props.follwers} followers,{props.reviews} Reviews
               </Typography>
             </Box>
           </Box>
         </Box>
-        <Box className={styles.innerDiv}>
-          <Typography component='box'>
-            <StarIcon className={styles.starIcon} />
-            <StarIcon className={styles.starIcon} />
-            <StarIcon className={styles.starIcon} />
-            <StarIcon className={styles.starIcon} />
-            <StarHalfIcon className={styles.starIcon} />
+        <Box className={styles.rightDiv}>
+          <Typography component="box" display={'flex'} justifyContent={'flex-start'}>
+          <Rating name="half-rating-read"
+           defaultValue={4.5} 
+           precision={0.5}
+           className={styles.starIcon}
+           size={'small'}
+            readOnly   />
             <Typography className={styles.userDetails} component="span">
             {props.date}
+          </Typography> 
           </Typography>
-          </Typography>
-          
+         
 
-          <Typography className={styles.userDetails}>
+          <Typography className={styles.userComment}>
             {props.comment}
           </Typography>
           <Stack direction="row" justifyContent="space-between">

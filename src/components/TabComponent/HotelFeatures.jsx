@@ -11,27 +11,27 @@ import CoronavirusOutlinedIcon from "@mui/icons-material/CoronavirusOutlined";
 
 const HotelFeatures = () => {
   return (
-    <Box>
+    <Box >
       <Typography className={styles.heading}>Hotel Features</Typography>
-      <Stack direction={"row"} spacing={2}>
-        <Typography component={"span"}>
+      <Stack direction={"row"} spacing={1} >
+        <Typography component={"span"} className={styles.features} >
           <WifiIcon className={styles.iconStyle} /> Wi-fi
         </Typography>
-        <Typography component={"span"}>
+        <Typography component={"span"} className={styles.features}>
           <PoolIcon className={styles.iconStyle} /> Infinity Pool
         </Typography>
-        <Typography component={"span"}>
+        <Typography component={"span"} className={styles.features}>
           <GolfCourseIcon className={styles.iconStyle} /> Golf Course
         </Typography>
-        <Typography component={"span"}>
+        <Typography component={"span"} className={styles.features}>
           <AirportShuttleOutlinedIcon className={styles.iconStyle} /> Airport
           Shuttle
         </Typography>
-        <Typography component={"span"}>
+        <Typography component={"span"} className={styles.features}>
           <LocalHospitalOutlinedIcon className={styles.iconStyle} /> On Call
           Doctor
         </Typography>
-        <Typography component={"span"}>
+        <Typography component={"span"} className={styles.features}>
           <CoronavirusOutlinedIcon className={styles.iconStyle} /> Covid safety
           Protocols
         </Typography>

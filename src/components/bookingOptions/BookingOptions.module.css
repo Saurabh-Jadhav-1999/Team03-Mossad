@@ -1,37 +1,37 @@
 .bookingOptionsContainer {
-    margin: 19px;
+    margin: 19px !important;
     border-radius: 4% !important;
-    height: 44%;
+    height: 44% !important;
     width: 350px;
-    border: 1px solid #D1CECE;
-    padding-bottom: 10px;
+    border: 1px solid #D1CECE !important;
+    padding-bottom: 10px !important;
 }
 
 .gridContainer {
-    padding: 20px 25px;
+    padding: 20px 25px !important;
 }
 
 .gridContainer Grid {
-    padding: 10px;
+    padding: 10px !important;
 }
 
 .discountPriceDetailsContainer {
-    letter-spacing: 0em;
-    text-align: left;
-    padding-bottom: 2px;
+    letter-spacing: 0em !important;
+    text-align: left !important;
+    padding-bottom: 2px !important;
 }
 
 .originalRoomPrice {
     font-family: Inter !important;
     font-weight: 700 !important;
     font-size: 22px !important;
-    line-height: 30px;
+    line-height: 30px !important;
 }
 
 .labelRoomPricePerNight {
     font-family: Inter !important;
     font-weight: 600 !important;
-    font-size: 16px;
+    font-size: 16px !important;
     color: #A4A2A2;
 }
 
@@ -112,4 +112,5 @@
     line-height: 19px !important;
     letter-spacing: 0em !important;
     color: #A4A2A2 !important;
+    margin-top: 2vh !important;
 }
