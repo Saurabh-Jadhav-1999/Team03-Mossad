@@ -6,7 +6,7 @@ import StarIcon from "@mui/icons-material/Star";
 import LocationOnTwoToneIcon from "@mui/icons-material/LocationOnTwoTone";
 import DateRangeOutlinedIcon from "@mui/icons-material/DateRangeOutlined";
 const CityDetails = (props) => {
-
+  // console.log("CityDetails", props);
   return (
     <Box className={styles.cityDiv}>
       <Typography className={styles.cityName} component="h1">
@@ -26,11 +26,8 @@ const CityDetails = (props) => {
           {/* {props.item.hotelreviews.rating} */}
           {props.item.rating}
         </Typography>
-        {/* ({props.details.hotelreview[1].reviews} reviews) */}
-
-
-        {/* (
-        {props.item.reviews} reviews) */}
+        {/* ({props.details.hotelreview[1].reviews} reviews) */}(
+        {props.item.total_reviews} reviews)
       </Typography>
       <Grid container>
         <Grid item xl={6} className={iconStyles.iconDiv}>

@@ -109,8 +109,8 @@ export const BookingOptions = () => {
   const extrapillow = useSelector((state) => state.bookNow.extra_pillow);
   const totalcost = useSelector((state) => state.bookNow.totalCost);
   const roomTypeCost = useSelector((state) => state.bookNow.room_type_cost);
-  console.log(adultcount, "adultcount from search slice afte card");
-  console.log(childcount, "child count from search slice after card");
+  // console.log(adultcount, "adultcount from search slice afte card");
+  // console.log(childcount, "child count from search slice after card");
   //   console.log(checkin,"checkin useselector from bookingoptons");
   //   console.log(checkout,"checkout useselector from bookingoptions")
   return (
@@ -145,14 +145,17 @@ export const BookingOptions = () => {
                 >
                   /night
                 </Typography>
-                <Typography
+
+                {/* Show offer tag if the offer field is in ho  tellist */}
+
+                {/* <Typography
                   component={"span"}
                   className={styles.discountedRoomPrice}
                 >
                   $576
-                </Typography>
+                </Typography> */}
               </span>
-              <Grid item>
+              {/* <Grid item>
                 <Button
                   variant="contained"
                   disabled
@@ -161,7 +164,7 @@ export const BookingOptions = () => {
                 >
                   20% OFF
                 </Button>
-              </Grid>
+              </Grid> */}
             </Grid>
             <hr className={styles.divider} />
             <Grid item xs={12}>

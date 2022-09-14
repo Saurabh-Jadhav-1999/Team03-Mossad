@@ -54,7 +54,7 @@ export const TabBar = (props) => {
     setValue(newValue);
   };
   const status = useSelector((state) => state.getHotelDetails.status);
-  console.log("tab bar log", props);
+  // console.log("tab bar log", features);
   return (
     <React.Fragment>
       <Box>
@@ -86,7 +86,7 @@ export const TabBar = (props) => {
           {props.description.description}
         </TabPanel>
         <TabPanel value={value} index={1} className={styles.tabDetail}>
-          <Featuers features={props.hotel_facilities} />
+          <Featuers  />
         </TabPanel>
         <TabPanel value={value} index={2} className={styles.tabDetail}>
           <RoomAndPrice />

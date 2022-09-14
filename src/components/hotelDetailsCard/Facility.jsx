@@ -42,12 +42,12 @@ const Facility = (props) => {
       `/hotel-details/?id=${props.details.hotel_id}&city_name=${props.details.city}`
     );
   }
-
+    console.log("In facilities",props.details);
   return (
     <Box className={styles.facilityDiv}>
       <Typography className={styles.iconDiv}>
         <AirplanemodeActiveSharpIcon className={styles.icon} />
-        Departure from {props.details.departure}
+        Departure from {props.details.city}
       </Typography>
       <Stack direction="row">
         <Grid item xl={6}>

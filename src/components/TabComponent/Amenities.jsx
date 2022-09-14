@@ -14,8 +14,11 @@ import FireExtinguisherOutlinedIcon from '@mui/icons-material/FireExtinguisherOu
 import RoomServiceOutlinedIcon from '@mui/icons-material/RoomServiceOutlined';
 import DeckOutlinedIcon from '@mui/icons-material/DeckOutlined';
 import CoronavirusOutlinedIcon from '@mui/icons-material/CoronavirusOutlined';
+import { useSelector } from "react-redux";
 
 const Amenities = () => {
+  const featuresList=useSelector(state=>state.getHotelDetails.hotelDetails.hotelfacalities) 
+
   return (
     <Box className={styles.amenitiesDiv}>
       <Typography className={styles.heading}>Amenities</Typography>

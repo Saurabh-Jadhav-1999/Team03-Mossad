@@ -9,12 +9,13 @@ export const RoomAndPrice = () => {
   const room_price_and_types = useSelector(
     (state) => state.getHotelDetails.hotelDetails
   );
+  // console.log("in room and price",room_price_and_types);
   const roomtypes = [
     {
       room_type: "Double Room",
       room_rate: room_price_and_types.double_room_rate,
     },
-    {
+    { 
       room_type: "Economy Room",
       room_rate: room_price_and_types.economy_room_rate,
     },
@@ -38,11 +39,11 @@ export const RoomAndPrice = () => {
       {
         roomtypes.map((item) => (
           <Room
-            key={item.hotel_id}
+            key={item.room_type}
             roomType={item.room_type}
             offers={offers}
-            offerRate={"120"}
-            basePrice={item.room_rate}
+            offerRate={item.room_rate}
+            basePrice={item.room_rate+5}
           />
         ))
 

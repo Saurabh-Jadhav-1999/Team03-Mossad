@@ -5,24 +5,15 @@ import { useSelector } from "react-redux";
 import { Fragment, useState } from "react";
 import Loading from "../loader/Loader";
 import Typography from "@mui/material/Typography";
-const details = {
-  cityName: "Kerala,India",
-  hotelName: "The Leela Kovalam",
-  rating: 4.2,
-  reviews: 223,
-  location: "Beach Road Kovalam 563465India",
-  date: "15.09.2022-10.09.2022",
-  departure: "Kochi",
-};
+;
 
 export const HotelSearchList = () => {
 
   const hotelList = useSelector((state) => state.search.hotellist);
   const status = useSelector((state) => state.search.status);
-  console.log("in hotelSearchList page",hotelList);
+  // console.log("in hotelSearchList page",hotelList);
   return (
     <Fragment>
-      {/* <CircularProgress color="secondary" /> */}
       <Stack direction={"row"} spacing={1} sx={{ marginTop: "40px" }}>
         <HotelSearchFilters />
         <Stack direction={"column"} spacing={2}>
@@ -43,7 +34,6 @@ export const HotelSearchList = () => {
             ))
           ))}
 
-          {/* <HotelDetailsCard  details={details} /> */}
         </Stack>
       </Stack>
     </Fragment>

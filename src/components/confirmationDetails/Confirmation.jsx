@@ -26,7 +26,9 @@ const Confirmation = (props) => {
   const checkin=useSelector(state=>state.search.checkIn);
   const checkout=useSelector(state=>state.search.checkOut);
   const roomtype=useSelector(state=>state.bookNow.room_type);
+  const hotelprofile = useSelector((state) => state.getHotelDetails.hotelDetails.hotel_profile_picture
 
+  );
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -178,7 +180,7 @@ const Confirmation = (props) => {
             <Grid item xs={12} lg={8}>
               {" "}
               <div className={`${styles.div14}`}>
-                <img  className={`${styles.hotelimg}`} src={bookingdetails.hotel_profile_picture} height="510px" width="750px" alt="" />
+                <img  className={`${styles.hotelimg}`} src={hotelprofile} height="510px" width="750px" alt="" />
               </div>
             </Grid>
           </div>
