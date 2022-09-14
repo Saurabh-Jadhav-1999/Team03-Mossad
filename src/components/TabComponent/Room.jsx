@@ -1,8 +1,9 @@
 import { Box, Paper, Typography } from "@material-ui/core";
 import styles from "./Room.module.css";
-import React from "react";
+import React,{useEffect} from "react";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
 import { Grid } from "@mui/material";
+import { setDiffBetDays } from "../../slices/searchSlice";
 import { setRoomType,setRoomTypeCost } from "../../slices/bookNowSlice";
 import {useSelector,useDispatch} from "react-redux"
 const Room = (props) => {
@@ -14,9 +15,12 @@ const Room = (props) => {
  const date1 = new Date(checkin);
   const date2 = new Date(checkout);
   const Difference_In_Time = date2.getTime() - date1.getTime();
-  
+
 
 const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+dispatch(setDiffBetDays(parseInt(Difference_In_Days)));
+
+
 
   return (
     <Paper elevation={3} className={styles.roomBox} component="div">
@@ -53,6 +57,7 @@ const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
           if(roomtype!==props.roomType&&roomtypecost!==props.offerRate){
            dispatch(setRoomType(props.roomType));
            dispatch(setRoomTypeCost({bp,Difference_In_Days}));
+          
           }
           
  

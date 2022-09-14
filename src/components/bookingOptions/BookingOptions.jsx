@@ -94,10 +94,10 @@ export const BookingOptions = () => {
   const childcount = useSelector((state) => state.search.totalChild);
   const pet = useSelector((state) => state.bookNow.allow_to_bring_pet);
   const parking = useSelector((state) => state.bookNow.parking);
-
+ const lunch_per_person=useSelector(state=>state.bookNow.lunch_per_person_per_day);
   const totalcost = useSelector((state) => state.bookNow.totalCost);
   const roomTypeCost = useSelector((state) => state.bookNow.room_type_cost);
-
+const diff=useSelector(state=>state.search.diff);
 
   return (
     <Fragment>
@@ -268,13 +268,14 @@ export const BookingOptions = () => {
                                     break;
                                   case 2:
                                     if (e.target.checked) {
+                                      const lunchprice=e.target.value;
                                       dispatch(
-                                        setLunchPerPersonPerDay(e.target.value)
+                                        setLunchPerPersonPerDay({lunchprice,diff,adultcount,childcount})
                                       );
                                     } else if (!e.target.checked) {
                                       dispatch(
                                         unsetLunchPerPersonPerDay(
-                                          e.target.value
+                                         lunch_per_person
                                         )
                                       );
                                     }

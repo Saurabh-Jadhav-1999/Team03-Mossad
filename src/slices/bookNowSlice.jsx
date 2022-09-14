@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { token } from './token'
+import { token } from "./token";
 const initialState = {
   hotelId: "",
   hotel_name: "",
   noOfPassengers: "",
-  totalCost: 0,
+  totalCost: "",
   status: "",
   city_name: "",
   allow_to_bring_pet: "",
@@ -25,7 +25,7 @@ export const finalBookNow = createAsyncThunk(
     try {
       const config = {
         headers: {
-          "x-auth-token": token
+          "x-auth-token": token,
         },
       };
       const cost = parseInt(totalcost);
@@ -45,7 +45,6 @@ export const finalBookNow = createAsyncThunk(
         total_cost: cost,
       };
 
-
       return axios
         .post(
           "https://hotelbooking-backend.herokuapp.com/booking",
@@ -53,7 +52,6 @@ export const finalBookNow = createAsyncThunk(
           config
         )
         .then((response) => {
-
           return response.data;
         });
     } catch (error) {
@@ -84,8 +82,13 @@ export const bookNowSlice = createSlice({
       state.totalCost += parseInt(action.payload);
     },
     setLunchPerPersonPerDay: (state = initialState, action) => {
-      state.lunch_per_person_per_day = parseInt(action.payload);
-      state.totalCost += parseInt(action.payload);
+      let passengers = 0;
+      action.payload.childcount == 0
+        ? (passengers = action.payload.adultcount)
+        : (passengers = action.payload.adultcount + action.payload.childcount);
+      state.lunch_per_person_per_day =
+        action.payload.diff * action.payload.lunchprice * passengers;
+      state.totalCost += parseInt(state.lunch_per_person_per_day);
     },
     setParking: (state = initialState, action) => {
       state.parking = parseInt(action.payload);
@@ -107,26 +110,26 @@ export const bookNowSlice = createSlice({
       state.room_type = action.payload;
     },
     setRoomTypeCost: (state = initialState, action) => {
-      state.room_type_cost = parseInt(action.payload.bp);
+      state.room_type_cost = action.payload.bp;
+
       state.totalCost = action.payload.bp * action.payload.Difference_In_Days;
+    },
+    setDiffBetDays: (state = initialState, action) => {
+      state.difference_between_days = action.payload;
     },
   },
   extraReducers: {
     [finalBookNow.pending]: (state, action) => {
       state.status = "loading";
-
     },
     [finalBookNow.rejected]: (state, action) => {
       state.status = "rejected";
-
     },
 
     [finalBookNow.fulfilled]: (state, action) => {
       state.status = "succeeded";
       state.finalbooking = action.payload;
-
     },
-
   },
 });
 

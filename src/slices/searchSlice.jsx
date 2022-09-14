@@ -10,7 +10,8 @@ const initialState = {
   citylist: [],
   totalAdult: 1,
   totalChild: 0,
-  filters: []
+  filters: [],
+  diff:0,
 };
 
 export const fetchHotelList = createAsyncThunk(
@@ -101,6 +102,10 @@ export const searchSlice = createSlice({
     unSetFilters: (state = initialState, action) => {
       state.filters.pop(action.payload);
     },
+    setDiffBetDays: (state = initialState, action) => {
+      state.diff=parseInt(action.payload)
+
+    },
   },
   extraReducers: {
     [fetchHotelList.pending]: (state, action) => {
@@ -136,5 +141,5 @@ export const searchSlice = createSlice({
 });
 
 export const { setLocation, setCheckIn, setCheckOut, setAdultCount,
-  setChildCount, setFilters, unSetFilters } = searchSlice.actions;
+  setChildCount, setFilters, unSetFilters,setDiffBetDays } = searchSlice.actions;
 export default searchSlice.reducer;
