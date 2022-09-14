@@ -3,108 +3,122 @@ import { SearchOutlined } from "@material-ui/icons"
 import { InputSlider } from './PriceRangeFilter'
 import styles from "./HotelSearchFilters.module.css"
 import InputAdornment from '@mui/material/InputAdornment';
+import { setFilters, unSetFilters } from "../../slices/searchSlice";
+import { useDispatch, useSelector } from "react-redux";
+
+const FiltersData = [
+    {
+        id: 101,
+        filterType: 'Popular Hotels',
+        filterProperties: [
+            {
+                id: 1,
+                filterName: 'Hotels',
+                defaultChecked: true
+            },
+            {
+                id: 2,
+                filterName: 'Breakfast and Dinner',
+                defaultChecked: false,
+            }, {
+                id: 3,
+                filterName: 'Free Cancellation',
+                defaultChecked: false
+            },
+            {
+                id: 4,
+                filterName: 'No Prepayment',
+                defaultChecked: false,
+            }]
+    },
+    {
+        id: 102,
+        filterType: 'Your Budget',
+        filterProperties: [
+            {
+                id: 1,
+                filterName: 'Less than $75',
+                defaultChecked: false
+            },
+            {
+                id: 2,
+                filterName: '$75 to 300',
+                defaultChecked: false
+            },
+            {
+                id: 3,
+                filterName: '$300 to 500',
+                defaultChecked: false
+            },
+            {
+                id: 4,
+                filterName: '$500 to 1000',
+                defaultChecked: false
+            },
+            {
+                id: 5,
+                filterName: 'Greater than $1000',
+                defaultChecked: true
+            }
+        ]
+    },
+    {
+        id: 103,
+        filterType: 'Facilties',
+        filterProperties: [
+            {
+                id: 1,
+                filterName: 'Outdoor Sports',
+                defaultChecked: false
+            },
+            {
+                id: 2,
+                filterName: 'Barbeque',
+                defaultChecked: false
+            }, {
+                id: 3,
+                filterName: 'Living Room',
+                defaultChecked: false
+            },
+            {
+                id: 4,
+                filterName: 'Room Service',
+                defaultChecked: false
+            },
+            {
+                id: 5,
+                filterName: 'Infinity Pool',
+                defaultChecked: false
+            },
+            {
+                id: 6,
+                filterName: 'Spa',
+                defaultChecked: false
+            },
+        ]
+    },
+]
 
 export const HotelSearchFilters = () => {
+    const filters = useSelector((state) => state.search.filters)
+    const dispatch = useDispatch();
 
-    const getCheckedFilterProperties = event => {
-        if (event.target.checked) {
-            console.log(event.target.value, 'is checked')
-        }
+    const filterValue = {
+        "No Prepayment": "no_prepayment",
+        "Free Cancellation": ""
     }
 
-    const filtersData = [
-        {
-            id: 101,
-            filterType: 'Popular Hotels',
-            filterProperties: [
-                {
-                    id: 1,
-                    filterName: 'Hotels',
-                    defaultChecked: true
-                },
-                {
-                    id: 2,
-                    filterName: 'Breakfast and Dinner',
-                    defaultChecked: false
-                }, {
-                    id: 3,
-                    filterName: 'Free Cancelation',
-                    defaultChecked: false
-                },
-                {
-                    id: 4,
-                    filterName: 'No Prepayment',
-                    defaultChecked: false
-                }]
-        },
-        {
-            id: 102,
-            filterType: 'Your Budget',
-            filterProperties: [
-                {
-                    id: 1,
-                    filterName: 'Less than $75',
-                    defaultChecked: false
-                },
-                {
-                    id: 2,
-                    filterName: '$75 to 300',
-                    defaultChecked: false
-                },
-                {
-                    id: 3,
-                    filterName: '$300 to 500',
-                    defaultChecked: false
-                },
-                {
-                    id: 4,
-                    filterName: '$500 to 1000',
-                    defaultChecked: false
-                },
-                {
-                    id: 5,
-                    filterName: 'Greater than $1000',
-                    defaultChecked: true
-                }
-            ]
-        },
-        {
-            id: 103,
-            filterType: 'Facilties',
-            filterProperties: [
-                {
-                    id: 1,
-                    filterName: 'Outdoor Sports',
-                    defaultChecked: false
-                },
-                {
-                    id: 2,
-                    filterName: 'Barbeque',
-                    defaultChecked: false
-                }, {
-                    id: 3,
-                    filterName: 'Living Room',
-                    defaultChecked: false
-                },
-                {
-                    id: 4,
-                    filterName: 'Room Service',
-                    defaultChecked: false
-                },
-                {
-                    id: 5,
-                    filterName: 'Infinity Pool',
-                    defaultChecked: true
-                },
-                {
-                    id: 6,
-                    filterName: 'Spa',
-                    defaultChecked: false
-                },
-            ]
-        },
-    ]
+    const getCheckedFilterProperties = event => {
 
+        if (event.target.checked) {
+            if (!filters.includes(event.target.value)) {
+                dispatch(setFilters(filterValue[event.target.value]))
+            }
+        }
+        else {
+            dispatch(unSetFilters(event.target.value))
+        }
+    }
     return (
         <Box className={styles.filterComponentsContainer}>
 
@@ -137,7 +151,7 @@ export const HotelSearchFilters = () => {
 
             {/* {Search filters Container} */}
             <Box className={styles.searchFiltersContainer}>
-                {filtersData.map((filters) => {
+                {FiltersData.map((filters) => {
                     return (
                         <Box key={filters.id} justifyContent={'center'}>
                             <Stack key={filters.id} className={styles.filterPopularHotels}>
@@ -159,15 +173,15 @@ export const HotelSearchFilters = () => {
                                 {/* {Search filters options END} */}
 
                                 {filters.filterType === 'Popular Hotels' && <Box className="priceRangeFilterContainer">
-                                    <hr style={{ marginLeft: '-0px', width: '90%', color: '#D1D4D9', marginTop:"8%" }} />
-                                    <Typography className={styles.searchPropertyHeader} sx={{marginTop:"8%"}}>
+                                    <hr style={{ marginLeft: '-0px', width: '90%', color: '#D1D4D9', marginTop: "8%" }} />
+                                    <Typography className={styles.searchPropertyHeader} sx={{ marginTop: "8%" }}>
                                         Price Range
                                     </Typography>
                                     <InputSlider />
                                 </Box>
                                 }
                             </Stack>
-                            <hr className={styles.divider}/>
+                            <hr className={styles.divider} />
                         </Box>
                     )
                 })}

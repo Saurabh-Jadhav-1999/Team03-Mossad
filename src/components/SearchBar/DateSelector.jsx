@@ -7,32 +7,16 @@ import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import styles from "./DateSelector.module.css";
 import { Box } from "@mui/material";
 import moment from "moment/moment";
-import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setCheckIn, setCheckOut } from "../../slices/searchSlice";
 
 export default function DateSelector() {
   const [dateValues, setDateValues] = React.useState([null, null]);
-
-
-  let date = [];
   const dispatch = useDispatch();
 
 const checkin=useSelector(state=>state.search.checkIn);
 const checkout=useSelector(state=>state.search.checkOut);
 
-  const dateValueHandler = (newValue) => {
-    if (newValue[0] != null && newValue[1] != null) {
-      const checkInDateValue = moment(new Date(newValue[0])).format(
-        "YYYY-MM-DD"
-      );
-      const checkOutDateValue = moment(new Date(newValue[1])).format(
-        "YYYY-MM-DD"
-      );
-
-      setDateValues([checkInDateValue, checkOutDateValue]);
-    }
-  };
   return (
     <LocalizationProvider
       dateAdapter={AdapterDayjs}
@@ -40,6 +24,7 @@ const checkout=useSelector(state=>state.search.checkOut);
     >
       <DateRangePicker
         minDate={new Date()}
+        disablePast
         clearable
         value={dateValues}
         format="MM/dd/yyyy"
@@ -56,8 +41,7 @@ const checkout=useSelector(state=>state.search.checkOut);
 
             dispatch(setCheckIn(checkInDateValue), () => {});
             dispatch(setCheckOut(checkOutDateValue), () => {});
-            // console.log("Check-In Date: ", checkInDateValue);
-            // console.log("Check-Out Date: ", checkOutDateValue);
+          
           }
         }}
         renderInput={(startProps, endProps) => (

@@ -1,13 +1,10 @@
-import { Button, Grid, Paper, Rating, Stack, Typography } from "@mui/material";
+import { Button, Paper, Rating, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import styles from "./Review.module.css";
-// import path from "../../assets/images/";
-import StarHalfIcon from "@mui/icons-material/StarHalf";
-import StarIcon from "@mui/icons-material/Star";
+
 export const Review = (props) => {
   return (
-    // <div>
     <Box className={styles.mainDiv}>
       <Paper className={styles.reviewCard}>
         <Box className={styles.innerDiv}>
@@ -35,10 +32,10 @@ export const Review = (props) => {
            size={'small'}
             readOnly   />
             <Typography className={styles.userDetails} component="span">
-            {props.date}
-          </Typography> 
+              {props.date}
+            </Typography>
           </Typography>
-         
+
 
           <Typography className={styles.userComment}>
             {props.comment}

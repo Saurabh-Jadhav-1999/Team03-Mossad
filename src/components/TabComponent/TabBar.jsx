@@ -8,7 +8,6 @@ import styles from "./TabBar.module.css";
 import { Featuers } from "./Featuers";
 import { RoomAndPrice } from "./RoomAndPrice";
 import { Review } from "./Review";
-import { useSelector } from "react-redux";
 import img1 from "../../assets/images/ProfileReviewUserOneImg.png";
 import img2 from "../../assets/images/ProfileReviewUserTwoImg.png";
 

@@ -68,7 +68,7 @@ export const HotelDetails = () => {
     <Fragment>
       <Breadcrumb links={breadcrumbs} />
       <div className={styles.container}>
-        {status == "loading" ? (
+        {status === "loading" ? (
           <div>
             <Loading />
             <Typography

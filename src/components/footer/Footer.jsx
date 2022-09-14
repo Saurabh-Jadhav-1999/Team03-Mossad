@@ -1,18 +1,13 @@
-import { Button, style } from "@mui/material";
-import React, { Fragment } from "react";
+import { Button } from "@mui/material";
+import React from "react";
 import styles from "./Footer.module.css";
 import logo from "../../assets/images/HotelLogo.png";
+import { ToastContainer, toast } from "react-toastify";
 import {
   Box,
-  Container,
-  Typography,
   Grid,
   TextField,
-  Link,
 } from "@mui/material";
-import zIndex from "@mui/material/styles/zIndex";
-import { BoltRounded } from "@mui/icons-material";
-import { ToastContainer, toast } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 export const Footer = (props) => {
@@ -66,7 +61,7 @@ export const Footer = (props) => {
                 <img
                   src={logo}
                   height="40px"
-                  width="155vw"
+                  width="20vw"
                   className={`${styles.boximg}`}
                   alt=""
                 />

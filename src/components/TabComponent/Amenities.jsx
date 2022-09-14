@@ -12,7 +12,6 @@ import LocalLaundryServiceOutlinedIcon from '@mui/icons-material/LocalLaundrySer
 import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
 import FireExtinguisherOutlinedIcon from '@mui/icons-material/FireExtinguisherOutlined';
 import RoomServiceOutlinedIcon from '@mui/icons-material/RoomServiceOutlined';
-import DeckOutlinedIcon from '@mui/icons-material/DeckOutlined';
 import CoronavirusOutlinedIcon from '@mui/icons-material/CoronavirusOutlined';
 import { useSelector } from "react-redux";
 

@@ -1,27 +1,28 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import {token} from './token'
+import { token } from './token'
 const initialState = {
   location: "",
   checkIn: "",
   checkOut: "",
   hotellist: [],
   status: "",
-  citylist: ["Pune"],
+  citylist: [],
   totalAdult: 1,
   totalChild: 0,
+  filters: []
 };
 
 export const fetchHotelList = createAsyncThunk(
   "searchHotel/fetchHotelList",
-  async ({ location, checkIn, checkOut,adultcount,childcount }, thunkAPI) => {
+  async ({ location, checkIn, checkOut, adultcount, childcount }, thunkAPI) => {
     try {
       const config = {
         headers: {
-          "x-auth-token":token
+          "x-auth-token": token
         },
       };
- 
+
       const bodyParameters = {
         city_name: `${location}`,
         check_in_date: `${checkIn}`,
@@ -30,7 +31,7 @@ export const fetchHotelList = createAsyncThunk(
         child_count: childcount,
       };
 
-      // console.log(bodyParameters, "valuen of body params of axios ");
+
       return axios
         .post(
           "https://hotelbooking-backend.herokuapp.com/getHotel",
@@ -51,8 +52,8 @@ export const fetchCityList = createAsyncThunk(
     try {
       const config = {
         headers: {
-          "x-auth-token":token
-         },
+          "x-auth-token": token
+        },
       };
       const bodyParameters = {
         city_name: location,
@@ -81,11 +82,11 @@ export const searchSlice = createSlice({
       state.location = action.payload;
     },
     setCheckIn: (state = initialState, action) => {
-      // console.log(action.payload,"checkin from slice")
+
       state.checkIn = action.payload;
     },
     setCheckOut: (state = initialState, action) => {
-      // console.log(action.payload,"checkout from slice");
+
       state.checkOut = action.payload;
     },
     setAdultCount: (state = initialState, action) => {
@@ -94,25 +95,36 @@ export const searchSlice = createSlice({
     setChildCount: (state = initialState, action) => {
       state.totalChild = action.payload;
     },
+    setFilters: (state = initialState, action) => {
+      state.filters.push(action.payload);
+    },
+    unSetFilters: (state = initialState, action) => {
+      state.filters.pop(action.payload);
+    },
   },
   extraReducers: {
     [fetchHotelList.pending]: (state, action) => {
       state.status = "loading";
     },
     [fetchHotelList.rejected]: (state, action) => {
-      // state.status = "loading";
-      state.status="rejected";
-      console.log(state.status,"rejected called");
+
+      state.status = "rejected";
+
     },
     [fetchHotelList.fulfilled]: (state, action) => {
       state.status = "succeeded";
-      // console.log(action.payload,"action payload from fetchhotellist ")
+
       state.hotellist = action.payload;
-      // console.log(state.hotellist, "from fetch hotel list reducers");
+
     },
 
     [fetchCityList.pending]: (state, action) => {
       state.status = "loading";
+    },
+    [fetchCityList.rejected]: (state, action) => {
+      state.status = "rejected";
+
+      state.citylist = ["City", "Not", " Found"];
     },
     [fetchCityList.fulfilled]: (state, action) => {
       state.status = "succeeded";
@@ -124,5 +136,5 @@ export const searchSlice = createSlice({
 });
 
 export const { setLocation, setCheckIn, setCheckOut, setAdultCount,
-  setChildCount, } = searchSlice.actions;
+  setChildCount, setFilters, unSetFilters } = searchSlice.actions;
 export default searchSlice.reducer;

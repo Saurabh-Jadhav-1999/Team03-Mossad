@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import {token} from './token'
+import { token } from './token'
 const initialState = {
   hotelId: "",
-  hotel_name:"",
+  hotel_name: "",
   noOfPassengers: "",
   totalCost: 0,
-  status:"",
+  status: "",
   city_name: "",
   allow_to_bring_pet: "",
   lunch_per_person_per_day: "",
@@ -14,7 +14,6 @@ const initialState = {
   room_type: "",
   room_type_cost: 0,
   finalbooking: [],
-  // extra_pillow: "",
 };
 
 export const finalBookNow = createAsyncThunk(
@@ -26,13 +25,13 @@ export const finalBookNow = createAsyncThunk(
     try {
       const config = {
         headers: {
-          "x-auth-token":token
+          "x-auth-token": token
         },
       };
-      const cost=parseInt(totalcost);
-      const hid=parseInt(hotelid);
-      const acnt=parseInt(adultcount);
-      const ccnt=parseInt(childcount);
+      const cost = parseInt(totalcost);
+      const hid = parseInt(hotelid);
+      const acnt = parseInt(adultcount);
+      const ccnt = parseInt(childcount);
       const bodyParameters = {
         check_in_date: `${checkin}`,
         check_out_date: `${checkout}`,
@@ -46,7 +45,7 @@ export const finalBookNow = createAsyncThunk(
         total_cost: cost,
       };
 
-      console.log(bodyParameters, "valuen of body params of axios ");
+
       return axios
         .post(
           "https://hotelbooking-backend.herokuapp.com/booking",
@@ -54,7 +53,7 @@ export const finalBookNow = createAsyncThunk(
           config
         )
         .then((response) => {
-          console.log(response.data, "from booknow axios");
+
           return response.data;
         });
     } catch (error) {
@@ -76,7 +75,7 @@ export const bookNowSlice = createSlice({
     setTotalCost: (state = initialState, action) => {
       state.totalCost = action.payload;
     },
-   
+
     setCityName: (state = initialState, action) => {
       state.city_name = action.payload;
     },
@@ -108,8 +107,8 @@ export const bookNowSlice = createSlice({
       state.room_type = action.payload;
     },
     setRoomTypeCost: (state = initialState, action) => {
-      state.room_type_cost = parseInt(action.payload);
-      state.totalCost = parseInt(action.payload);
+      state.room_type_cost = parseInt(action.payload.bp);
+      state.totalCost = action.payload.bp * action.payload.Difference_In_Days;
     },
   },
   extraReducers: {
@@ -121,26 +120,19 @@ export const bookNowSlice = createSlice({
       state.status = "rejected";
 
     },
-    
+
     [finalBookNow.fulfilled]: (state, action) => {
       state.status = "succeeded";
       state.finalbooking = action.payload;
-      console.log(state.finalbooking, "extra reducer from finalbooknow");
+
     },
-    // [fetchHotelList.pending]: (state, action) => {
-    //   state.status = "loading";
-    // },
-    // [fetchHotelList.fulfilled]: (state, action) => {
-    //   state.status = "succeeded";
-    //   state.hotellist = action.payload;
-    //   console.log(state.hotellist, "from fetch hotel list reducers");
-    // },
+
   },
 });
 
 export const {
   setHotelId,
- 
+
   setNoOfPassengers,
   setAllowToBringPet,
   setExtraPillow,
