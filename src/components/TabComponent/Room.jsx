@@ -49,8 +49,8 @@ const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
         </Typography>
         <button type='button' className={styles.selectBtn} 
         onClick={(e)=>{
-          const bp=props.basePrice;
-          if(roomtype!==props.roomType&&roomtypecost!==props.basePrice){
+          const bp=props.offerRate;
+          if(roomtype!==props.roomType&&roomtypecost!==props.offerRate){
            dispatch(setRoomType(props.roomType));
            dispatch(setRoomTypeCost({bp,Difference_In_Days}));
           }

@@ -21,7 +21,7 @@ export const HotelSearchList = () => {
   }, [hotelList])
 
   useEffect(() => {
-    console.log("Filter value: ", filters);
+    // console.log("Filter value: ", filters);
   }, [filters])
 
   const status = useSelector((state) => state.search.status);

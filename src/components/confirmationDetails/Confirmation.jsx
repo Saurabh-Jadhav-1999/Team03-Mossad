@@ -77,7 +77,7 @@ const Confirmation = (props) => {
     </Link>,
   ];
 
-  console.log("Confirmbooking page", bookingdetails);
+  // console.log("Confirmbooking page", bookingdetails);
   return (
     <Fragment>
       {status === "loading" ? (

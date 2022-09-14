@@ -10,6 +10,7 @@ import { RoomAndPrice } from "./RoomAndPrice";
 import { Review } from "./Review";
 import img1 from "../../assets/images/ProfileReviewUserOneImg.png";
 import img2 from "../../assets/images/ProfileReviewUserTwoImg.png";
+import { useSelector } from "react-redux";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
