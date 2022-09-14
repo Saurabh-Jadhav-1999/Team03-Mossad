@@ -26,6 +26,7 @@ const Confirmation = (props) => {
   const checkin=useSelector(state=>state.search.checkIn);
   const checkout=useSelector(state=>state.search.checkOut);
   const roomtype=useSelector(state=>state.bookNow.room_type);
+
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -69,6 +70,8 @@ const Confirmation = (props) => {
       Congratulations
     </Link>,
   ];
+
+  console.log("Confirmbooking page",bookingdetails);
   return (
     <Fragment>
         {status=="loading" ? (

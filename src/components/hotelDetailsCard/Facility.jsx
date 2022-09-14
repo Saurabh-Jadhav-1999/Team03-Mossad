@@ -1,6 +1,5 @@
 import { Box, Button, Grid, Typography } from "@material-ui/core";
 import React from "react";
-import { useState } from "react";
 import styles from "./Facility.module.css";
 import AirplanemodeActiveSharpIcon from "@mui/icons-material/AirplanemodeActiveSharp";
 import RssFeedSharpIcon from "@mui/icons-material/RssFeedSharp";
@@ -8,11 +7,10 @@ import DirectionsCarFilledOutlinedIcon from "@mui/icons-material/DirectionsCarFi
 import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import SubjectOutlinedIcon from "@mui/icons-material/SubjectOutlined";
-import AttachMoneyOutlinedIcon from "@mui/icons-material/AttachMoneyOutlined";
+
 import { Link, useNavigate, Navigate, withRouter } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Stack } from "@mui/system";
-import { useHistory } from "react-router-dom";
 import {
   setHotelId,
   setCityName,
@@ -25,7 +23,7 @@ const Facility = (props) => {
     (state) => state.getHotelDetails.hotelDetails
   );
 
-  // const [idd, setIdd] = useState();
+
 
   const hId = useSelector((state) => state.getHotelDetails.hotel_id);
 
@@ -37,10 +35,9 @@ const Facility = (props) => {
 
   let navigate = useNavigate();
 
-   function handleSubmit() {
+  function handleSubmit(rate) {
     dispatch(setHotelId(props.details.hotel_id));
     dispatch(setCityName(props.details.city));
-   
     navigate(
       `/hotel-details/?id=${props.details.hotel_id}&city_name=${props.details.city}`
     );
@@ -90,7 +87,8 @@ const Facility = (props) => {
             type="button"
             // to="/hotel-details"
             className={styles.btnBook}
-            onClick={handleSubmit}>
+            onClick={() => handleSubmit(props.rate)}
+          >
             Book Now
           </button>
         </Grid>
@@ -101,13 +99,3 @@ const Facility = (props) => {
 
 export default Facility;
 
-// <Button
-// startIcon={
-//   <AttachMoneyOutlinedIcon sx={{ color: "black" }}>
-//     {props.rate}
-//   </AttachMoneyOutlinedIcon>
-// }
-// >
-// <Typography>{props.capacity}</Typography>
-// </Button>
-// <Button variant="contained">Book Now</Button>

@@ -1,32 +1,32 @@
-import React, { Fragment,useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { BookingOptions } from "../bookingOptions/BookingOptions";
 import { HotelDetailsAndImage } from "./HotelDetailsAndImage";
 import { TabBar } from "../TabComponent/TabBar";
 import styles from "./HotelDetails.module.css";
 import { Box } from "@mui/system";
 import Breadcrumb from "../breadcrumb/Breadcrumb";
-import { Link, Navigate, useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchHotelDetails } from "./../../slices/getHotelDetailsSlice";
 import Loading from "../loader/Loader";
 import { Typography } from "@material-ui/core";
 
 export const HotelDetails = () => {
-
   let dispatch = useDispatch();
   let location = useLocation();
 
-const idFromUrl = new URLSearchParams(location.search).get("id");
+  const idFromUrl = new URLSearchParams(location.search).get("id");
   const cityNameFromUrl = new URLSearchParams(location.search).get("city_name");
 
   useEffect(() => {
     return () => {
       dispatch(fetchHotelDetails({ idFromUrl, cityNameFromUrl }));
     };
-  }, [])
+  }, []);
 
-  const hoteldetails = useSelector( (state) => state.getHotelDetails.hotelDetails );
- 
+  const hoteldetails = useSelector(
+    (state) => state.getHotelDetails.hotelDetails
+  );
 
   const breadcrumbs = [
     <Link
@@ -66,24 +66,28 @@ const idFromUrl = new URLSearchParams(location.search).get("id");
   const status = useSelector((state) => state.getHotelDetails.status);
   return (
     <Fragment>
-      <Breadcrumb links={breadcrumbs} /><div className={styles.container}>
-      {  status=="loading"?(
+      <Breadcrumb links={breadcrumbs} />
+      <div className={styles.container}>
+        {status == "loading" ? (
           <div>
-          <Loading />
-          <Typography variant="h5" style={{fontFamily:"inter",marginLeft:"37vw"}}>Wait a moment, We are working :)</Typography>
-        </div>):(
-        
-              <>
+            <Loading />
+            <Typography
+              variant="h5"
+              style={{ fontFamily: "inter", marginLeft: "37vw" }}
+            >
+              Wait a moment, We are working :)
+            </Typography>
+          </div>
+        ) : (
+          <>
             <HotelDetailsAndImage details={hoteldetails} />
             <Box className={styles.bottomDiv}>
               <TabBar description={hoteldetails} />
               <BookingOptions />
             </Box>
           </>
-        
-        )
-        }
-        </div>
+        )}
+      </div>
     </Fragment>
   );
 };

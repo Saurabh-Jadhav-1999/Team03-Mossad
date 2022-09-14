@@ -43,8 +43,7 @@ export const RoomAndPrice = () => {
             basePrice={item.room_rate}
           />
         ))
-
-      
+ 
       }
     </Box>
   );

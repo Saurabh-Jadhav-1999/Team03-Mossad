@@ -3,7 +3,6 @@ import { HotelDetailsCard } from "../hotelDetailsCard/HotelDetailsCard";
 import { Stack } from "@mui/material";
 import { useSelector } from "react-redux";
 import { Fragment, useState } from "react";
-import CircularProgress from "@mui/material/CircularProgress";
 import Loading from "../loader/Loader";
 import Typography from "@mui/material/Typography";
 const details = {
@@ -18,9 +17,9 @@ const details = {
 
 export const HotelSearchList = () => {
 
-  const hotellist = useSelector((state) => state.search.hotellist);
+  const hotelList = useSelector((state) => state.search.hotellist);
   const status = useSelector((state) => state.search.status);
-
+  console.log("in hotelSearchList page",hotelList);
   return (
     <Fragment>
       {/* <CircularProgress color="secondary" /> */}
@@ -39,7 +38,7 @@ export const HotelSearchList = () => {
               <Typography variant="h5" style={{fontFamily:"inter",}}>Wait a moment, We are working :)</Typography>
             </div>
           ) : (
-            hotellist.map((item) => (
+            hotelList.map((item) => (
               <HotelDetailsCard key={item.hotel_id} details={item} />
             ))
           ))}
