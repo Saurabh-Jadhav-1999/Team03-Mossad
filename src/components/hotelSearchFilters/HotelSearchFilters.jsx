@@ -105,7 +105,7 @@ export const HotelSearchFilters = () => {
 
     const filterValue = {
         "No Prepayment": "no_prepayment",
-        "Free Cancellation":  ""
+        "Free Cancellation": ""
     }
 
     const getCheckedFilterProperties = event => {

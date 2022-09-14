@@ -4,8 +4,9 @@
     border-radius: 12px;
     margin: auto auto;
     position: relative;
-    z-index: 1000;
+    z-index: 1;
     width: 80vw;
+    /* margin-top: -3.7%; */
 }
 
 .container {

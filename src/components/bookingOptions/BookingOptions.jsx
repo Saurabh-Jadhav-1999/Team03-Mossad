@@ -28,7 +28,7 @@ import {
   finalBookNow,
 } from "./../../slices/bookNowSlice";
 import { ToastContainer, toast } from "react-toastify";
-
+import moment from "moment/moment";
 import "react-toastify/dist/ReactToastify.css";
 const features = [
   {
@@ -67,15 +67,19 @@ export const BookingOptions = () => {
       case "loading":
         notify1();
         break;
+
       case "succeeded":
         notify2();
         navigate("/booking-confirmation");
         break;
+
       case "rejected":
         notify3();
         break;
+
       default:
         break;
+
     }
   }, [status1]);
   const notify1 = () => toast("Booking is in Progress ;)");
@@ -93,6 +97,7 @@ export const BookingOptions = () => {
 
   const totalcost = useSelector((state) => state.bookNow.totalCost);
   const roomTypeCost = useSelector((state) => state.bookNow.room_type_cost);
+
 
   return (
     <Fragment>
@@ -192,7 +197,7 @@ export const BookingOptions = () => {
                       label="Adult"
                       defaultValue={adultcount}
                       onChange={(e) => {
-                        // console.log(e.target.value, "adult count");
+
                         dispatch(setAdultCount(e.target.value));
                       }}
                     >
@@ -211,7 +216,7 @@ export const BookingOptions = () => {
                       label="Children"
                       defaultValue={childcount}
                       onChange={(e) => {
-                        // console.log(e.target.value, "child count");
+
                         dispatch(setChildCount(e.target.value));
                       }}
                     >
@@ -251,10 +256,7 @@ export const BookingOptions = () => {
                                       dispatch(
                                         setAllowToBringPet(e.target.value)
                                       );
-                                      console.log(
-                                        pet,
-                                        "value from booknow slice"
-                                      );
+
                                     } else if (!e.target.checked) {
                                       dispatch(
                                         unsetAllowToBringPet(e.target.value)
@@ -281,13 +283,10 @@ export const BookingOptions = () => {
                                     } else if (!e.target.checked) {
                                       dispatch(unsetParking(e.target.value));
                                     }
-                                    console.log(
-                                      parking,
-                                      "value from booknow slice"
-                                    );
+
                                     break;
+
                                   default:
-                                    console.log('none of the above');
                                     break;
                                 }
                               }}
@@ -335,8 +334,7 @@ export const BookingOptions = () => {
                       hotelid,
                       totalcost,
                     })
-                  )
-
+                  );
                 }}
               >
                 Book Now

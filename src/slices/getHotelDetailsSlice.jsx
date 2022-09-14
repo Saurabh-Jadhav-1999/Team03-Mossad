@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import {token} from './token'
+import { token } from './token'
 
 const initialState = {
   hotel_id: "",
@@ -16,7 +16,7 @@ export const fetchHotelDetails = createAsyncThunk(
     try {
       const config = {
         headers: {
-          "x-auth-token":token
+          "x-auth-token": token
         },
       };
 
@@ -32,6 +32,7 @@ export const fetchHotelDetails = createAsyncThunk(
         )
         .then((response) => {
           return response.data;
+
 
         });
     } catch (error) {

@@ -8,8 +8,6 @@ import { setAdultCount, setChildCount } from "../../slices/searchSlice";
 export const PersonSelector = () => {
   const [adult, setAdult] = useState(1);
   const [child, setChild] = useState(0);
-  // const adultcount=useSelector(state=>state.search.totalAdult);
-  // const childcount=useSelector(state=>state.search.totalChild);
 
   const dispatch = useDispatch();
   function handleAdultChange(event) {

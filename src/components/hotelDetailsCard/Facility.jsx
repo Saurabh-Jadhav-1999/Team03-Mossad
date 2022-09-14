@@ -7,8 +7,8 @@ import DirectionsCarFilledOutlinedIcon from "@mui/icons-material/DirectionsCarFi
 import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import SubjectOutlinedIcon from "@mui/icons-material/SubjectOutlined";
-import { Link, useNavigate, Navigate, withRouter } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 import { Stack } from "@mui/system";
 import {
   setHotelId,
@@ -16,7 +16,7 @@ import {
 } from "../../slices/getHotelDetailsSlice";
 
 const Facility = (props) => {
-  // console.log(props.details)
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -84,13 +84,3 @@ const Facility = (props) => {
 
 export default Facility;
 
-// <Button
-// startIcon={
-//   <AttachMoneyOutlinedIcon sx={{ color: "black" }}>
-//     {props.rate}
-//   </AttachMoneyOutlinedIcon>
-// }
-// >
-// <Typography>{props.capacity}</Typography>
-// </Button>
-// <Button variant="contained">Book Now</Button>

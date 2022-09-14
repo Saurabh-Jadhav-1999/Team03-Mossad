@@ -33,23 +33,22 @@ export const HotelSearchList = () => {
         <Stack direction={"column"} spacing={2}>
           {status === "rejected" ?
             (<div style={{ marginLeft: "20vw", display: "grid", justifyContent: "center" }}>
-              <Typography variant="h5" style={{ fontFamily: "inter", marginLeft: "80px" }}>    Hotels not found :( </Typography>
+              <Typography variant="h5" style={{ fontFamily: "inter", marginLeft: "0px" }}>    Hotels not found :( </Typography>
               <Typography variant="h5" style={{ fontFamily: "inter", }}> Please change your search details!</Typography>
             </div>) : (
-              status === "loading" ? (
+              status == "loading" ? (
+                // <CircularProgress color="secondary" />
                 <div style={{ marginLeft: "20vw" }}>
                   <Loading />
-                  <Typography variant="h5" style={{ fontFamily: "inter", }}>Wait a moment, We are searching best hotels for you :)</Typography>
+                  <Typography variant="h5" style={{ fontFamily: "inter", }}>Wait a moment, We are working :)</Typography>
                 </div>
               ) : (
-                filters.length > 0 ? (
-                  hotelDetailedList.filter((item => item['hotelfacalities'][0]?.no_prepayment)).map((item) => (
-                    <HotelDetailsCard key={item.hotel_id} details={item} />
-                  ))) : (
-                  hotelDetailedList.map((item) => (<HotelDetailsCard key={item.hotel_id} details={item} />))
-                )
-              )
-            )}
+                hotelList.map((item) => (
+                  <HotelDetailsCard key={item.hotel_id} details={item} />
+                ))
+              ))}
+
+          {/* <HotelDetailsCard  details={details} /> */}
         </Stack>
       </Stack>
     </Fragment >

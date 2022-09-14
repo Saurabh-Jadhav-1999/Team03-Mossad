@@ -1,13 +1,12 @@
 import React, { Fragment } from "react";
 import styles from "./Confirmation.module.css";
-import { Box, Typography, Grid, Button } from "@mui/material";
-// import "./confirmation.css";
-import star from "../../assets/images/HotelRatingIcon.png";
+import { Box, Typography, Grid, Button, Breadcrumbs } from "@mui/material";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 import { Link, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import moment from "moment/moment";
 import Loading from "../loader/Loader";
+import StarIcon from '@mui/icons-material/Star';
 
 const Confirmation = (props) => {
   function navigate(path) {
@@ -20,6 +19,8 @@ const Confirmation = (props) => {
   const hotelrating = useSelector(state => state.getHotelDetails.hotelDetails.rating);
   const city = useSelector(state => state.getHotelDetails.hotelDetails.city);
   const checkin = useSelector(state => state.search.checkIn);
+  const hotelprofile = useSelector((state) => state.getHotelDetails.hotelDetails.hotel_profile_picture);
+  const hotelreviews = useSelector(state => state.getHotelDetails.hotelDetails.total_reviews);
   const checkout = useSelector(state => state.search.checkOut);
   const roomtype = useSelector(state => state.bookNow.room_type);
   const status = useSelector((state) => state.bookNow.status);
@@ -28,9 +29,9 @@ const Confirmation = (props) => {
     const checkIn = moment(new Date(checkin)).format('MMMM DD')
     const checkOut = moment(new Date(checkout)).format('MMMM DD')
     const reservationYear = moment(new Date(checkin)).format('YYYY')
-
     return checkIn + " - " + checkOut + " " + reservationYear
   }
+
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -108,12 +109,12 @@ const Confirmation = (props) => {
               fontSize="13px"
               className={`${styles.typo3}`}
             >
-              <img src={star} alt="" className={`${styles.starimg}`} />
+              <StarIcon sx={{ color: "#ff9c09" }} />
               <span className={`${styles.hotelrating}`}>
                 <span style={{ color: "black", marginRight: "6px" }}>
                   {hotelrating}
                 </span>{" "}
-                (234 reviews)
+                ({hotelreviews} reviews)
               </span>
               <span></span>
             </Typography>
@@ -129,70 +130,80 @@ const Confirmation = (props) => {
                 wrap="nowrap"
                 className={`${styles.gridcontainer1}`}
               >
-                <Grid item lg={12} sm={4}>
-                  <Grid item lg={4} sm={4} className={`${styles.griditem}`}>
-                    {" "}
-                    <Box className={`${styles.box1}`}>
-                      <div className={`${styles.div5}`}>Dates</div>
-                      <div className={`${styles.div6}`}>
-                        {/* {checkin}-{checkout} */}
-                        {formatDate()}
-                      </div>
-                    </Box>
-                    <Box className={`${styles.box2}`}>
-                      {" "}
-                      <div className={`${styles.div7}`}>Travelers</div>
-                      <div className={`${styles.div8}`}>
-                        {bookingdetails.guest_count} Passengers
-                      </div>
-                    </Box>
-                  </Grid>
-                  <Grid item className={`${styles.griditem1}`}>
-                    <div className={`${styles.div9}`}>
-                      <div className={`${styles.box3}`}>
-                        <div className={`${styles.box4}`}>
-                          {" "}
-                          <div className={`${styles.div10}`}>
-                            Reserve details
-                            <Typography
-                              variant="h5"
-                              className={`${styles.typo4}`}
-                            ></Typography>
-                          </div>
-                        </div>
-                        <div className={`${styles.div11}`}>
-                          <div className={`${styles.div12}`}>
-                            <Box>Booking code</Box>
-                            <Box>Date</Box>
-                            <Box>Total</Box>
-                            <Box>Payment Method</Box>
-                          </div>
-                          <div className={`${styles.div13}`}>
-                            <Box>{bookingdetails.b_id}</Box>
-                            <Box>{moment(new Date(checkin)).format('DD.MM.YYYY')}</Box>
-                            <Box>${bookingdetails.total_cost}</Box>
-                            <Box>Credit card</Box>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </Grid>
-                </Grid>
-              </Grid>
-              <Grid item xs={12} lg={8}>
-                {" "}
-                <div className={`${styles.div14}`}>
-                  <img className={`${styles.hotelimg}`} src={bookingdetails.hotel_profile_picture} height="510px" width="750px" alt="" />
-                </div>
               </Grid>
             </div>
-          </div>
-          <Button variant="contained" className={`${styles.button1}`} href="/">
-            Back to Home Page
-          </Button>{" "}
+            <div>
+              <div className={`${styles.div4}`}>
+                <Grid
+                  container
+                  spacing={4}
+                  wrap="nowrap"
+                  className={`${styles.gridcontainer1}`}
+                >
+                  <Grid item lg={12} sm={4}>
+                    <Grid item lg={4} sm={4} className={`${styles.griditem}`}>
+                      {" "}
+                      <Box className={`${styles.box1}`}>
+                        <div className={`${styles.div5}`}>Dates</div>
+                        <div className={`${styles.div6}`}>
+                          {formatDate()}
+                        </div>
+                      </Box>
+                      <Box className={`${styles.box2}`}>
+                        {" "}
+                        <div className={`${styles.div7}`}>Travelers</div>
+                        <div className={`${styles.div8}`}>
+                          {bookingdetails.guest_count} Passengers
+                        </div>
+                      </Box>
+                    </Grid>
+                    <Grid item className={`${styles.griditem1}`}>
+                      <div className={`${styles.div9}`}>
+                        <div className={`${styles.box3}`}>
+                          <div className={`${styles.box4}`}>
+                            {" "}
+                            <div className={`${styles.div10}`}>
+                              Reserve details
+                              <Typography
+                                variant="h5"
+                                className={`${styles.typo4}`}
+                              ></Typography>
+                            </div>
+                          </div>
+                          <div className={`${styles.div11}`}>
+                            <div className={`${styles.div12}`}>
+                              <Box>Booking code</Box>
+                              <Box>Date</Box>
+                              <Box>Total</Box>
+                              <Box>Payment Method</Box>
+                            </div>
+                            <div className={`${styles.div13}`}>
+                              <Box>{bookingdetails.b_id}</Box>
+                              <Box>{moment(new Date(checkin)).format('DD.MM.YYYY')}</Box>
+                              <Box>${bookingdetails.total_cost}</Box>
+                              <Box>Credit card</Box>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </Grid>
+                  </Grid>
+                </Grid>
+                <Grid item xs={12} lg={8}>
+                  {" "}
+                  <div className={`${styles.div14}`}>
+                    <img className={`${styles.hotelimg}`} src={hotelprofile} height="510px" width="750px" alt="" />
+                  </div>
+                </Grid>
+              </div>
+            </div >
+            <Button variant="contained" className={`${styles.button1}`} href="/">
+              Back to Home Page
+            </Button>{" "}
+          </div >
         </div>
       )}
-    </Fragment>
+    </Fragment >
   );
 };
 

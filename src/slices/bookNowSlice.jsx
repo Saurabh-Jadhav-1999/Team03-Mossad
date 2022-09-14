@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import {token} from './token'
+import { token } from './token'
 const initialState = {
   hotelId: "",
   hotel_name: "",
@@ -25,7 +25,7 @@ export const finalBookNow = createAsyncThunk(
     try {
       const config = {
         headers: {
-          "x-auth-token":token
+          "x-auth-token": token
         },
       };
       const cost = parseInt(totalcost);
@@ -45,7 +45,7 @@ export const finalBookNow = createAsyncThunk(
         total_cost: cost,
       };
 
-      console.log(bodyParameters, "valuen of body params of axios ");
+
       return axios
         .post(
           "https://hotelbooking-backend.herokuapp.com/booking",
@@ -53,7 +53,7 @@ export const finalBookNow = createAsyncThunk(
           config
         )
         .then((response) => {
-          console.log(response.data, "from booknow axios");
+
           return response.data;
         });
     } catch (error) {
@@ -107,8 +107,8 @@ export const bookNowSlice = createSlice({
       state.room_type = action.payload;
     },
     setRoomTypeCost: (state = initialState, action) => {
-      state.room_type_cost = parseInt(action.payload);
-      state.totalCost = parseInt(action.payload);
+      state.room_type_cost = parseInt(action.payload.bp);
+      state.totalCost = action.payload.bp * action.payload.Difference_In_Days;
     },
   },
   extraReducers: {
@@ -124,8 +124,9 @@ export const bookNowSlice = createSlice({
     [finalBookNow.fulfilled]: (state, action) => {
       state.status = "succeeded";
       state.finalbooking = action.payload;
-      console.log(state.finalbooking, "extra reducer from finalbooknow");
+
     },
+
   },
 });
 

@@ -3,10 +3,17 @@ import { FeaturedDestinations } from "../components/featuredDestinations/Feature
 import 'react-toastify/dist/ReactToastify.css';
 
 export const LandingPage = () => {
+
   return (
     <>
-      <LandingHotelPicture />
-      <FeaturedDestinations sx={{ margin: '10px auto' }} />
+      <div>
+
+        <LandingHotelPicture />
+        <div style={{ position: "relative", marginTop: "5vh !important" }}>
+          <FeaturedDestinations sx={{ marginTop: "50vh" }} />
+        </div>
+
+      </div>
     </>
   )
 }

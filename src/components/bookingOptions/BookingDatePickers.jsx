@@ -4,15 +4,16 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import moment from 'moment/moment';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setCheckIn, setCheckOut } from '../../slices/searchSlice';
+
 export const BookingDatePickers = (props) => {
     const [value, setValue] = React.useState(new Date());
     const dispatch = useDispatch();
 
     const handleChange = (newValue) => {
         setValue(newValue);
-        if (newValue != null && props.checkin == "1") {
+        if (newValue != null && props.checkin === "1") {
             const checkInDateValue = moment(new Date(newValue)).format(
                 "YYYY-MM-DD"
             );

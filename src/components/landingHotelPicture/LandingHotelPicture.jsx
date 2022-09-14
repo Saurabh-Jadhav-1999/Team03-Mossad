@@ -7,6 +7,8 @@ export const LandingHotelPicture = () => {
             And Enjoy your
             Journey!</div>
         <img src={require("./HotelDisplayPicture.png")} alt="HotelDisplayPicture" />
-        <SearchBar  className={styles.searchBar}/>
+        <div className={`${styles.searchBar}`}>
+        <SearchBar  />
+        </div>
     </div>
 }
