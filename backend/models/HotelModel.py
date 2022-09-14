@@ -262,3 +262,17 @@ class SearchHistory(db.Model):
     #     self.number_times = data['number_times']
     #     self.user_id = data['user_id']
     #     self.hotel_id = data['hotel_id']
+
+
+
+# create a object for hotel model data representations
+hotel_representation_for_review = {
+    "hotel_id":fields.Integer,
+    "hotel_name":fields.String,
+    "hotel_profile_picture": fields.String,
+    "city":fields.String,
+    "state":fields.String,
+    "address":fields.String,
+    "economy_room_rate":fields.Integer,
+    "average_rating":fields.Float
+}

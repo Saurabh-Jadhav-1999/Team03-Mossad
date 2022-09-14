@@ -88,14 +88,13 @@
 
 from flask_restful import marshal_with, Resource, reqparse
 from flask import abort, request, make_response
-from backend.models.HotelModel import User
+from backend.models.HotelModel import User,hotel_representation_for_review
 from backend.models.UserModel import user_representation
 from backend import db, app
 from backend.services.UserServices import isUserExists, addNewUser, validateLoginData
 import json
 import jwt
 from backend.auth.authToken import token_required
-
 from backend.services.HistoryServices import getUserHistory
 
 # post request parser
@@ -160,8 +159,9 @@ def login():
 
 
 @app.route("/", methods=["GET"])
+#@marshal_with(hotel_representation_for_review)
 def basicRoute():
-
+    
     # print("before token validation:",request.json)
     token_result = token_required(request)
     # print(token_result)
@@ -170,7 +170,5 @@ def basicRoute():
     # print("after token validation:",request.json) 
 
     # call the get search suggestion
-    getUserHistory(request.json.get("user_id"))
-
-
-    return make_response("Application is running", 200)
+    result=getUserHistory(request.json.get("user_id"))
+    return make_response(result, 200)

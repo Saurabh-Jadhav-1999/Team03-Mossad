@@ -1,9 +1,7 @@
 
 
 from backend import app, db
-from backend.services.HistoryServices import validateHistoryData, addHistory, getHistory
-from backend.models.HotelModel import searchHistory_representation
-from backend import app, db
+from backend.services.HistoryServices import getUserHistory,validateHistoryData, addHistory, getHistory
 from backend.services.HistoryServices import validateHistoryData, addHistory, getHistory
 from backend.models.HotelModel import searchHistory_representation, searchHistory_representation_with_hotel
 from backend.auth.authToken import token_required
@@ -68,3 +66,30 @@ def historyAdding():
      history = addHistory(request.json)
     
      return showHistory(history), 200
+
+
+
+app.route("/topFiveSuggestionsForUser", methods=['GET'])
+def topFiveSuggestionsForUser():
+     # print("before token validation:",request.json)
+     token_result = token_required(request)
+    # print(token_result)
+     if  type(token_result)==dict({}) and "error" in token_result.keys():
+        return token_result
+
+    # call the get search suggestion
+     result=getUserHistory(request.json.get("user_id"))
+     return make_response(result, 200)
+    
+
+class TopFiveSuggestionsForUser(Resource):
+   def get(self):
+        token_result = token_required(request)
+    # print(token_result)
+        if  type(token_result)==dict({}) and "error" in token_result.keys():
+          return token_result
+
+    # call the get search suggestion
+        result=getUserHistory(request.json.get("user_id"))
+        return make_response(result, 200)
+    

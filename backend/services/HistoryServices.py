@@ -4,7 +4,7 @@ from backend.models.HotelModel import SearchHistory
 import datetime
 from sqlalchemy import and_, desc, func, distinct
 from backend import db
-from backend.models.HotelModel import searchHistory_representation_with_hotel, Hotel, Review
+from backend.models.HotelModel import hotel_representation_for_review,searchHistory_representation_with_hotel, Hotel, Review
 from flask_restful import marshal_with
 
 # method to show db result in search_history_with_hotel format
@@ -78,9 +78,13 @@ def addHistoryByHotelId(data):
 def getHistory():
     return SearchHistory.query.all()
 
+@marshal_with(hotel_representation_for_review)
+def showHotelDataInReviewFormat(data):
+     return data
 
 # method to get user history
 def getUserHistory(user_id):
+    #hotel.average_rating,hotel_name,total_Reviews,location,address,land_mark,city,state
     print("user_id in getUserHistory method:",user_id)
     res1= db.session.query(SearchHistory).filter(and_(SearchHistory.user_id==user_id,SearchHistory.hotel_id==None)).order_by(SearchHistory.number_times.desc()).first()
     # mostSearchCity = db.Session.query(SearchHistory).filter(and_(SearchHistory.user_id==user_id, SearchHistory.hotel_id==None,SearchHistory.number_times==func.max(SearchHistory.number_times))).first()
@@ -89,10 +93,19 @@ def getUserHistory(user_id):
 
     # getting top 5 hotels in that city
 
-    res2=db.session.query(Hotel.hotel_name,Hotel.hotel_id,Review.rating).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==res1.location).order_by(desc(Hotel.average_rating)).distinct().limit(5).all()
+    res2=db.session.query(Hotel.hotel_name,Hotel.average_rating,Review.hotel_id,Hotel.city,Hotel.state,Hotel.address,Hotel.economy_room_rate,Hotel.hotel_profile_picture).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==res1.location).order_by(desc(Hotel.average_rating)).distinct().limit(5).all()
     # res2=db.session.query(distinct(Hotel.hotel_id)).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==res1.location).order_by(desc(Review.rating)).limit(5).all()
-    
-    print(res2)
+    top_five_cities=[]
+    for i in res2:
+        temp=showHotelDataInReviewFormat(i)
+        dic_hotel_data={"hotel_id":temp['hotel_id'],"hotel_profile_picture":temp['hotel_profile_picture'],"average_rating":temp['average_rating'],"hotel_name":temp['hotel_name'], "base_price":temp['economy_room_rate'],"hotel_address":temp['address'], "hotel_city":temp['city'], "hotel_state":temp['state']}
+        top_five_cities.append(dic_hotel_data)
+    return {"city":res1.location,"hotels":top_five_cities}
+       # print(temp)
+   
+
+    #print(res2)
+    #return res2
     #second logic
     #result = db.session.query(Review.hotel_id,func.avg(Review.rating).label("total_score")).filter(Hotel.city==res1.location).group_by(Review.hotel_id).all()
     #res2=db.session.query(Hotel.hotel_name,Hotel.hotel_id,Review.rating).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==res1.location).order_by(desc(result)).limit(5).distinct().all()

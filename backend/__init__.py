@@ -30,7 +30,7 @@ try:
     from backend.routes.HotelRoutes import HotelHandler
     from backend.routes.ReviewRoutes import HandleReview
     from backend.routes.BookingRoutes import HandleBooking
-    from backend.routes.HistoryRoutes import HandleHistory
+    from backend.routes.HistoryRoutes import HandleHistory,TopFiveSuggestionsForUser
     from backend.routes.showTopHistoryRoute import HandleHistoryTop
     from backend.routes.FacalityRoute import HandleFacality
     from backend.routes.FacalityRoute import HandleFacality
@@ -47,10 +47,11 @@ try:
     api.add_resource(HandleReview, "/review")
     api.add_resource(HandleBooking, "/booking")
     api.add_resource(HandleHistory,"/history")
-    api.add_resource(HandleHistoryTop,"/showTopHistory")
+    api.add_resource(TopFiveSuggestionsForUser,"/topFiveSuggestionsForUser")
+  #  api.add_resource(HandleHistoryTop,"/sh")
     api.add_resource(HandleFacality, "/facality") # route for adding facalities to particular hotel
     print('done with creating routes!')
-    
+
 except Exception as e:
     import tracemalloc
     print(e.with_traceback)
