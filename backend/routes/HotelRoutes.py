@@ -15,16 +15,6 @@ from backend.services.HistoryServices import validateHistoryData, validateHistor
 from backend.services.UserServices import getCurrentDate
 
 
-# app.route("/hotel", methods=['POST'])
-# def hotelAdd():
-#     result = validateHotelData(request.json) 
-#     if result.errors:
-#         return result.errors, 400 
-
-#     print(result.document)
-
-#     return result.document, 200
-
 class HotelHandler(Resource):
     # route to add new hotel 
     @marshal_with(hotel_representation)

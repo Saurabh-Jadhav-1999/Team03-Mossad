@@ -45,3 +45,22 @@ def averageRating(hotel_id):
     if result != None:
         result = round(result, 1)
     return [result, count]
+
+
+# method to add average rating into table
+def addAverageRating(hotel_id):
+    rating = averageRating(hotel_id) # get the rating of hotel
+    
+    hotel = getPerticularHotelById('hotel_id') # get the hotel detail's by hotel_id
+
+    hotel.average_rating = rating[0]
+
+    db.session.commit()
+
+# method to add average rating into table
+def addAverageRating(hotel_id):
+    
+    rating = averageRating(hotel_id) # get the rating of hotel
+    hotel = getPerticularHotelById(hotel_id) # get the hotel detail's by hotel_id
+    hotel.average_rating = rating[0] # add the new average rating 
+    db.session.commit() # save the changes

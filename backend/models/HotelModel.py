@@ -101,6 +101,18 @@ review_representation = {
     # "reviewed": fields.Nested(hotel_representation)
 }
 
+# create a object for hotel model data representations for suggestion list
+hotel_representation_for_review = {
+    "hotel_id":fields.Integer,
+    "hotel_name":fields.String,
+    "hotel_profile_picture": fields.String,
+    "city":fields.String,
+    "state":fields.String,
+    "address":fields.String,
+    "economy_room_rate":fields.Integer,
+    "average_rating":fields.Float
+}
+
 # hotel model 
 class Hotel(db.Model):
     hotel_id = db.Column(db.Integer, primary_key=True)
@@ -126,6 +138,7 @@ class Hotel(db.Model):
     economy_room_capacity = db.Column(db.Integer, default=0)
     double_room_capacity = db.Column(db.Integer, default=0)
     premium_room_capacity = db.Column(db.Integer, default=0)
+    average_rating = db.Column(db.Float, default=0)#new field
     hotelfacalities = db.relationship("Facality", backref="hotelfacality")
     hotelreviews = db.relationship('Review', backref="reviewed")
     hotel_booking = db.relationship('Booking', backref="hotelconcerned") #Booking

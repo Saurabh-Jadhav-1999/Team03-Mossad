@@ -4,7 +4,7 @@ from backend.models.HotelModel import SearchHistory
 import datetime
 from sqlalchemy import and_, desc, func, distinct
 from backend import db
-from backend.models.HotelModel import searchHistory_representation_with_hotel, Hotel, Review
+from backend.models.HotelModel import searchHistory_representation_with_hotel, Hotel, Review, hotel_representation_for_review
 from flask_restful import marshal_with
 
 # method to show db result in search_history_with_hotel format
@@ -75,16 +75,33 @@ def getHistory():
     return SearchHistory.query.all()
 
 
+# change the query object into serilizable object
+@marshal_with(hotel_representation_for_review)
+def showHotelDataInReviewFormat(data):
+     return data
+
+
 # method to get user history
-def getUserHistory(user_id, location):
-    res1= db.session.query(SearchHistory).filter(and_(SearchHistory.user_id==user_id,SearchHistory.hotel_id==None)).order_by(SearchHistory.number_times.desc()).first()
-    # mostSearchCity = db.Session.query(SearchHistory).filter(and_(SearchHistory.user_id==user_id, SearchHistory.hotel_id==None,SearchHistory.number_times==func.max(SearchHistory.number_times))).first()
+def getUserHistory(user_id):
+   
+    print("user_id in getUserHistory method:",user_id)
+    # query to get most searched city by user
+    most_searched_location = db.session.query(SearchHistory).filter(and_(SearchHistory.user_id==user_id,SearchHistory.hotel_id==None)).order_by(SearchHistory.number_times.desc()).first()
+    if most_searched_location == None:
+        return {"city":None,"hotels":[]}
     
-    print("most searched city by user:",res1.location)
+    print("most searched city by user:",most_searched_location.location)
 
-    # getting top 5 hotels in that city
 
-    res2=db.session.query(Hotel.hotel_name,Hotel.hotel_id,Review.rating).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==res1.location).order_by(desc(Review.rating)).limit(5).all()
-    # res2=db.session.query(distinct(Hotel.hotel_id)).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==res1.location).order_by(desc(Review.rating)).limit(5).all()
-    
-    print(res2)
+    # query for getting top 5 hotels in that city by average rating
+    top_five_city =db.session.query(Hotel.hotel_name,Hotel.average_rating,Review.hotel_id,Hotel.city,Hotel.state,Hotel.address,Hotel.economy_room_rate,Hotel.hotel_profile_picture).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==most_searched_location.location).order_by(desc(Hotel.average_rating)).distinct().limit(5).all()
+
+    top_five_hotel_in_city = [] # array to store object of top 5 city
+    for i in top_five_city:
+        temp=showHotelDataInReviewFormat(i) # convert it into hotel review representation from
+        
+        dic_hotel_data={"hotel_id":temp['hotel_id'],"hotel_profile_picture":temp['hotel_profile_picture'],"average_rating":temp['average_rating'],"hotel_name":temp['hotel_name'], "base_price":temp['economy_room_rate'],"hotel_address":temp['address'], "hotel_city":temp['city'], "hotel_state":temp['state']}
+        
+        top_five_hotel_in_city.append(dic_hotel_data) # adding hotel to top_fiv
+    return {"city":most_searched_location.location,"hotels":top_five_hotel_in_city}
+       # print(temp)

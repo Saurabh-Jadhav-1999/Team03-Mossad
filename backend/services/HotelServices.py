@@ -1,6 +1,6 @@
 from dataclasses import field
 from importlib.metadata import requires
-from backend.models.HotelModel import Hotel, review_representation, facality_representation
+from backend.models.HotelModel import Hotel, review_representation, facality_representation, hotel_representation_for_review, SearchHistory, Review
 from backend import db, app
 from cerberus import Validator
 from flask_restful import fields, marshal_with
@@ -153,3 +153,4 @@ def getHotelsByCityName(city_name):
 @marshal_with(new_hotel_representation)
 def showAvailableHotels(data):
     return data
+
