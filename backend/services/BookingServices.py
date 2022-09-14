@@ -116,6 +116,7 @@ def checkHotelAvailability(hotel_id, hotel, check_in_date, check_out_date, adult
     print("primium room booking for all days:", prim_count_lsit)
     print("*"*10)
     # check and add exclusive rooms to array
+    #check if exclu count is less than total exclusive count if yes then exclu room is available for booking
     if max(exclu_count_list) < hotel.exclusive_room_count:
         availableRoomTypes.append("exclusive_room")
 

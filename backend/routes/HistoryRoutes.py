@@ -20,7 +20,7 @@ def showHistory(data):
 class HandleHistory(Resource):
     
     # route to get all the history
-    @marshal_with(searchHistory_representation)
+    # @marshal_with(searchHistory_representation)
      # route to get all the history
     # @marshal_with(searchHistory_representation)
     @marshal_with(searchHistory_representation_with_hotel)

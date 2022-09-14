@@ -1,5 +1,5 @@
 from backend import app, db
-from backend.services.ReviewServices import validateReviewData, addReview, getReviews
+from backend.services.ReviewServices import validateReviewData, addReview, getReviews,addAverageRating
 from backend.models.HotelModel import review_representation
 from flask import make_response, request
 from flask_restful import marshal_with, Resource
@@ -25,7 +25,7 @@ class HandleReview(Resource):
             return make_response(validateData.errors, 400) # return error if validation fails
 
         review = addReview(request.json) # adding new review
-    
+        addAverageRating(review.hotel_id)
         return showReview(review), 200
 
 

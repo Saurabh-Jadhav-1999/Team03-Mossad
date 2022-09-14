@@ -21,17 +21,6 @@ def validateReviewData(data):
     result = reviewValidator.validate(data)
     return reviewValidator
 
-# add new review in review model
-def addReview(data):
-    #get user
-    user = getPerticularUser(data['user_id'])
-    #get hotel 
-    hotel = getPerticularHotelById(data['hotel_id'])
-    #create new Review instance
-    review = Review(rating=data['rating'],description=data['description'], datetime_posted=datetime.datetime.utcnow(),owner=user,reviewed=hotel)  
-    db.session.add(review)
-    db.session.commit()
-    return review
 
 # method to get all the reviews 
 def getReviews():
@@ -45,3 +34,25 @@ def averageRating(hotel_id):
     if result != None:
         result = round(result, 1)
     return [result, count]
+
+# method to add average rating into table
+def addAverageRating(hotel_id):
+    
+    rating = averageRating(hotel_id) # get the rating of hotel
+    hotel = getPerticularHotelById(hotel_id) # get the hotel detail's by hotel_id
+    #print("average rating",hotel.hotel_name)
+    hotel.average_rating = rating[0]
+    db.session.commit()
+
+
+# add new review in review model
+def addReview(data):
+    #get user
+    user = getPerticularUser(data['user_id'])
+    #get hotel 
+    hotel = getPerticularHotelById(data['hotel_id'])
+    #create new Review instance
+    review = Review(rating=data['rating'],description=data['description'], datetime_posted=datetime.datetime.utcnow(),owner=user,reviewed=hotel)  
+    db.session.add(review)
+    db.session.commit()
+    return review

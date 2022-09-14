@@ -9,7 +9,7 @@ from backend.models.UserModel import user_representation
 
 
 
-# creating user model 
+# User model 
 class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     user_name = db.Column(db.String(200), nullable=False)
@@ -34,7 +34,7 @@ class User(db.Model):
         if 'user_profile' in userdata.keys():
             self.user_profile = userdata['user_profile']
 
-# review model data representation object
+# Review model data representation object
 review_representation = {
     "review_id": fields.Integer,
     "rating": fields.Integer,
@@ -43,7 +43,7 @@ review_representation = {
     "owner": fields.Nested(user_representation)
 }
 
-# facality representation 
+# Facality representation 
 facality_representation = {
     "allow_pet_cost":fields.Integer,
     "breakfast_for_person":fields.Integer,
@@ -114,6 +114,8 @@ class Hotel(db.Model):
     economy_room_capacity = db.Column(db.Integer, default=0)
     double_room_capacity = db.Column(db.Integer, default=0)
     premium_room_capacity = db.Column(db.Integer, default=0)
+    average_rating = db.Column(db.Float, default=0)#new field
+
     hotelfacalities = db.relationship("Facality", backref="hotelfacality")
     hotelreviews = db.relationship('Review', backref="reviewed")
     hotel_booking = db.relationship('Booking', backref="hotelconcerned") #Booking
@@ -227,23 +229,17 @@ searchHistory_representation = {
   #  "owner": fields.Nested(user_representation),
    # "hotelconcerned": fields.Nested(hotel_representation)
 }
-#SearchHistory model 
-# representation for SearchHistory
-searchHistory_representation = {
-    "location": fields.String,
-    "search_date": fields.String,
-    "number_times": fields.Integer,
-}
 
 # representation for SearchHistory with hotel_id
 searchHistory_representation_with_hotel = {
+    "user_id": fields.Integer,
     "hotel_id": fields.Integer,
     "location": fields.String,
     "search_date": fields.String,
     "number_times": fields.Integer,
 }
 
-# model for user's search history 
+# search history(user) model
 class SearchHistory(db.Model):
     searchHistory_id = db.Column(db.Integer, primary_key=True)
     ip= db.Column(db.String(200),default=None)

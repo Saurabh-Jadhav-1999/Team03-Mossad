@@ -2,9 +2,9 @@ from operator import and_
 from cerberus import Validator
 from backend.models.HotelModel import SearchHistory
 import datetime
-from sqlalchemy import and_
+from sqlalchemy import and_, desc, func, distinct
 from backend import db
-from backend.models.HotelModel import searchHistory_representation_with_hotel
+from backend.models.HotelModel import searchHistory_representation_with_hotel, Hotel, Review
 from flask_restful import marshal_with
 
 # method to show db result in search_history_with_hotel format
@@ -38,21 +38,24 @@ def validateHistoryDataWithHotel(data):
     return history_validate
 
 # add new history in history model
+
+# add new history in history model
 def addHistory(data):
+   
     row1 = db.session.query(SearchHistory).filter(and_(SearchHistory.user_id == data['user_id'], SearchHistory.location == data['location'],SearchHistory.hotel_id==None)).first()
+
     if row1 is not None:
         row1.number_times=row1.number_times+1
         row1.search_date=datetime.datetime.utcnow()
-       # searchHistory = SearchHistory(location=data['location'],search_date=date.today(),user_id=data['user_id'],hotel_id=data['hotel_id'])  
-       # db.session.add(searchHistory)
         db.session.commit()
         return row1
+         
     else:
+        
         searchHistory = SearchHistory(location=data['location'],search_date=datetime.datetime.utcnow(),number_times=1,user_id=data['user_id'])  
         db.session.add(searchHistory)
         db.session.commit()
         return searchHistory
-
 # method to add user history by hotel_id, location, user_id
 def addHistoryByHotelId(data):
         # check if user have already history with given details
@@ -77,3 +80,26 @@ def getHistory():
 
 
 # method to get user history
+def getUserHistory(user_id):
+    print("user_id in getUserHistory method:",user_id)
+    res1= db.session.query(SearchHistory).filter(and_(SearchHistory.user_id==user_id,SearchHistory.hotel_id==None)).order_by(SearchHistory.number_times.desc()).first()
+    # mostSearchCity = db.Session.query(SearchHistory).filter(and_(SearchHistory.user_id==user_id, SearchHistory.hotel_id==None,SearchHistory.number_times==func.max(SearchHistory.number_times))).first()
+    
+    print("most searched city by user:",res1.location)
+
+    # getting top 5 hotels in that city
+
+    res2=db.session.query(Hotel.hotel_name,Hotel.hotel_id,Review.rating).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==res1.location).order_by(desc(Hotel.average_rating)).distinct().limit(5).all()
+    # res2=db.session.query(distinct(Hotel.hotel_id)).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==res1.location).order_by(desc(Review.rating)).limit(5).all()
+    
+    print(res2)
+    #second logic
+    #result = db.session.query(Review.hotel_id,func.avg(Review.rating).label("total_score")).filter(Hotel.city==res1.location).group_by(Review.hotel_id).all()
+    #res2=db.session.query(Hotel.hotel_name,Hotel.hotel_id,Review.rating).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==res1.location).order_by(desc(result)).limit(5).distinct().all()
+
+    #logic3
+    # res2 = db.session.query(func.avg(Review.rating)).\
+    # join(Hotel.hotel_id==Review.hotel_id).\
+    # filter(Hotel.city==res1.location).all()
+    # print(res2)
+

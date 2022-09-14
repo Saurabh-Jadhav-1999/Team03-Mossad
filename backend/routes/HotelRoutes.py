@@ -11,8 +11,8 @@ from backend.services.HistoryServices import addHistoryByHotelId
 from backend.models.HotelModel import hotel_representation
 import datetime
 from backend.auth.authToken import token_required
-from backend.services.HistoryServices import validateHistoryData, validateHistoryDataWithHotel
-
+#from backend.services.HistoryServices import validateHistoryData, validateHistoryDataWithHotel
+from backend.services.HistoryServices import validateHistoryData, validateHistoryDataWithHotel, addHistory
 
 # app.route("/hotel", methods=['POST'])
 # def hotelAdd():
@@ -150,7 +150,8 @@ def getHotels():
     # check if available rooms are less than 20% of all avilable rooms if yes apply discount
     if  len(availableHotelList) <= (len(hotels)-int(len(hotels)*0.8)):
         print('must apply price increment for hotels')
-        
+    # build user history
+    addHistory({"user_id":data['user_id'],"location":data['city_name']})    
     return showAvailableHotels(availableHotelList), 200
 
 @app.route("/getHotelById", methods=['POST'])
@@ -183,6 +184,7 @@ def getHotelByHotelId():
     if not hotel:
         return make_response({"error": "invalid hotel id!"}, 400)
 
+    print("avg rating",hotel.average_rating)
     # build the user history
     user_history = addHistoryByHotelId(data)
 
