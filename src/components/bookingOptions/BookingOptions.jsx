@@ -33,7 +33,7 @@ import {
   finalBookNow,
 } from "./../../slices/bookNowSlice";
 import { ToastContainer, toast } from "react-toastify";
-
+import moment from "moment/moment";
 import "react-toastify/dist/ReactToastify.css";
 const features = [
   {
@@ -66,9 +66,7 @@ export const BookingOptions = () => {
   let dispatch = useDispatch();
   let navigate = useNavigate();
   const status1 = useSelector((state) => state.bookNow.status);
-  // useEffect(() => {
-  //   if (status1 == "succeeded") 
-  // }, [status1]);
+
   useEffect(() => {
     switch (status1) {
       case "loading":
@@ -78,8 +76,6 @@ export const BookingOptions = () => {
         break;
       case "succeeded":
         {
-  
-
           notify2();
           navigate("/booking-confirmation");
         }
@@ -89,6 +85,7 @@ export const BookingOptions = () => {
           notify3();
         }
         break;
+        
     }
   }, [status1]);
   const notify = () => toast("Enter the booking details !");
@@ -109,10 +106,13 @@ export const BookingOptions = () => {
   const extrapillow = useSelector((state) => state.bookNow.extra_pillow);
   const totalcost = useSelector((state) => state.bookNow.totalCost);
   const roomTypeCost = useSelector((state) => state.bookNow.room_type_cost);
-  console.log(adultcount, "adultcount from search slice afte card");
-  console.log(childcount, "child count from search slice after card");
-  //   console.log(checkin,"checkin useselector from bookingoptons");
-  //   console.log(checkout,"checkout useselector from bookingoptions")
+  var date1 = new Date(checkin);
+  var date2 = new Date(checkout);
+  var Difference_In_Time = date2.getTime() - date1.getTime();
+  
+
+var Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+
   return (
     <Fragment>
       {status == "loading" ? (
@@ -211,7 +211,7 @@ export const BookingOptions = () => {
                       label="Adult"
                       defaultValue={adultcount}
                       onChange={(e) => {
-                        // console.log(e.target.value, "adult count");
+                       
                         dispatch(setAdultCount(e.target.value));
                       }}
                     >
@@ -230,7 +230,7 @@ export const BookingOptions = () => {
                       label="Children"
                       defaultValue={childcount}
                       onChange={(e) => {
-                        // console.log(e.target.value, "child count");
+                   
                         dispatch(setChildCount(e.target.value));
                       }}
                     >
@@ -270,10 +270,7 @@ export const BookingOptions = () => {
                                       dispatch(
                                         setAllowToBringPet(e.target.value)
                                       );
-                                      console.log(
-                                        pet,
-                                        "value from booknow slice"
-                                      );
+                                    
                                     } else if (!e.target.checked) {
                                       dispatch(
                                         unsetAllowToBringPet(e.target.value)
@@ -300,11 +297,7 @@ export const BookingOptions = () => {
                                     } else if (!e.target.checked) {
                                       dispatch(unsetParking(e.target.value));
                                     }
-                                    console.log(
-                                      parking,
-                                      "value from booknow slice"
-                                    );
-
+                                   
                                     break;
                                 }
                               }}
@@ -343,26 +336,6 @@ export const BookingOptions = () => {
                 fullWidth
                 className={styles.btnBookNow}
                 onClick={() => {
-                  // switch (status1) {
-                  //   case "loading":
-                  //     {
-                  //       notify1();
-                  //     }
-                  //     break;
-                  //   case "succeeded":
-                  //     {
-                  //       console.log("Called succeeded");
-
-                  //       notify2();
-                  //       navigate("/booking-confirmation");
-                  //     }
-                  //     break;
-                  //   case "rejected":
-                  //     {
-                  //       notify3();
-                  //     }
-                  //     break;
-                  // default:{
                   dispatch(
                     finalBookNow({
                       checkin,
@@ -372,8 +345,7 @@ export const BookingOptions = () => {
                       hotelid,
                       totalcost,
                     })
-                  )
-                  
+                  );
                 }}
               >
                 Book Now

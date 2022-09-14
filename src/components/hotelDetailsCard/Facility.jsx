@@ -40,8 +40,7 @@ const Facility = (props) => {
    function handleSubmit() {
     dispatch(setHotelId(props.details.hotel_id));
     dispatch(setCityName(props.details.city));
-    // console.log(hId,"useSelector from hotel id from get hotel details slice");
-    // console.log(city_name,"useSelector from  cityname from get hotel details slice")
+   
     navigate(
       `/hotel-details/?id=${props.details.hotel_id}&city_name=${props.details.city}`
     );

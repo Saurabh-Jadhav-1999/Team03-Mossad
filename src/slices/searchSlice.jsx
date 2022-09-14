@@ -18,7 +18,7 @@ export const fetchHotelList = createAsyncThunk(
       const config = {
         headers: {
           "x-auth-token":
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidWlkIjoxfQ.sZsoyYE35wAuHH4Fn1EgYPi1BNMN6ew_Og9oJvNdZRU",
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidXNlcl9pZCI6MX0.8ZJAWETPMMyxQygChY7t3d1GdrxGo16UQ_MkF6D-OGg",
         },
       };
  
@@ -30,7 +30,7 @@ export const fetchHotelList = createAsyncThunk(
         child_count: childcount,
       };
 
-      // console.log(bodyParameters, "valuen of body params of axios ");
+      
       return axios
         .post(
           "https://hotelbooking-backend.herokuapp.com/getHotel",
@@ -53,7 +53,7 @@ export const fetchCityList = createAsyncThunk(
       const config = {
         headers: {
           "x-auth-token":
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidWlkIjoxfQ.sZsoyYE35wAuHH4Fn1EgYPi1BNMN6ew_Og9oJvNdZRU",
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidXNlcl9pZCI6MX0.8ZJAWETPMMyxQygChY7t3d1GdrxGo16UQ_MkF6D-OGg",
         },
       };
       const bodyParameters = {
@@ -83,11 +83,11 @@ export const searchSlice = createSlice({
       state.location = action.payload;
     },
     setCheckIn: (state = initialState, action) => {
-      // console.log(action.payload,"checkin from slice")
+    
       state.checkIn = action.payload;
     },
     setCheckOut: (state = initialState, action) => {
-      // console.log(action.payload,"checkout from slice");
+     
       state.checkOut = action.payload;
     },
     setAdultCount: (state = initialState, action) => {
@@ -102,19 +102,24 @@ export const searchSlice = createSlice({
       state.status = "loading";
     },
     [fetchHotelList.rejected]: (state, action) => {
-      // state.status = "loading";
+     
       state.status="rejected";
-      console.log(state.status,"rejected called");
+     
     },
     [fetchHotelList.fulfilled]: (state, action) => {
       state.status = "succeeded";
-      // console.log(action.payload,"action payload from fetchhotellist ")
+    
       state.hotellist = action.payload;
-      // console.log(state.hotellist, "from fetch hotel list reducers");
+    
     },
 
     [fetchCityList.pending]: (state, action) => {
       state.status = "loading";
+    },
+    [fetchCityList.rejected]: (state, action) => {
+      state.status = "rejected";
+     
+      state.citylist=["City","Not"," Found"];
     },
     [fetchCityList.fulfilled]: (state, action) => {
       state.status = "succeeded";

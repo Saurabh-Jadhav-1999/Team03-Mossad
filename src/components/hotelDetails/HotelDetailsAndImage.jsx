@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { Typography, Rating } from "@mui/material";
 import { Box } from "@mui/material";
+import StarIcon from '@mui/icons-material/Star';
 import star from "../../assets/images/HotelRatingIcon.png";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import styles from "./HotelDetailsAndImage.module.css";
@@ -18,10 +19,12 @@ export const HotelDetailsAndImage = (props) => {
   }, 4000);
 
   const status = useSelector((state) => state.getHotelDetails.status);
-  // console.log(status, "Status of api ");
+  const hotelrating=(parseFloat(useSelector(state=>state.getHotelDetails.hotelDetails.rating)).toFixed(1));
+
   const hoteldetails = useSelector(
     (state) => state.getHotelDetails.hotelDetails
   );
+
   return (
     <Fragment>
      
@@ -40,17 +43,18 @@ export const HotelDetailsAndImage = (props) => {
                 fontSize="14px"
                 className={`${styles.typo2}`}
               >
-                 <img src={star} className={`${styles.img1}`} alt="" />
+                <StarIcon sx={{color:"#ff9c09"}}/>
+                 {/* <img src={star} className={`${styles.img1}`} alt="" /> */}
                  
                 <span className={`${styles.div1}`}>
-                <span style={{color:"black",marginRight:"6px"}}>{hoteldetails.rating}</span>  (234 reviews)
+                <span style={{color:"black",marginRight:"1px"}}>{hotelrating}</span>  (234 reviews)
            
                 </span>
               </Typography>
             </Box>
 
             <div className={`${styles.box2}`}>
-              <LocationOnOutlinedIcon style={{ marginRight: "10px" }} />
+              <LocationOnOutlinedIcon style={{ marginRight: "10px",color:"grey" }} />
               <Typography variant="body1" className={`${styles.typo3}`}>
                 {hoteldetails.address} {hoteldetails.pincode} {hoteldetails.country}
               </Typography>
@@ -58,7 +62,7 @@ export const HotelDetailsAndImage = (props) => {
           </Box>
         </Box>
         <Box className={`${styles.box3}`}>
-          {img === false ? (
+          {img===false ? (
             <CircularProgress color="secondary" />
           ) : (
             <ImageGrid links={hoteldetails.hotel_images} stat={status}/>
@@ -78,6 +82,7 @@ export const HotelDetailsAndImage = (props) => {
                 value={hoteldetails.rating}
                 precision={0.1}
                 readOnly
+                sx={{color:"#ff9c09"}}
               />
             {/* ) : null} */}
           </div>
@@ -88,9 +93,9 @@ export const HotelDetailsAndImage = (props) => {
           </Typography>
           <Typography
             variant="h6"
-            style={{ fontWeight: "bold", color: "grey" }}
+            style={{ fontWeight: "light", color: "grey",fontSize:"16px" }}
           >
-            {hoteldetails.city},{hoteldetails.state}
+            {hoteldetails.city}, {hoteldetails.state}
           </Typography>
         </Box>
       </div>

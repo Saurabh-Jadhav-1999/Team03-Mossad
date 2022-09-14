@@ -31,6 +31,7 @@ export const Footer = (props) => {
             <div className={`${styles.div1}`}>
               <TextField
                 variant="standard"
+                
                 InputProps={{
                   disableUnderline: true,
                   fontWeight: "bold",
@@ -66,7 +67,7 @@ export const Footer = (props) => {
                 <img
                   src={logo}
                   height="40px"
-                  width="155vw"
+                  width="20vw"
                   className={`${styles.boximg}`}
                   alt=""
                 />

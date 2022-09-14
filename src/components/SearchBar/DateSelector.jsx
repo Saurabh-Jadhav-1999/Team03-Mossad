@@ -56,8 +56,7 @@ const checkout=useSelector(state=>state.search.checkOut);
 
             dispatch(setCheckIn(checkInDateValue), () => {});
             dispatch(setCheckOut(checkOutDateValue), () => {});
-            // console.log("Check-In Date: ", checkInDateValue);
-            // console.log("Check-Out Date: ", checkOutDateValue);
+          
           }
         }}
         renderInput={(startProps, endProps) => (

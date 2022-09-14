@@ -27,9 +27,7 @@ export const RoomAndPrice = () => {
       room_rate: room_price_and_types.exclusive_room_rate,
     },
   ];
-  // console.log(roomtypes,"roomtypes array new")
-  // roomtypes.push("double_room_rate":room_price_and_types.double_room_rate);
-  // console.log(roomtypes, "roomtypes array from roomandprice");
+ 
   return (
     <Box className={styles.mainContainer}>
       <Typography className={styles.heading} component="span">
@@ -46,12 +44,7 @@ export const RoomAndPrice = () => {
           />
         ))
 
-        // <Room
-        //   roomType="Exclusive"
-        //   offers={offers}
-        //   offerRate={"120"}
-        //   basePrice={"120"}
-        // />;
+      
       }
     </Box>
   );

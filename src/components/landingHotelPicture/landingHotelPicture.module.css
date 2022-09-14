@@ -1,6 +1,7 @@
 .landingHotelImageContainer img{
     width: 100% !important;
     height: 35% !important;
+    z-index: 99 !important;
 }
 
 .imageCaption {
@@ -18,5 +19,10 @@
 }
 
 .searchBar{
-    margin-top: -20% !important;
+    margin-bottom: 6vh !important;
+    margin-left: 10% !important;
+    margin-top: -4.6% !important;
+    position: absolute !important;
+    z-index: 1 !important;
+    /* background-color: red !important; */
 }

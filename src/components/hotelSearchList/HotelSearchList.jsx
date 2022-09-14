@@ -29,7 +29,7 @@ export const HotelSearchList = () => {
         <Stack direction={"column"} spacing={2}>
           {status=="rejected"?
           ( <div style={{marginLeft:"20vw",display:"grid",justifyContent:"center"}}>
-          <Typography variant="h5" style={{fontFamily:"inter",marginLeft:"80px"}}>    Hotels not found :( </Typography>
+          <Typography variant="h5" style={{fontFamily:"inter",marginLeft:"0px"}}>    Hotels not found :( </Typography>
           <Typography variant="h5" style={{fontFamily:"inter",}}> Please change your search details!</Typography>
           </div> ):(
           status == "loading" ? (

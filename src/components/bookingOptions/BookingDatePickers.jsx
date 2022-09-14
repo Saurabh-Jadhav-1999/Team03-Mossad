@@ -11,8 +11,7 @@ export const BookingDatePickers = (props) => {
  const dispatch=useDispatch();
  const checkin=useSelector(state=>state.search.checkIn);
  const checkout=useSelector(state=>state.search.checkOut);
-//  console.log(checkin,"checkin  after booking date picker from search slice");
-//  console.log(checkout,"checkout after booking date picker from search slice ");
+
     const handleChange = (newValue) => {
         setValue(newValue);
         if (newValue != null &&props.checkin=="1") {

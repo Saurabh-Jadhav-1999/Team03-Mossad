@@ -27,7 +27,7 @@ export const finalBookNow = createAsyncThunk(
       const config = {
         headers: {
           "x-auth-token":
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidWlkIjoxfQ.sZsoyYE35wAuHH4Fn1EgYPi1BNMN6ew_Og9oJvNdZRU",
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidXNlcl9pZCI6MX0.8ZJAWETPMMyxQygChY7t3d1GdrxGo16UQ_MkF6D-OGg",
         },
       };
       const cost=parseInt(totalcost);
@@ -47,7 +47,7 @@ export const finalBookNow = createAsyncThunk(
         total_cost: cost,
       };
 
-      console.log(bodyParameters, "valuen of body params of axios ");
+     
       return axios
         .post(
           "https://hotelbooking-backend.herokuapp.com/booking",
@@ -55,7 +55,7 @@ export const finalBookNow = createAsyncThunk(
           config
         )
         .then((response) => {
-          console.log(response.data, "from booknow axios");
+    
           return response.data;
         });
     } catch (error) {
@@ -109,8 +109,8 @@ export const bookNowSlice = createSlice({
       state.room_type = action.payload;
     },
     setRoomTypeCost: (state = initialState, action) => {
-      state.room_type_cost = parseInt(action.payload);
-      state.totalCost = parseInt(action.payload);
+      state.room_type_cost = parseInt(action.payload.bp);
+      state.totalCost = action.payload.bp*action.payload.Difference_In_Days;
     },
   },
   extraReducers: {
@@ -126,16 +126,9 @@ export const bookNowSlice = createSlice({
     [finalBookNow.fulfilled]: (state, action) => {
       state.status = "succeeded";
       state.finalbooking = action.payload;
-      console.log(state.finalbooking, "extra reducer from finalbooknow");
+    
     },
-    // [fetchHotelList.pending]: (state, action) => {
-    //   state.status = "loading";
-    // },
-    // [fetchHotelList.fulfilled]: (state, action) => {
-    //   state.status = "succeeded";
-    //   state.hotellist = action.payload;
-    //   console.log(state.hotellist, "from fetch hotel list reducers");
-    // },
+   
   },
 });
 

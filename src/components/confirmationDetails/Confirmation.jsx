@@ -1,14 +1,11 @@
 import React, { Fragment } from "react";
 import styles from "./Confirmation.module.css";
 import { Box, Typography, Grid, Button, Breadcrumbs } from "@mui/material";
-// import "./confirmation.css";
-import star from "../../assets/images/HotelRatingIcon.png";
-import confirmation from "../../assets/images/SuccessfullBookingHotelImage.png";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 import { Link,Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import Loading from "../loader/Loader";
-
+import StarIcon from '@mui/icons-material/Star';
 const Confirmation = (props) => {
   function navigate(path) {
     Navigate(path);
@@ -16,9 +13,15 @@ const Confirmation = (props) => {
   const status = useSelector((state) => state.bookNow.status);
 
   const bookingdetails=useSelector(state=>state.bookNow.finalbooking);
+
+  const hotelprofile = useSelector((state) => state.getHotelDetails.hotelDetails.hotel_profile_picture
+  );
+
   const hotelname=useSelector(state=>state.getHotelDetails.hotelDetails.hotel_name);
   const hotelstate=useSelector(state=>state.getHotelDetails.hotelDetails.state);
-  const hotelrating=useSelector(state=>state.getHotelDetails.hotelDetails.rating);
+  const hotelrating=(parseFloat(useSelector(state=>state.getHotelDetails.hotelDetails.rating)).toFixed(1));
+
+  const hotelreviews=useSelector(state=>state.getHotelDetails.hotelDetails.total_reviews);
   const city=useSelector(state=>state.getHotelDetails.hotelDetails.city);
   const checkin=useSelector(state=>state.search.checkIn);
   const checkout=useSelector(state=>state.search.checkOut);
@@ -99,12 +102,13 @@ const Confirmation = (props) => {
             fontSize="13px"
             className={`${styles.typo3}`}
           >
-            <img src={star} alt="" className={`${styles.starimg}`} />
+             <StarIcon sx={{color:"#ff9c09"}}/>
+            {/* <img src={star} alt="" className={`${styles.starimg}`} /> */}
             <span className={`${styles.hotelrating}`}>
                   <span style={{ color: "black", marginRight: "6px" }}>
-                    {hotelrating}
+                    { hotelrating}
                   </span>{" "}
-                  (234 reviews)
+                  ({hotelreviews} reviews)
                 </span>
                 <span></span>
           </Typography>
@@ -172,7 +176,7 @@ const Confirmation = (props) => {
             <Grid item xs={12} lg={8}>
               {" "}
               <div className={`${styles.div14}`}>
-                <img  className={`${styles.hotelimg}`} src={bookingdetails.hotel_profile_picture} height="510px" width="750px" alt="" />
+                <img  className={`${styles.hotelimg}`} src={hotelprofile} height="510px" width="750px" alt="" />
               </div>
             </Grid>
           </div>

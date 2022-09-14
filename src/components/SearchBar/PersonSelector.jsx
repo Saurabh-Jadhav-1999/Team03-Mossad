@@ -10,7 +10,7 @@ export const PersonSelector = () => {
   const [child, setChild] = useState(0);
   const adultcount=useSelector(state=>state.search.totalAdult);
   const childcount=useSelector(state=>state.search.totalChild);
-  // console.log(ad,"adult count from slice");
+ 
  
 const dispatch=useDispatch();
   function handleAdultChange(event) {

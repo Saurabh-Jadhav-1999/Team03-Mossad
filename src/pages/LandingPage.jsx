@@ -10,17 +10,16 @@ import { ToastContainer, toast } from 'react-toastify';
 
   import 'react-toastify/dist/ReactToastify.css';
 export const LandingPage = () => {
-    const notify = () => toast("Wow so easy !");
+   
   return (
     <>
       <div>
-      {/* <button onClick={notify}>Notify !</button>
-        <ToastContainer />
-      </div> */}
-      {/* <Loader speed="slow" content="Slow" /> */}
+     
       <LandingHotelPicture />
-            <FeaturedDestinations sx={{margin: '10px auto'}}/>
-      {/* <LinearProgress color="secondary" /> */}
+      <div style={{position:"relative",marginTop:"5vh !important"}}>
+            <FeaturedDestinations sx={{marginTop: "50vh"}}/>
+            </div>
+  
       </div>
     </>
   );

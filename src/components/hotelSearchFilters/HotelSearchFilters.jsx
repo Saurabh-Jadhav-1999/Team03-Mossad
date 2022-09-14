@@ -8,7 +8,7 @@ export const HotelSearchFilters = () => {
 
     const getCheckedFilterProperties = event => {
         if (event.target.checked) {
-            console.log(event.target.value, 'is checked')
+         
         }
     }
 
