@@ -75,7 +75,7 @@ export const HotelDetails = () => {
               variant="h5"
               style={{ fontFamily: "inter", marginLeft: "37vw" }}
             >
-              Wait a moment, We are working :)
+              Wait a moment, We are working  
             </Typography>
           </div>
         ) : (

@@ -82,8 +82,8 @@ export const BookingOptions = () => {
 
     }
   }, [status1]);
-  const notify1 = () => toast("Booking is in Progress ;)");
-  const notify2 = () => toast("Booking is done :)");
+  const notify1 = () => toast("Booking is in Progress   ");
+  const notify2 = () => toast("Booking is done  ");
   const notify3 = () => toast("Booking is rejected :(");
 
   const status = useSelector((state) => state.getHotelDetails.status);

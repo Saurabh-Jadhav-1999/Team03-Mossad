@@ -83,7 +83,7 @@ const Confirmation = (props) => {
       {status === "loading" ? (
         <div >
           <Loading />
-          <Typography variant="h5" style={{ fontFamily: "inter", marginLeft: "36vw" }}>Wait a moment, We are working :)</Typography>
+          <Typography variant="h5" style={{ fontFamily: "inter", marginLeft: "36vw" }}>Wait a moment, We are working  </Typography>
         </div>
       ) : (
         <div className={`${styles.container}`}>

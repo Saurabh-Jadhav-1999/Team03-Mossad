@@ -23,8 +23,8 @@ export default function Login() {
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const notify1 = () => toast("Login Successful :) ");
-  const notify2 = () => toast("Enter the details :)");
+  const notify1 = () => toast("Login Successful   ");
+  const notify2 = () => toast("Enter the details  ");
   const notify3 = () => toast("Login Failed :(");
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");

@@ -39,7 +39,7 @@ export const HotelSearchList = () => {
                 // <CircularProgress color="secondary" />
                 <div style={{ marginLeft: "20vw" }}>
                   <Loading />
-                  <Typography variant="h5" style={{ fontFamily: "inter", }}>Wait a moment, We are working :)</Typography>
+                  <Typography variant="h5" style={{ fontFamily: "inter", }}>Wait a moment, We are working  </Typography>
                 </div>
               ) : (
                 hotelList.map((item) => (
