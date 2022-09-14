@@ -46,12 +46,7 @@ export const RoomAndPrice = () => {
           />
         ))
 
-        // <Room
-        //   roomType="Exclusive"
-        //   offers={offers}
-        //   offerRate={"120"}
-        //   basePrice={"120"}
-        // />;
+       
       }
     </Box>
   );

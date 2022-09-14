@@ -31,7 +31,6 @@ const Confirmation = (props) => {
 
     return checkIn + " - " + checkOut + " " + reservationYear
   }
-
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -75,6 +74,8 @@ const Confirmation = (props) => {
       Congratulations
     </Link>,
   ];
+
+  console.log("Confirmbooking page", bookingdetails);
   return (
     <Fragment>
       {status === "loading" ? (

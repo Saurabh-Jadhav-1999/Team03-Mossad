@@ -7,8 +7,8 @@ import DirectionsCarFilledOutlinedIcon from "@mui/icons-material/DirectionsCarFi
 import LocalOfferOutlinedIcon from "@mui/icons-material/LocalOfferOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import SubjectOutlinedIcon from "@mui/icons-material/SubjectOutlined";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { Link, useNavigate, Navigate, withRouter } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
 import { Stack } from "@mui/system";
 import {
   setHotelId,
@@ -20,11 +20,9 @@ const Facility = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  function handleSubmit() {
+  function handleSubmit(rate) {
     dispatch(setHotelId(props.details.hotel_id));
     dispatch(setCityName(props.details.city));
-    // console.log(hId,"useSelector from hotel id from get hotel details slice");
-    // console.log(city_name,"useSelector from  cityname from get hotel details slice")
     navigate(
       `/hotel-details/?id=${props.details.hotel_id}&city_name=${props.details.city}`
     );
@@ -74,7 +72,8 @@ const Facility = (props) => {
             type="button"
             // to="/hotel-details"
             className={styles.btnBook}
-            onClick={handleSubmit}>
+            onClick={() => handleSubmit(props.rate)}
+          >
             Book Now
           </button>
         </Grid>

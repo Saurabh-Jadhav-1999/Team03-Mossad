@@ -2,18 +2,14 @@ import { Button, Paper, Rating, Stack, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import styles from "./Review.module.css";
-import imgPath from "../../assets/images/ProfileReviewUserOneImg.png";
 
 export const Review = (props) => {
   return (
     <Box className={styles.mainDiv}>
-      <Typography component={"span"} className={styles.reviewHeading}>
-        Latest Review
-      </Typography>
       <Paper className={styles.reviewCard}>
         <Box className={styles.innerDiv}>
           <Box className={styles.imgDiv}>
-            <img src={imgPath} alt="pic not found" />
+            <img src={props.imgPath} alt="pic not found" />
             <Box className={styles.detailsDiv}>
               <Typography className={styles.userName} component="h3">
                 {props.userName}
@@ -28,13 +24,13 @@ export const Review = (props) => {
           </Box>
         </Box>
         <Box className={styles.rightDiv}>
-          <Typography component="box" display={'flex'} justifyContent={'flex-start'}>
-            <Rating name="half-rating-read"
-              defaultValue={4.5}
-              precision={0.5}
-              className={styles.starIcon}
-              size={'small'}
-              readOnly />
+          <Typography component="div" display={'flex'} justifyContent={'flex-start'}>
+          <Rating name="half-rating-read"
+           defaultValue={4.5} 
+           precision={0.5}
+           className={styles.starIcon}
+           size={'small'}
+            readOnly   />
             <Typography className={styles.userDetails} component="span">
               {props.date}
             </Typography>

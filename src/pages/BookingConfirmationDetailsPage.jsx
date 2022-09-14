@@ -24,7 +24,7 @@ export const BookingConfirmationDetailsPage = () => {
 
     return (
         <>
-            <Confirmation details={confirm} />
+            <Confirmation  />
         </>
     )
 }

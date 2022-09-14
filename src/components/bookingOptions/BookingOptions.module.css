@@ -84,6 +84,7 @@
     text-transform: none !important;
     border-radius: 8px !important;
     box-shadow: none !important;
+    cursor: pointer !important;
 }
 
 .bookingNote {

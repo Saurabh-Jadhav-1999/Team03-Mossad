@@ -8,7 +8,7 @@ function CitySelector() {
   const dispatch = useDispatch();
   const city = useSelector(state => state.search.location);
   const citylist = useSelector((state) => state.search.citylist);
-
+  
   return (
     <>
       <Autocomplete

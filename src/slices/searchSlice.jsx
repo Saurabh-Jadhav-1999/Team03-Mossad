@@ -1,28 +1,28 @@
-import { createSlice, createAsyncThunk, useDispatch } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-
+import { token } from './token'
 const initialState = {
   location: "",
   checkIn: "",
   checkOut: "",
   hotellist: [],
   status: "",
-  citylist: ["Pune"],
+  citylist: [],
   totalAdult: 1,
   totalChild: 0,
+  filters: []
 };
 
 export const fetchHotelList = createAsyncThunk(
   "searchHotel/fetchHotelList",
-  async ({ location, checkIn, checkOut,adultcount,childcount }, thunkAPI) => {
+  async ({ location, checkIn, checkOut, adultcount, childcount }, thunkAPI) => {
     try {
       const config = {
         headers: {
-          "x-auth-token":
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidXNlcl9pZCI6MX0.8ZJAWETPMMyxQygChY7t3d1GdrxGo16UQ_MkF6D-OGg",
+          "x-auth-token": token
         },
       };
- 
+
       const bodyParameters = {
         city_name: `${location}`,
         check_in_date: `${checkIn}`,
@@ -35,7 +35,6 @@ export const fetchHotelList = createAsyncThunk(
       return axios
         .post(
           "https://hotelbooking-backend.herokuapp.com/getHotel",
-
           bodyParameters,
           config
         )
@@ -53,7 +52,7 @@ export const fetchCityList = createAsyncThunk(
     try {
       const config = {
         headers: {
-          "x-auth-token":"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidXNlcl9pZCI6MX0.8ZJAWETPMMyxQygChY7t3d1GdrxGo16UQ_MkF6D-OGg",
+          "x-auth-token": token
         },
       };
       const bodyParameters = {
@@ -96,6 +95,12 @@ export const searchSlice = createSlice({
     setChildCount: (state = initialState, action) => {
       state.totalChild = action.payload;
     },
+    setFilters: (state = initialState, action) => {
+        state.filters.push(action.payload);
+    },
+    unSetFilters: (state = initialState, action) => {
+      state.filters.pop(action.payload);
+  },
   },
   extraReducers: {
     [fetchHotelList.pending]: (state, action) => {
@@ -103,8 +108,8 @@ export const searchSlice = createSlice({
     },
     [fetchHotelList.rejected]: (state, action) => {
       // state.status = "loading";
-      state.status="rejected";
-      console.log(state.status,"rejected called");
+      state.status = "rejected";
+      console.log(state.status, "rejected called");
     },
     [fetchHotelList.fulfilled]: (state, action) => {
       state.status = "succeeded";
@@ -126,5 +131,5 @@ export const searchSlice = createSlice({
 });
 
 export const { setLocation, setCheckIn, setCheckOut, setAdultCount,
-  setChildCount, } = searchSlice.actions;
+  setChildCount, setFilters, unSetFilters } = searchSlice.actions;
 export default searchSlice.reducer;

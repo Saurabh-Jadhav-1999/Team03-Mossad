@@ -8,10 +8,12 @@ import styles from "./TabBar.module.css";
 import { Featuers } from "./Featuers";
 import { RoomAndPrice } from "./RoomAndPrice";
 import { Review } from "./Review";
-import { useSelector } from "react-redux";
+import img1 from "../../assets/images/ProfileReviewUserOneImg.png";
+import img2 from "../../assets/images/ProfileReviewUserTwoImg.png";
+
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
-  
+
   return (
     <div
       role="tabpanel"
@@ -42,6 +44,8 @@ function a11yProps(index) {
   };
 }
 
+const comment = `We had the most spectacular view. Beautifully appointed rooms. Awesome food & curteous staff. Highly recommend it.`;
+
 export const TabBar = (props) => {
   const [value, setValue] = React.useState(0);
 
@@ -49,56 +53,68 @@ export const TabBar = (props) => {
     setValue(newValue);
   };
 
-  const comment = `We had the most spectacular view. Beautifully appointed rooms. Awesome food & curteous staff. Highly recommend it.`;
+  console.log("tab bar log", props);
   return (
-    <React.Fragment> 
-  
-    <Box >
-      <Box className={styles.tabContainer}>
-        <Tabs value={value} onChange={handleChange}>
-          <Tab
-            label="Description"
-            {...a11yProps(0)}
-            className={styles.headingLabel}
+    <React.Fragment>
+      <Box>
+        <Box className={styles.tabContainer}>
+          <Tabs value={value} onChange={handleChange}>
+            <Tab
+              label="Description"
+              {...a11yProps(0)}
+              className={styles.headingLabel}
+            />
+            <Tab
+              label="Features"
+              {...a11yProps(1)}
+              className={styles.headingLabel}
+            />
+            <Tab
+              label="Room & Price"
+              {...a11yProps(2)}
+              className={styles.headingLabel}
+            />
+            <Tab
+              label="Review"
+              {...a11yProps(3)}
+              className={styles.headingLabel}
+            />
+          </Tabs>
+        </Box>
+        <TabPanel value={value} index={0} className={styles.tabDetail}>
+          {props.description.description}
+        </TabPanel>
+        <TabPanel value={value} index={1} className={styles.tabDetail}>
+          <Featuers features={props.hotel_facilities} />
+        </TabPanel>
+        <TabPanel value={value} index={2} className={styles.tabDetail}>
+          <RoomAndPrice />
+        </TabPanel>
+        <TabPanel value={value} index={3} className={styles.tabDetail}>
+          <Typography component={"span"} className={styles.reviewHeading}>
+            Latest Review
+          </Typography>
+          <Review
+            userName={"Adam Grant"}
+            userCountry="Ireland"
+            follwers="45"
+            reviews="45"
+            comment={comment}
+            date="15.06.2021"
+            imgPath={img1}
           />
-          <Tab
-            label="Features"
-            {...a11yProps(1)}
-            className={styles.headingLabel}
+
+          <Review
+            userName={"Alice Hunt"}
+            userCountry="England"
+            follwers="234"
+            reviews="890"
+            comment={comment}
+            date="15.09.2021"
+            imgPath={img2}
           />
-          <Tab
-            label="Room & Price"
-            {...a11yProps(2)}
-            className={styles.headingLabel}
-          />
-          <Tab
-            label="Review"
-            {...a11yProps(3)}
-            className={styles.headingLabel}
-          />
-        </Tabs>
+        </TabPanel>
       </Box>
-      <TabPanel value={value} index={0} className={styles.tabDetail}>
-        {props.description.description}
-      </TabPanel>
-      <TabPanel value={value} index={1} className={styles.tabDetail}>
-        <Featuers />
-      </TabPanel>
-      <TabPanel value={value} index={2} className={styles.tabDetail}>
-        <RoomAndPrice />
-      </TabPanel>
-      <TabPanel value={value} index={3} className={styles.tabDetail}>
-        <Review
-          userName={"Adam Grant"}
-          userCountry="Ireland"
-          follwers="45"
-          reviews="45"
-          comment={comment}
-          date="15.06.2021"
-        />
-      </TabPanel>
-    </Box>
-   
     </React.Fragment>
   );
 };

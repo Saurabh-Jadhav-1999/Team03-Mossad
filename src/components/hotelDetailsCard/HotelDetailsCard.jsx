@@ -6,6 +6,7 @@ import Facility from "./Facility";
 import styles from "./HotelDetailsCard.module.css";
 import { HotelImage } from "./HotelImage";
 
+
 export const HotelDetailsCard = (props) => {
 
   const checkInDate = useSelector((state) => state.search.checkIn)
@@ -25,8 +26,8 @@ export const HotelDetailsCard = (props) => {
             <Grid item>
               <Facility
                 details={props.details}
-                cityName={"Kochi"}
-                rate={"720"}
+                cityName={props.details.city}
+                rate={props.details.double_room_rate}
                 capacity={"For Two"}
               />
             </Grid>
