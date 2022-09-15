@@ -31,7 +31,6 @@ def validateHistoryDataWithHotel(data):
             "user_id" :{"type":"integer", "required":True}, 
             "hotel_id":{"type":"integer", "required":True}      
     }
-
     history_validate = Validator(history_Schema)
     history_validate.allow_unknown = True
     res = history_validate.validate(data)
@@ -45,8 +44,7 @@ def addHistory(data):
         row1.search_date=datetime.datetime.utcnow()
         db.session.commit()
         return row1
-    else:
-        
+    else:   
         searchHistory = SearchHistory(location=data['location'],search_date=datetime.datetime.utcnow(),number_times=1,user_id=data['user_id'])  
         db.session.add(searchHistory)
         db.session.commit()
@@ -79,17 +77,13 @@ def showHotelDataInReviewFormat(data):
 
 # method to get user history
 def getUserHistory(user_id):
-    #hotel.average_rating,hotel_name,total_Reviews,location,address,land_mark,city,state
     print("user_id in getUserHistory method:",user_id)
-    res1= db.session.query(SearchHistory).filter(and_(SearchHistory.user_id==user_id,SearchHistory.hotel_id==None)).order_by(SearchHistory.number_times.desc()).first()
-    # mostSearchCity = db.Session.query(SearchHistory).filter(and_(SearchHistory.user_id==user_id, SearchHistory.hotel_id==None,SearchHistory.number_times==func.max(SearchHistory.number_times))).first()
-    
+    #query to get most searched city by user
+    res1= db.session.query(SearchHistory).filter(and_(SearchHistory.user_id==user_id,SearchHistory.hotel_id==None)).order_by(SearchHistory.number_times.desc()).first()    
     print("most searched city by user:",res1.location)
 
     # getting top 5 hotels in that city
-
     res2=db.session.query(Hotel.hotel_name,Hotel.average_rating,Review.hotel_id,Hotel.city,Hotel.state,Hotel.address,Hotel.economy_room_rate,Hotel.hotel_profile_picture).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==res1.location).order_by(desc(Hotel.average_rating)).distinct().limit(5).all()
-    # res2=db.session.query(distinct(Hotel.hotel_id)).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==res1.location).order_by(desc(Review.rating)).limit(5).all()
     top_five_cities=[]
     for i in res2:
         temp=showHotelDataInReviewFormat(i)
