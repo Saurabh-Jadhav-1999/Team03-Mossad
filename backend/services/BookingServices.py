@@ -200,10 +200,12 @@ def addBooking(data, user, hotel):
         
         # result = checkAvalabilityOfRoomInHotel(data['hotel_id'], data['check_in_date'], data['check_out_date'], room_type[0])
         availableResult = checkHotelAvailability(hotel.hotel_id, hotel, data['check_in_date'], data['check_out_date'], data['adult_count'], data['child_count'])
-        print('available result:',availableResult)
-        if len(availableResult) == 0:
+        if len(availableResult) == 0: #check if room types are availabe for dates and hotel return error if no
             print('returning error by length')
             return {"error": "The room you looking for is not available for searched dated's"}
+
+        # combine the result of discountedList and available room type list
+        availableResult = list(set(availableResult[0]).union(set(availableResult[1])))
 
         # if room type user searching for is not available for given detail's return error
         if room_type[0] not in availableResult:
