@@ -38,18 +38,13 @@ def validateHistoryDataWithHotel(data):
     return history_validate
 
 # add new history in history model
-
-# add new history in history model
-def addHistory(data):
-   
+def addHistory(data):   
     row1 = db.session.query(SearchHistory).filter(and_(SearchHistory.user_id == data['user_id'], SearchHistory.location == data['location'],SearchHistory.hotel_id==None)).first()
-
     if row1 is not None:
         row1.number_times=row1.number_times+1
         row1.search_date=datetime.datetime.utcnow()
         db.session.commit()
         return row1
-         
     else:
         
         searchHistory = SearchHistory(location=data['location'],search_date=datetime.datetime.utcnow(),number_times=1,user_id=data['user_id'])  
@@ -101,18 +96,4 @@ def getUserHistory(user_id):
         dic_hotel_data={"hotel_id":temp['hotel_id'],"hotel_profile_picture":temp['hotel_profile_picture'],"average_rating":temp['average_rating'],"hotel_name":temp['hotel_name'], "base_price":temp['economy_room_rate'],"hotel_address":temp['address'], "hotel_city":temp['city'], "hotel_state":temp['state']}
         top_five_cities.append(dic_hotel_data)
     return {"city":res1.location,"hotels":top_five_cities}
-       # print(temp)
-   
-
-    #print(res2)
-    #return res2
-    #second logic
-    #result = db.session.query(Review.hotel_id,func.avg(Review.rating).label("total_score")).filter(Hotel.city==res1.location).group_by(Review.hotel_id).all()
-    #res2=db.session.query(Hotel.hotel_name,Hotel.hotel_id,Review.rating).join(Hotel,Hotel.hotel_id==Review.hotel_id).filter(Hotel.city==res1.location).order_by(desc(result)).limit(5).distinct().all()
-
-    #logic3
-    # res2 = db.session.query(func.avg(Review.rating)).\
-    # join(Hotel.hotel_id==Review.hotel_id).\
-    # filter(Hotel.city==res1.location).all()
-    # print(res2)
-
+     

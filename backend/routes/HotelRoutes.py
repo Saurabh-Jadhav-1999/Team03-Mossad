@@ -11,18 +11,8 @@ from backend.services.HistoryServices import addHistoryByHotelId
 from backend.models.HotelModel import hotel_representation
 import datetime
 from backend.auth.authToken import token_required
-#from backend.services.HistoryServices import validateHistoryData, validateHistoryDataWithHotel
 from backend.services.HistoryServices import validateHistoryData, validateHistoryDataWithHotel, addHistory
 
-# app.route("/hotel", methods=['POST'])
-# def hotelAdd():
-#     result = validateHotelData(request.json) 
-#     if result.errors:
-#         return result.errors, 400 
-
-#     print(result.document)
-
-#     return result.document, 200
 
 class HotelHandler(Resource):
     # route to add new hotel 
@@ -31,11 +21,7 @@ class HotelHandler(Resource):
         result = validateHotelData(request.json) # validate the request data
         if result.errors:
             return make_response(result.errors, 400) # return if validation fails
-
         hotelResult = addNewHotel(request.json) # adding new hotel
-        print(hotelResult)
-        # resp = make_response(hotelResult, 200)
-
         return hotelResult, 200
 
     # route to get all the hotels 
@@ -52,7 +38,7 @@ city_representation = {
 @marshal_with(city_representation)
 @app.route("/getCityList", methods=["GET"])
 def getCityList():
-     # token validtion code 
+    # token validtion code 
     token_result = token_required(request)
     if  isinstance(token_result, dict)  and "error" in token_result.keys():
         print('error found')
@@ -60,7 +46,6 @@ def getCityList():
     validationResult = validateCityName(request.json)
     if validationResult.errors:
         return make_response(validationResult.errors, 400)
-
     return make_response(getCitiesByName(request.json['city_name']),200)
     
 @marshal_with(city_representation)
@@ -79,7 +64,6 @@ def getCityListByPost():
     validationResult = validateCityName(request.json)
     if validationResult.errors:
         return make_response(validationResult.errors, 400)
-
     # get list of cities starting from character provided
     cityListData = getCitiesByName(request.json['city_name'])
     # print('before returning data:',cityListData)
@@ -89,7 +73,6 @@ def getCityListByPost():
 @marshal_with(hotel_representation)
 def newDataView(data):
     return data
-
 
 @app.route("/getHotel", methods=["GET", "POST"])
 def getHotels():
@@ -137,16 +120,11 @@ def getHotels():
         lst = checkHotelAvailability(x.hotel_id, x,  data['check_in_date'], data['check_out_date'], data['adult_count'], data['child_count'])
         if len(lst) == 0:
             continue
-        # print("list:",lst)
         newhotel.update({"available_room_types":lst})
         newhotel.update({"rating":rating[0]}) # update the response add average rating
         newhotel.update({"total_reviews":rating[1]})
-        # print(newhotel)
         availableHotelList.append(newhotel)
 
-    # print("total hotels present in city:",len(hotels))
-    # print("80 perc of avilable hotel: ", int(len(hotels)*0.8))
-    # print('total length of available hotel:', len(availableHotelList))
     # check if available rooms are less than 20% of all avilable rooms if yes apply discount
     if  len(availableHotelList) <= (len(hotels)-int(len(hotels)*0.8)):
         print('must apply price increment for hotels')

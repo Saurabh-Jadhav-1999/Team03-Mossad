@@ -34,13 +34,6 @@ def validateBookingData(data):
     result = bookingValidator.validate(data)
     return bookingValidator
 
-# def checkAvalabilityOfRoomInHotel(hid, check_in_date, check_out_date, room_type):
-#     from sqlalchemy import func
-#     cursor = db.session.query(func.sum(Booking.room_type)).filter(Booking.hotel_id==hid)
-#     total = cursor.scalar()
-#     print("total:",total)
-#     return total
-
 # method to get count of booked room on perticular day for particular hotel and room type
 def getAvailabilityCount(data, dte, hotel):
     from sqlalchemy import func
@@ -186,7 +179,6 @@ def addBooking(data, user, hotel):
         print('count is okay')
         delta = data['check_out_date'] - data['check_in_date']
         
-        # result = checkAvalabilityOfRoomInHotel(data['hotel_id'], data['check_in_date'], data['check_out_date'], room_type[0])
         availableResult = checkHotelAvailability(hotel.hotel_id, hotel, data['check_in_date'], data['check_out_date'], data['adult_count'], data['child_count'])
         print('available result:',availableResult)
         if len(availableResult) == 0:

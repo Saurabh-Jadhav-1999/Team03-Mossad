@@ -6,7 +6,6 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_restful import  reqparse, Resource, Api, marshal_with
 from flask_cors import CORS
 
-#from backend.routes.HistoryRoutes import HandleHistory
 
 
 app = Flask(__name__)
@@ -31,7 +30,6 @@ try:
     from backend.routes.ReviewRoutes import HandleReview
     from backend.routes.BookingRoutes import HandleBooking
     from backend.routes.HistoryRoutes import HandleHistory,TopFiveSuggestionsForUser
-    from backend.routes.showTopHistoryRoute import HandleHistoryTop
     from backend.routes.FacalityRoute import HandleFacality
     from backend.routes.FacalityRoute import HandleFacality
 

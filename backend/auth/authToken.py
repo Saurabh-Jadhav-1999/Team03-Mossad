@@ -4,21 +4,6 @@ from backend.models.HotelModel import User
 from flask import make_response
 
 
-#Header:- contains the algorithms like RSA or HMACSHA256 and the information of the type of Token.
-#Signature:- { base64urlencoded (header) +”.”+ base64urlencoded (payload) +”.”+ secret } add header x-auth-token generate it using jwt 
-#Payload:- contains the information of rows, i.e., user credentials.
-
-#A combination of all headers, payload and signatures converts into JWT TOKEN.
-
-#flow of jwt auth
-#user login with username and password
-#server create jwt token with secret
-#response jwt token
-#browser send auth request with jwt header
-#server check jwt signature from client,if valid,get user info from jwt
-#send response to browser
-
-
 def token_required(request):
     token = None
     if 'x-auth-token' in request.headers:

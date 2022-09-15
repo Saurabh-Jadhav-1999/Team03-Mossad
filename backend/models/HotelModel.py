@@ -19,7 +19,7 @@ class User(db.Model):
     user_contact = db.Column(db.String(10), nullable=False)
     user_profile = db.Column(db.String(10), default="abc.txt")
     user_role = db.Column(db.String(20))
-    hotel_reviews = db.relationship('Review', backref="owner")
+    hotel_reviews = db.relationship('Review', backref="owner")# Review
     hotel_booking = db.relationship('Booking', backref="bookingowner") #for booking
 
     # initilize the row values for model
@@ -116,8 +116,8 @@ class Hotel(db.Model):
     premium_room_capacity = db.Column(db.Integer, default=0)
     average_rating = db.Column(db.Float, default=0)#new field
 
-    hotelfacalities = db.relationship("Facality", backref="hotelfacality")
-    hotelreviews = db.relationship('Review', backref="reviewed")
+    hotelfacalities = db.relationship("Facality", backref="hotelfacality")#facility
+    hotelreviews = db.relationship('Review', backref="reviewed")#Review
     hotel_booking = db.relationship('Booking', backref="hotelconcerned") #Booking
 
     def __init__(self, data) -> None:
@@ -185,7 +185,6 @@ class Review(db.Model):
     hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
 
 
-# booking temprory table for holding many to many relationship with user and booking table
 # booking representation
 booking_representation = {
     "b_id": fields.Integer,
@@ -199,7 +198,6 @@ booking_representation = {
     "economy_count": fields.Integer,
     "double_count": fields.Integer,
     "premium_count": fields.Integer,
-    # "bookingowner": fields.Nested(user_representation),
     "hotelconcerned": fields.Nested(hotel_representation)
 }
 
@@ -221,13 +219,11 @@ class Booking(db.Model):
 
 #search history representation
 searchHistory_representation = {
-    # "searchHistory_id": fields.Integer,
-   # "ip": fields.String,
+    
     "location": fields.String,
     "search_date": fields.String,
     "number_times": fields.Integer,
-  #  "owner": fields.Nested(user_representation),
-   # "hotelconcerned": fields.Nested(hotel_representation)
+ 
 }
 
 # representation for SearchHistory with hotel_id
@@ -252,18 +248,6 @@ class SearchHistory(db.Model):
     number_times= db.Column(db.Integer, nullable=False)
     user_id = db.Column(db.Integer, nullable=False)
     hotel_id = db.Column(db.Integer, default=None)
-
-
-
-    # def __init__(self, data) -> None:
-
-    #     self.location = data['location']
-    #     self.search_date = data['search_date']
-    #     self.number_times = data['number_times']
-    #     self.user_id = data['user_id']
-    #     self.hotel_id = data['hotel_id']
-
-
 
 # create a object for hotel model data representations
 hotel_representation_for_review = {

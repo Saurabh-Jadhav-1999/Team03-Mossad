@@ -36,8 +36,6 @@ class HandleBooking(Resource):
             # print('returning error')
             print(validationResult.errors)
             return make_response(validationResult.errors, 400)
-        
-        # print(validationResult.document)
 
         # check if user exists
         user = getPerticularUser(data['user_id'])
