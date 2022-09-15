@@ -57,7 +57,9 @@ facality_representation = {
     "room_service":fields.Boolean,
     "living_room":fields.Boolean,
     "barbeque":fields.Boolean,
-    "free_wifi": fields.Boolean
+    "free_wifi": fields.Boolean,
+    "free_cancellation": fields.Boolean,
+    "no_prepayment": fields.Boolean
 }
 
 
@@ -89,13 +91,35 @@ hotel_representation = {
     "hotelfacalities": fields.Nested(facality_representation)
 }
 
-# Hotel model 
+# review model data representation object
+review_representation = {
+    "review_id": fields.Integer,
+    "rating": fields.Integer,
+    "description": fields.String,
+    "datetime_posted": fields.String,
+    "owner": fields.Nested(user_representation),
+    # "reviewed": fields.Nested(hotel_representation)
+}
+
+# create a object for hotel model data representations for suggestion list
+hotel_representation_for_review = {
+    "hotel_id":fields.Integer,
+    "hotel_name":fields.String,
+    "hotel_profile_picture": fields.String,
+    "city":fields.String,
+    "state":fields.String,
+    "address":fields.String,
+    "economy_room_rate":fields.Integer,
+    "average_rating":fields.Float
+}
+
+# hotel model 
 class Hotel(db.Model):
     hotel_id = db.Column(db.Integer, primary_key=True)
     hotel_name = db.Column(db.String(200), nullable=False)
     hotel_profile_picture = db.Column(db.String(200), default="https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg")
-    hotel_images = db.Column(db.ARRAY(db.String(500)))
-    description = db.Column(db.String(500), nullable=False)
+    hotel_images = db.Column(db.ARRAY(db.String(2500)))
+    description = db.Column(db.String(2000), nullable=False)
     city = db.Column(db.String(200), nullable=False)
     state = db.Column(db.String(200), nullable=False)
     country = db.Column(db.String(200), nullable=False)
@@ -115,9 +139,8 @@ class Hotel(db.Model):
     double_room_capacity = db.Column(db.Integer, default=0)
     premium_room_capacity = db.Column(db.Integer, default=0)
     average_rating = db.Column(db.Float, default=0)#new field
-
-    hotelfacalities = db.relationship("Facality", backref="hotelfacality")#facility
-    hotelreviews = db.relationship('Review', backref="reviewed")#Review
+    hotelfacalities = db.relationship("Facality", backref="hotelfacality")
+    hotelreviews = db.relationship('Review', backref="reviewed")
     hotel_booking = db.relationship('Booking', backref="hotelconcerned") #Booking
 
     def __init__(self, data) -> None:
@@ -173,6 +196,8 @@ class Facality(db.Model):
     extra_parking_cost = db.Column(db.Float, nullable=False)
     extra_pillow_cost = db.Column(db.Integer, nullable=False)
     free_wifi = db.Column(db.Boolean, default = False)
+    free_cancellation = db.Column(db.Boolean, default=False)
+    no_prepayment = db.Column(db.Boolean, default=False)
 
 
 # review model with many table for user and hotel 

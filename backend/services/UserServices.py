@@ -46,3 +46,8 @@ def getPerticularUser(user_id):
         return User.query.filter_by(user_id=user_id).first()
     except Exception as e:
         return {"error":e}
+
+# method to return current date 
+def getCurrentDate():
+    from datetime import datetime
+    return  datetime.strptime(datetime.today().strftime("%Y-%m-%d"), "%Y-%m-%d")
