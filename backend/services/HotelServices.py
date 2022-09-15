@@ -76,6 +76,7 @@ new_hotel_representation = {
     "premium_room_rate":fields.Integer,
     "hotelfacalities": fields.Nested(facality_representation),
     "available_room_types": fields.List(fields.String),
+    "discounted_room_type": fields.List(fields.String),
     "rating": fields.Float,
     "total_reviews": fields.Integer
 }
@@ -147,7 +148,7 @@ def validateGetHotels(data):
 # method to get all the hotels from particular city
 def getHotelsByCityName(city_name):
     print("city name in:",city_name)
-    return Hotel.query.filter_by(city=city_name).all()
+    return Hotel.query.filter_by(city=city_name).all() 
 
 # method to show all available hotels matching search criteria in marshel_with format 
 @marshal_with(new_hotel_representation)
