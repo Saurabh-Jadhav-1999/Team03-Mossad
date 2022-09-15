@@ -76,6 +76,8 @@ def login():
 @app.route("/", methods=["GET"])
 def basicRoute():
     # print("before token validation:",request.json)
+    # Hotel.query.filter(Hotel.hotel_id == 25).delete()
+    # db.session.commit()
     token_result = token_required(request)
     # print(token_result)
     if  type(token_result)==dict({}) and "error" in token_result.keys():
@@ -83,7 +85,7 @@ def basicRoute():
     # print("after token validation:",request.json) 
 
     # call the get search suggestion
-    getUserHistory(request.json.get("user_id"), "Mumbai")
+    getUserHistory(request.json.get("user_id"))
 
 
     return make_response("Application is running", 200)

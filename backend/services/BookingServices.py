@@ -90,7 +90,9 @@ def checkHotelAvailability(hotel_id, hotel, check_in_date, check_out_date, adult
 
     for x in range(delta.days+1):
         dte = check_in_date+timedelta(days=x)
-        result1 = db.session.query(func.sum(Booking.exclusive_count).label("exclusive count"), func.sum(Booking.economy_count).label("economy count"), func.sum(Booking.double_count).label("double count"), func.sum(Booking.premium_count).label("premium count")).filter(and_(Booking.hotel_id==hotel_id,dte>=Booking.check_in_date, dte<=Booking.check_out_date)).group_by(Booking.hotel_id).all()
+        # result1 = db.session.query(func.sum(Booking.exclusive_count).label("exclusive count"), func.sum(Booking.economy_count).label("economy count"), func.sum(Booking.double_count).label("double count"), func.sum(Booking.premium_count).label("premium count")).filter(and_(Booking.hotel_id==hotel_id,dte>=Booking.check_in_date, dte<=Booking.check_out_date, Booking.check_in_date!=Booking.check_out_date)).group_by(Booking.hotel_id).all()
+        result1 = db.session.query(func.sum(Booking.exclusive_count).label("exclusive count"), func.sum(Booking.economy_count).label("economy count"), func.sum(Booking.double_count).label("double count"), func.sum(Booking.premium_count).label("premium count")).filter(and_(Booking.hotel_id==hotel_id,or_(dte==Booking.check_in_date,and_(dte>Booking.check_in_date, dte<Booking.check_out_date)))).group_by(Booking.hotel_id).all()
+        
         if len(result1)>0:
             exclu_count_list.append(result1[0]['exclusive count'])
             eco_count_list.append(result1[0]['economy count'])
@@ -102,13 +104,13 @@ def checkHotelAvailability(hotel_id, hotel, check_in_date, check_out_date, adult
             double_count_list.append(0)
             prim_count_lsit.append(0)
 
-    # print("*"*10)
-    # print("for hotel:",hotel_id)
-    # print("Economy room booking for all dates:",eco_count_list)
-    # print('exclusive room booking for all days:',exclu_count_list)
-    # print('double room booking for all days:',double_count_list)
-    # print("primium room booking for all days:", prim_count_lsit)
-    # print("*"*10)
+    print("*"*10)
+    print("for hotel:",hotel_id)
+    print("Economy room booking for all dates:",eco_count_list)
+    print('exclusive room booking for all days:',exclu_count_list)
+    print('double room booking for all days:',double_count_list)
+    print("primium room booking for all days:", prim_count_lsit)
+    print("*"*10)
 
     # check and add exclusive rooms to array
     if max(exclu_count_list) < hotel.exclusive_room_count and (adult_count+child_count)<=hotel.exclusive_room_capacity:
@@ -129,15 +131,23 @@ def checkHotelAvailability(hotel_id, hotel, check_in_date, check_out_date, adult
      # check if rooms are booked or not for each type
     if max(exclu_count_list) == 0:
         discount_applied_room_type.append("exclusive_room")
+    elif max(exclu_count_list) != 0 and "exclusive_room" in discount_applied_room_type:
+        discount_applied_room_type.remove()("exclusive_room")
 
     if max(eco_count_list) == 0:
         discount_applied_room_type.append("economy_room")
+    elif max(exclu_count_list) != 0 and "economy_room" in discount_applied_room_type:
+        discount_applied_room_type.remove()("economy_room")
 
     if max(double_count_list) == 0:
         discount_applied_room_type.append("double_room")
+    elif max(exclu_count_list) != 0 and "double_room" in discount_applied_room_type:
+        discount_applied_room_type.remove()("double_room")
 
     if max(prim_count_lsit) == 0:
         discount_applied_room_type.append("premium_room")
+    elif max(exclu_count_list) != 0 and "premium_room" in discount_applied_room_type:
+        discount_applied_room_type.remove()("premium_room")
     
     print("available room:", availableRoomTypes)
     print("discounted rooms:", discount_applied_room_type)
