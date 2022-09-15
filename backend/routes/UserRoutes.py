@@ -1,12 +1,12 @@
 from flask_restful import marshal_with, Resource, reqparse
 from flask import abort, request, make_response
-from backend.models.HotelModel import User
+from backend.models.HotelModel import User, Hotel
 from backend.models.UserModel import user_representation
 from backend import db, app
 from backend.services.UserServices import isUserExists, addNewUser, validateLoginData
-import json
 import jwt
 from backend.auth.authToken import token_required
+from backend.services.HistoryServices import getUserHistory
 
 from backend.services.HistoryServices import getUserHistory
 
@@ -52,6 +52,7 @@ def login():
 
     print(data['password'])
     print(user['password'])
+
     if user['password'] != data['password']:
         print('Both are not equal')
         abort(400, {'error':"Invalid email or password"})
@@ -65,15 +66,15 @@ def login():
                     payload=payload_data,
                     key= app.config['SECRET_KEY']
                 )
-    data.update({"x-auth-token":token})
-    resp = make_response({"x-auth-token":token}, 200)
-    resp.headers['x-auth-token'] = token    
-    return resp, 200
+    # creating the response
+    resp = make_response({"user_name":user['user_name'],"x-auth-token":token}, 200)
+    resp.headers['x-auth-token'] = token  # adding token to response header  
+    return resp
 
 
+# basic testing route for heroku deployment
 @app.route("/", methods=["GET"])
 def basicRoute():
-
     # print("before token validation:",request.json)
     token_result = token_required(request)
     # print(token_result)
