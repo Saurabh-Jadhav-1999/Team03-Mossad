@@ -18,10 +18,10 @@ app = Flask(__name__)
 # app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://nlxvhwkd:8tBh0PJcR6C5U1-o2XyCC89hEh4DQGnv@rosie.db.elephantsql.com/nlxvhwkd"
 
 # new database for testing
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://iwvausdj:e0nz6LyOKpPcJShk3bNncscM_Gx1Htpa@tyke.db.elephantsql.com/iwvausdj"
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://iwvausdj:e0nz6LyOKpPcJShk3bNncscM_Gx1Htpa@tyke.db.elephantsql.com/iwvausdj"
 
 # final testing with new facality model and updated code testing
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://nlxvhwkd:8tBh0PJcR6C5U1-o2XyCC89hEh4DQGnv@rosie.db.elephantsql.com/nlxvhwkd"
+#app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://nlxvhwkd:8tBh0PJcR6C5U1-o2XyCC89hEh4DQGnv@rosie.db.elephantsql.com/nlxvhwkd"
 
 # allow origins
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
