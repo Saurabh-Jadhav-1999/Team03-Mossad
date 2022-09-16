@@ -3,6 +3,7 @@ import searchReducer from './../slices/searchSlice';
 import getHotelDetailsReducer from './../slices/getHotelDetailsSlice'
 import bookNowReducer from './../slices/bookNowSlice'
 import   suggestedHotelListReducer  from '../slices/suggestedHotels';
+import loginSliceReducer from '../slices/loginSlice';
 export const store=configureStore({
 
     reducer:{
@@ -10,5 +11,6 @@ export const store=configureStore({
         getHotelDetails:getHotelDetailsReducer,
         bookNow:bookNowReducer,
         suggestedHotelList:suggestedHotelListReducer,
+        login:loginSliceReducer,
     }
 })

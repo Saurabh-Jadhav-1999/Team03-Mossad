@@ -40,7 +40,7 @@ export const InputSlider = () => {
     };
 
     const handleInputChange = (event) => {
-        setValue(event.target.value === '' ? '' : Number(event.target.value));
+        setValue(event.target.value == '' ? '' : Number(event.target.value));
     };
 
     const handleBlur = () => {
@@ -55,7 +55,7 @@ export const InputSlider = () => {
         <Box xs={12} className={styles.test}>
             <Stack sx={{ width: 200 }} flexDirection={"row"} className={styles.removeExtraSpan}>
                 <ImageSlider
-                    value={typeof value === 'number' ? value : 0}
+                    value={typeof value == 'number' ? value : 0}
                     onChange={handleSliderChange}
                     step={10}
                     min={50}

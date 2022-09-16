@@ -9,12 +9,12 @@ const ImageGrid = (props) => {
   const dispatch = useDispatch();
 
   const imgLoadHandler = () => {
-    console.log(imgsLoaded);
+   
     let imgLoadCount = imgsLoaded + 1;
 
     setImgsLoaded(imgLoadCount);
-    if (imgLoadCount === 4) {
-      console.log('success');
+    if (imgLoadCount == 4) {
+    
       dispatch(setImageLoadStatus(true));
     }
   }

@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import React from "react";
 import styles from "./Footer.module.css";
 import logo from "../../assets/images/HotelLogo.png";
-import { ToastContainer, toast } from "react-toastify";
+import {  toast } from "react-toastify";
 import {
   Box,
   Grid,
@@ -43,7 +43,7 @@ export const Footer = (props) => {
                 }
               >
                 <label className={`${styles.label1}`}> Subscribe</label>
-                <ToastContainer />
+              
               </Button>
             </div>
           </div>

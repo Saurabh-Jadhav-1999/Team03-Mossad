@@ -1,34 +1,50 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
+
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
+
 import Modal from "@mui/material/Modal";
-import { useState, props } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import { useState } from "react";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import "./Login.css";
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  transform: "translate(-50%, -50%)",
-  width: 400,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { setToken } from "../../slices/loginSlice";
+import LoginIcon from "@mui/icons-material/Login";
+
+async function loginUser(credentials) {
+  try {
+    const email = credentials.inputEmail;
+    const password = credentials.inputPassword;
+   
+    const response = await axios.post(
+      "https://hotelbooking-backend.herokuapp.com/login",
+
+      {
+        email,
+        password,
+      }
+    );
+   
+    return response.data;
+  } catch (error) {
+    console.log(error, "error from loginuser");
+  }
+}
+
+
+
+const failMsg = () => toast("Login Failed ");
 
 export default function Login() {
+  const dispatch = useDispatch();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const notify1 = () => toast("Login Successful :) ");
-  const notify2 = () => toast("Enter the details :)");
-  const notify3 = () => toast("Login Failed :(");
   const [inputEmail, setInputEmail] = useState("");
   const [inputPassword, setInputPassword] = useState("");
-  const [token, setToken] = useState();
+  const [token, setTok] = useState();
   const [isValid, setIsValid] = useState({
     email: true,
 
@@ -36,59 +52,49 @@ export default function Login() {
   });
 
   const inputPasswordHandler = (event) => {
-    setInputPassword(event.target.value);
-    if (event.target.value.trim().length === 0) {
+    if (event.target.value.trim().length == 0) {
       setIsValid({ ...isValid, password: false });
     } else {
       setIsValid({ ...isValid, password: true });
       setInputPassword(event.target.value);
-     
     }
   };
 
-  async function loginUser(credentials) {
-    try {
-      return fetch("https://hotelbooking-backend.herokuapp.com/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      }).then((data) => data.json());
-    } catch (error) {
-      return error;
-    }
-  }
-
- 
-  const SubmitHandler1 = async (e) => {
+  const SubmitHandler = async (e) => {
     e.preventDefault();
-    if (inputPasswordHandler != "" || inputEmailHandler != "") {
+    if (inputPassword && inputEmail) {
       const token = await loginUser({
         inputEmail,
         inputPassword,
       });
       if (!token) {
-        notify3();
+        failMsg();
+      } else {
+        console.log(token,"token from login")
+        setTok(token);
+        localStorage.setItem("token", token["x-auth-token"]);
+        localStorage.setItem("name",token['user_name']);
+        dispatch(setToken({ token }));
+     
+        toast.success("Login Successful");
       }
-      setToken(token).then((e) => notify1());
     }
   };
 
   const inputEmailHandler = (event) => {
-    setInputEmail(event.target.value);
-    if (event.target.value.trim().length === 0) {
+    if (event.target.value.trim().length == 0) {
       setIsValid({ ...isValid, email: false });
     } else {
       setIsValid({ ...isValid, email: true });
       setInputEmail(event.target.value);
-
     }
   };
 
   return (
     <div>
-      <Button onClick={handleOpen}>Login</Button>
+      <Button onClick={handleOpen}>
+        <LoginIcon />
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -103,12 +109,13 @@ export default function Login() {
             </Button>
           </div>
           <div className="modal-content-body">
-            <form className="ant-form" onSubmit={SubmitHandler1}>
+            <form className="ant-form" onSubmit={SubmitHandler}>
               <div className="ant-row ant-form-item">
                 <div className="ant-form-item-label">
                   <label className="ant-form-item-required">Email:</label>
                 </div>
                 <input
+                  type="email"
                   className="ant-input"
                   value={inputEmail}
                   onChange={inputEmailHandler}
@@ -127,9 +134,9 @@ export default function Login() {
                   <label className="ant-form-item-required">Password:</label>
                 </div>
                 <input
-                  type="text"
+                  type="password"
                   className="ant-input"
-                  value={inputPassword}
+                  // value={inputPassword}
                   onChange={inputPasswordHandler}
                   required
                 ></input>
@@ -144,15 +151,20 @@ export default function Login() {
 
               <div className="modal-content-footer">
                 <div>
-                  <button
-                    type="Submit"
-                    onClick={SubmitHandler1}
+                  <Button
+                    type="submit"
+                    variant="contained"
                     className="btn btn-primary"
                   >
                     <span>Login</span>
-                    <ToastContainer />
-                  </button>
-                  <Button type="submit" className="btn" onClick={handleClose}>
+                  </Button>
+                  &nbsp;&nbsp;
+                  <Button
+                    variant="contained"
+                    type="submit"
+                    className="btn"
+                    onClick={handleClose}
+                  >
                     <span>Cancel</span>
                   </Button>
                 </div>

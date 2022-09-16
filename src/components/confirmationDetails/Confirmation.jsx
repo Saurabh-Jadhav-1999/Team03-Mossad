@@ -1,38 +1,48 @@
 import React, { Fragment } from "react";
 import styles from "./Confirmation.module.css";
-import { Box, Typography, Grid, Button, Breadcrumbs } from "@mui/material";
+import { Box, Typography, Grid, Button } from "@mui/material";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 import { Link, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import moment from "moment/moment";
 import Loading from "../loader/Loader";
-import StarIcon from '@mui/icons-material/Star';
+import StarIcon from "@mui/icons-material/Star";
 
 const Confirmation = (props) => {
   function navigate(path) {
     Navigate(path);
   }
 
-  const bookingdetails = useSelector(state => state.bookNow.finalbooking);
-  const hotelname = useSelector(state => state.getHotelDetails.hotelDetails.hotel_name);
-  const hotelstate = useSelector(state => state.getHotelDetails.hotelDetails.state);
-  const hotelrating = useSelector(state => state.getHotelDetails.hotelDetails.rating);
-  const city = useSelector(state => state.getHotelDetails.hotelDetails.city);
-  const checkin = useSelector(state => state.search.checkIn);
-  const hotelprofile = useSelector((state) => state.getHotelDetails.hotelDetails.hotel_profile_picture);
-  const hotelreviews = useSelector(state => state.getHotelDetails.hotelDetails.total_reviews);
-  const checkout = useSelector(state => state.search.checkOut);
-  const roomtype = useSelector(state => state.bookNow.room_type);
+  const bookingdetails = useSelector((state) => state.bookNow.finalbooking);
+  const hoteldetails=useSelector(state=>state.getHotelDetails.hotelDetails);
+  const checkin = useSelector((state) => state.search.checkIn);
+  const checkout = useSelector((state) => state.search.checkOut);
+  const roomtype = useSelector((state) => state.bookNow.room_type);
   const status = useSelector((state) => state.bookNow.status);
-
-  const formatDate = () => {
-    const checkIn = moment(new Date(checkin)).format('MMMM DD')
-    const checkOut = moment(new Date(checkout)).format('MMMM DD')
-    const reservationYear = moment(new Date(checkin)).format('YYYY')
-    return checkIn + " - " + checkOut + " " + reservationYear
+  let room_type = "";
+  switch (roomtype) {
+    case "double_room":
+      room_type = "Double Room";
+      break;
+    case "exclusive_room":
+      room_type = "Exclusive Room";
+      break;
+    case "economy_room":
+      room_type = "Economy Room";
+      break;
+    case "premium_room":
+      room_type = "Premium Room";
+      break;
+      default:
+        break;
   }
+  const formatDate = () => {
+    const checkIn = moment(new Date(checkin)).format("MMMM DD");
+    const checkOut = moment(new Date(checkout)).format("MMMM DD");
+    const reservationYear = moment(new Date(checkin)).format("YYYY");
+    return checkIn + " - " + checkOut + " " + reservationYear;
+  };
 
-  
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -77,13 +87,17 @@ const Confirmation = (props) => {
     </Link>,
   ];
 
-  // console.log("Confirmbooking page", bookingdetails);
   return (
     <Fragment>
-      {status === "loading" ? (
-        <div >
+      {status == "loading" ? (
+        <div>
           <Loading />
-          <Typography variant="h5" style={{ fontFamily: "inter", marginLeft: "36vw" }}>Wait a moment, We are working :)</Typography>
+          <Typography
+            variant="h5"
+            style={{ fontFamily: "inter", marginLeft: "36vw" }}
+          >
+            Wait a moment, We are working{" "}
+          </Typography>
         </div>
       ) : (
         <div className={`${styles.container}`}>
@@ -101,7 +115,7 @@ const Confirmation = (props) => {
           </div>
           <div className={`${styles.div16}`}>
             <Typography className={`${styles.typo2}`} variant="h4">
-              The {hotelname} {city} {hotelstate}
+              The {hoteldetails.hotel_name} {hoteldetails.city} {hoteldetails.state}
             </Typography>
           </div>
           <div className={`${styles.div17}`}>
@@ -110,17 +124,19 @@ const Confirmation = (props) => {
               fontSize="13px"
               className={`${styles.typo3}`}
             >
-              <StarIcon sx={{ color: "#ff9c09" }} />
+             
               <span className={`${styles.hotelrating}`}>
+              <StarIcon sx={{ color: "#ff9c09" }} />
                 <span style={{ color: "black", marginRight: "6px" }}>
-                  {hotelrating}
+               
+                  {hoteldetails.rating}
                 </span>{" "}
-                ({hotelreviews} reviews)
+                ({hoteldetails.total_reviews} reviews)
               </span>
-              <span></span>
+         
             </Typography>
             <Typography className={`${styles.typo5}`}>
-              {1} {roomtype}
+              {1} {room_type}
             </Typography>
           </div>
           <div>
@@ -130,8 +146,7 @@ const Confirmation = (props) => {
                 spacing={4}
                 wrap="nowrap"
                 className={`${styles.gridcontainer1}`}
-              >
-              </Grid>
+              ></Grid>
             </div>
             <div>
               <div className={`${styles.div4}`}>
@@ -146,9 +161,7 @@ const Confirmation = (props) => {
                       {" "}
                       <Box className={`${styles.box1}`}>
                         <div className={`${styles.div5}`}>Dates</div>
-                        <div className={`${styles.div6}`}>
-                          {formatDate()}
-                        </div>
+                        <div className={`${styles.div6}`}>{formatDate()}</div>
                       </Box>
                       <Box className={`${styles.box2}`}>
                         {" "}
@@ -180,7 +193,9 @@ const Confirmation = (props) => {
                             </div>
                             <div className={`${styles.div13}`}>
                               <Box>{bookingdetails.b_id}</Box>
-                              <Box>{moment(new Date(checkin)).format('DD.MM.YYYY')}</Box>
+                              <Box>
+                                {moment(new Date(checkin)).format("DD.MM.YYYY")}
+                              </Box>
                               <Box>${bookingdetails.total_cost}</Box>
                               <Box>Credit card</Box>
                             </div>
@@ -193,18 +208,28 @@ const Confirmation = (props) => {
                 <Grid item xs={12} lg={8}>
                   {" "}
                   <div className={`${styles.div14}`}>
-                    <img className={`${styles.hotelimg}`} src={hotelprofile} height="510px" width="750px" alt="" />
+                    <img
+                      className={`${styles.hotelimg}`}
+                      src={hoteldetails.hotel_profile_picture}
+                      height="510px"
+                      width="750px"
+                      alt=""
+                    />
                   </div>
                 </Grid>
               </div>
-            </div >
-            <Button variant="contained" className={`${styles.button1}`} href="/">
+            </div>
+            <Button
+              variant="contained"
+              className={`${styles.button1}`}
+              href="/"
+            >
               Back to Home Page
             </Button>{" "}
-          </div >
+          </div>
         </div>
       )}
-    </Fragment >
+    </Fragment>
   );
 };
 

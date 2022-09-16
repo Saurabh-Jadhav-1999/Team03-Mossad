@@ -1,11 +1,13 @@
 import { Button } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "./SearchButton.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchHotelList } from "./../../slices/searchSlice";
 import { ToastContainer } from "react-toastify";
 import { toast, Slide } from "react-toastify";
+
+// DO NOT REMOVE THIS COMMENTS, UPDATING THIS COMPONENT
 // import 'react-toastify/dist/ReactToastify.css';
 // import { css } from "glamor";
 
@@ -30,6 +32,11 @@ export const SearchButton = () => {
   const checkOut = useSelector((state) => state.search.checkOut);
   const adultcount = useSelector((state) => state.search.totalAdult);
   const childcount = useSelector((state) => state.search.totalChild);
+  const token = useSelector((state) => state.login.token);
+
+ 
+  
+
   const navigate = useNavigate();
 
   //  This function check the location, check-in/out date and show tost error (if any)
@@ -61,9 +68,16 @@ export const SearchButton = () => {
         className={style.searchBtn}
         variant="contained"
         size="large"
-        onClick={searchHandler}
+        onClick={(e) => {
+          if (!token) {
+            toast.warn("Please login");
+          } else {
+            searchHandler();
+          }
+        }}
       >
         Search
+        <ToastContainer />
       </Button>
     </>
   );

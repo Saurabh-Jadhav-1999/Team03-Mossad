@@ -1,0 +1,18 @@
+.heading{
+    font-weight: bold !important;
+    font-family: 'Inter' !important;
+font-style: normal !important;
+}
+.subHeading{
+    margin-top: 20px;
+    font-family: 'Inter' !important;
+font-style: normal !important;
+font-weight: 600 !important;
+
+color: #73757A !important;
+}
+.Container{
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: flex-start !important;
+}
