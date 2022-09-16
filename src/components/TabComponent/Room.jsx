@@ -19,7 +19,7 @@ const Room = (props) => {
 const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
 
   return (
-    <Paper elevation={3} className={styles.roomBox} component="div">
+    <Paper elevation={0} className={styles.roomBox} component="div">
       <Box className={styles.leftDiv}>
         <Typography className={styles.boldHeading}>{props.roomType}</Typography>
         <Typography className={styles.offerCondition} component={"p"}>

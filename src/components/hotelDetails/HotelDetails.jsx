@@ -35,7 +35,6 @@ export const HotelDetails = () => {
       key="1"
       color="inherit"
       href="/"
-      // onClick={()=> navigate('Home')}
       style={{ textDecoration: "none", color: "grey" }}
     >
       Home
@@ -46,7 +45,6 @@ export const HotelDetails = () => {
       key="2"
       color="inherit"
       href="/search-hotels"
-      // onClick={()=> navigate('HotelList')}
       style={{ textDecoration: "none", color: "grey" }}
     >
       Hotel List
@@ -57,25 +55,25 @@ export const HotelDetails = () => {
       key="2"
       color="inherit"
       href="/hotel-details"
-      // onClick={()=> navigate('HotelList')}
       style={{ textDecoration: "none", color: "black" }}
     >
       Hotel Details
     </Link>,
   ];
+
   const status = useSelector((state) => state.getHotelDetails.status);
   return (
     <Fragment>
-      <Breadcrumb links={breadcrumbs} />
+      <Breadcrumb links={breadcrumbs} style={{ backgroundColor: "white" }} />
       <div className={styles.container}>
         {status === "loading" ? (
           <div>
             <Loading />
             <Typography
               variant="h5"
-              style={{ fontFamily: "inter", marginLeft: "37vw" }}
+              style={{ fontFamily: "inter", textAlign: "center", margin: "10vh auto" }}
             >
-              Wait a moment, We are working  
+              Details are on the way !
             </Typography>
           </div>
         ) : (

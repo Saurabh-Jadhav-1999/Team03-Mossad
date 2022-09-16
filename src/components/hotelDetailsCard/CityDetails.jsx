@@ -24,13 +24,13 @@ const CityDetails = (props) => {
 
         {/* {props.item.hotelName} */}
       </Typography>
-      <Stack spacing={2} justifyContent="center" alignContent="center" direction={'row'}>
+      <Stack spacing={2} justifyContent="center" alignContent="center" direction={'column'}>
         <Typography component={"div"} className={iconStyles.iconDiv}>
           <Typography component={"div"}>
             <StarIcon className={styles.starIcon} />
           </Typography>
           <Typography className={styles.boldRating} component="div">
-            {props.item.rating}
+            {" "}{props.item.rating}
           </Typography>
           <Typography className={styles.total_reviews}>({props.item.total_reviews} reviews)</Typography>
         </Typography>

@@ -4,7 +4,7 @@
   font-style: normal;
   border-top: 1px solid #d1d4d9 !important;
   border-bottom: 1px solid #d1d4d9 !important;
-  
+  margin-left: 2rem;
 }
 
 .headingLabel{
@@ -12,7 +12,6 @@
   font-style: normal;
   font-weight: 600 !important;
   color: black !important;
-  /* border: 1px solid #D1D4D9; */
 }
 
 .TabHeadings {

@@ -5,7 +5,10 @@ import MuiInput from '@mui/material/Input';
 import { withStyles } from "@material-ui/core/styles";
 import { Stack } from '@mui/system';
 import styles from "./PriceRangeFilters.module.css"
+import { useDispatch } from 'react-redux';
+import { setBudgetFilters } from '../../slices/searchSlice';
 import "./PriceRangeFilters.module.css"
+
 
 const ImageSlider = withStyles({
     root: {
@@ -24,7 +27,9 @@ const ImageSlider = withStyles({
 
 
 export const InputSlider = () => {
-    const [value, setValue] = useState(800);
+
+    const dispatch = useDispatch();
+    const [value, setValue] = useState(2000);
     const mark = [
         {
             value: 50,
@@ -36,6 +41,12 @@ export const InputSlider = () => {
         }
     ]
     const handleSliderChange = (event, newValue) => {
+
+        setTimeout(() => {
+            // console.log(newValue);
+            // If required, we can slow down the rendering speed of filtered hotels list
+        })
+        dispatch(setBudgetFilters([50, newValue]))
         setValue(newValue);
     };
 
@@ -43,9 +54,10 @@ export const InputSlider = () => {
         setValue(event.target.value === '' ? '' : Number(event.target.value));
     };
 
-    const handleBlur = () => {
+    const handleBlur = (event) => {
         if (value < 50) {
             setValue(50);
+            console.log("input slider value: ", Number(event.target.value));
         } else if (value > 2000) {
             setValue(2000);
         }
@@ -63,6 +75,7 @@ export const InputSlider = () => {
                     marks={mark}
                     valueLabelDisplay="auto"
                     className={styles.removeExtraSpan}
+                // onDragStop={console.log(value)}
                 />
                 <MuiInput
                     hidden

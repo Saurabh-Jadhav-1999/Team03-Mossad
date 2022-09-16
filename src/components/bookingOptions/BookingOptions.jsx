@@ -30,6 +30,7 @@ import {
 import { ToastContainer, toast } from "react-toastify";
 import moment from "moment/moment";
 import "react-toastify/dist/ReactToastify.css";
+
 const features = [
   {
     id: 1,
@@ -131,26 +132,7 @@ export const BookingOptions = () => {
                 >
                   /night
                 </Typography>
-
-                {/* Show offer tag if the offer field is in hotellist */}
-
-                {/* <Typography
-                  component={"span"}
-                  className={styles.discountedRoomPrice}
-                >
-                  $576
-                </Typography> */}
               </span>
-              {/* <Grid item>
-                <Button
-                  variant="contained"
-                  disabled
-                  disableElevation
-                  className={styles.labelDiscountPercentage}
-                >
-                  20% OFF
-                </Button>
-              </Grid> */}
             </Grid>
             <hr className={styles.divider} />
             <Grid item xs={12}>
@@ -194,13 +176,13 @@ export const BookingOptions = () => {
               <Stack direction={"row"} gap={2}>
                 <Box sx={{ width: "40%" }}>
                   <FormControl fullWidth size="small">
-                    <InputLabel id="label-adult">Adults</InputLabel>
+                    <InputLabel id="label-adult" >Adults</InputLabel>
                     <Select
                       labelId="label-adult"
                       label="Adult"
                       defaultValue={adultcount}
+                      style={{ backgroundColor: "#F4F5F7" }}
                       onChange={(e) => {
-
                         dispatch(setAdultCount(e.target.value));
                       }}
                     >
@@ -218,6 +200,7 @@ export const BookingOptions = () => {
                       labelId="label-check-out"
                       label="Children"
                       defaultValue={childcount}
+                      style={{ backgroundColor: "#F4F5F7" }}
                       onChange={(e) => {
 
                         dispatch(setChildCount(e.target.value));

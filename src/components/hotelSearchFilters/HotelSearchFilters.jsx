@@ -1,10 +1,11 @@
+import InputAdornment from '@mui/material/InputAdornment';
+import styles from "./HotelSearchFilters.module.css"
 import { Box, Checkbox, FormControlLabel, Typography, TextField, Stack } from "@mui/material"
 import { SearchOutlined } from "@material-ui/icons"
 import { InputSlider } from './PriceRangeFilter'
-import styles from "./HotelSearchFilters.module.css"
-import InputAdornment from '@mui/material/InputAdornment';
-import { setFilters, unSetFilters } from "../../slices/searchSlice";
+import { setFilters, unSetFilters, setBudgetFilters, unSetBudgetFilters } from "../../slices/searchSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
 
 const FiltersData = [
     {
@@ -30,37 +31,6 @@ const FiltersData = [
                 filterName: 'No Prepayment',
                 defaultChecked: false,
             }]
-    },
-    {
-        id: 102,
-        filterType: 'Your Budget',
-        filterProperties: [
-            {
-                id: 1,
-                filterName: 'Less than $75',
-                defaultChecked: false
-            },
-            {
-                id: 2,
-                filterName: '$75 to 300',
-                defaultChecked: false
-            },
-            {
-                id: 3,
-                filterName: '$300 to 500',
-                defaultChecked: false
-            },
-            {
-                id: 4,
-                filterName: '$500 to 1000',
-                defaultChecked: false
-            },
-            {
-                id: 5,
-                filterName: 'Greater than $1000',
-                defaultChecked: true
-            }
-        ]
     },
     {
         id: 103,
@@ -99,26 +69,117 @@ const FiltersData = [
     },
 ]
 
-export const HotelSearchFilters = () => {
-    const filters = useSelector((state) => state.search.filters)
-    const dispatch = useDispatch();
+const yourBudgetFilterData = [
+    {
+        id: 102,
+        filterType: 'Your Budget',
+        filterProperties: [
+            {
+                id: 1,
+                filterName: 'Less than $75',
+                range: [50, 75]
+            },
+            {
+                id: 2,
+                filterName: '$75 to 300',
+                range: [75, 300]
+            },
+            {
+                id: 3,
+                filterName: '$300 to 500',
+                range: [300, 500]
+            },
+            {
+                id: 4,
+                filterName: '$500 to 1000',
+                range: [1000, 500]
+            },
+            {
+                id: 5,
+                filterName: 'Greater than $1000',
+                defaultChecked: [1000, 100000]
+            }
+        ]
+    },
+]
 
-    const filterValue = {
-        "No Prepayment": "no_prepayment",
-        "Free Cancellation": ""
+const budgetFilterState = {
+    "Less than $75": false,
+    "$75 to 300": false,
+    "$300 to 500": false,
+    "$500 to 1000": false,
+    "Greater than $1000": false
+}
+
+const filterValueArr = {
+    "No Prepayment": "no_prepayment",
+    "Free Cancellation": "free_cancellation",
+    // "Breakfast and Dinner": ["breakfast", "dinner"],
+    "Breakfast and Dinner": "breakfast",
+    // remaining for both breakfast + dinner
+    "Outdoor Sports": "out_door_sport",
+    "Barbeque": "barbeque",
+    "Living Room": "living_room",
+    "Room Service": "room_service",
+    "Infinity Pool": "swimming_pool",
+    "Spa": "spa",
+    "Less than $75": [50, 75],
+    "$75 to 300": [75, 300],
+    "$300 to 500": [300, 500],
+    "$500 to 1000": [500, 1000],
+    "Greater than $1000": [1000, 10000]
+}
+
+export const HotelSearchFilters = () => {
+
+    const [searchProperty, setSearchProperty] = useState()
+
+    const searchPropertyButtonHandler = (event) => {
+        setSearchProperty(event.target.value)
     }
 
-    const getCheckedFilterProperties = event => {
+    const searchPropertyHandler = () => {
+        console.log("Hotel: ", searchProperty);
+    }
+    const filters = useSelector((state) => state.hotelFilters.filters)
+    const dispatch = useDispatch();
+    const [budgetSelector, setBudgetSelector] = useState(budgetFilterState)
 
+    const budgetStateHandler = (event, filterValue) => {
+        setBudgetSelector(budgetFilterState)
+        setBudgetSelector({ [filterValue]: event.target.checked })
+    }
+
+    const getFilterProperties = event => {
+
+        const filterValue = filterValueArr[event.target.value];
         if (event.target.checked) {
-            if (!filters.includes(event.target.value)) {
-                dispatch(setFilters(filterValue[event.target.value]))
+            if (!filters.includes(filterValue)) {
+                dispatch(setFilters(filterValue))
             }
         }
         else {
-            dispatch(unSetFilters(event.target.value))
+            dispatch(unSetFilters(filterValue))
         }
     }
+
+    const getBudgetFilterProperties = event => {
+
+        const filterValue = filterValueArr[event.target.value];
+
+        if (event.target.checked) {
+            if (!filters.includes(filterValue)) {
+                budgetStateHandler(event, event.target.value)
+                dispatch(unSetBudgetFilters())
+                dispatch(setBudgetFilters(filterValue))
+            }
+        }
+        else {
+            budgetStateHandler(event, event.target.value)
+            dispatch(unSetBudgetFilters())
+        }
+    }
+
     return (
         <Box className={styles.filterComponentsContainer}>
 
@@ -130,6 +191,7 @@ export const HotelSearchFilters = () => {
                 <Box>
                     <TextField
                         id="outlined-basic" label="Search Property" variant="outlined" size="small"
+                        onChange={searchPropertyButtonHandler}
                         sx={{
                             border: "1px",
                             borderRadius: "80px",
@@ -141,7 +203,9 @@ export const HotelSearchFilters = () => {
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end" >
-                                    <SearchOutlined />
+                                    <button onClick={() => searchPropertyHandler()} type='button' style={{ backgroundColor: "white", border: "none", cursor: "pointer" }} >
+                                        <SearchOutlined />
+                                    </button>
                                 </InputAdornment>
                             ),
                         }}></TextField>
@@ -166,7 +230,7 @@ export const HotelSearchFilters = () => {
                                 {filters.filterProperties.map((filter) => {
                                     return (
                                         <div key={filter.id}>
-                                            <FormControlLabel key={filter.id} label={filter.filterName} control={<Checkbox value={filter.filterName} defaultChecked={filter.defaultChecked ? true : false} onChange={getCheckedFilterProperties} sx={{ fontSize: '12px', color: '#A4A2A2' }} />} />
+                                            <FormControlLabel key={filter.id} label={filter.filterName} control={<Checkbox value={filter.filterName} onChange={getFilterProperties} defaultChecked={filter.defaultChecked ? true : false} disabled={filter.filterName === "Hotels" ? true : false} sx={{ fontSize: '12px', color: '#A4A2A2' }} />} />
                                         </div>
                                     )
                                 })}
@@ -180,8 +244,30 @@ export const HotelSearchFilters = () => {
                                     <InputSlider />
                                 </Box>
                                 }
+
+                                {/* Your Budget Filter */}
+                                <hr style={{ marginLeft: '-0px', width: '90%', color: '#D1D4D9', margin: "8% 0" }} />
+                                {filters.filterType === 'Popular Hotels' &&
+                                    yourBudgetFilterData.map((filters) => {
+                                        return (
+                                            <Box key={filters.id} justifyContent={'center'}>
+                                                <Typography className={styles.searchPropertyHeader}>
+                                                    {filters.filterType}
+                                                </Typography>
+                                                {filters.filterProperties.map((filter) => {
+                                                    return (
+                                                        <div key={filter.id}>
+                                                            <FormControlLabel key={filter.id} label={filter.filterName} control={<Checkbox value={filter.filterName} onChange={getBudgetFilterProperties} checked={budgetSelector[filter.filterName]} sx={{ fontSize: '12px', color: '#A4A2A2' }} />} />
+                                                        </div>
+                                                    )
+                                                })}
+                                                {/* {Your Budget Filter END} */}
+                                            </Box>
+                                        )
+                                    })
+                                }
                             </Stack>
-                            <hr className={styles.divider} />
+                            {filters.filterType === 'Popular Hotels' && <hr className={styles.divider} />}
                         </Box>
                     )
                 })}

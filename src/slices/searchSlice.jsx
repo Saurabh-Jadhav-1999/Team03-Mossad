@@ -10,7 +10,9 @@ const initialState = {
   citylist: [],
   totalAdult: 1,
   totalChild: 0,
-  filters: []
+  filters: [],
+  budgetFilters: [],
+  filteredHotels: []
 };
 
 export const fetchHotelList = createAsyncThunk(
@@ -99,8 +101,21 @@ export const searchSlice = createSlice({
       state.filters.push(action.payload);
     },
     unSetFilters: (state = initialState, action) => {
-      state.filters.pop(action.payload);
+      const index = state.filters.indexOf(action.payload);
+      if (index > -1) state.filters.splice(index, 1);
     },
+    setBudgetFilters: (state = initialState, action) => {
+      state.budgetFilters = action.payload;
+    },
+    unSetBudgetFilters: (state = initialState) => {
+      state.budgetFilters = []
+    },
+    setFilteredHotels: (state = initialState, action) => {
+      state.filteredHotels = action.payload;
+    },
+    clearFilteredHotels: (state = initialState) => {
+      state.filteredHotels = []
+    }
   },
   extraReducers: {
     [fetchHotelList.pending]: (state, action) => {
@@ -123,7 +138,6 @@ export const searchSlice = createSlice({
     },
     [fetchCityList.rejected]: (state, action) => {
       state.status = "rejected";
-
       state.citylist = ["City", "Not", " Found"];
     },
     [fetchCityList.fulfilled]: (state, action) => {
@@ -136,5 +150,5 @@ export const searchSlice = createSlice({
 });
 
 export const { setLocation, setCheckIn, setCheckOut, setAdultCount,
-  setChildCount, setFilters, unSetFilters } = searchSlice.actions;
+  setChildCount, setFilters, unSetFilters, setBudgetFilters, unSetBudgetFilters, setFilteredHotels, clearFilteredHotels } = searchSlice.actions;
 export default searchSlice.reducer;

@@ -4,7 +4,7 @@ import NavigateNextIcon from "@mui/icons-material/NavigateNext";
 
 export const Breadcrumb = (props) => {
   return (
-    <div style={{margin: "2%"}}>
+    <div style={{ margin: "2%" }}>
       <Breadcrumbs
         separator={<NavigateNextIcon fontSize="small" />}
         aria-label="breadcrumb"

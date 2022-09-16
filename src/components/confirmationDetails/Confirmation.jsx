@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import styles from "./Confirmation.module.css";
-import { Box, Typography, Grid, Button, Breadcrumbs } from "@mui/material";
+import { Box, Typography, Grid, Button } from "@mui/material";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 import { Link, Navigate } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -28,11 +28,13 @@ const Confirmation = (props) => {
   const formatDate = () => {
     const checkIn = moment(new Date(checkin)).format('MMMM DD')
     const checkOut = moment(new Date(checkout)).format('MMMM DD')
-    const reservationYear = moment(new Date(checkin)).format('YYYY')
-    return checkIn + " - " + checkOut + " " + reservationYear
+    const reservationCinYear = moment(new Date(checkin)).format('YYYY')
+    const reservationCoutYear = moment(new Date(checkout)).format('YYYY')
+
+    return (reservationCinYear === reservationCoutYear) ? (checkIn + " - " + checkOut + " " + reservationCinYear) : checkIn + " " + reservationCinYear + " - " + checkOut + " " + reservationCoutYear
   }
 
-  
+
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -154,7 +156,8 @@ const Confirmation = (props) => {
                         {" "}
                         <div className={`${styles.div7}`}>Travelers</div>
                         <div className={`${styles.div8}`}>
-                          {bookingdetails.guest_count} Passengers
+                          {bookingdetails.guest_count}
+                          {bookingdetails.guest_count > 1 ? ' Passengers' : ' Passenger'}
                         </div>
                       </Box>
                     </Grid>

@@ -55,7 +55,7 @@ export const HotelDetailsAndImage = (props) => {
         </Box>
         <Box className={`${styles.box3}`}>
           {img === false ? (
-            <CircularProgress color="secondary" />
+            <CircularProgress color="info" sx={{ margin: "0 auto" }} />
           ) : (
             <ImageGrid links={hoteldetails.hotel_images} stat={status} />
           )}

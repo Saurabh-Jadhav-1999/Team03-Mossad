@@ -14,8 +14,8 @@ export default function DateSelector() {
   const [dateValues, setDateValues] = React.useState([null, null]);
   const dispatch = useDispatch();
 
-const checkin=useSelector(state=>state.search.checkIn);
-const checkout=useSelector(state=>state.search.checkOut);
+  const checkin = useSelector(state => state.search.checkIn);
+  const checkout = useSelector(state => state.search.checkOut);
 
   return (
     <LocalizationProvider
@@ -27,7 +27,7 @@ const checkout=useSelector(state=>state.search.checkOut);
         disablePast
         clearable
         value={dateValues}
-        format="MM/dd/yyyy"
+        format="MM.DD.YYYY"
         onChange={(newValue) => {
           setDateValues(newValue);
 
@@ -39,18 +39,19 @@ const checkout=useSelector(state=>state.search.checkOut);
               "YYYY-MM-DD"
             );
 
-            dispatch(setCheckIn(checkInDateValue), () => {});
-            dispatch(setCheckOut(checkOutDateValue), () => {});
-          
+            dispatch(setCheckIn(checkInDateValue), () => { });
+            dispatch(setCheckOut(checkOutDateValue), () => { });
+
           }
         }}
         renderInput={(startProps, endProps) => (
           <React.Fragment>
             <TextField
               value={checkin}
+              format="MM.DD.YYYY"
               className={styles.dateInp}
               {...startProps}
-             
+
             />
             <Box
               className={styles.arrow}
@@ -58,10 +59,10 @@ const checkout=useSelector(state=>state.search.checkOut);
               component="img"
               style={{ zIndex: 99 }}
             />
-       
+
             <TextField
               value={checkout}
-           
+              format="MM.DD.YYYY"
               className={styles.dateInp}
               {...endProps}
             />
