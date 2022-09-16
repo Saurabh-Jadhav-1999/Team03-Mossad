@@ -12,8 +12,9 @@ import LogoutIcon from '@mui/icons-material/Logout';
 
 export const NavBar = () => {
 
-  const token=useSelector(state=>state.login.token);
-  const user=useSelector(state=>state.login.user_name);
+  const token = useSelector(state => state.login.token);
+  const user = useSelector(state => state.login.user_name);
+
   return (
     <AppBar
       position="static"
@@ -37,25 +38,20 @@ export const NavBar = () => {
           <Box className={styles.divider}></Box>
           <Box className={styles.userProfilePicture}>
             {
-               token==undefined?null: <img
-               src={require("./userProfilePicture.png")}
-               alt="Adam Grant"
-             ></img>
-
-
+              token == undefined ? null : <img
+                src={require("./userProfilePicture.png")}
+                alt="Adam Grant"
+              ></img>
             }
-           
           </Box>
           <Box className={styles.userName}>{user}</Box>
           {
-            token==undefined?<Login />:<Button onClick={()=>{
-            localStorage.removeItem("token");
-            localStorage.removeItem("name");
-            window.location.reload(false);
+            token == undefined ? <Login /> : <Button onClick={() => {
+              localStorage.removeItem("token");
+              localStorage.removeItem("name");
+              window.location.reload(false);
             }}><LogoutIcon></LogoutIcon></Button>
           }
-          
-       
         </Stack>
       </Toolbar>
     </AppBar>

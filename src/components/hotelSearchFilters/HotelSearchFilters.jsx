@@ -141,7 +141,8 @@ export const HotelSearchFilters = () => {
     const searchPropertyHandler = () => {
         console.log("Hotel: ", searchProperty);
     }
-    const filters = useSelector((state) => state.hotelFilters.filters)
+
+    const filters = useSelector((state) => state.search.filters)
     const dispatch = useDispatch();
     const [budgetSelector, setBudgetSelector] = useState(budgetFilterState)
 

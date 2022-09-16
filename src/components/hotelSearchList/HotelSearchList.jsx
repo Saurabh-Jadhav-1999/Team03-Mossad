@@ -72,7 +72,7 @@ export const HotelSearchList = () => {
                 status === "loading" ? (
                   <div style={{ marginLeft: "20vw" }}>
                     <Loading />
-                    <Typography variant="h5" style={{ fontFamily: "inter", textAlign: "center", margin: "10vh auto" }}>Wait a moment, we are finding the best hotels for you!</Typography>
+                    <Typography variant="h5" style={{ fontFamily: "inter", textAlign: "center", margin: "10vh -10vh" }}>Wait a moment, we are finding the best hotels for you!</Typography>
                   </div>
                 ) : (
                   (

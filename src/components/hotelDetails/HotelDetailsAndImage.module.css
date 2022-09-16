@@ -25,6 +25,7 @@
     text-align: center;
     color: #55BD61;
     font-weight: bold;
+    padding-top: 1px !important;
     /* font-family: Impact; Haettenschweiler; 'Arial Narrow Bold'; sans-serif; */
 
 }
@@ -37,7 +38,8 @@
     color: #FBB040;
     border-radius: 3px;
     text-align: center;
-    width: 5rem
+    width: 5rem;
+    padding-top: 1px !important;
 }
 
 .tags3 {
@@ -48,7 +50,8 @@
     border-radius: 3px;
     text-align: center;
     width: 5rem;
-    color: #355CB7
+    color: #355CB7;
+    padding-top: 1px !important;
 }
 
 .tags4 {
@@ -59,8 +62,7 @@
     border-radius: 3px;
     text-align: center;
     width: 6rem;
-
-
+    padding-top: 1px !important;
     color: #E38B63
 }
 
@@ -72,7 +74,8 @@
     border-radius: 3px;
     text-align: center;
     width: 6rem;
-    color: #EB749E
+    color: #EB749E;
+    padding-top: 1px !important;
 }
 
 .typo1 {
@@ -98,7 +101,8 @@
 .typo3 {
     font-size: 12px;
     font-family: Inter;
-    line-height: 2.2 !important;
+    line-height: 1.5 !important;
+
 }
 
 .img1 {
@@ -110,8 +114,7 @@
 }
 
 .div1 {
-    margin-top: 2% !important;
-    /* width: 20% !important; */
+    margin-top: -1% !important;
     color: grey !important;
     margin-left: 5px;
     /* display: flex !important; */

@@ -161,7 +161,7 @@ const Confirmation = (props) => {
                   className={`${styles.gridcontainer1}`}
                 >
                   <Grid item lg={12} sm={4}>
-                    <Grid item lg={4} sm={4} className={`${styles.griditem}`}>
+                    <Grid item lg={4} sm={4} className={`${styles.griditem}`} >
                       {" "}
                       <Box className={`${styles.box1}`}>
                         <div className={`${styles.div5}`}>Dates</div>
@@ -216,7 +216,7 @@ const Confirmation = (props) => {
                     <img
                       className={`${styles.hotelimg}`}
                       src={hoteldetails.hotel_profile_picture}
-                      height="510px"
+                      height="480x"
                       width="750px"
                       alt=""
                     />

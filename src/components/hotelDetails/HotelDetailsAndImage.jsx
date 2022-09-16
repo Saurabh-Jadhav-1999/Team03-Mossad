@@ -40,9 +40,8 @@ export const HotelDetailsAndImage = (props) => {
                 <StarIcon sx={{ color: "#ff9c09" }} />
 
                 <span className={`${styles.div1}`}>
-                  <span style={{ color: "black", marginRight: "1px" }}>{hotelrating}</span>  ({hoteldetails.total_reviews} reviews)
+                  <span style={{ color: "black", marginRight: "1px" }}>{hotelrating}</span>  ({hoteldetails.total_reviews} reviews)</span>
 
-                </span>
               </Typography>
             </Box>
             <div className={`${styles.box2}`}>
@@ -55,14 +54,14 @@ export const HotelDetailsAndImage = (props) => {
         </Box>
         <Box className={`${styles.box3}`}>
           {img === false ? (
-            <CircularProgress color="info" sx={{ margin: "0 auto" }} />
+            <CircularProgress color="info" sx={{ margin: "10vh 90vh" }} />
           ) : (
             <ImageGrid links={hoteldetails.hotel_images} stat={status} />
           )}
         </Box>
-        <Box className={`${styles.tagbox}`}>
+        <Box className={`${styles.tagbox}`} sx={{textAlign: "center"}}>
           <div className={`${styles.tags1}`}>{hoteldetails.rating}</div>
-          <div className={`${styles.tags2}`}>Perfect</div>
+          <div className={`${styles.tags2}`} >Perfect</div>
           <div className={`${styles.tags3}`}>Hotels</div>
           <div className={`${styles.tags4}`}>Top Value</div>
           <div className={`${styles.tags5}`}>Building</div>

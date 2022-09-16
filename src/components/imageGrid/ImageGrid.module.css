@@ -6,6 +6,7 @@
   body {
     overflow-x: hidden;
   }
+
   .container {
     display: flex !important;
     gap: 0px !important;
