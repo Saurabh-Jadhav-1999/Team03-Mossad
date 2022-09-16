@@ -4,7 +4,8 @@ import { useNavigate } from "react-router-dom";
 import style from "./SearchButton.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchHotelList } from "./../../slices/searchSlice";
-
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 export const SearchButton = () => {
   const dispatch = useDispatch();
   const location = useSelector((state) => state.search.location);
@@ -12,7 +13,10 @@ export const SearchButton = () => {
   const checkOut = useSelector((state) => state.search.checkOut);
   const adultcount=useSelector(state=>state.search.totalAdult);
   const childcount=useSelector(state=>state.search.totalChild);
+  const token=useSelector(state=>state.login.token);
   const navigate = useNavigate();
+
+ 
 
   const navigateTo = () => {
     navigate('/search-hotels')
@@ -24,11 +28,18 @@ export const SearchButton = () => {
         variant="contained"
         size="large"
         onClick={(e) => {
-          dispatch(fetchHotelList({ location, checkIn, checkOut,adultcount,childcount }));
-          navigateTo();
+          if(!token){
+            toast.warn("Please login")
+          }
+          else{
+            dispatch(fetchHotelList({ location, checkIn, checkOut,adultcount,childcount }));
+            navigateTo();
+          }
+        
         }}
       >
         Search
+        <ToastContainer/>
       </Button>
     </>
   );

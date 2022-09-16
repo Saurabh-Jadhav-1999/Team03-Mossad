@@ -1,7 +1,9 @@
+/*getHotelDetails slice for the purpose of storing details of a particular hotel  received from api*/
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { token } from './token'
-
+/*initializing the state variables*/
 const initialState = {
   hotel_id: "",
   city_name: "",
@@ -9,7 +11,7 @@ const initialState = {
   status: "",
   imgsLoaded: false
 };
-
+/*Api call for fetching the details  of a particular hotel*/
 export const fetchHotelDetails = createAsyncThunk(
   "getHotelDetails/fetchHotelDetails",
   async ({ idFromUrl, cityNameFromUrl }, thunkAPI) => {
@@ -40,7 +42,7 @@ export const fetchHotelDetails = createAsyncThunk(
     }
   }
 );
-
+/* Creating reducers for setting state variables */
 export const getHotelDetailsSlice = createSlice({
   name: "getHotelDetails",
   initialState: initialState,
@@ -58,6 +60,7 @@ export const getHotelDetailsSlice = createSlice({
       state.imgsLoaded = action.payload;
     }
   },
+   /* Defining actions for the status of promise returned by the api call*/ 
   extraReducers: {
     [fetchHotelDetails.pending]: (state, action) => {
       state.status = "loading";
@@ -68,6 +71,6 @@ export const getHotelDetailsSlice = createSlice({
     },
   },
 });
-
+/*Exporting actions of the slice*/
 export const { setHotelId, setCityName, setHotelDetails, setImageLoadStatus } = getHotelDetailsSlice.actions;
 export default getHotelDetailsSlice.reducer;

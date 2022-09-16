@@ -195,7 +195,7 @@
 
 .div17 {
   display: flex !important;
-  justify-content: inline;
+  justify-content: flex-start;
   margin-top: 3vh;
   margin-left: 2%;
 }
@@ -211,6 +211,8 @@
 }
 
 .hotelrating{
+  display: flex;
+  justify-content: flex-start;
   margin-top: 2% !important;
   font-size: 16px;
   color: grey !important;

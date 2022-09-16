@@ -27,7 +27,9 @@ export const HotelDetails = () => {
   const hoteldetails = useSelector(
     (state) => state.getHotelDetails.hotelDetails
   );
-
+  const facilities = useSelector((state) => state.getHotelDetails.hotelDetails.hotelfacalities);
+ 
+  
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -66,7 +68,7 @@ export const HotelDetails = () => {
     <Fragment>
       <Breadcrumb links={breadcrumbs} style={{ backgroundColor: "white" }} />
       <div className={styles.container}>
-        {status === "loading" ? (
+        {(status == "loading" && facilities!==[]) ?  (
           <div>
             <Loading />
             <Typography
@@ -80,8 +82,8 @@ export const HotelDetails = () => {
           <>
             <HotelDetailsAndImage details={hoteldetails} />
             <Box className={styles.bottomDiv}>
-              <TabBar description={hoteldetails} />
-              <BookingOptions />
+              <TabBar id={idFromUrl} description={hoteldetails} />
+              <BookingOptions   />
             </Box>
           </>
         )}

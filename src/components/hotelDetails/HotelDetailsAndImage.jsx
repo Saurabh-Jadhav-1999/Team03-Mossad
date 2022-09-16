@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { Typography, Rating } from "@mui/material";
 import { Box } from "@mui/material";
 import StarIcon from '@mui/icons-material/Star';
-import star from "../../assets/images/HotelRatingIcon.png";
+
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import styles from "./HotelDetailsAndImage.module.css";
 import ImageGrid from "../imageGrid/ImageGrid";
@@ -40,7 +40,7 @@ export const HotelDetailsAndImage = (props) => {
                 <StarIcon sx={{ color: "#ff9c09" }} />
 
                 <span className={`${styles.div1}`}>
-                  <span style={{ color: "black", marginRight: "1px" }}>{hotelrating}</span>  (234 reviews)
+                  <span style={{ color: "black", marginRight: "1px" }}>{hotelrating}</span>  ({hoteldetails.total_reviews} reviews)
 
                 </span>
               </Typography>

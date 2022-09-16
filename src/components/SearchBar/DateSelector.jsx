@@ -51,7 +51,6 @@ export default function DateSelector() {
               format="MM.DD.YYYY"
               className={styles.dateInp}
               {...startProps}
-
             />
             <Box
               className={styles.arrow}
@@ -62,7 +61,7 @@ export default function DateSelector() {
 
             <TextField
               value={checkout}
-              format="MM.DD.YYYY"
+              format="MM/DD/YYYY"
               className={styles.dateInp}
               {...endProps}
             />

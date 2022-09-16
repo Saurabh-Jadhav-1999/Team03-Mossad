@@ -20,14 +20,17 @@ function CitySelector() {
         }
         renderInput={(params) => (
           <TextField
+          value={city[0]}
             className={styles.txtfld1}
             {...params}
-            value={city}
+      
             label="Location"
             placeholder="Where do you want to go?"
             onChange={(e) => {
               dispatch(fetchCityList(e.target.value));
             }}
+         
+          
           />
         )}
       />

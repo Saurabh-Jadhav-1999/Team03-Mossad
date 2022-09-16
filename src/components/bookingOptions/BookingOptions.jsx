@@ -28,37 +28,9 @@ import {
   finalBookNow,
 } from "./../../slices/bookNowSlice";
 import { ToastContainer, toast } from "react-toastify";
-import moment from "moment/moment";
 import "react-toastify/dist/ReactToastify.css";
 
-const features = [
-  {
-    id: 1,
-    name: "Allow to bring pet",
-    price: "$15",
-    value: 15,
-  },
-  {
-    id: 2,
-    name: "Lunch per person per day",
-    price: "$24",
-    value: 24,
-  },
-  {
-    id: 3,
-    name: "Parking",
-    price: "$5",
-    value: 5,
-  },
-  {
-    id: 4,
-    name: "Extra Pillow",
-    price: "Free",
-    value: 0,
-  },
-];
-
-export const BookingOptions = () => {
+export const BookingOptions = (props) => {
   let dispatch = useDispatch();
   let navigate = useNavigate();
   const status1 = useSelector((state) => state.bookNow.status);
@@ -83,26 +55,54 @@ export const BookingOptions = () => {
 
     }
   }, [status1]);
+
   const notify1 = () => toast("Booking is in Progress   ");
   const notify2 = () => toast("Booking is done  ");
-  const notify3 = () => toast("Booking is rejected :(");
-
+  const notify3 = () => toast("Booking is rejected ");
+  const totalcost = useSelector((state) => state.bookNow.totalCost);
   const status = useSelector((state) => state.getHotelDetails.status);
   const hotelid = useSelector((state) => state.getHotelDetails.hotel_id);
   const checkin = useSelector((state) => state.search.checkIn);
   const checkout = useSelector((state) => state.search.checkOut);
   const adultcount = useSelector((state) => state.search.totalAdult);
   const childcount = useSelector((state) => state.search.totalChild);
-  const pet = useSelector((state) => state.bookNow.allow_to_bring_pet);
-  const parking = useSelector((state) => state.bookNow.parking);
-
-  const totalcost = useSelector((state) => state.bookNow.totalCost);
+  const lunch_per_person = useSelector(state => state.bookNow.lunch_per_person_per_day);
   const roomTypeCost = useSelector((state) => state.bookNow.room_type_cost);
+  const diff = useSelector(state => state.search.diff);
+  const roomtype = useSelector(state => state.bookNow.room_type);
 
+  const features = [
+    {
+      id: 1,
+      name: "Allow to bring pet",
+      price: `$15`,
+      value: 15,
+    },
+    {
+      id: 2,
+      name: "Lunch per person per day",
+      price: `$24`,
+      value: 24,
+    },
+    {
+      id: 3,
+      name: "Parking",
+      price: `$5`,
+      value: 5,
+    },
+    {
+      id: 4,
+      name: "Extra Pillow",
+      price: `Free`,
+      value: 0,
+    },
+  ];
 
   return (
     <Fragment>
-      {status === "loading" ? (
+      {status == "loading" && setTimeout(() => {
+
+      }, 5000) ? (
         <p></p>
       ) : (
         <Paper elevation={0} className={styles.bookingOptionsContainer}>
@@ -133,7 +133,17 @@ export const BookingOptions = () => {
                   /night
                 </Typography>
               </span>
-            </Grid>
+              <Grid item>
+                <Button
+                  variant="contained"
+                  disabled
+                  disableElevation
+                  className={styles.labelDiscountPercentage}
+                >
+                  10% OFF
+                </Button>
+              </Grid>
+            </Grid >
             <hr className={styles.divider} />
             <Grid item xs={12}>
               <Stack direction={"row"} justifyContent={"space-between"}>
@@ -251,13 +261,14 @@ export const BookingOptions = () => {
                                     break;
                                   case 2:
                                     if (e.target.checked) {
+                                      const lunchprice = e.target.value;
                                       dispatch(
-                                        setLunchPerPersonPerDay(e.target.value)
+                                        setLunchPerPersonPerDay({ lunchprice, diff, adultcount, childcount })
                                       );
                                     } else if (!e.target.checked) {
                                       dispatch(
                                         unsetLunchPerPersonPerDay(
-                                          e.target.value
+                                          lunch_per_person
                                         )
                                       );
                                     }
@@ -319,6 +330,7 @@ export const BookingOptions = () => {
                       childcount,
                       hotelid,
                       totalcost,
+                      roomtype
                     })
                   );
                 }}
@@ -327,14 +339,14 @@ export const BookingOptions = () => {
                 <ToastContainer />
               </Button>
             </Grid>
-          </Grid>
+          </Grid >
           <Grid item xs={12} className={styles.bookingNote}>
             <Typography sx={{ fontSize: "8%" }}>
               You will not get charged yet
             </Typography>
           </Grid>
-        </Paper>
+        </Paper >
       )}
-    </Fragment>
+    </Fragment >
   );
 };
