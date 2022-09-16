@@ -88,6 +88,7 @@ export const searchSlice = createSlice({
   reducers: {
     setLocation: (state = initialState, action) => {
       state.location = action.payload;
+      console.log(action.payload,"payload from search slice")
     },
     setCheckIn: (state = initialState, action) => {
 
@@ -145,8 +146,6 @@ export const searchSlice = createSlice({
     [fetchCityList.fulfilled]: (state, action) => {
       state.status = "succeeded";
       state.citylist = action.payload.cities;
-
-      state.location = action.payload.cities;
     },
   },
 });

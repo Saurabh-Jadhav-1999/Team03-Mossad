@@ -7,11 +7,11 @@ export const LandingPage = () => {
   return (
     <>
       <div>
-     {/* <TravelYouPassion/> */}
-        <LandingHotelPicture />
+     <TravelYouPassion/>
+        {/* <LandingHotelPicture />
         <div style={{ position: "relative", marginTop: "5vh !important" }}>
           <FeaturedDestinations sx={{ marginTop: "50vh" }} />
-        </div>
+        </div> */}
 
       </div>
     </>

@@ -3,7 +3,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import style from "./SearchButton.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchHotelList } from "./../../slices/searchSlice";
+import { fetchHotelList } from "../../slices/searchSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 export const SearchButton = () => {
