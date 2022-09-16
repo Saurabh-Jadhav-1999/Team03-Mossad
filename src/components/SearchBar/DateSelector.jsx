@@ -14,8 +14,8 @@ export default function DateSelector() {
   const [dateValues, setDateValues] = React.useState([null, null]);
   const dispatch = useDispatch();
 
-const checkin=useSelector(state=>state.search.checkIn);
-const checkout=useSelector(state=>state.search.checkOut);
+  const checkin = useSelector((state) => state.search.checkIn);
+  const checkout = useSelector((state) => state.search.checkOut);
 
   return (
     <LocalizationProvider
@@ -41,7 +41,6 @@ const checkout=useSelector(state=>state.search.checkOut);
 
             dispatch(setCheckIn(checkInDateValue), () => {});
             dispatch(setCheckOut(checkOutDateValue), () => {});
-          
           }
         }}
         renderInput={(startProps, endProps) => (
@@ -50,7 +49,6 @@ const checkout=useSelector(state=>state.search.checkOut);
               value={checkin}
               className={styles.dateInp}
               {...startProps}
-             
             />
             <Box
               className={styles.arrow}
@@ -58,10 +56,9 @@ const checkout=useSelector(state=>state.search.checkOut);
               component="img"
               style={{ zIndex: 99 }}
             />
-       
+
             <TextField
               value={checkout}
-           
               className={styles.dateInp}
               {...endProps}
             />

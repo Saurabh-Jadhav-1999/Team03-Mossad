@@ -27,7 +27,9 @@ export const HotelDetails = () => {
   const hoteldetails = useSelector(
     (state) => state.getHotelDetails.hotelDetails
   );
-
+  const facilities = useSelector((state) => state.getHotelDetails.hotelDetails.hotelfacalities);
+ 
+  
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -35,7 +37,6 @@ export const HotelDetails = () => {
       key="1"
       color="inherit"
       href="/"
-      // onClick={()=> navigate('Home')}
       style={{ textDecoration: "none", color: "grey" }}
     >
       Home
@@ -46,7 +47,6 @@ export const HotelDetails = () => {
       key="2"
       color="inherit"
       href="/search-hotels"
-      // onClick={()=> navigate('HotelList')}
       style={{ textDecoration: "none", color: "grey" }}
     >
       Hotel List
@@ -57,7 +57,6 @@ export const HotelDetails = () => {
       key="2"
       color="inherit"
       href="/hotel-details"
-      // onClick={()=> navigate('HotelList')}
       style={{ textDecoration: "none", color: "black" }}
     >
       Hotel Details
@@ -68,22 +67,22 @@ export const HotelDetails = () => {
     <Fragment>
       <Breadcrumb links={breadcrumbs} />
       <div className={styles.container}>
-        {status === "loading" ? (
+        {(status == "loading" && facilities!==[]) ?  (
           <div>
             <Loading />
             <Typography
               variant="h5"
               style={{ fontFamily: "inter", marginLeft: "37vw" }}
             >
-              Wait a moment, We are working  
+              Wait a moment, We are working
             </Typography>
           </div>
         ) : (
           <>
             <HotelDetailsAndImage details={hoteldetails} />
             <Box className={styles.bottomDiv}>
-              <TabBar description={hoteldetails} />
-              <BookingOptions />
+              <TabBar id={idFromUrl} description={hoteldetails} />
+              <BookingOptions   />
             </Box>
           </>
         )}

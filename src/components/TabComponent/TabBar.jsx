@@ -10,7 +10,7 @@ import { RoomAndPrice } from "./RoomAndPrice";
 import { Review } from "./Review";
 import img1 from "../../assets/images/ProfileReviewUserOneImg.png";
 import img2 from "../../assets/images/ProfileReviewUserTwoImg.png";
-import { useSelector } from "react-redux";
+
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -23,7 +23,7 @@ function TabPanel(props) {
       aria-labelledby={`simple-tab-${index}`}
       {...other}
     >
-      {value === index && (
+      {value == index && (
         <Box sx={{ p: 3 }}>
           <Typography component={"div"}>{children}</Typography>
         </Box>
@@ -53,8 +53,8 @@ export const TabBar = (props) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  const status = useSelector((state) => state.getHotelDetails.status);
-  // console.log("tab bar log", features);
+ 
+
   return (
     <React.Fragment>
       <Box>
@@ -89,7 +89,7 @@ export const TabBar = (props) => {
           <Featuers  />
         </TabPanel>
         <TabPanel value={value} index={2} className={styles.tabDetail}>
-          <RoomAndPrice />
+          <RoomAndPrice id={props.id} />
         </TabPanel>
         <TabPanel value={value} index={3} className={styles.tabDetail}>
           <Typography component={"span"} className={styles.reviewHeading}>

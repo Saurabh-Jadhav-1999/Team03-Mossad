@@ -13,7 +13,7 @@ export const BookingDatePickers = (props) => {
 
     const handleChange = (newValue) => {
         setValue(newValue);
-        if (newValue != null && props.checkin === "1") {
+        if (newValue != null && props.checkin == "1") {
             const checkInDateValue = moment(new Date(newValue)).format(
                 "YYYY-MM-DD"
             );

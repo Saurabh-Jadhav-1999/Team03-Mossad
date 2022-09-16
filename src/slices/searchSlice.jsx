@@ -1,6 +1,10 @@
+/*Search slice for the purpose of storing search bar data along with hotel details received from api*/
+
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+
 import axios from "axios";
 import { token } from './token'
+/*initializing the state variables*/
 const initialState = {
   location: "",
   checkIn: "",
@@ -13,14 +17,15 @@ const initialState = {
   filters: [],
   diff:0,
 };
-
+/*Api call for fetching the hotel list of a particular location*/
 export const fetchHotelList = createAsyncThunk(
   "searchHotel/fetchHotelList",
   async ({ location, checkIn, checkOut, adultcount, childcount }, thunkAPI) => {
     try {
+    
       const config = {
         headers: {
-          "x-auth-token": token
+          "x-auth-token": token,
         },
       };
 
@@ -47,6 +52,8 @@ export const fetchHotelList = createAsyncThunk(
     }
   }
 );
+
+/*Api call for fetching the city list for given input chars*/
 export const fetchCityList = createAsyncThunk(
   "searchHotel/fetchCityList",
   async (location, thunkAPI) => {
@@ -74,7 +81,7 @@ export const fetchCityList = createAsyncThunk(
     }
   }
 );
-
+/* Creating reducers for setting state variables */
 export const searchSlice = createSlice({
   name: "searchHotel",
   initialState: initialState,
@@ -91,7 +98,10 @@ export const searchSlice = createSlice({
       state.checkOut = action.payload;
     },
     setAdultCount: (state = initialState, action) => {
-      state.totalAdult = action.payload;
+        
+        state.totalAdult=action.payload
+      
+    
     },
     setChildCount: (state = initialState, action) => {
       state.totalChild = action.payload;
@@ -107,6 +117,7 @@ export const searchSlice = createSlice({
 
     },
   },
+  /* Defining actions for the status of promise returned by the api call*/ 
   extraReducers: {
     [fetchHotelList.pending]: (state, action) => {
       state.status = "loading";
@@ -139,7 +150,7 @@ export const searchSlice = createSlice({
     },
   },
 });
-
+/*Exporting actions of the slice*/
 export const { setLocation, setCheckIn, setCheckOut, setAdultCount,
   setChildCount, setFilters, unSetFilters,setDiffBetDays } = searchSlice.actions;
 export default searchSlice.reducer;
