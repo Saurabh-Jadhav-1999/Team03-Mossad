@@ -1,4 +1,4 @@
-import { SearchBar } from '../SearchBar/SearchBar'
+import { SearchBar } from '../searchBar/SearchBar'
 import styles from './landingHotelPicture.module.css'
 
 export const LandingHotelPicture = () => {
