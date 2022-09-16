@@ -1,7 +1,9 @@
+// Hotel Logo required for the NavBar - Landing Page
+
 export const Logo = () => {
     return <>
         <svg width="43" height="42" viewBox="0 0 43 42" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <g style={{'mixBlendMode':'multiply'}}>
+            <g style={{ 'mixBlendMode': 'multiply' }}>
                 <path fillRule="evenodd" clipRule="evenodd" d="M0 20.9029C0 24.7511 3.11952 27.8706 6.96764 27.8706H14.9109V34.8382C14.9109 38.6864 18.0304 41.8059 21.8785 41.8059H35.8138C39.6619 41.8059 42.7814 38.6864 42.7814 34.8382V14.7714C42.7814 14.3096 42.4071 13.9353 41.9453 13.9353H27.8706V0.836118C27.8706 0.374343 27.4962 0 27.0345 0H6.96765C3.11952 0 0 3.11952 0 6.96764V20.9029ZM27.8706 13.9353H21.8785C18.0304 13.9353 14.9109 17.0548 14.9109 20.9029V27.8706H20.9029C24.7511 27.8706 27.8706 24.7511 27.8706 20.9029V13.9353Z" fill="#2918EE" />
             </g>
         </svg>

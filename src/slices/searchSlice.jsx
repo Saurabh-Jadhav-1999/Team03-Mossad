@@ -102,12 +102,12 @@ export const searchSlice = createSlice({
     setAdultCount: (state = initialState, action) => {
 
       state.totalAdult = action.payload
-
-
     },
     setChildCount: (state = initialState, action) => {
       state.totalChild = action.payload;
     },
+
+    //Fitler Reducers
     setFilters: (state = initialState, action) => {
       state.filters.push(action.payload);
     },

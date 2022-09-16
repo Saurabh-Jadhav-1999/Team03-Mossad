@@ -1,3 +1,4 @@
+// Date Selector Component for Booking
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -12,7 +13,6 @@ export const BookingDatePickers = (props) => {
     const dispatch = useDispatch();
 
     const handleChange = (newValue) => {
-
         if (newValue != null && props.checkin == "1") {
             const checkInDateValue = moment(new Date(newValue)).format(
                 "YYYY-MM-DD"
@@ -28,6 +28,7 @@ export const BookingDatePickers = (props) => {
     };
 
     return (
+
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
                 inputFormat="DD/MM/YYYY"

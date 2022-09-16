@@ -4,10 +4,8 @@ import { AppBar, Stack, Toolbar, Box, Button } from "@mui/material";
 import { LanguageLogo } from "../../assets/icons/Language";
 import { Logo } from "../../assets/icons/Logo";
 import { Notification } from "../../assets/icons/Notification";
-
 import Login from "./../loginModal/Login";
 import { useSelector } from "react-redux";
-
 import LogoutIcon from '@mui/icons-material/Logout';
 
 export const NavBar = () => {

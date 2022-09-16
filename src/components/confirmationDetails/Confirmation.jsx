@@ -8,7 +8,7 @@ import moment from "moment/moment";
 import Loading from "../loader/Loader";
 import StarIcon from "@mui/icons-material/Star";
 
-const Confirmation = (props) => {
+const Confirmation = () => {
   function navigate(path) {
     Navigate(path);
   }
@@ -20,6 +20,8 @@ const Confirmation = (props) => {
   const roomtype = useSelector((state) => state.bookNow.room_type);
   const status = useSelector((state) => state.bookNow.status);
 
+  // Format Date as required on the Confirmation Page refer to: figma screen
+  // Ex. September 15 - September 22 2022
   const formatDate = () => {
     const checkIn = moment(new Date(checkin)).format('MMMM DD')
     const checkOut = moment(new Date(checkout)).format('MMMM DD')

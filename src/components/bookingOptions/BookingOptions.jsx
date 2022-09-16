@@ -1,3 +1,4 @@
+// Booking Options Card Component
 import {
   Stack,
   Grid,
@@ -71,6 +72,7 @@ export const BookingOptions = (props) => {
   const diff = useSelector(state => state.search.diff);
   const roomtype = useSelector(state => state.bookNow.room_type);
 
+  //Extra Features Options for the Book Now component
   const features = [
     {
       id: 1,
