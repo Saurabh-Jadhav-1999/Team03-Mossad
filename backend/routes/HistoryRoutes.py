@@ -49,7 +49,7 @@ class HandleHistory(Resource):
 class TopFiveSuggestionsForUser(Resource):
    def get(self):
         token_result = token_required(request)
-    # print(token_result)
+   
         if  type(token_result)==dict({}) and "error" in token_result.keys():
           return token_result
 
@@ -70,9 +70,9 @@ def historyAdding():
 
 app.route("/topFiveSuggestionsForUser", methods=['GET'])
 def topFiveSuggestionsForUser():
-     # print("before token validation:",request.json)
+    
      token_result = token_required(request)
-    # print(token_result)
+    
      if  type(token_result)==dict({}) and "error" in token_result.keys():
         return token_result
 
@@ -82,7 +82,7 @@ def topFiveSuggestionsForUser():
 class TopFiveSuggestionsForUser(Resource):
    def get(self):
         token_result = token_required(request)
-    # print(token_result)
+  
         if  type(token_result)==dict({}) and "error" in token_result.keys():
           return token_result
 

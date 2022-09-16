@@ -10,7 +10,7 @@ from backend.auth.authToken import token_required
 
 
 class HandleBooking(Resource):
-    # @marshal_with(booking_representation)
+   
     def post(self):
         # token validtion code 
         token_result = token_required(request)

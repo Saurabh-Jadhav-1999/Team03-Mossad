@@ -99,7 +99,7 @@ def getHotels():
         return make_response(token_result, 400)
 
     data = request.json # store the data passed by user in dictionary
-    # print(data)
+   
 
     # check if check_in_date and check_out_date is present
     if "check_in_date" not in data.keys() or  "check_out_date" not in data.keys():
@@ -129,7 +129,6 @@ def getHotels():
     if validationResult.errors:
         return make_response(validationResult.errors, 400) # return validation errors if any
 
-    # print(validationResult.document)
 
     # get the list of hotels present in particular city
     hotels = getHotelsByCityName(data['city_name'])
@@ -185,7 +184,6 @@ def getHotels():
         print('must apply price increment for hotels')
         # availableHotelList.append("dynamic_price_hike")
         return make_response(newdata, 200)
-        # return make_response([showAvailableHotels(availableHotelList), {"dynamic_hike_price":True}], 200)
         
     # concat availableHotelList to priorityHotelList
     priorityHotelList.extend(availableHotelList)
@@ -199,7 +197,6 @@ def getHotels():
 def getHotelByHotelId():
      # token validtion code 
     token_result = token_required(request)
-    # print(token_result)
 
     if  isinstance(token_result, dict)  and "error" in token_result.keys():
         print('error found')
@@ -235,7 +232,6 @@ def getHotelByHotelId():
     # get average rating by hotel_id
     rating = averageRating(hotel.hotel_id)
     hotel = newDataView(hotel)
-    # print(hotel)
     hotel.update({"rating":rating[0]}) # update the response add average rating
     hotel.update({"total_reviews":rating[1]}) # update the response add total reviews for hotel
 

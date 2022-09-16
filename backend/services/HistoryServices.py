@@ -103,4 +103,3 @@ def getUserHistory(user_id):
         
         top_five_hotel_in_city.append(dic_hotel_data) # adding hotel to top_fiv
     return {"city":most_searched_location.location,"hotels":top_five_hotel_in_city}
-       # print(temp)

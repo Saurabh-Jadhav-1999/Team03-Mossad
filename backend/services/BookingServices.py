@@ -95,14 +95,6 @@ def checkHotelAvailability(hotel_id, hotel, check_in_date, check_out_date, adult
             double_count_list.append(0)
             prim_count_lsit.append(0)
 
-    # print("*"*10)
-    # print("for hotel:",hotel_id)
-    # print("Economy room booking for all dates:",eco_count_list)
-    # print('exclusive room booking for all days:',exclu_count_list)
-    # print('double room booking for all days:',double_count_list)
-    # print("primium room booking for all days:", prim_count_lsit)
-    # print("*"*10)
-
     # check and add exclusive rooms to array
     if max(exclu_count_list) < hotel.exclusive_room_count and (adult_count+child_count)<=hotel.exclusive_room_capacity:
         availableRoomTypes.append("exclusive_room")
@@ -223,12 +215,9 @@ def addBooking(data, user, hotel):
         # create response to send 
         response = {
             "b_id": booking.b_id,
-            # "check_in_date": booking.check_in_date,
-            # "check_out_date": booking.check_out_date,
             "guest_count": booking.adult_count+booking.child_count,
             "total_cost": data['total_cost'],
             "room_type": room_type[0]
-            # "hotel_profile_picture": hotel.hotel_profile_picture
         }
         return response
     else:

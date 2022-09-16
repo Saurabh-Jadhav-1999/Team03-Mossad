@@ -74,17 +74,10 @@ def login():
 
 # basic testing route for heroku deployment
 @app.route("/", methods=["GET"])
-#@marshal_with(hotel_representation_for_review)
 def basicRoute():
-    # print("before token validation:",request.json)
     token_result = token_required(request)
-    # print(token_result)
     if  type(token_result)==dict({}) and "error" in token_result.keys():
         return token_result
-    # print("after token validation:",request.json) 
-
     # call the get search suggestion
     getUserHistory(request.json.get("user_id"), "Mumbai")
-
-
     return make_response("Application is running", 200)

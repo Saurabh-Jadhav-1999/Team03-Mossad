@@ -14,8 +14,6 @@ def token_required(request):
         # decoding the payload to fetch the stored details
         print("token",token)
         data = jwt.decode(token,app.config['SECRET_KEY'], algorithms=["HS256"])
-        # current_user = User.query.filter_by(email=data['email']).first()
-        # request.json.update({"email":current_user.email, "user_id":current_user.user_id})
         request.json.update({"email":data['email'], "user_id":data['user_id']})
         return request
     except Exception as e:
