@@ -20,6 +20,9 @@ export const SearchBar = () => {
          <Grid item >
           <DateSelector />
         </Grid>
+        <Grid item className={styles.arrowBox}>
+          <Box className={styles.arrow} src={arrow} component="img"/>
+        </Grid>
          <Grid item>
           <PersonSelector />
         </Grid>

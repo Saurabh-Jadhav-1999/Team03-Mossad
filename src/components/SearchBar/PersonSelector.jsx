@@ -2,9 +2,10 @@ import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
 import { useState } from "react";
-import styles from './PersonSelector.module.css'
+import styles from "./PersonSelector.module.css";
 import { useDispatch } from "react-redux";
 import { setAdultCount, setChildCount } from "../../slices/searchSlice";
+import arrow from '../../assets/images/ArrowImg.png'
 export const PersonSelector = () => {
   const [adult, setAdult] = useState(1);
   const [child, setChild] = useState(0);
@@ -13,14 +14,11 @@ export const PersonSelector = () => {
   function handleAdultChange(event) {
     dispatch(setAdultCount(event.target.value));
     setAdult(event.target.value);
-
-
   }
   function handleChildChange(event) {
     dispatch(setChildCount(event.target.value));
     setChild(event.target.value);
   }
-
 
   return (
     <Box className={styles.selectBox}>
@@ -33,7 +31,6 @@ export const PersonSelector = () => {
           label="Adult"
           onChange={handleAdultChange}
         >
-
           <MenuItem value={1}>1</MenuItem>
           <MenuItem value={2}>2</MenuItem>
           <MenuItem value={3}>3</MenuItem>
@@ -41,6 +38,12 @@ export const PersonSelector = () => {
           <MenuItem value={5}>5</MenuItem>
         </Select>
       </FormControl>
+      <Box
+              className={styles.arrow}
+              src={arrow}
+              component="img"
+              // style={{ zIndex: 99 }}
+            />
       <FormControl fullWidth className={styles.Inp}>
         <InputLabel id="demo-simple-select-label">Child</InputLabel>
         <Select

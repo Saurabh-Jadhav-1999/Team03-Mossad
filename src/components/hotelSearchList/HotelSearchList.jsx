@@ -1,7 +1,7 @@
 import { HotelSearchFilters } from "../hotelSearchFilters/HotelSearchFilters";
 import { HotelDetailsCard } from "../hotelDetailsCard/HotelDetailsCard";
-import { Stack } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
+import { Button, Stack } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
 import { Fragment, useEffect } from "react";
 import Loading from "../loader/Loader";
 import Typography from "@mui/material/Typography";
@@ -61,6 +61,7 @@ export const HotelSearchList = () => {
     if (filters.length !== 0) getFilteredArray();
     if (budgetFilters.length !== 0) getBudgetFilteredArray();
   }
+
 
   useEffect(() => {
     filterHandler();
