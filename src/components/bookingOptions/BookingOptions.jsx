@@ -28,7 +28,6 @@ import {
   finalBookNow,
 } from "./../../slices/bookNowSlice";
 import { ToastContainer, toast } from "react-toastify";
-
 import "react-toastify/dist/ReactToastify.css";
 
 export const BookingOptions = (props) => {
@@ -56,64 +55,53 @@ export const BookingOptions = (props) => {
 
     }
   }, [status1]);
+
   const notify1 = () => toast("Booking is in Progress   ");
   const notify2 = () => toast("Booking is done  ");
   const notify3 = () => toast("Booking is rejected ");
-  let totalcost = useSelector((state) => state.bookNow.totalCost);
+  const totalcost = useSelector((state) => state.bookNow.totalCost);
   const status = useSelector((state) => state.getHotelDetails.status);
-  // if(status=="succeeded"){
-  //   const facilities_price=useSelector(state=>state.getHotelDetails.hotelDetails.hotelfacalities[0]);
-  // }
-
- 
-
-//  const hotellist=useSelector(state=>state.search.hotellist);
-
   const hotelid = useSelector((state) => state.getHotelDetails.hotel_id);
   const checkin = useSelector((state) => state.search.checkIn);
   const checkout = useSelector((state) => state.search.checkOut);
   const adultcount = useSelector((state) => state.search.totalAdult);
   const childcount = useSelector((state) => state.search.totalChild);
-
- const lunch_per_person=useSelector(state=>state.bookNow.lunch_per_person_per_day);
- 
+  const lunch_per_person = useSelector(state => state.bookNow.lunch_per_person_per_day);
   const roomTypeCost = useSelector((state) => state.bookNow.room_type_cost);
-const diff=useSelector(state=>state.search.diff);
-const roomtype=useSelector(state=>state.bookNow.room_type);
+  const diff = useSelector(state => state.search.diff);
+  const roomtype = useSelector(state => state.bookNow.room_type);
 
-
-
-const features = [
-  {
-    id: 1,
-    name: "Allow to bring pet",
-    price: `$15`,
-    value:15,
-  },
-  {
-    id: 2,
-    name: "Lunch per person per day",
-    price: `$24`,
-    value: 24,
-  },
-  {
-    id: 3,
-    name: "Parking",
-    price: `$5`,
-    value: 5,
-  },
-  {
-    id: 4,
-    name: "Extra Pillow",
-    price: `Free`,
-    value: 0,
-  },
-];
+  const features = [
+    {
+      id: 1,
+      name: "Allow to bring pet",
+      price: `$15`,
+      value: 15,
+    },
+    {
+      id: 2,
+      name: "Lunch per person per day",
+      price: `$24`,
+      value: 24,
+    },
+    {
+      id: 3,
+      name: "Parking",
+      price: `$5`,
+      value: 5,
+    },
+    {
+      id: 4,
+      name: "Extra Pillow",
+      price: `Free`,
+      value: 0,
+    },
+  ];
 
   return (
     <Fragment>
-      {status == "loading"  && setTimeout(() => {
-        
+      {status == "loading" && setTimeout(() => {
+
       }, 5000) ? (
         <p></p>
       ) : (
@@ -144,15 +132,6 @@ const features = [
                 >
                   /night
                 </Typography>
-
-                {/* Show offer tag if the offer field is in hotellist */}
-
-                {/* <Typography
-                  component={"span"}
-                  className={styles.discountedRoomPrice}
-                >
-                  $576
-                </Typography> */}
               </span>
               <Grid item>
                 <Button
@@ -164,7 +143,7 @@ const features = [
                   10% OFF
                 </Button>
               </Grid>
-            </Grid>
+            </Grid >
             <hr className={styles.divider} />
             <Grid item xs={12}>
               <Stack direction={"row"} justifyContent={"space-between"}>
@@ -207,13 +186,13 @@ const features = [
               <Stack direction={"row"} gap={2}>
                 <Box sx={{ width: "40%" }}>
                   <FormControl fullWidth size="small">
-                    <InputLabel id="label-adult">Adults</InputLabel>
+                    <InputLabel id="label-adult" >Adults</InputLabel>
                     <Select
                       labelId="label-adult"
                       label="Adult"
                       defaultValue={adultcount}
+                      style={{ backgroundColor: "#F4F5F7" }}
                       onChange={(e) => {
-
                         dispatch(setAdultCount(e.target.value));
                       }}
                     >
@@ -231,6 +210,7 @@ const features = [
                       labelId="label-check-out"
                       label="Children"
                       defaultValue={childcount}
+                      style={{ backgroundColor: "#F4F5F7" }}
                       onChange={(e) => {
 
                         dispatch(setChildCount(e.target.value));
@@ -281,14 +261,14 @@ const features = [
                                     break;
                                   case 2:
                                     if (e.target.checked) {
-                                      const lunchprice=e.target.value;
+                                      const lunchprice = e.target.value;
                                       dispatch(
-                                        setLunchPerPersonPerDay({lunchprice,diff,adultcount,childcount})
+                                        setLunchPerPersonPerDay({ lunchprice, diff, adultcount, childcount })
                                       );
                                     } else if (!e.target.checked) {
                                       dispatch(
                                         unsetLunchPerPersonPerDay(
-                                         lunch_per_person
+                                          lunch_per_person
                                         )
                                       );
                                     }
@@ -359,14 +339,14 @@ const features = [
                 <ToastContainer />
               </Button>
             </Grid>
-          </Grid>
+          </Grid >
           <Grid item xs={12} className={styles.bookingNote}>
             <Typography sx={{ fontSize: "8%" }}>
               You will not get charged yet
             </Typography>
           </Grid>
-        </Paper>
+        </Paper >
       )}
-    </Fragment>
+    </Fragment >
   );
 };

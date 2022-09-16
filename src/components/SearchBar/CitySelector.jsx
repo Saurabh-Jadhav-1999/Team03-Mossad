@@ -1,5 +1,5 @@
 import { Autocomplete, TextField } from "@mui/material";
-import { React } from "react";
+import { React} from "react";
 import styles from "./CitySelector.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCityList } from "./../../slices/searchSlice";
@@ -8,7 +8,6 @@ function CitySelector() {
   const dispatch = useDispatch();
   const city = useSelector(state => state.search.location);
   const citylist = useSelector((state) => state.search.citylist);
-
 
   return (
     <>

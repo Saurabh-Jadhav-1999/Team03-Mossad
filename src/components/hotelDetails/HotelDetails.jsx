@@ -62,19 +62,20 @@ export const HotelDetails = () => {
       Hotel Details
     </Link>,
   ];
+
   const status = useSelector((state) => state.getHotelDetails.status);
   return (
     <Fragment>
-      <Breadcrumb links={breadcrumbs} />
+      <Breadcrumb links={breadcrumbs} style={{ backgroundColor: "white" }} />
       <div className={styles.container}>
         {(status == "loading" && facilities!==[]) ?  (
           <div>
             <Loading />
             <Typography
               variant="h5"
-              style={{ fontFamily: "inter", marginLeft: "37vw" }}
+              style={{ fontFamily: "inter", textAlign: "center", margin: "10vh auto" }}
             >
-              Wait a moment, We are working
+              Details are on the way !
             </Typography>
           </div>
         ) : (

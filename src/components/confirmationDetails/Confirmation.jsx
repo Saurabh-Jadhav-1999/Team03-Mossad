@@ -14,11 +14,21 @@ const Confirmation = (props) => {
   }
 
   const bookingdetails = useSelector((state) => state.bookNow.finalbooking);
-  const hoteldetails=useSelector(state=>state.getHotelDetails.hotelDetails);
+  const hoteldetails = useSelector(state => state.getHotelDetails.hotelDetails);
   const checkin = useSelector((state) => state.search.checkIn);
   const checkout = useSelector((state) => state.search.checkOut);
   const roomtype = useSelector((state) => state.bookNow.room_type);
   const status = useSelector((state) => state.bookNow.status);
+
+  const formatDate = () => {
+    const checkIn = moment(new Date(checkin)).format('MMMM DD')
+    const checkOut = moment(new Date(checkout)).format('MMMM DD')
+    const reservationCinYear = moment(new Date(checkin)).format('YYYY')
+    const reservationCoutYear = moment(new Date(checkout)).format('YYYY')
+
+    return (reservationCinYear === reservationCoutYear) ? (checkIn + " - " + checkOut + " " + reservationCinYear) : checkIn + " " + reservationCinYear + " - " + checkOut + " " + reservationCoutYear
+  }
+
   let room_type = "";
   switch (roomtype) {
     case "double_room":
@@ -33,15 +43,9 @@ const Confirmation = (props) => {
     case "premium_room":
       room_type = "Premium Room";
       break;
-      default:
-        break;
+    default:
+      break;
   }
-  const formatDate = () => {
-    const checkIn = moment(new Date(checkin)).format("MMMM DD");
-    const checkOut = moment(new Date(checkout)).format("MMMM DD");
-    const reservationYear = moment(new Date(checkin)).format("YYYY");
-    return checkIn + " - " + checkOut + " " + reservationYear;
-  };
 
   const breadcrumbs = [
     <Link
@@ -124,16 +128,16 @@ const Confirmation = (props) => {
               fontSize="13px"
               className={`${styles.typo3}`}
             >
-             
+
               <span className={`${styles.hotelrating}`}>
-              <StarIcon sx={{ color: "#ff9c09" }} />
+                <StarIcon sx={{ color: "#ff9c09" }} />
                 <span style={{ color: "black", marginRight: "6px" }}>
-               
+
                   {hoteldetails.rating}
                 </span>{" "}
                 ({hoteldetails.total_reviews} reviews)
               </span>
-         
+
             </Typography>
             <Typography className={`${styles.typo5}`}>
               {1} {room_type}
@@ -157,7 +161,7 @@ const Confirmation = (props) => {
                   className={`${styles.gridcontainer1}`}
                 >
                   <Grid item lg={12} sm={4}>
-                    <Grid item lg={4} sm={4} className={`${styles.griditem}`}>
+                    <Grid item lg={4} sm={4} className={`${styles.griditem}`} >
                       {" "}
                       <Box className={`${styles.box1}`}>
                         <div className={`${styles.div5}`}>Dates</div>
@@ -167,7 +171,8 @@ const Confirmation = (props) => {
                         {" "}
                         <div className={`${styles.div7}`}>Travelers</div>
                         <div className={`${styles.div8}`}>
-                          {bookingdetails.guest_count} Passengers
+                          {bookingdetails.guest_count}
+                          {bookingdetails.guest_count > 1 ? ' Passengers' : ' Passenger'}
                         </div>
                       </Box>
                     </Grid>
@@ -211,7 +216,7 @@ const Confirmation = (props) => {
                     <img
                       className={`${styles.hotelimg}`}
                       src={hoteldetails.hotel_profile_picture}
-                      height="510px"
+                      height="480x"
                       width="750px"
                       alt=""
                     />

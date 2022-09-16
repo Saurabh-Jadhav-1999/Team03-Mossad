@@ -24,7 +24,7 @@ const Room = (props) => {
   dispatch(setDiffBetDays(parseInt(Difference_In_Days)));
 
   return (
-    <Paper elevation={3} className={styles.roomBox} component="div">
+    <Paper elevation={0} className={styles.roomBox} component="div">
       <Box className={styles.leftDiv}>
         <Typography className={styles.boldHeading}>{props.name}</Typography>
         <Typography className={styles.offerCondition} component={"p"}>

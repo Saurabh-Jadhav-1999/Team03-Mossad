@@ -5,41 +5,58 @@ import { useSelector } from "react-redux";
 import { Fragment, useEffect } from "react";
 import Loading from "../loader/Loader";
 import Typography from "@mui/material/Typography";
-import { useState } from "react";
-import styles from "./ViewAllButton.module.css";
-import { Box } from "@mui/system";
-import loadingIcon from "../../assets/images/loadingIcon.png";
+import { setFilteredHotels, clearFilteredHotels } from "../../slices/searchSlice";
+
 export const HotelSearchList = () => {
+
+  const dispatch = useDispatch();
   const hotelList = useSelector((state) => state.search.hotellist);
-  const filters = useSelector((state) => state.search.filters);
-  const [hotelDetailedList, setHotelDetailedList] = useState([]);
-  const [showMore, setshowMore] = useState(true);
-  const [displayList, setDisplayList] = useState([]);
-  const filterVal = "no_prepayment";
+  const filters = useSelector((state) => state.search.filters)
+  const budgetFilters = useSelector((state) => state.search.budgetFilters)
+  const filteredHotels = useSelector((state) => state.search.filteredHotels)
+
+  const areFiltersAvailable = (arr) => {
+    const value = (filters.filter((filter => arr.hotelfacalities[0]?.[filter]))).length;
+    return (value === filters.length) ? true : false;
+  }
+
+  const getFilteredArray = () => {
+    const arr = (budgetFilters.length !== 0 ? filteredHotels : hotelList).filter((item => areFiltersAvailable(item)))
+    dispatch(setFilteredHotels(arr))
+  }
+
+  const areBudgetFiltersAvailable = (arr) => {
+
+    let rates = []
+    let discountedRooms = (arr['discounted_room_type']).map((val => val))
+    let availableRooms = (arr['available_room_types']).map((val => val))
+    availableRooms.push(...discountedRooms)
+
+    let rooms = availableRooms.map(room => room)
+    for (let a in rooms) {
+      rooms[a] += "_rate"
+      rates.push(parseInt(arr[rooms[a]]))
+    }
+
+    let minValue = Math.min(...rates);
+    return (minValue >= budgetFilters[0] && minValue <= budgetFilters[1]);
+  }
+
+  const getBudgetFilteredArray = () => {
+    console.log("hotels filtered are:", filteredHotels);
+    const arr = (filters.length !== 0 ? filteredHotels : hotelList).filter((item => areBudgetFiltersAvailable(item)))
+    dispatch(setFilteredHotels(arr))
+  }
+
+  const filterHandler = () => {
+    if (filters.length !== 0) getFilteredArray();
+    if (budgetFilters.length !== 0) getBudgetFilteredArray();
+  }
 
 
   useEffect(() => {
-    setHotelDetailedList(hotelList);
-    const firstThree = hotelList.map((item, index) => {
-      if (index < 3) {
-        return <HotelDetailsCard key={item.hotel_id} details={item} />;
-      }
-    });
-    if(hotelList.leng<3)
-    setshowMore(false);
-    setDisplayList(firstThree);
-
-  }, [hotelList]);
-
- 
-
-  function showMoreHandler() {
-    const allList = hotelList.map((item) => (
-      <HotelDetailsCard key={item.hotel_id} details={item} />
-    ));
-    setDisplayList(allList);
-    setshowMore(false);
-  }
+    filterHandler();
+  }, [filters, budgetFilters])
 
   const status = useSelector((state) => state.search.status);
   return (
@@ -47,50 +64,29 @@ export const HotelSearchList = () => {
       <Stack direction={"row"} spacing={1} sx={{ marginTop: "40px" }}>
         <HotelSearchFilters />
         <Stack direction={"column"} spacing={2}>
-          {status === "rejected" ? (
-            <div
-              style={{
-                marginLeft: "20vw",
-                display: "grid",
-                justifyContent: "center",
-              }}
-            >
-              <Typography
-                variant="h5"
-                style={{ fontFamily: "inter", marginLeft: "0px" }}
-              >
-                Hotels not found :(
-              </Typography>
-              <Typography variant="h5" style={{ fontFamily: "inter" }}>
-                Please change your search details!
-              </Typography>
-            </div>
-          ) : status == "loading" ? (
-            <div style={{ marginLeft: "20vw" }}>
-              <Loading />
-              <Typography variant="h5" style={{ fontFamily: "inter" }}>
-                Wait a moment, We are working
-              </Typography>
-            </div>
-          ) : (
-            <>
-              {displayList}
-              {showMore && (
-                <Box className={styles.viewAllBtn}>
-                  <Button
-                    className={styles.Btn}
-                    // onClick={() => setshowMore(false)}
-                    onClick={showMoreHandler}
-                  >
-                    <img src={loadingIcon} className={styles.btnIcon} />
-                    View All
-                  </Button>
-                </Box>
-              )}
-            </>
-          )}
-        </Stack>
-      </Stack>
-    </Fragment>
+          {
+            status === "rejected" ?
+              (<div style={{ marginLeft: "20vw", display: "grid", justifyContent: "center" }}>
+                <Typography variant="h5" style={{ fontFamily: "inter", marginLeft: "0px" }}>    Hotels not found ! </Typography>
+                <Typography variant="h5" style={{ fontFamily: "inter", }}> Please update your search details.</Typography>
+              </div>) : (
+                status === "loading" ? (
+                  <div style={{ marginLeft: "20vw" }}>
+                    <Loading />
+                    <Typography variant="h5" style={{ fontFamily: "inter", textAlign: "center", margin: "10vh -10vh" }}>Wait a moment, we are finding the best hotels for you!</Typography>
+                  </div>
+                ) : (
+                  (
+                    filters.length > 0 || budgetFilters.length > 0 ? (
+                      filteredHotels.map((item => (<HotelDetailsCard key={item.hotel_id} details={item} />)))
+                    ) : (
+                      hotelList.map((item) => (<HotelDetailsCard key={item.hotel_id} details={item} />))
+                    )
+                  )
+                ))
+          }
+        </Stack >
+      </Stack >
+    </Fragment >
   );
 };

@@ -15,14 +15,16 @@ const initialState = {
   totalAdult: 1,
   totalChild: 0,
   filters: [],
-  diff:0,
+  budgetFilters: [],
+  filteredHotels: [],
+  diff: 0,
 };
 /*Api call for fetching the hotel list of a particular location*/
 export const fetchHotelList = createAsyncThunk(
   "searchHotel/fetchHotelList",
   async ({ location, checkIn, checkOut, adultcount, childcount }, thunkAPI) => {
     try {
-    
+
       const config = {
         headers: {
           "x-auth-token": token,
@@ -98,10 +100,10 @@ export const searchSlice = createSlice({
       state.checkOut = action.payload;
     },
     setAdultCount: (state = initialState, action) => {
-        
-        state.totalAdult=action.payload
-      
-    
+
+      state.totalAdult = action.payload
+
+
     },
     setChildCount: (state = initialState, action) => {
       state.totalChild = action.payload;
@@ -110,14 +112,27 @@ export const searchSlice = createSlice({
       state.filters.push(action.payload);
     },
     unSetFilters: (state = initialState, action) => {
-      state.filters.pop(action.payload);
+      const index = state.filters.indexOf(action.payload);
+      if (index > -1) state.filters.splice(index, 1);
+    },
+    setBudgetFilters: (state = initialState, action) => {
+      state.budgetFilters = action.payload;
+    },
+    unSetBudgetFilters: (state = initialState) => {
+      state.budgetFilters = []
+    },
+    setFilteredHotels: (state = initialState, action) => {
+      state.filteredHotels = action.payload;
+    },
+    clearFilteredHotels: (state = initialState) => {
+      state.filteredHotels = []
     },
     setDiffBetDays: (state = initialState, action) => {
-      state.diff=parseInt(action.payload)
+      state.diff = parseInt(action.payload)
 
     },
   },
-  /* Defining actions for the status of promise returned by the api call*/ 
+  /* Defining actions for the status of promise returned by the api call*/
   extraReducers: {
     [fetchHotelList.pending]: (state, action) => {
       state.status = "loading";
@@ -150,8 +165,13 @@ export const searchSlice = createSlice({
     },
   },
 });
+
 /*Exporting actions of the slice*/
-export const { setLocation, setCheckIn, setCheckOut, setAdultCount,
-  setChildCount, setFilters, unSetFilters,setDiffBetDays } = searchSlice.actions;
+export const {
+  setLocation, setCheckIn, setCheckOut, setAdultCount,
+  setChildCount, setFilters, unSetFilters, setBudgetFilters,
+  unSetBudgetFilters, setFilteredHotels, clearFilteredHotels, setDiffBetDays }
+  = searchSlice.actions;
+
 export default searchSlice.reducer;
   

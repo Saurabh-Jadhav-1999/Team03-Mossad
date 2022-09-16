@@ -13,10 +13,8 @@ import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
 import FireExtinguisherOutlinedIcon from '@mui/icons-material/FireExtinguisherOutlined';
 import RoomServiceOutlinedIcon from '@mui/icons-material/RoomServiceOutlined';
 import CoronavirusOutlinedIcon from '@mui/icons-material/CoronavirusOutlined';
-import { useSelector } from "react-redux";
 
 const Amenities = () => {
-  const featuresList=useSelector(state=>state.getHotelDetails.hotelDetails.hotelfacalities) 
 
   return (
     <Box className={styles.amenitiesDiv}>
@@ -25,7 +23,7 @@ const Amenities = () => {
         <Grid item xl={4}  >
           <Typography className={styles.aminitiesRow}>
             <HotelOutlinedIcon className={styles.iconStyle} />
-            Kins bed
+            Kings bed
           </Typography>
           <Typography className={styles.aminitiesRow}>
             <WineBarOutlinedIcon className={styles.iconStyle} />
@@ -82,8 +80,3 @@ const Amenities = () => {
 };
 
 export default Amenities;
-
-// <Typography className={styles.aminitiesRow}>
-//             <BathtubOutlinedIcon className={styles.iconStyle} />
-//             Kins bed
-//           </Typography>
