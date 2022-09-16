@@ -3,9 +3,12 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import style from "./SearchButton.module.css";
 import { useSelector, useDispatch } from "react-redux";
+import { fetchHotelList } from "../../slices/searchSlice";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { fetchHotelList } from "./../../slices/searchSlice";
-import { ToastContainer } from "react-toastify";
-import { toast, Slide } from "react-toastify";
+
+
 
 // DO NOT REMOVE THIS COMMENTS, UPDATING THIS COMPONENT
 // import 'react-toastify/dist/ReactToastify.css';

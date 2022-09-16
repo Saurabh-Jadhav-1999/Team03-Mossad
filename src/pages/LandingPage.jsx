@@ -17,6 +17,7 @@ export const LandingPage = () => {
     <>
       <div>
      {/* <TravelYouPassion/> */}
+     
         <LandingHotelPicture />
         <div style={{ position: "relative", marginTop: "5vh !important" }}>
           <SuggestedHotels />
