@@ -1,5 +1,5 @@
 from backend import app, db
-from backend.services.HistoryServices import validateHistoryData, addHistory, getHistory
+from backend.services.HistoryServices import validateHistoryData, addHistory, getHistory, getUserHistory
 from backend.models.HotelModel import searchHistory_representation, searchHistory_representation_with_hotel
 from backend.auth.authToken import token_required
 from flask import make_response, request
@@ -37,6 +37,20 @@ class HandleHistory(Resource):
             return make_response(validateData.errors, 400) # return error if validation fails
         history = addHistory(request.json) # adding new history
         return showHistory(history), 200
+
+# class for handling topfivesuggested hotel api
+class TopFiveSuggestionsForUser(Resource):
+   def get(self):
+        token_result = token_required(request)
+    # print(token_result)
+        if  type(token_result)==dict({}) and "error" in token_result.keys():
+          return token_result
+
+    # call the get search suggestion
+        result=getUserHistory(request.json.get("user_id"))
+        return make_response(result, 200)
+
+
 
 app.route("/history", methods=['POST'])
 def historyAdding():
