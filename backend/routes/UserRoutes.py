@@ -7,8 +7,11 @@ from backend.services.UserServices import isUserExists, addNewUser, validateLogi
 import json
 import jwt
 from backend.auth.authToken import token_required
-
+from backend.config.Swagger import template,swagger_config
+from flasgger.utils import swag_from
+from flasgger import Swagger
 from backend.services.HistoryServices import getUserHistory
+
 
 # post request parser
 post_parser = reqparse.RequestParser()
@@ -37,8 +40,10 @@ class UserHandler(Resource):
         result = addNewUser(args) # adding new user
         return result, 200
 
+Swagger(app, config= swagger_config, template=template)
 
 @app.route("/login", methods=["POST"])
+@swag_from('/backend/docs/user.yml')
 def login():
     data = request.json
     validationResult = validateLoginData(data)

@@ -13,6 +13,8 @@ import datetime
 from backend.auth.authToken import token_required
 from backend.services.HistoryServices import validateHistoryData, validateHistoryDataWithHotel, addHistory
 from backend.services.UserServices import getCurrentDate
+# from backend.config.Swagger import template,swagger_config
+# from flasgger import Swagger,swag_from
 
 
 # app.route("/hotel", methods=['POST'])
@@ -49,6 +51,8 @@ class HotelHandler(Resource):
 city_representation = {
     "cities":fields.List(fields.String)
 }
+
+# Swagger(app, config= swagger_config, template=template)
 
 @marshal_with(city_representation)
 @app.route("/getCityList", methods=["GET"])

@@ -1,0 +1,38 @@
+summary: "User Log in"
+decription: "This is API for User Login"
+produces:
+- "application/json"
+
+
+
+---
+
+tags:
+  - Authentication
+parameters:
+  - name: body
+    description: The body should contain the user credentials
+    in: body
+    required: true
+    schema:
+      type: object
+      required:
+        - "email"
+        - "password"
+      properties:
+        email:
+          type: "email"
+          example: "user@gmail.com"
+        password:
+          type: "string"
+          format: "password"
+          example: "*******"
+responses:
+  200:
+  description: Succesfully Logged in
+
+  400:
+  description: Log in failed
+
+  401:  
+  description: Incorrect credentials

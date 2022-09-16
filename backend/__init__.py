@@ -2,8 +2,12 @@ from flask import Flask, abort, request
 from flask_sqlalchemy import SQLAlchemy
 from flask_restful import  reqparse, Resource, Api, marshal_with
 from flask_cors import CORS
+from flasgger import Swagger
+from backend.config.Swagger import template,swagger_config
+
 
 app = Flask(__name__)
+
 # app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://efcdpwyl:R05Qw_8OiIW0hG_um1xr4blSG4-ar0Bx@rosie.db.elephantsql.com/efcdpwyl"
 
 # db url for testing
@@ -12,12 +16,23 @@ app = Flask(__name__)
 # final testing with new facality model and updated code testing
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://nlxvhwkd:8tBh0PJcR6C5U1-o2XyCC89hEh4DQGnv@rosie.db.elephantsql.com/nlxvhwkd"
 
+
+#config swagger
+Swagger = {
+    'title': "Hotel Booking API",
+    'uiversion': 3
+}
+
+
 # allow origins
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
 app.config['SECRET_KEY'] = '578c61c660c50e32f4de9edcbbf4c191'
 
+# Swagger(app, config= swagger_config, template=template)
+
+#swagger = Swagger(app)
 api = Api(app)
 
 try:
@@ -47,5 +62,13 @@ try:
 except Exception as e:
     print(e)
     print('cannot start application, could not connect to database')
+
+
+
+# config swagger
+# SWAGGER = {
+#     'title':"Hotel Booking API",
+#     'uiversion':3
+# }
 
 
