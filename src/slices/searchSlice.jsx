@@ -124,7 +124,7 @@ export const searchSlice = createSlice({
     [fetchCityList.rejected]: (state, action) => {
       state.status = "rejected";
 
-      state.citylist = ["City", "Not", " Found"];
+      state.citylist = ["City not found"];
     },
     [fetchCityList.fulfilled]: (state, action) => {
       state.status = "succeeded";
