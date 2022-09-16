@@ -1,3 +1,4 @@
+// Static Component for Landing Page
 import { Grid, Typography } from '@mui/material';
 import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
@@ -48,12 +49,12 @@ export const FeaturedDestinations = () => {
                             <ImageListItemBar
                                 title={item.title}
                                 subtitle={item.author}
-                                sx={{borderRadius:'10px', width:'97%'}}
+                                sx={{ borderRadius: '10px', width: '97%' }}
                                 actionIcon={
                                     <IconButton
                                         sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
                                         aria-label={`info about ${item.title}`}
-                                    >   
+                                    >
                                     </IconButton>
                                 }
                             />
@@ -65,6 +66,7 @@ export const FeaturedDestinations = () => {
     );
 }
 
+//Image Data to be rendered on screen
 const itemData = [
     {
         img: 'https://images.unsplash.com/photo-1444723121867-7a241cacace9?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',

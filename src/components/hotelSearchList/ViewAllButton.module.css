@@ -1,0 +1,28 @@
+.viewAllBtn {
+  /* background-color: aqua !important; */
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin: 2vh 0 6vh 0 !important;
+
+}
+
+.Btn {
+  font-family: "Inter" !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 2.5vh !important;
+  /* line-height: 36px !important; */
+  color: #000000 !important;
+  background: #fafafc !important;
+  border: 1px solid #9f9fa4 !important;
+  border-radius: 30px !important;
+  padding:0.5vw 2vw !important;
+  text-transform: none !important;
+}
+
+.btnIcon{
+  height: 3vh !important;
+  width: 3vh !important;
+  margin: 1vh !important;
+}

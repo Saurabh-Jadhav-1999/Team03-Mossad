@@ -11,19 +11,14 @@ import CoronavirusOutlinedIcon from "@mui/icons-material/CoronavirusOutlined";
 import { useSelector } from "react-redux";
 
 const HotelFeatures = () => {
-  const featuresList=useSelector(state=>state.getHotelDetails.hotelDetails.hotelfacalities) 
+  const featuresList = useSelector(state => state.getHotelDetails.hotelDetails.hotelfacalities)
 
-  const features=featuresList[0];
-  
+  const features = featuresList[0];
+
   return (
     <Box >
       <Typography className={styles.heading}>Hotel Features</Typography>
       <Stack direction={"row"} spacing={1} >
-        {/* {features.free_wifi?(
-          <Typography component={"span"} className={styles.features} >
-          <WifiIcon className={styles.iconStyle} /> Wi-fi
-        </Typography>
-        ):""} */}
         <Typography component={"span"} className={styles.features} >
           <WifiIcon className={styles.iconStyle} /> Wi-fi
         </Typography>

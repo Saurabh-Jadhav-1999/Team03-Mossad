@@ -1,29 +1,33 @@
 .facilityDiv {
-  /* flex: 1; */
+ 
   width: 37vw !important;
+  height: 50% !important;
   display: flex;
   flex-direction: column !important;
   align-items: flex-start !important;
   justify-content: space-between !important;
   font-family: "Inter" !important;
   font-style: normal !important;
+  padding-bottom: 2px !important;
 }
 
 .icon {
-  color: #929090;
-  margin-right: 15px;
-  font-size: 25px;
+  color: #929090 !important;
+  margin-right: 15px !important;
+  font-size: 20px !important;
   font-family: "Inter" !important;
   font-style: normal !important;
 } 
 
 .iconDiv {
-  padding: 0.7vh 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-left: 2vw !important;
   font-size: 15px !important;
+  padding: 0.7vh 0;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  margin-left: 2vw !important;
+  font-size: 2vh !important;
+  max-width: 22vw !important;
 }
 
 .btnDiv {
@@ -60,10 +64,10 @@
 
 .btnPrice span {
   font-weight: 700 !important;
-  font-size: 20px !important;
+  font-size: 3vh !important;
 }
 .capacity {
-  font-size: 15px !important;
+  font-size: 2vh !important;
   color: #9b9a9a;
   margin: 10px 10px 0 10px !important;
   font-weight: 600 !important;

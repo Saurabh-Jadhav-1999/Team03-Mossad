@@ -9,46 +9,46 @@ import { Stack } from "@mui/material";
 import moment from "moment/moment";
 
 const CityDetails = (props) => {
-
   const dateFormat = (date) => {
-    return moment(new Date(date)).format('DD/MM/YYYY')
-  }
+    return moment(new Date(date)).format("DD/MM/YYYY");
+  };
   return (
     <Box className={styles.cityDiv}>
-      <Typography className={styles.cityName} component="h1">
+      <Typography component="h1">
         {props.item.state},{props.item.country}
-        {/* {props.item.cityName} */}
       </Typography>
-      <Typography className={styles.cityName} component="h3">
+      <Typography component="h3">
         {props.item.hotel_name}
-
-        {/* {props.item.hotelName} */}
       </Typography>
-      <Stack spacing={2} justifyContent="center" alignContent="center" direction={'row'}>
+      <Stack
+        spacing={2}
+        justifyContent="center"
+        alignContent="center"
+        direction={"row"}
+      >
         <Typography component={"div"} className={iconStyles.iconDiv}>
-          <Typography component={"div"}>
-            <StarIcon className={styles.starIcon} />
-          </Typography>
-          <Typography className={styles.boldRating} component="div">
+          <StarIcon className={styles.starIcon} fontSize="xsmall" />
+          <Typography className={styles.boldRating} component="span">
             {props.item.rating}
           </Typography>
-          <Typography className={styles.total_reviews}>({props.item.total_reviews} reviews)</Typography>
+          <Typography className={styles.total_reviews}>
+            ({props.item.total_reviews} reviews)
+          </Typography>
         </Typography>
       </Stack>
 
       <Grid container>
-        <Grid item xl={6} className={iconStyles.iconDiv}>
-          <LocationOnTwoToneIcon className={styles.icon} />
+      
+        <Grid item xl={5} className={iconStyles.iconDiv}>
+          <LocationOnTwoToneIcon className={iconStyles.icon} />
           {props.item.address}
-
-          {/* {props.item.location} */}
         </Grid>
-        <Grid item xl={6} className={iconStyles.iconDiv}>
-          <DateRangeOutlinedIcon className={styles.icon} />
+        <Grid item xl={5} className={iconStyles.iconDiv}>
+          <DateRangeOutlinedIcon className={iconStyles.icon} />
           {dateFormat(props.checkInDate)} - {dateFormat(props.checkOutDate)}
         </Grid>
       </Grid>
-    </Box >
+    </Box>
   );
 };
 

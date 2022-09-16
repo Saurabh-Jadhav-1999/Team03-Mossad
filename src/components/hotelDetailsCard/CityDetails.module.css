@@ -3,50 +3,70 @@
   flex-direction: column !important;
   align-items: flex-start !important;
   justify-content: space-between !important;
-  width: 37vw !important;
+  width: 40vw !important;
   height: 50% !important;
 }
 
 .cityDiv h1 {
   font-weight: 700 !important;
-  font-size: 40px !important;
+  font-size: 2vw !important;
   margin-left: 2vw !important;
-  margin-top: 2vh;
+  margin-top: 2vh !important;
 }
 
 .cityDiv h3 {
-  font-weight: 700;
-  font-size: 24px;
+  font-weight: 700 !important;
+  font-size: 1.4vw !important;
   margin-left: 2vw !important;
-  margin-top: 2vh;
-
+  margin-top: 2vh !important;
 }
 
 .boldRating {
   font-weight: 600 !important;
-  align-self: center;
+  margin-left: 0.4vw !important;
 }
 
 .cityName {
-  font-weight: "700";
-  font-size: "40px";
+  font-weight: "700"!important;
+  /* font-size: 40vw!important; */
+  width: 35vw!important;
+}
+
+.ratingDiv {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  max-width: 30vw!important;
 }
 
 .icon {
-  color: #929090;
-  margin-right: 15px;
-  font-size: 25px;
+  color: #929090 !important;
+  margin-right: 15px !important;
+  font-size: 25px !important;
 }
 
 .starIcon {
-  color: #ff9c09;
+  color: #ff9c09 !important;
 }
 
 .total_reviews {
-  font-family: 'Inter';
+  font-family: "Inter";
   font-style: normal;
   font-weight: 600;
   font-size: 13px;
   line-height: 16px;
   color: #878686;
+  margin-left: 0.4vw !important;
+}
+
+.iconDiv{
+  font-size: 15px !important;
+  padding: 0.7vh 0;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  margin-left: 2vw !important;
+  font-size: 15px !important;
+  max-width: 22vw !important;
 }
