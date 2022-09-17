@@ -136,6 +136,10 @@ def getHotels():
     # add validation check_in_date >= current date and check_out_date >= current_date
     if data['check_out_date'] < data['check_in_date']:
         return {"error": "invalid check_in, check_out date"}, 400
+
+    # add validation for cannot book hotel before 90 days
+    if data['check_in_date'] > getCurrentDate()+timedelta(days=90) or data['check_out_date'] > getCurrentDate()+timedelta(days=90):
+        return make_response({"error":"check_in_date or check_out_date is more than 90 days"}, 400)
     
     validationResult = validateGetHotels(data) # validate all other fields
 
