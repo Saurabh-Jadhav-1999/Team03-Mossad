@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchHotelList } from "../../slices/searchSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { fetchHotelList } from "./../../slices/searchSlice";
+
 
 
 
