@@ -40,7 +40,7 @@ export const RoomAndPrice = (props) => {
 
  
 
-  const discountedRooms = roomtypes.map((item) => {
+  let discountedRooms = roomtypes.map((item) => {
     if (discounted_room_type.includes(item.room_type)) {
       return {
         ...item,
@@ -48,11 +48,26 @@ export const RoomAndPrice = (props) => {
         old_room_rate: item.room_rate,
       };
     }
+    else{
+
+    }
     return item;
   });
 
-
-  return (
+ let newDiscountedRoom=[];
+ let nameIndex=[];
+ discountedRooms.map((item)=>{
+   if((item.hasOwnProperty("old_room_rate"))===true){
+    newDiscountedRoom.push(item);
+   }
+   else{
+         nameIndex.push(item);
+   }
+   
+ })
+let tmp=[...newDiscountedRoom,...nameIndex];
+discountedRooms=tmp;
+ return (
     <Box className={styles.mainContainer}>
       <Typography className={styles.heading} component="span">
         Select Room

@@ -2,7 +2,7 @@ import { Box, Paper, Typography } from "@material-ui/core";
 import styles from "./Room.module.css";
 import React from "react";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
-import { Grid } from "@mui/material";
+import { Grid,Button } from "@mui/material";
 import { setDiffBetDays } from "../../slices/searchSlice";
 import { setRoomType, setRoomTypeCost } from "../../slices/bookNowSlice";
 import { useSelector, useDispatch } from "react-redux";
@@ -48,10 +48,19 @@ const Room = (props) => {
         </Typography>
         {/* If discount is not 0 then only render the elements */
         props.discount !==0 &&props.basePrice!==undefined ? (
-          <>
+          <> 
             <Typography component={"span"} className={styles.saveAmt}>
              {
-             (props.offerRate)==0?<p>0</p>:(<p>Save ${props.basePrice - props.offerRate}</p>)}
+             (props.offerRate)==0?<p>0</p>:(<>
+             {/* <Button
+              variant="contained"
+              disabled
+              disableElevation
+              className={`${styles.labelDiscountPercentage}`}
+            >
+              10% OFF
+            </Button> */}
+            <p>Save ${props.basePrice - props.offerRate}</p></>)}
             </Typography>
             <Typography component={"span"} className={styles.offerCondition}>
               Amount before discount ${props.basePrice}/night

@@ -1,9 +1,5 @@
 .container {
-  /* margin: auto ; */
   width: 100vw !important;
-  
-  /* margin-left: -10vw; */
-  /* margin:0 !important; */
 }
 
 .container1 {
@@ -17,7 +13,7 @@
   margin-left: 10vw;
 }
 
-.divLabel1 {
+.getOffersLabel {
   color: white;
   margin-left: 4vw;
   font-family: Inter, sans-serif;
@@ -26,7 +22,7 @@
   line-height: 45px;
 }
 
-.div1 {
+.txtfldAndBtnContainer {
   display: flex;
   margin-left: 7vw;
   align-self: right;
@@ -37,9 +33,9 @@
 }
 
 .input1 {
-    width: 13vw !important;
+  width: 13vw !important;
   border-bottom: 0px !important;
-  /* border: 2px white solid !important; */
+
   padding: 7px;
   margin-top: 1% !important;
   margin-left: 2.5vw !important;
@@ -48,52 +44,39 @@
 .button1 {
   color: white !important;
   background-color: black !important;
-/* margin-top: -12.5% !important; */
-align-self: center;
+
+  align-self: center;
   margin-left: 42% !important;
-  /* padding: 13px; */
+
   width: 11vw;
   height: 7vh;
   border-radius: 8px !important;
 }
 
-.label1 {
+.subscribeLabel {
   font-family: Inter, sans-serif;
   font-style: bolder;
-  /* // fontWeight: 2000; */
+
   font-size: 11px;
   line-height: 24px;
 }
-.box1 {
+.topPane {
   z-index: 1;
   position: relative;
-  /* width: 100vw !important; */
-  /* margin-top: 10vh; */
-  /* margin-left: -3vw; */
-  /* margin-bottom: 0 !important; */
 }
-.box2 {
+.bottomPane {
   z-index: 99;
   max-width: 100%;
   height: 70vh !important;
-  /* margin:0 !important; */
-  margin-top:-5% !important;
-  /* margin:auto; */
-  /* margin-left: -10vw; */
-  /* width: max-wid */
-  /* width:auto; */
-  /* max-width: fit-content; */
-  /* margin-left: 15vw; */
+
+  margin-top: -5% !important;
+
   height: 30vh;
 }
 .gridcontainer1 {
-  /* margin-top: -10vh !important ; */
   margin-left: 12vw !important;
   width: auto !important;
-  /* padding: 0!important; */
 }
-
-
 
 .boximg {
   background-color: #eaeaeb;
@@ -108,21 +91,25 @@ align-self: center;
   color: grey;
   margin-top: 22px;
 }
-.box3 {
-    display: grid;
-    margin-top:22vh;
-    font-weight: bold !important;
-  }
-.box4,.box5,.box6{
-    width: 10vw !important;
+.hotelLogoAndDes {
+  display: grid;
+  margin-top: 22vh;
+  font-weight: bold !important;
+}
+.servicesBox,
+.supportBox,
+.businessBox {
+  width: 10vw !important;
   font-weight: bold !important;
   font-size: 20px;
   margin-top: 22vh;
   padding: 0% !important;
 }
 
-.div2 ,.div3,.div4{
-    width: 10vw;
+.servicesContainer,
+.supportContainer,
+.businessContainer {
+  width: 10vw;
   margin-top: 3vh;
   font-size: 12px;
   line-height: 20px;
@@ -131,32 +118,6 @@ align-self: center;
   padding: 0 !important;
 }
 
-/* .box5 {
-  font-weight: bolder;
-  font-size: 20px;
-} */
-
-/* .div3 {
-  margin-top: 3vh;
-  font-size: 12px;
-  line-height: 20px;
-  color: grey;
-  line-height: 26px;
-} */
-
-/* .box6 {
-  font-weight: bolder;
-  font-size: 20px;
-} */
-
-/* .div4 {
-  margin-top: 3vh;
-  font-size: 12px;
-   fontSpacing: 20px; 
-  color: grey;
-  line-height: 26px;
-}  */
-
-.div5 {
+.getOffersContainer {
   margin: 0;
 }

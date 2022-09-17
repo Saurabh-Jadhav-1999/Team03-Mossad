@@ -1,41 +1,41 @@
 .container {
   margin-bottom: 40vh;
-  /* margin: 2%; */
+
   background-color: #fafafc;
 }
 
-.div1 {
+.greetingContainer{
   margin-top: 2%;
   margin-bottom: 1.5%;
   margin-left: 2%;
   font-weight: bolder !important;
-  /* margin: auto !important; */
+
 }
 
-.div2 {
+.confirmMsgContainer{
   margin-bottom: 6vh;
   margin-left: 2%;
 }
 
-.typo1,
-.typo2 {
+.greeting,
+.confirmMsg {
   font-size: 100;
-  /* color: red; */
+
   font-weight: bold !important;
 }
 
-.typo3 {
+.ratingReviews {
   font-weight: bold !important;
   display: flex !important;
   justify-content: center;
-  /* justify-content: inline !important; */
+
 }
 
-.typo5 {
+.roomType {
   font-size: 20px;
   margin-left: 3% !important;
   font-weight: bold !important;
-  line-height: 2.2 !important;
+  line-height: 1.9 !important;
 }
 
 .div3 {
@@ -43,7 +43,7 @@
   margin-left: 5px;
 }
 
-.div4 {
+.leftPaneAndImageContainer {
   display: flex;
   margin-top: 2%;
 }
@@ -68,13 +68,13 @@
   line-height: 20px;
 }
 
-.div5 {
+.datesHeader {
   margin-left: 8%;
   margin-top: 5%;
   font-weight: bold;
 }
 
-.div6 {
+.dates {
   margin-left: 8%;
   color: grey;
   font-weight: bold;
@@ -85,19 +85,19 @@
   background-color: #f4f4f6;
   border-radius: 8px;
   font-size: 13px;
-  width: 60vw;
+  width: 42vw;
   height: 13vh;
   line-height: 20px;
   margin-left: 35px;
 }
 
-.div7 {
+.travelersHeader {
   margin-left: 8%;
   margin-top: 5%;
   font-weight: bold;
 }
 
-.div8 {
+.travelers{
   margin-left: 8%;
   margin-top: -8%;
   color: grey;
@@ -112,21 +112,17 @@
   align-self: center;
   align-content: center;
   height: 70%;
-  /* background-color:red; */
+
   background-color: #f4f4f6;
 
   border-radius: 17px;
 }
 
-.div9 {
+.reserveDetailsContainer {
   margin-left: 2%;
   margin-top: 13% !important;
   display: grid;
-  /* background-color: #f4f4f6; */
-  /* background-color: red; */
-  /* align-items: center !important;
-   */
-  /* margin-top: 2%; */
+
 }
 
 .box3 {
@@ -134,16 +130,16 @@
   margin-top: 4% !important;
 }
 
-.box4 {
+.reserveDetialsHeaderContainer {
   margin-left: 2%;
   margin-top: 10% !important;
 }
 
-.div10 {
+.reserveDetailsHeader {
   font-weight: bold;
   font-size: 30px;
   margin-left: -7%;
-  /* margin-top: 55% !important; */
+
 }
 
 .typo4 {
@@ -152,7 +148,7 @@
   margin-top: 10% !important;
 }
 
-.div11 {
+.bookingDetailsContainer {
   display: flex;
   margin-top: -6% !important;
   line-height: 5vh;
@@ -161,39 +157,38 @@
   font-size: 16px;
 }
 
-.div12 {
+.leftPane {
   color: grey;
   font-weight: bold;
 }
 
-.div13 {
+.rightPane {
   margin-left: 8vw;
   font-weight: bold;
 }
 
-.div14 {
+.imageContainer {
   margin-left: -60vw;
 }
 
 .button1 {
   color: white;
   background-color: #3c71ff;
-  margin-top: 3vh;
+  margin-top: 5vh !important;
   font-weight: bold !important;
   height: 60px;
   padding: 13px;
   width: 14%;
-  margin-left: 2% !important;
+  margin-left: 4% !important;
   border-radius: 40px !important;
 }
 
-.div16 {
+.hotelLocationContainer {
   margin: 2% !important;
 
-  /* color:red !important; */
 }
 
-.div17 {
+.ratingReviewsContainer {
   display: flex !important;
   justify-content: flex-start;
   margin-top: 3vh;
@@ -203,11 +198,12 @@
   margin-right: 4px;
   width:30px !important;
   height: 30px !important;
-  /* height: 2%; */
+
 }
 
 .hotelimg{
   border-radius: 30px;
+  max-width: 750px !important;
 }
 
 .hotelrating{

@@ -1,3 +1,4 @@
+//Confirmation Page
 import React, { Fragment } from "react";
 import styles from "./Confirmation.module.css";
 import { Box, Typography, Grid, Button } from "@mui/material";
@@ -8,11 +9,11 @@ import moment from "moment/moment";
 import Loading from "../loader/Loader";
 import StarIcon from "@mui/icons-material/Star";
 
-const Confirmation = (props) => {
+const Confirmation = () => {
   function navigate(path) {
     Navigate(path);
   }
-
+//Retrieved values from slices
   const bookingdetails = useSelector((state) => state.bookNow.finalbooking);
   const hoteldetails = useSelector(state => state.getHotelDetails.hotelDetails);
   const checkin = useSelector((state) => state.search.checkIn);
@@ -20,6 +21,8 @@ const Confirmation = (props) => {
   const roomtype = useSelector((state) => state.bookNow.room_type);
   const status = useSelector((state) => state.bookNow.status);
 
+  // Format Date as required on the Confirmation Page refer to: figma screen
+  // Ex. September 15 - September 22 2022
   const formatDate = () => {
     const checkIn = moment(new Date(checkin)).format('MMMM DD')
     const checkOut = moment(new Date(checkout)).format('MMMM DD')
@@ -28,7 +31,7 @@ const Confirmation = (props) => {
 
     return (reservationCinYear === reservationCoutYear) ? (checkIn + " - " + checkOut + " " + reservationCinYear) : checkIn + " " + reservationCinYear + " - " + checkOut + " " + reservationCoutYear
   }
-
+//Room type names set according to the roomtype variable
   let room_type = "";
   switch (roomtype) {
     case "double_room":
@@ -46,7 +49,7 @@ const Confirmation = (props) => {
     default:
       break;
   }
-
+//Breadcrumbs links for navigation
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -93,6 +96,7 @@ const Confirmation = (props) => {
 
   return (
     <Fragment>
+      {/* Loader condition*/}
       {status == "loading" ? (
         <div>
           <Loading />
@@ -106,27 +110,27 @@ const Confirmation = (props) => {
       ) : (
         <div className={`${styles.container}`}>
           <Breadcrumb links={breadcrumbs} />
-          <div className={`${styles.div1}`}>
-            <Typography variant="h5" className={`${styles.typo1}`}>
+          <div className={`${styles.greetingContainer}`}>
+            <Typography variant="h5" className={`${styles.greeting}`}>
               Congratulations!
             </Typography>
           </div>
-          <div className={`${styles.div2}`}>
+          <div className={`${styles.confirmMsgContainer}`}>
             {" "}
-            <Typography className={`${styles.typo2}`} variant="h3">
+            <Typography className={`${styles.confirmMsg}`} variant="h3">
               Your trip has been booked!
             </Typography>
           </div>
-          <div className={`${styles.div16}`}>
-            <Typography className={`${styles.typo2}`} variant="h4">
+          <div className={`${styles.hotelLocationContainer}`}>
+            <Typography className={`${styles.confirmMsg}`} variant="h4">
               The {hoteldetails.hotel_name} {hoteldetails.city} {hoteldetails.state}
             </Typography>
           </div>
-          <div className={`${styles.div17}`}>
+          <div className={`${styles.ratingReviewsContainer}`}>
             <Typography
               variant="subtitle1"
               fontSize="13px"
-              className={`${styles.typo3}`}
+              className={`${styles.ratingReviews}`}
             >
 
               <span className={`${styles.hotelrating}`}>
@@ -139,21 +143,14 @@ const Confirmation = (props) => {
               </span>
 
             </Typography>
-            <Typography className={`${styles.typo5}`}>
+            <Typography className={`${styles.roomType}`}>
               {1} {room_type}
             </Typography>
           </div>
           <div>
-            <div className={`${styles.div4}`}>
-              <Grid
-                container
-                spacing={4}
-                wrap="nowrap"
-                className={`${styles.gridcontainer1}`}
-              ></Grid>
-            </div>
+      
             <div>
-              <div className={`${styles.div4}`}>
+              <div className={`${styles.leftPaneAndImageContainer}`}>
                 <Grid
                   container
                   spacing={4}
@@ -164,24 +161,24 @@ const Confirmation = (props) => {
                     <Grid item lg={4} sm={4} className={`${styles.griditem}`} >
                       {" "}
                       <Box className={`${styles.box1}`}>
-                        <div className={`${styles.div5}`}>Dates</div>
-                        <div className={`${styles.div6}`}>{formatDate()}</div>
+                        <div className={`${styles.datesHeader}`}>Dates</div>
+                        <div className={`${styles.dates}`}>{formatDate()}</div>
                       </Box>
                       <Box className={`${styles.box2}`}>
                         {" "}
-                        <div className={`${styles.div7}`}>Travelers</div>
-                        <div className={`${styles.div8}`}>
+                        <div className={`${styles.travelersHeader}`}>Travelers</div>
+                        <div className={`${styles.travelers}`}>
                           {bookingdetails.guest_count}
                           {bookingdetails.guest_count > 1 ? ' Passengers' : ' Passenger'}
                         </div>
                       </Box>
                     </Grid>
                     <Grid item className={`${styles.griditem1}`}>
-                      <div className={`${styles.div9}`}>
+                      <div className={`${styles.reserveDetailsContainer}`}>
                         <div className={`${styles.box3}`}>
-                          <div className={`${styles.box4}`}>
+                          <div className={`${styles.reserveDetailsHeaderContainer}`}>
                             {" "}
-                            <div className={`${styles.div10}`}>
+                            <div className={`${styles.reserveDetailsHeader}`}>
                               Reserve details
                               <Typography
                                 variant="h5"
@@ -189,14 +186,14 @@ const Confirmation = (props) => {
                               ></Typography>
                             </div>
                           </div>
-                          <div className={`${styles.div11}`}>
-                            <div className={`${styles.div12}`}>
+                          <div className={`${styles.bookingDetailsContainer}`}>
+                            <div className={`${styles.leftPane}`}>
                               <Box>Booking code</Box>
                               <Box>Date</Box>
                               <Box>Total</Box>
                               <Box>Payment Method</Box>
                             </div>
-                            <div className={`${styles.div13}`}>
+                            <div className={`${styles.rightPane}`}>
                               <Box>{bookingdetails.b_id}</Box>
                               <Box>
                                 {moment(new Date(checkin)).format("DD.MM.YYYY")}
@@ -212,12 +209,12 @@ const Confirmation = (props) => {
                 </Grid>
                 <Grid item xs={12} lg={8}>
                   {" "}
-                  <div className={`${styles.div14}`}>
+                  <div className={`${styles.imageContainer}`}>
                     <img
                       className={`${styles.hotelimg}`}
                       src={hoteldetails.hotel_profile_picture}
                       height="480x"
-                      width="750px"
+                      width="700px"
                       alt=""
                     />
                   </div>

@@ -9,12 +9,15 @@ import { setFilteredHotels, clearFilteredHotels } from "../../slices/searchSlice
 
 export const HotelSearchList = () => {
 
+  // Filter Properties and Filtered Hotels List from Store
   const dispatch = useDispatch();
   const hotelList = useSelector((state) => state.search.hotellist);
   const filters = useSelector((state) => state.search.filters)
   const budgetFilters = useSelector((state) => state.search.budgetFilters)
   const filteredHotels = useSelector((state) => state.search.filteredHotels)
 
+
+  //Check if hotels provides selected filters
   const areFiltersAvailable = (arr) => {
     const value = (filters.filter((filter => arr.hotelfacalities[0]?.[filter]))).length;
     return (value === filters.length) ? true : false;
@@ -25,6 +28,12 @@ export const HotelSearchList = () => {
     dispatch(setFilteredHotels(arr))
   }
 
+  // Check if hotels provides selected budget filters
+  // Function Purpose: check if hotel lies in budget range
+  // - find minimum room price from all room types
+  // - available in hotel
+  // - compare min price with budget range
+
   const areBudgetFiltersAvailable = (arr) => {
 
     let rates = []
@@ -32,10 +41,9 @@ export const HotelSearchList = () => {
     let availableRooms = (arr['available_room_types']).map((val => val))
     availableRooms.push(...discountedRooms)
 
-    let rooms = availableRooms.map(room => room)
-    for (let a in rooms) {
-      rooms[a] += "_rate"
-      rates.push(parseInt(arr[rooms[a]]))
+    for (let a in availableRooms) {
+      availableRooms[a] += "_rate"
+      rates.push(parseInt(arr[availableRooms[a]]))
     }
 
     let minValue = Math.min(...rates);
@@ -48,6 +56,7 @@ export const HotelSearchList = () => {
     dispatch(setFilteredHotels(arr))
   }
 
+  // Filter Handler for Filter Properties and Budget Filters
   const filterHandler = () => {
     if (filters.length !== 0) getFilteredArray();
     if (budgetFilters.length !== 0) getBudgetFilteredArray();
@@ -73,13 +82,16 @@ export const HotelSearchList = () => {
                 status === "loading" ? (
                   <div style={{ marginLeft: "20vw" }}>
                     <Loading />
-                    <Typography variant="h5" style={{ fontFamily: "inter", textAlign: "center", margin: "10vh -10vh" }}>Wait a moment, we are finding the best hotels for you!</Typography>
+                    <Typography variant="h5" style={{ fontFamily: "inter", textAlign: "center", margin: "10vh -10" }}>Wait a moment, we are finding the best hotels for you!</Typography>
                   </div>
                 ) : (
                   (
+
+                    // Filter hotels only if a filter is clicked
                     filters.length > 0 || budgetFilters.length > 0 ? (
                       filteredHotels.map((item => (<HotelDetailsCard key={item.hotel_id} details={item} />)))
                     ) : (
+                      // Otherwise map original hotels list
                       hotelList.map((item) => (<HotelDetailsCard key={item.hotel_id} details={item} />))
                     )
                   )

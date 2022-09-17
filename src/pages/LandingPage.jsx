@@ -5,9 +5,8 @@ import { SuggestedHotels } from "../components/staticComponents/SuggestedHotels"
 import { fetchSuggestedHotels } from "../slices/suggestedHotelsSlice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import TravelYouPassion from "../components/travelYourPassion/TravelYouPassion";
 import { TrendingCities } from "../components/staticComponents/TrendingCities";
-
+import {TravelYourPassion} from '../components/travelYourPassion/TravelYourPassion'
 export const LandingPage = () => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -17,13 +16,15 @@ export const LandingPage = () => {
   return (
     <>
       <div>
-     {/* <TravelYouPassion/> */}
+   
+     
         <LandingHotelPicture />
         <div style={{ position: "relative", marginTop: "5vh !important" }}>
           <SuggestedHotels />
           <TrendingCities />
           <FeaturedDestinations sx={{ marginTop: "50vh" }} />
         </div>
+        <TravelYourPassion />
       </div>
     </>
   );
