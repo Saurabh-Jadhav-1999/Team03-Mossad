@@ -16,9 +16,17 @@ const initialState = {
   totalChild: 0,
   filters: [],
   budgetFilters: [],
+  yourBudgetFilters: {
+    "Less than $75": false,
+    "$75 to 300": false,
+    "$300 to 500": false,
+    "$500 to 1000": false,
+    "Greater than $1000": false
+  },
   filteredHotels: [],
   diff: 0,
 };
+
 /*Api call for fetching the hotel list of a particular location*/
 export const fetchHotelList = createAsyncThunk(
   "searchHotel/fetchHotelList",
@@ -90,7 +98,6 @@ export const searchSlice = createSlice({
   reducers: {
     setLocation: (state = initialState, action) => {
       state.location = action.payload;
-      console.log(action.payload,"payload from search slice")
     },
     setCheckIn: (state = initialState, action) => {
 
@@ -125,12 +132,11 @@ export const searchSlice = createSlice({
     setFilteredHotels: (state = initialState, action) => {
       state.filteredHotels = action.payload;
     },
-    clearFilteredHotels: (state = initialState) => {
-      state.filteredHotels = []
+    clearYourBudgetFilters: (state = initialState) => {
+      state.yourBudgetFilters = [initialState["yourBudgetFilters"]]
     },
     setDiffBetDays: (state = initialState, action) => {
       state.diff = parseInt(action.payload)
-
     },
   },
   /* Defining actions for the status of promise returned by the api call*/
@@ -169,8 +175,7 @@ export const searchSlice = createSlice({
 export const {
   setLocation, setCheckIn, setCheckOut, setAdultCount,
   setChildCount, setFilters, unSetFilters, setBudgetFilters,
-  unSetBudgetFilters, setFilteredHotels, clearFilteredHotels, setDiffBetDays }
+  unSetBudgetFilters, setFilteredHotels, clearYourBudgetFilters, setDiffBetDays }
   = searchSlice.actions;
 
 export default searchSlice.reducer;
-  

@@ -9,9 +9,11 @@ import { Stack } from "@mui/material";
 import moment from "moment/moment";
 
 const CityDetails = (props) => {
-  const dateFormat = (date) => {
+
+  const formateDate = (date) => {
     return moment(new Date(date)).format("DD/MM/YYYY");
   };
+  
   return (
     <Box className={styles.cityDiv}>
       <Typography component="h1">
@@ -45,7 +47,7 @@ const CityDetails = (props) => {
         </Grid>
         <Grid item xl={5} className={iconStyles.iconDiv}>
           <DateRangeOutlinedIcon className={iconStyles.icon} />
-          {dateFormat(props.checkInDate)} - {dateFormat(props.checkOutDate)}
+          {formateDate(props.checkInDate)} - {formateDate(props.checkOutDate)}
         </Grid>
       </Grid>
     </Box>

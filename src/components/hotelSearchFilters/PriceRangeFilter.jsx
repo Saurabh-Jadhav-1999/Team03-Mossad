@@ -6,7 +6,7 @@ import { withStyles } from "@material-ui/core/styles";
 import { Stack } from '@mui/system';
 import styles from "./PriceRangeFilters.module.css"
 import { useDispatch } from 'react-redux';
-import { setBudgetFilters } from '../../slices/searchSlice';
+import { setBudgetFilters, clearYourBudgetFilters } from '../../slices/searchSlice';
 import "./PriceRangeFilters.module.css"
 
 
@@ -46,6 +46,7 @@ export const InputSlider = () => {
             // console.log(newValue);
             // If required, we can slow down the rendering speed of filtered hotels list
         })
+        dispatch(clearYourBudgetFilters())
         dispatch(setBudgetFilters([50, newValue]))
         setValue(newValue);
     };

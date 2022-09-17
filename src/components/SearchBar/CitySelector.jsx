@@ -1,5 +1,5 @@
 import { Autocomplete, TextField } from "@mui/material";
-import { React} from "react";
+import { React } from "react";
 import styles from "./CitySelector.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchCityList, setLocation } from "../../slices/searchSlice";
@@ -9,7 +9,7 @@ function CitySelector() {
   const dispatch = useDispatch();
   const city = useSelector(state => state.search.location);
   const citylist = useSelector((state) => state.search.citylist);
- const[value,setValue]=useState("");
+  const [value, setValue] = useState("");
 
   return (
     <>
@@ -20,32 +20,31 @@ function CitySelector() {
         value={value}
         options={
           citylist
-          .map((option) => option)
+            .map((option) => option)
         }
-        onChange={(e,option) => {
-      dispatch(setLocation(option));
-    setValue(option)
+        onChange={(e, option) => {
+          dispatch(setLocation(option));
+          setValue(option)
         }}
         // getOptionLabel={(e)=>{
         //        console.log(e,"frojm get option label")
         // }}
         renderInput={(params) => (
           <TextField
-           value={value}
+            value={value}
             className={styles.txtfld1}
             {...params}
             label="Location"
             placeholder="Where do you want to go?"
-           onChange={(e)=>{
+            onChange={(e) => {
 
-            dispatch(fetchCityList(e.target.value));
-            console.log(e.target.value,"value from textfield")
-           }}
-         
-          
+              dispatch(fetchCityList(e.target.value));
+            }}
+
+
           />
         )
-      }
+        }
       />
     </>
   );
