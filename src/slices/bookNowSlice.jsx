@@ -105,6 +105,7 @@ export const bookNowSlice = createSlice({
     },
     setLunchPerPersonPerDay: (state = initialState, action) => {
       let passengers = 0;
+      //if childcount is not 0 then add the childcount to adultcount and calculate lunch per person per day
       action.payload.childcount == 0
         ? (passengers = action.payload.adultcount)
         : (passengers = action.payload.adultcount + action.payload.childcount);
@@ -134,7 +135,7 @@ export const bookNowSlice = createSlice({
     setRoomTypeCost: (state = initialState, action) => {
       if (state.totalCost !== "") {
         state.totalCost = parseInt(state.totalCost / state.room_type_cost);
-
+         //add all extra features cost and add them into total cost of total days
         state.totalCost =
           parseInt(action.payload.bp * action.payload.Difference_In_Days) +
           state.allow_to_bring_pet +
