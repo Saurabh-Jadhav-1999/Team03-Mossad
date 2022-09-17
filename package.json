@@ -1,10 +1,6 @@
 {
   "name": "hotel-booking-app",
   "version": "0.1.0",
-  "engines": {    
-    "node": "16",
-    "npm":"8.11.0" 
-   },
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.4",
@@ -36,7 +32,6 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "heroku-prebuild":"npm config set legacy-peer-deps true",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
