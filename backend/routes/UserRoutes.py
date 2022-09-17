@@ -37,31 +37,32 @@ class UserHandler(Resource):
         result = addNewUser(args) # adding new user
         return result, 200
 
-
+# route to validate login details and return response
 @app.route("/login", methods=["POST"])
 def login():
     data = request.json
-    validationResult = validateLoginData(data)
+    validationResult = validateLoginData(data) # validate the request body data
  
     if validationResult.errors:
-        return make_response(validationResult.errors, 400)
+        return make_response(validationResult.errors, 400) # return error if validation fails
     
-    user = isUserExists(data['email'])
+    user = isUserExists(data['email']) # get the user details by email
     if not user:
-        abort(404, "user not found with given email address")
+        abort(404, "user not found with given email address") # return error if user not found
 
-    print(data['password'])
-    print(user['password'])
+    # print(data['password'])
+    # print(user['password'])
 
     if user['password'] != data['password']:
         print('Both are not equal')
-        abort(400, {'error':"Invalid email or password"})
+        abort(400, {'error':"Invalid email or password"}) # if password not matched return error
 
     # add header x-auth-token generate it using jwt
     payload_data = {
                     "email": user['email'],
                     "user_id": user['user_id'],
                 }
+    # create jwt token
     token = jwt.encode(
                     payload=payload_data,
                     key= app.config['SECRET_KEY']

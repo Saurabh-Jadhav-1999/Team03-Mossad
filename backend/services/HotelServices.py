@@ -29,24 +29,6 @@ hotel_schema = {
     "economy_room_rate": {"type":"integer", "required":False},
     "double_room_rate": {"type":"integer", "required":False},
     "premium_room_rate": {"type":"integer", "required":False},
-    # "allow_pet_cost": {"type":"integer", "required":False},
-    # "breakfast_for_people": {"type":"integer", "required":False},
-    # "extra_parking_rate":{"type":"integer", "required":False},
-    # "extra_pillow_rate":{"type":"integer", 'required':False},
-    # "hotel_facalities":{
-    #     "type":"dict",
-    #     "required":True,
-    #     "schema":{
-    #     "breakfast":{"type":"boolean", "required":True},
-    #     "dinner":{"type":"boolean", "required":True},
-    #     "outdoor_sport":{"type":"boolean", "required":True},
-    #     "Berbeque":{"type":"boolean", "required":True},
-    #     "Living_room":{"type":"boolean", "required":True},
-    #     "Room_Service":{"type":"boolean", "required":True},
-    #     "swimming_pool":{"type":"boolean", "required":True},	
-    #     "Spa":{"type":"boolean", "required":True}
-    #     }
-    # }
 }
 
 # data representation for new hotel list

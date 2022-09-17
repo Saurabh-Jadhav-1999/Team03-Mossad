@@ -34,13 +34,6 @@ def validateBookingData(data):
     result = bookingValidator.validate(data)
     return bookingValidator
 
-# def checkAvalabilityOfRoomInHotel(hid, check_in_date, check_out_date, room_type):
-#     from sqlalchemy import func
-#     cursor = db.session.query(func.sum(Booking.room_type)).filter(Booking.hotel_id==hid)
-#     total = cursor.scalar()
-#     print("total:",total)
-#     return total
-
 # method to get count of booked room on perticular day for particular hotel and room type
 def getAvailabilityCount(data, dte, hotel):
     from sqlalchemy import func
@@ -165,23 +158,12 @@ def mayuriLogic(check_in_date, check_out_date, hotel_id):
 def checkRoomType(data, hotel):
     from sqlalchemy import func
     if "exclusive_room_count" in data.keys() and data['exclusive_room_count'] > 0:
-        cursor = db.session.query(func.max(Booking.exclusive_count)).filter(Booking.hotel_id==hotel.hotel_id).filter(and_(Booking.check_in_date<=data['check_out_date'], Booking.check_out_date>=data['check_in_date']))
-        total = cursor.scalar()
-        print("total:",total)
         return ["exclusive_room", hotel.exclusive_room_capacity]
     if "economy_room_count" in data.keys() and data['economy_room_count'] > 0:
-        cursor = db.session.query(func.sum(Booking.economy_count)).filter(Booking.hotel_id==hotel.hotel_id)
-        total = cursor.scalar()
         return ["economy_room", hotel.economy_room_capacity]
     if "double_room_count" in data.keys() and data['double_room_count'] > 0:
-        cursor = db.session.query(func.sum(Booking.double_count)).filter(Booking.hotel_id==hotel.hotel_id)
-        total = cursor.scalar()
-        print("total:",total)
         return ["double_room", hotel.double_room_capacity]
     if "premium_room_count" in data.keys() and data['premium_room_count'] > 0:
-        cursor = db.session.query(func.sum(Booking.exclusive_count)).filter(Booking.hotel_id==hotel.hotel_id)
-        total = cursor.scalar()
-        print("total:",total)
         return ["premium_room", hotel.premium_room_capacity]
     return False
 
@@ -206,11 +188,12 @@ def addBooking(data, user, hotel):
 
     if (data['adult_count']+data['child_count']) <= room_type[1]: # check if passenger count is less equal room capacity
         
-        delta = data['check_out_date'] - data['check_in_date']
+        delta = data['check_out_date'] - data['check_in_date'] # get the day difference between checkin and checkout
         
-        # result = checkAvalabilityOfRoomInHotel(data['hotel_id'], data['check_in_date'], data['check_out_date'], room_type[0])
+        # check the hotel availability 
         availableResult = checkHotelAvailability(hotel.hotel_id, hotel, data['check_in_date'], data['check_out_date'], data['adult_count'], data['child_count'])
-        if len(availableResult) == 0: #check if room types are availabe for dates and hotel return error if no
+        
+        if len(availableResult) == 0: #check if room types are available for dates and hotel return error if no
             print('returning error by length')
             return {"error": "The room you looking for is not available for searched dated's"}
 

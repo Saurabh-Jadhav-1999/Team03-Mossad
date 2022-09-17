@@ -21,10 +21,10 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://iwvausdj:e0nz6LyOKpPcJShk3
 # allow origins
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SECRET_KEY'] = '578c61c660c50e32f4de9edcbbf4c191'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True # disable warnings of sqlalchemy 
+app.config['SECRET_KEY'] = '578c61c660c50e32f4de9edcbbf4c191' # adding secret key to app configuration 
 
-api = Api(app)
+api = Api(app) # api object 
 
 try:
     db = SQLAlchemy(app) # create db object
