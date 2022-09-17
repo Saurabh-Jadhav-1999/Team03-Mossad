@@ -81,7 +81,15 @@ def getCityListByPost():
     if validationResult.errors:
         return make_response(validationResult.errors, 400)
 
-    cityListResult = getCitiesByName(request.json['city_name']) # get the list of cities 
+    data = request.json
+
+    if len(data['city_name'].strip()) == 0:
+        return make_response({"error":"please enter valid city_name"}, 400)
+
+    city_name = data['city_name'].strip() # strip the leading and trailing spaces
+
+
+    cityListResult = getCitiesByName(city_name) # get the list of cities 
 
     if len(cityListResult) == 0:
         return make_response("", 400) # if no cities found then return 400 error with no result
