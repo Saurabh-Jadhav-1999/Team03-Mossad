@@ -4,27 +4,8 @@ import { useNavigate } from "react-router-dom";
 import style from "./SearchButton.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchHotelList } from "../../slices/searchSlice";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-// DO NOT REMOVE THIS COMMENTS, UPDATING THIS COMPONENT
-// import 'react-toastify/dist/ReactToastify.css';
-// import { css } from "glamor";
-
-// toast.configure({
-//     position: toast.POSITION.BOTTOM_RIGHT,
-//     autoClose: 3000,
-//     transition: Slide,
-//     pauseOnFocusLoss: false,
-//         className: css({
-//         backgroundColor: 'red',
-//     }),
-//     bodyClassName: css({
-//         backgroundColor: 'blue',
-//         height: '100%',
-//         width: '100%',
-//     })
-// });
 
 export const SearchButton = () => {
   const dispatch = useDispatch();
@@ -39,16 +20,18 @@ export const SearchButton = () => {
   //  This function check the location, check-in/out date and show tost error (if any)
   // if not then navigate to next page
   function searchHandler() {
+
+    console.log("search handler called");
+
     if (location === "") {
       toast.error("Please select City..!");
       return;
     }
-
-    if (checkIn === "" || checkOut === "") {
+    else if (checkIn === "" || checkOut === "") {
       toast.error("Please select check-in/ check-out date..!");
       return;
     }
-    if (checkIn === checkOut) {
+    else if (checkIn === checkOut) {
       toast.error("Check-out date should be greater than check-in date..!");
       return;
     }
@@ -60,7 +43,6 @@ export const SearchButton = () => {
   }
   return (
     <>
-      <ToastContainer />
       <Button
         className={style.searchBtn}
         variant="contained"
@@ -74,7 +56,6 @@ export const SearchButton = () => {
         }}
       >
         Search
-        <ToastContainer />
       </Button>
     </>
   );
