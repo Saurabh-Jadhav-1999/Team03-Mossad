@@ -11,15 +11,23 @@ const initialState = {
   checkOut: null,
   hotellist: [],
   status: "",
-  status1:"",
+  status1: "",
   citylist: [''],
   totalAdult: 1,
   totalChild: 0,
   filters: [],
   budgetFilters: [],
+  yourBudgetFilters: {
+    "Less than $75": false,
+    "$75 to 300": false,
+    "$300 to 500": false,
+    "$500 to 1000": false,
+    "Greater than $1000": false
+  },
   filteredHotels: [],
   diff: 0,
 };
+
 /*Api call for fetching the hotel list of a particular location*/
 export const fetchHotelList = createAsyncThunk(
   "searchHotel/fetchHotelList",
@@ -91,7 +99,6 @@ export const searchSlice = createSlice({
   reducers: {
     setLocation: (state = initialState, action) => {
       state.location = action.payload;
-      console.log(action.payload,"payload from search slice")
     },
     setCheckIn: (state = initialState, action) => {
 
@@ -126,16 +133,15 @@ export const searchSlice = createSlice({
     setFilteredHotels: (state = initialState, action) => {
       state.filteredHotels = action.payload;
     },
-    clearFilteredHotels: (state = initialState) => {
-      state.filteredHotels = []
+    clearYourBudgetFilters: (state = initialState) => {
+      state.yourBudgetFilters = [initialState["yourBudgetFilters"]]
     },
     setDiffBetDays: (state = initialState, action) => {
       state.diff = parseInt(action.payload)
-
     },
-    setCityList:(state=initialState,action)=>{
+    setCityList: (state = initialState, action) => {
       // state.citylist=action.payload;
-      console.log(action.payload,"from setcitylist")
+      console.log(action.payload, "from setcitylist")
     }
   },
   /* Defining actions for the status of promise returned by the api call*/
@@ -158,21 +164,21 @@ export const searchSlice = createSlice({
     [fetchCityList.pending]: (state, action) => {
       // state.citylist=['City not Found'];
       state.status1 = "loading";
-      
+
     },
     [fetchCityList.rejected]: (state, action) => {
-      state.citylist=['City not Found']
+      state.citylist = ['City not Found']
       state.status1 = "rejected";
       //  console.log(action.payload,"action payload from rejected")
-      
+
     },
     [fetchCityList.fulfilled]: (state, action) => {
-      
+
       // console.log(action.payload.cities,"cities payload") 
       state.status1 = "succeeded";
       state.citylist = action.payload.cities;
-      
-    
+
+
     },
   },
 });
@@ -181,8 +187,8 @@ export const searchSlice = createSlice({
 export const {
   setLocation, setCheckIn, setCheckOut, setAdultCount,
   setChildCount, setFilters, unSetFilters, setBudgetFilters,
-  unSetBudgetFilters, setFilteredHotels, clearFilteredHotels, setDiffBetDays ,setCityList}
+  unSetBudgetFilters, setFilteredHotels, clearFilteredHotels,
+  setDiffBetDays, setCityList, clearYourBudgetFilters }
   = searchSlice.actions;
 
 export default searchSlice.reducer;
-  

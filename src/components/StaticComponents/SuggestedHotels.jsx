@@ -18,10 +18,13 @@ const hoteldetails = {
 };
 
 export const SuggestedHotels = () => {
-  const suggestedHotelList = useSelector(
-    (state) => state.suggestedHotelList.suggestedList
-  );
-  console.log(suggestedHotelList);
+
+  // DO NOT REMOVE THIS
+  // const suggestedHotelList = useSelector(
+  //   (state) => state.suggestedHotelList.suggestedList
+  // );
+  // console.log(suggestedHotelList); 
+
   return (
     <Box className={styles.suggestedHotelsMainBox}>
       <Typography component={"h1"}>Hotels you might like</Typography>
