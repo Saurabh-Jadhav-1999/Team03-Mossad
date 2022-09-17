@@ -1,9 +1,8 @@
 /*Search slice for the purpose of storing search bar data along with hotel details received from api*/
-
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-
 import axios from "axios";
-import { token } from './token'
+import { token } from "./token";
+
 /*initializing the state variables*/
 const initialState = {
   location: "",
@@ -12,7 +11,7 @@ const initialState = {
   hotellist: [],
   status: "",
   status1: "",
-  citylist: [''],
+  citylist: [""],
   totalAdult: 1,
   totalChild: 0,
   filters: [],
@@ -22,7 +21,7 @@ const initialState = {
     "$75 to 300": false,
     "$300 to 500": false,
     "$500 to 1000": false,
-    "Greater than $1000": false
+    "Greater than $1000": false,
   },
   filteredHotels: [],
   diff: 0,
@@ -33,7 +32,6 @@ export const fetchHotelList = createAsyncThunk(
   "searchHotel/fetchHotelList",
   async ({ location, checkIn, checkOut, adultcount, childcount }, thunkAPI) => {
     try {
-
       const config = {
         headers: {
           "x-auth-token": token,
@@ -47,7 +45,6 @@ export const fetchHotelList = createAsyncThunk(
         adult_count: adultcount,
         child_count: childcount,
       };
-
 
       return axios
         .post(
@@ -71,9 +68,10 @@ export const fetchCityList = createAsyncThunk(
     try {
       const config = {
         headers: {
-          "x-auth-token": token
+          "x-auth-token": token,
         },
       };
+      console.log(location, "location from axios");
       const bodyParameters = {
         city_name: location,
       };
@@ -85,11 +83,13 @@ export const fetchCityList = createAsyncThunk(
           config
         )
         .then((response) => {
+          console.log(response.data, "response data");
           return response.data;
         });
     } catch (error) {
       return error;
     }
+
   }
 );
 /* Creating reducers for setting state variables */
@@ -101,22 +101,19 @@ export const searchSlice = createSlice({
       state.location = action.payload;
     },
     setCheckIn: (state = initialState, action) => {
-
       state.checkIn = action.payload;
     },
     setCheckOut: (state = initialState, action) => {
-
       state.checkOut = action.payload;
     },
     setAdultCount: (state = initialState, action) => {
-
-      state.totalAdult = action.payload
+      state.totalAdult = action.payload;
     },
     setChildCount: (state = initialState, action) => {
       state.totalChild = action.payload;
     },
 
-    //Fitler Reducers
+    //Filter Reducers
     setFilters: (state = initialState, action) => {
       state.filters.push(action.payload);
     },
@@ -128,21 +125,20 @@ export const searchSlice = createSlice({
       state.budgetFilters = action.payload;
     },
     unSetBudgetFilters: (state = initialState) => {
-      state.budgetFilters = []
+      state.budgetFilters = [];
     },
     setFilteredHotels: (state = initialState, action) => {
       state.filteredHotels = action.payload;
     },
     clearYourBudgetFilters: (state = initialState) => {
-      state.yourBudgetFilters = [initialState["yourBudgetFilters"]]
+      state.yourBudgetFilters = [initialState["yourBudgetFilters"]];
     },
     setDiffBetDays: (state = initialState, action) => {
-      state.diff = parseInt(action.payload)
+      state.diff = parseInt(action.payload);
     },
     setCityList: (state = initialState, action) => {
-      // state.citylist=action.payload;
-      console.log(action.payload, "from setcitylist")
-    }
+      state.citylist=action.payload;
+    },
   },
   /* Defining actions for the status of promise returned by the api call*/
   extraReducers: {
@@ -150,45 +146,42 @@ export const searchSlice = createSlice({
       state.status = "loading";
     },
     [fetchHotelList.rejected]: (state, action) => {
-
       state.status = "rejected";
-
     },
     [fetchHotelList.fulfilled]: (state, action) => {
       state.status = "succeeded";
-
       state.hotellist = action.payload;
-
     },
 
     [fetchCityList.pending]: (state, action) => {
-      // state.citylist=['City not Found'];
       state.status1 = "loading";
-
     },
     [fetchCityList.rejected]: (state, action) => {
-      state.citylist = ['City not Found']
       state.status1 = "rejected";
-      //  console.log(action.payload,"action payload from rejected")
-
     },
     [fetchCityList.fulfilled]: (state, action) => {
-
-      // console.log(action.payload.cities,"cities payload") 
       state.status1 = "succeeded";
       state.citylist = action.payload.cities;
-
-
     },
   },
 });
 
 /*Exporting actions of the slice*/
 export const {
-  setLocation, setCheckIn, setCheckOut, setAdultCount,
-  setChildCount, setFilters, unSetFilters, setBudgetFilters,
-  unSetBudgetFilters, setFilteredHotels, clearFilteredHotels,
-  setDiffBetDays, setCityList, clearYourBudgetFilters }
-  = searchSlice.actions;
+  setLocation,
+  setCheckIn,
+  setCheckOut,
+  setAdultCount,
+  setChildCount,
+  setFilters,
+  unSetFilters,
+  setBudgetFilters,
+  unSetBudgetFilters,
+  setFilteredHotels,
+  clearFilteredHotels,
+  setDiffBetDays,
+  setCityList,
+  clearYourBudgetFilters,
+} = searchSlice.actions;
 
 export default searchSlice.reducer;

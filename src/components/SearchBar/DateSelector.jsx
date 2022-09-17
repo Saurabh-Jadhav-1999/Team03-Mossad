@@ -18,7 +18,7 @@ export default function DateSelector() {
   const checkin = useSelector(state => state.search.checkIn);
   const checkout = useSelector(state => state.search.checkOut);
 useEffect(() => {
-  console.log(checkin,checkout,"checkin checkout from useeffect")
+  // console.log(checkin,checkout,"checkin checkout from useeffect")
 setDateValues([checkin,checkout]);
 }, [checkin,checkout])
 

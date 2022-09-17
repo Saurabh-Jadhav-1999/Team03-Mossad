@@ -2,10 +2,7 @@ import { Autocomplete, TextField } from "@mui/material";
 import { React, useEffect } from "react";
 import styles from "./CitySelector.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  fetchCityList,
-  setLocation,
-} from "../../slices/searchSlice";
+import { fetchCityList, setLocation } from "../../slices/searchSlice";
 import { useState } from "react";
 
 function CitySelector() {
@@ -13,12 +10,12 @@ function CitySelector() {
   const city = useSelector((state) => state.search.location);
   const citylist = useSelector((state) => state.search.citylist);
   const [value, setValue] = useState("");
-  // const [value1,setValue1]=useState();
-  // const status = useSelector((state) => state.search.status1);
+
+  const status = useSelector((state) => state.search.status1);
 
   useEffect(() => {
-    setValue(city)
-  },)
+    setValue(city);
+  }, [status]);
 
   return (
     <>
@@ -27,8 +24,7 @@ function CitySelector() {
         id="city"
         freeSolo={false}
         value={value}
-        options={citylist.map((option) => option)
-        }
+        options={citylist.map((option) => option)}
         noOptionsText={"City Not Found"}
         onChange={(e, option) => {
           dispatch(setLocation(option));
