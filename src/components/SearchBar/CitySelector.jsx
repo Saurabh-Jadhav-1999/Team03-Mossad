@@ -28,24 +28,25 @@ function CitySelector() {
         noOptionsText={"City Not Found"}
         onChange={(e, option) => {
           dispatch(setLocation(option));
-     
+          setValue(option)
         }}
-        getOptionLabel={(option) =>
-          typeof option === "string" || option instanceof String ? option : ""
-        }
+        getOptionLabel={(option) => typeof option === 'string'
+          || option instanceof String ? option : ""}
         renderInput={(params) => (
+
           <TextField
-          
+            value={value}
             className={styles.txtfld1}
             {...params}
             label="Location"
             placeholder="Where do you want to go?"
             onChange={(e) => {
-              console.log(e.target.value, "from textfield");
               dispatch(fetchCityList(e.target.value));
             }}
+
           />
-        )}
+        )
+        }
       />
     </>
   );
