@@ -1,7 +1,7 @@
 import { LandingHotelPicture } from "../components/landingHotelPicture/LandingHotelPicture";
 import { FeaturedDestinations } from "../components/featuredDestinations/FeaturedDestinations";
 import "react-toastify/dist/ReactToastify.css";
-import { SuggestedHotels } from "../components/staticComponents/SuggestedHotels";
+import { SuggestedHotels } from "../components/staticComponents/SuggestedHotels.jsx";
 import { fetchSuggestedHotels } from "../slices/suggestedHotelsSlice";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
