@@ -2,7 +2,7 @@ import { Autocomplete, TextField } from "@mui/material";
 import { React} from "react";
 import styles from "./CitySelector.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchCityList } from "./../../slices/searchSlice";
+import { fetchCityList } from "../../slices/searchSlice";
 
 function CitySelector() {
   const dispatch = useDispatch();

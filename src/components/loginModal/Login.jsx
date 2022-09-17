@@ -26,7 +26,7 @@ async function loginUser(credentials) {
         password,
       }
     );
-   
+      console.log("response",response);
     return response.data;
   } catch (error) {
     console.log(error, "error from loginuser");

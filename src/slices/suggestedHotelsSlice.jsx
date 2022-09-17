@@ -18,13 +18,16 @@ export const fetchSuggestedHotels = createAsyncThunk(
       };
       axios
         .get(
-          "https://hotelbooking-backend.herokuapp.com/topFiveSuggestionsForUser",
+  "https://hotelbooking-backend.herokuapp.com/topFiveSuggestionsForUser",     
+       {},
           config
         )
         .then((response) => {
+          // console.log("Suggested hotel list responce",response);
           return response.data;
         });
     } catch (error) {
+      // console.log(error.name);
       return error;
     }
   }

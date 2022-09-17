@@ -36,12 +36,12 @@ export const SuggestedHotels = () => {
                 <HotelCard details={hoteldetails}/>
                 <HotelCard details={hoteldetails}/>
                 <HotelCard details={hoteldetails}/>
+                {/* <HotelCard details={hoteldetails}/>
                 <HotelCard details={hoteldetails}/>
                 <HotelCard details={hoteldetails}/>
                 <HotelCard details={hoteldetails}/>
                 <HotelCard details={hoteldetails}/>
-                <HotelCard details={hoteldetails}/>
-                <HotelCard details={hoteldetails}/>
+                <HotelCard details={hoteldetails}/> */}
                 
           </Grid>
     </Box>

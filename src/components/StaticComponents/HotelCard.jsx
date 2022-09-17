@@ -12,7 +12,7 @@ export const HotelCard = (props) => {
     <Grid item lg={3}>
       <Paper className={styles.cardContainer}>
         <img
-          src="https://pixabay.com/get/g8d6a99d6bfe9493e4137b3f7bac865e5245b0ec2797f0f835ff09a59b2ea9133b2b5a9b8afaf569c364f0c2a0a09c1c8420b465745c84d3b620a41e5d09182f4_640.jpg"
+          src="https://www.bing.com/th?id=OIP.bYImvu-5uLtP9vVXDZKq1QHaE8&w=306&h=204&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2"
           alt=""
         />
         <Box className={styles.ratingDiv}>

@@ -4,7 +4,7 @@
     align-items: center !important;
     justify-content: space-around !important;
     width: 16vw !important;
-    margin-left: 0.3vw!important;
+    margin-left: 1vw!important;
 }
 
 .Inp{
@@ -13,7 +13,7 @@
     border: "1px solid #CAC8C8" !important;
     position: relative !important;
     z-index: 1 !important;
-    /* margin-right: 1.1vw !important;  */
+    margin-right: 1.1vw !important; 
 }
 .arrow{
     z-index: 99 !important;

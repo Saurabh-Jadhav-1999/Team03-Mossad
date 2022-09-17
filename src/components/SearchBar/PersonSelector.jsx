@@ -38,12 +38,6 @@ export const PersonSelector = () => {
           <MenuItem value={5}>5</MenuItem>
         </Select>
       </FormControl>
-      <Box
-              className={styles.arrow}
-              src={arrow}
-              component="img"
-              // style={{ zIndex: 99 }}
-            />
       <FormControl fullWidth className={styles.Inp}>
         <InputLabel id="demo-simple-select-label">Child</InputLabel>
         <Select

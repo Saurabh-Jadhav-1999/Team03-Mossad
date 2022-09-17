@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import searchReducer from './../slices/searchSlice';
 import getHotelDetailsReducer from './../slices/getHotelDetailsSlice'
 import bookNowReducer from './../slices/bookNowSlice'
-import   suggestedHotelListReducer  from '../slices/suggestedHotels';
+import   suggestedHotelListReducer  from '../slices/suggestedHotelsSlice';
 import loginSliceReducer from '../slices/loginSlice';
 
 export const store = configureStore({
