@@ -4,6 +4,7 @@ import React from "react";
 import { Grid } from "@mui/material";
 import { HotelCard } from "./HotelCard";
 import { useSelector } from "react-redux";
+
 const hotelName = "Pune";
 const hoteldetails = {
   hotelName: "J.W. Marriott",
@@ -19,26 +20,18 @@ const hoteldetails = {
 
 export const SuggestedHotels = () => {
   const suggestedHotelList = useSelector(
-    (state) => state.suggestedHotelList.suggestedList
+    (state) => state.suggestedHotels.suggestedHotels
   );
-  console.log(suggestedHotelList);
+  console.log(suggestedHotelList, "suggested Hotels from the component");
+
   return (
     <Box className={styles.suggestedHotelsMainBox}>
       <Typography component={"h1"}>Hotels you might like</Typography>
-      {/* <Typography component={'h3'}>
-            {hotelName}
-          </Typography> */}
+
       <Grid container spacing={3}>
-        <HotelCard details={hoteldetails} />
-        <HotelCard details={hoteldetails} />
-        <HotelCard details={hoteldetails} />
-        <HotelCard details={hoteldetails} />
-        {/* <HotelCard details={hoteldetails}/>
-                <HotelCard details={hoteldetails}/>
-                <HotelCard details={hoteldetails}/>
-                <HotelCard details={hoteldetails}/>
-                <HotelCard details={hoteldetails}/>
-                <HotelCard details={hoteldetails}/> */}
+        {suggestedHotelList.hotels.map((item) => {
+          <HotelCard details={item} />;
+        })}
       </Grid>
     </Box>
   );

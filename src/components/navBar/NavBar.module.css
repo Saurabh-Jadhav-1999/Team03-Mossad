@@ -9,13 +9,13 @@
 }
 
 .webSiteHeader {
-    font-family: 'Inter';
-    font-style: normal;
-    font-weight: 700 ;
-    flex-grow: 1;
-    color: #000000;
-    padding-left: 10px;
-    font-size: 24.4465px;
+    font-family: 'Inter' !important;
+    font-style: normal !important;
+    font-weight: 700 !important;
+    flex-grow: 1 !important;
+    color: #000000 !important;
+    padding-left: 10px !important;
+    font-size: 24.4465px !important;
 }
 
 .currency{

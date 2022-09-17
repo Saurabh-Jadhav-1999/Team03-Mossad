@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
-import { Typography, Rating } from "@mui/material";
+import { Typography} from "@mui/material";
 import { Box } from "@mui/material";
 import StarIcon from '@mui/icons-material/Star';
-
+import {Rating} from "@mui/material";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import styles from "./HotelDetailsAndImage.module.css";
 import ImageGrid from "../imageGrid/ImageGrid";
@@ -72,7 +72,10 @@ export const HotelDetailsAndImage = (props) => {
               value={hoteldetails.rating}
               precision={0.1}
               readOnly
-              sx={{ color: "#ff9c09" }}
+              style={{ 
+                color: "#ff9c09",
+                fontSize:"25px"
+            }}
             />
 
           </div>

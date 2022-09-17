@@ -1,44 +1,47 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { token } from "./token";
 
+/*initializing the state variables*/
 const initialState = {
-  suggestedList: [],
-  //   imgLoaded: false,
+  suggestedHotels: {},
+  status: "",
 };
 
 export const fetchSuggestedHotels = createAsyncThunk(
-  "topFiveHotels/fetchSuggestedHotelList",
-  async (thunkAPI) => {
+  "suggestedHotels/fetchSuggestedHotels",
+  async (_, thunkAPI) => {
     try {
       const config = {
         headers: {
-          "x-auth-token": token,
+          "x-auth-token":
+            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidXNlcl9pZCI6MX0.8ZJAWETPMMyxQygChY7t3d1GdrxGo16UQ_MkF6D-OGg",
         },
       };
-     const response= axios
-        .get(
-  "https://hotelbooking-backend.herokuapp.com/topFiveSuggestionsForUser",     
-       {},
-          config
+
+      const bodyParameters = {};
+
+      return axios
+        .post(
+          "https://hotelbooking-backend.herokuapp.com/topFiveSuggestionsForUser",
+          bodyParameters, config 
         )
         .then((response) => {
-          // console.log("Suggested hotel list responce",response);
+          console.log(response.data, "response data");
           return response.data;
         });
     } catch (error) {
-      // console.log(error.name);
       return error;
     }
   }
 );
-
-const suggestedHotelList = createSlice({
-  name: "topFiveHotels",
+/* Creating reducers for setting state variables */
+export const suggestedHotelsSlice = createSlice({
+  name: "suggestedHotels",
   initialState: initialState,
   reducers: {
-    setSuggestdHotelList: (state = initialState, action) => {
-      state.suggestedList = action.payload;
+    setSuggestedHotels: (state = initialState, action) => {
+      state.suggestedHotels = action.payload;
     },
   },
   extraReducers: {
@@ -50,12 +53,12 @@ const suggestedHotelList = createSlice({
     },
     [fetchSuggestedHotels.fulfilled]: (state, action) => {
       state.status = "succeeded";
-
-      state.hotellist = action.payload;
+    //   console.log(action, "action from fulfilled");
+        state.suggestedHotels = action.payload;
     },
   },
 });
 
-export const { setSuggestdHotelList } = suggestedHotelList.actions;
+export const { setSuggestedHotels } = suggestedHotelsSlice.actions;
 
-export default suggestedHotelList.reducer;
+export default suggestedHotelsSlice.reducer;

@@ -7,9 +7,6 @@ import { fetchHotelList } from "../../slices/searchSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-
-
-
 // DO NOT REMOVE THIS COMMENTS, UPDATING THIS COMPONENT
 // import 'react-toastify/dist/ReactToastify.css';
 // import { css } from "glamor";
@@ -28,6 +25,7 @@ import "react-toastify/dist/ReactToastify.css";
 //         width: '100%',
 //     })
 // });
+
 export const SearchButton = () => {
   const dispatch = useDispatch();
   const location = useSelector((state) => state.search.location);
@@ -36,10 +34,6 @@ export const SearchButton = () => {
   const adultcount = useSelector((state) => state.search.totalAdult);
   const childcount = useSelector((state) => state.search.totalChild);
   const token = useSelector((state) => state.login.token);
-
- 
-  
-
   const navigate = useNavigate();
 
   //  This function check the location, check-in/out date and show tost error (if any)

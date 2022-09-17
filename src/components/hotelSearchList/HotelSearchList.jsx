@@ -15,24 +15,26 @@ export const HotelSearchList = () => {
   const filters = useSelector((state) => state.search.filters)
   const budgetFilters = useSelector((state) => state.search.budgetFilters)
   const filteredHotels = useSelector((state) => state.search.filteredHotels)
-
+  
 
   //Check if hotels provides selected filters
   const areFiltersAvailable = (arr) => {
-    const value = (filters.filter((filter => arr.hotelfacalities[0]?.[filter]))).length;
+    const value = (filters.filter((filter =>
+      ((filter === "breakfastAndDinner") ? arr.hotelfacalities[0]?.breakfast && arr.hotelfacalities[0]?.dinner : arr.hotelfacalities[0]?.[filter]))
+    )).length;
     return (value === filters.length) ? true : false;
   }
 
   const getFilteredArray = () => {
-    const arr = (budgetFilters.length !== 0 ? filteredHotels : hotelList).filter((item => areFiltersAvailable(item)))
-    dispatch(setFilteredHotels(arr))
+    const arr = hotelList.filter((item => areFiltersAvailable(item)))
+    getBudgetFilteredArray(arr);
   }
 
-  // Check if hotels provides selected budget filters
   // Function Purpose: check if hotel lies in budget range
-  // - find minimum room price from all room types
-  // - available in hotel
-  // - compare min price with budget range
+  // Steps:
+  // - get room price from all room types available in hotel
+  // - find minimum cost from all room prices
+  // - compare min price with budget range; return result
 
   const areBudgetFiltersAvailable = (arr) => {
 
@@ -41,30 +43,35 @@ export const HotelSearchList = () => {
     let availableRooms = (arr['available_room_types']).map((val => val))
     availableRooms.push(...discountedRooms)
 
-    for (let a in availableRooms) {
-      availableRooms[a] += "_rate"
-      rates.push(parseInt(arr[availableRooms[a]]))
+    for (let roomPrice in availableRooms) {
+
+      /* need to append room_type with '_rate'
+       * to access room_type_rate fields from
+       * received response of hoteldetails
+       */
+
+      availableRooms[roomPrice] += "_rate"
+      rates.push(parseInt(arr[availableRooms[roomPrice]]))
     }
 
     let minValue = Math.min(...rates);
     return (minValue >= budgetFilters[0] && minValue <= budgetFilters[1]);
   }
 
-  const getBudgetFilteredArray = () => {
-    console.log("hotels filtered are:", filteredHotels);
-    const arr = (filters.length !== 0 ? filteredHotels : hotelList).filter((item => areBudgetFiltersAvailable(item)))
-    dispatch(setFilteredHotels(arr))
+  const getBudgetFilteredArray = (arr) => {
+    const filteredArray = (budgetFilters.length > 0) ? arr.filter((item => areBudgetFiltersAvailable(item))) : arr;
+    dispatch(setFilteredHotels(filteredArray))
   }
-
-  // Filter Handler for Filter Properties and Budget Filters
-  const filterHandler = () => {
-    if (filters.length !== 0) getFilteredArray();
-    if (budgetFilters.length !== 0) getBudgetFilteredArray();
-  }
-
 
   useEffect(() => {
-    filterHandler();
+    dispatch(setFilteredHotels(hotelList))
+  }, [hotelList])
+
+  useEffect(() => {
+
+    // Filter Handler for Filter Properties and Budget Filters
+    getFilteredArray();
+
   }, [filters, budgetFilters])
 
   const status = useSelector((state) => state.search.status);
@@ -86,14 +93,7 @@ export const HotelSearchList = () => {
                   </div>
                 ) : (
                   (
-
-                    // Filter hotels only if a filter is clicked
-                    filters.length > 0 || budgetFilters.length > 0 ? (
-                      filteredHotels.map((item => (<HotelDetailsCard key={item.hotel_id} details={item} />)))
-                    ) : (
-                      // Otherwise map original hotels list
-                      hotelList.map((item) => (<HotelDetailsCard key={item.hotel_id} details={item} />))
-                    )
+                    filteredHotels.map((item) => (<HotelDetailsCard key={item.hotel_id} details={item} />))
                   )
                 ))
           }

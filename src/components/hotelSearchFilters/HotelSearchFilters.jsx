@@ -6,6 +6,7 @@ import { InputSlider } from './PriceRangeFilter'
 import { setFilters, unSetFilters, setBudgetFilters, unSetBudgetFilters } from "../../slices/searchSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { useEffect } from 'react';
 
 // Popular Filter Properties available for Hotels
 const FiltersData = [
@@ -105,19 +106,12 @@ const yourBudgetFilterData = [
     },
 ]
 
-const budgetFilterState = {
-    "Less than $75": false,
-    "$75 to 300": false,
-    "$300 to 500": false,
-    "$500 to 1000": false,
-    "Greater than $1000": false
-}
-
+// Mapping Filter properties with data recieved from Hotel Details Object
 const filterValueArr = {
     "No Prepayment": "no_prepayment",
     "Free Cancellation": "free_cancellation",
-    // "Breakfast and Dinner": ["breakfast", "dinner"],
-    "Breakfast and Dinner": "breakfast",
+    "Breakfast and Dinner": "breakfastAndDinner",
+    // "Breakfast and Dinner": "breakfast",
     // remaining for both breakfast + dinner
     "Outdoor Sports": "out_door_sport",
     "Barbeque": "barbeque",
@@ -134,7 +128,9 @@ const filterValueArr = {
 
 export const HotelSearchFilters = () => {
 
+    const budgetFilterState = useSelector((state => state.search.yourBudgetFilters))
     const [searchProperty, setSearchProperty] = useState()
+
 
     const searchPropertyButtonHandler = (event) => {
         setSearchProperty(event.target.value)
@@ -147,6 +143,10 @@ export const HotelSearchFilters = () => {
     const filters = useSelector((state) => state.search.filters)
     const dispatch = useDispatch();
     const [budgetSelector, setBudgetSelector] = useState(budgetFilterState)
+
+    useEffect(() => {
+        setBudgetSelector(budgetFilterState)
+    }, [budgetFilterState])
 
     const budgetStateHandler = (event, filterValue) => {
         setBudgetSelector(budgetFilterState)

@@ -2,6 +2,7 @@ import Breadcrumb from "../components/breadcrumb/Breadcrumb";
 import { HotelSearchList } from "../components/hotelSearchList/HotelSearchList";
 import { Link } from "react-router-dom";
 import { SearchBar } from "../components/searchBar/SearchBar";
+
 export const HotelsListPage = () => {
   const breadcrumbs = [
     <Link
