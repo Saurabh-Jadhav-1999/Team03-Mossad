@@ -7,11 +7,12 @@ import { token } from './token'
 /*initializing the state variables*/
 const initialState = {
   location: "",
-  checkIn: "",
-  checkOut: "",
+  checkIn: null,
+  checkOut: null,
   hotellist: [],
   status: "",
-  citylist: [],
+  status1:"",
+  citylist: [''],
   totalAdult: 1,
   totalChild: 0,
   filters: [],
@@ -132,6 +133,10 @@ export const searchSlice = createSlice({
       state.diff = parseInt(action.payload)
 
     },
+    setCityList:(state=initialState,action)=>{
+      // state.citylist=action.payload;
+      console.log(action.payload,"from setcitylist")
+    }
   },
   /* Defining actions for the status of promise returned by the api call*/
   extraReducers: {
@@ -151,16 +156,23 @@ export const searchSlice = createSlice({
     },
 
     [fetchCityList.pending]: (state, action) => {
-      state.status = "loading";
+      // state.citylist=['City not Found'];
+      state.status1 = "loading";
+      
     },
     [fetchCityList.rejected]: (state, action) => {
-      state.status = "rejected";
-
-      state.citylist = ["City not found"];
+      state.citylist=['City not Found']
+      state.status1 = "rejected";
+      //  console.log(action.payload,"action payload from rejected")
+      
     },
     [fetchCityList.fulfilled]: (state, action) => {
-      state.status = "succeeded";
+      
+      // console.log(action.payload.cities,"cities payload") 
+      state.status1 = "succeeded";
       state.citylist = action.payload.cities;
+      
+    
     },
   },
 });
@@ -169,7 +181,7 @@ export const searchSlice = createSlice({
 export const {
   setLocation, setCheckIn, setCheckOut, setAdultCount,
   setChildCount, setFilters, unSetFilters, setBudgetFilters,
-  unSetBudgetFilters, setFilteredHotels, clearFilteredHotels, setDiffBetDays }
+  unSetBudgetFilters, setFilteredHotels, clearFilteredHotels, setDiffBetDays ,setCityList}
   = searchSlice.actions;
 
 export default searchSlice.reducer;
