@@ -1,6 +1,6 @@
 import { Box, Typography } from "@material-ui/core";
 import styles from "./Room.module.css";
-import React, { useEffect } from "react";
+import React from "react";
 import Room from "./Room";
 import { useSelector } from "react-redux";
 const offers = ["Free Wi-fi", "Breakfast for two people", "Non Refundable"];

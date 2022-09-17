@@ -1,11 +1,11 @@
 import { HotelSearchFilters } from "../hotelSearchFilters/HotelSearchFilters";
 import { HotelDetailsCard } from "../hotelDetailsCard/HotelDetailsCard";
-import { Button, Stack } from "@mui/material";
+import {  Stack } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment, useEffect } from "react";
 import Loading from "../loader/Loader";
 import Typography from "@mui/material/Typography";
-import { setFilteredHotels, clearFilteredHotels } from "../../slices/searchSlice";
+import { setFilteredHotels} from "../../slices/searchSlice";
 
 export const HotelSearchList = () => {
 

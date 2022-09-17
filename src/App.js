@@ -9,7 +9,7 @@ import { HotelDetailsPage } from "./pages/HotelDetailsPage";
 import { Fragment } from "react";
 
 import { useSelector } from "react-redux";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 
 const PrivateRoute=({children})=>{
   const token=useSelector(state=>state.login.token);

@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import {
   fetchCityList,
   setLocation,
-  setCityList,
 } from "../../slices/searchSlice";
 import { useState } from "react";
 
@@ -14,8 +13,8 @@ function CitySelector() {
   const city = useSelector((state) => state.search.location);
   const citylist = useSelector((state) => state.search.citylist);
   const [value, setValue] = useState("");
-  const [value1,setValue1]=useState();
-  const status = useSelector((state) => state.search.status1);
+  // const [value1,setValue1]=useState();
+  // const status = useSelector((state) => state.search.status1);
 
   useEffect(() => {
     setValue(city)

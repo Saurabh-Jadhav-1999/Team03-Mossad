@@ -3,10 +3,8 @@ import { Grid, Typography } from "@mui/material";
 import ImageList from "@mui/material/ImageList";
 import ImageListItem from "@mui/material/ImageListItem";
 import ImageListItemBar from "@mui/material/ImageListItemBar";
-import IconButton from "@mui/material/IconButton";
 import { Box } from "@mui/system";
 import styles from "./TravelYourPassion.module.css";
-import {StarOutlined} from "@mui/icons-material/StarOutlined";
 function srcset(image, size, rows = 2, cols = 4) {
   return {
     src: `${image}?w=${size * cols}&h=${size * rows}&fit=crop&auto=format`,

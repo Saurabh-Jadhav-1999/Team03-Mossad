@@ -1,6 +1,5 @@
 import { Box } from "@material-ui/core";
 import React from "react";
-import { useSelector } from "react-redux";
 import Amenities from "./Amenities";
 import style from "./Features.module.css";
 import HotelFeatures from "./HotelFeatures";
