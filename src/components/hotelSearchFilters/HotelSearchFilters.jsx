@@ -7,6 +7,7 @@ import { setFilters, unSetFilters, setBudgetFilters, unSetBudgetFilters } from "
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 
+// Popular Filter Properties available for Hotels
 const FiltersData = [
     {
         id: 101,
@@ -69,6 +70,7 @@ const FiltersData = [
     },
 ]
 
+// // Budget Filter Properties available for Hotels
 const yourBudgetFilterData = [
     {
         id: 102,
