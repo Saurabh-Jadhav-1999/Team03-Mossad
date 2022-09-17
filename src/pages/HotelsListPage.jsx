@@ -1,6 +1,6 @@
 import Breadcrumb from "../components/breadcrumb/Breadcrumb"
 import { HotelSearchList } from "../components/hotelSearchList/HotelSearchList"
-import { SearchBar } from "../components/searchBar/SearchBar.jsx"
+import { SearchBar } from "../components/searchBar/SearchBar"
 import { Link } from "react-router-dom"
 
 export const HotelsListPage = () => {
