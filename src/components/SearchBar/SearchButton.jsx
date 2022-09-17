@@ -21,17 +21,17 @@ export const SearchButton = () => {
   // if not then navigate to next page
   function searchHandler() {
 
-    console.log("search handler called");
-
     if (location === "") {
       toast.error("Please select City..!");
       return;
     }
-    else if (checkIn === "" || checkOut === "") {
-      toast.error("Please select check-in/ check-out date..!");
+
+    if (checkIn === null || checkIn === "" || checkOut === null || checkOut === "") {
+      toast.error("Please select check-in & check-out dates.");
       return;
     }
-    else if (checkIn === checkOut) {
+
+    if (checkIn === checkOut && (checkIn !== null || checkOut !== null)) {
       toast.error("Check-out date should be greater than check-in date..!");
       return;
     }

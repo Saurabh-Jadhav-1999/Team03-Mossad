@@ -6,7 +6,7 @@ import { fetchSuggestedHotels } from "../slices/suggestedHotelsSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { TrendingCities } from '../components/StaticComponents/TrendingCities'
-import { TravelYourPassion } from '../components/travelYourPassion/TravelYourPassion'
+import { TravelYourPassion } from '../components/StaticComponents/TravelYourPassion'
 export const LandingPage = () => {
 
   const dispatch = useDispatch();

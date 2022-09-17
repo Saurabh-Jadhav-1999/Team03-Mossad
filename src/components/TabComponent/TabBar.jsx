@@ -59,7 +59,7 @@ export const TabBar = (props) => {
     <React.Fragment>
       <Box>
         <Box className={styles.tabContainer}>
-          <Tabs value={value} onChange={handleChange}>
+          <Tabs value={value} onChange={handleChange} spacing={1}>
             <Tab
               label="Description"
               {...a11yProps(0)}

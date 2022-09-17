@@ -15,18 +15,18 @@ export const SearchBar = () => {
           <CitySelector />
         </Grid>
         <Grid item className={styles.arrowBox}>
-          <Box className={styles.arrow} src={arrow} component="img"/>
+          <Box className={styles.arrow} src={arrow} component="img" />
         </Grid>
-         <Grid item >
+        <Grid item >
           <DateSelector />
         </Grid>
-        
-         <Grid item>
+
+        <Grid item>
           <PersonSelector />
         </Grid>
         <Grid item>
           <SearchButton />
-        </Grid>  
+        </Grid>
       </Stack>
     </Box>
   );

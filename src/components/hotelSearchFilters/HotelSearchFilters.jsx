@@ -5,6 +5,7 @@ import { SearchOutlined } from "@material-ui/icons"
 import { InputSlider } from './PriceRangeFilter'
 import { setFilters, unSetFilters, setBudgetFilters, unSetBudgetFilters } from "../../slices/searchSlice";
 import { useDispatch, useSelector } from "react-redux";
+import { setFilteredHotels } from "../../slices/searchSlice";
 import { useState } from "react";
 import { useEffect } from 'react';
 
@@ -111,8 +112,6 @@ const filterValueArr = {
     "No Prepayment": "no_prepayment",
     "Free Cancellation": "free_cancellation",
     "Breakfast and Dinner": "breakfastAndDinner",
-    // "Breakfast and Dinner": "breakfast",
-    // remaining for both breakfast + dinner
     "Outdoor Sports": "out_door_sport",
     "Barbeque": "barbeque",
     "Living Room": "living_room",
@@ -129,15 +128,14 @@ const filterValueArr = {
 export const HotelSearchFilters = () => {
 
     const budgetFilterState = useSelector((state => state.search.yourBudgetFilters))
-    const [searchProperty, setSearchProperty] = useState()
-
+    const hotelList = useSelector((state => state.search.hotellist))
 
     const searchPropertyButtonHandler = (event) => {
-        setSearchProperty(event.target.value)
-    }
-
-    const searchPropertyHandler = () => {
-        console.log("Hotel: ", searchProperty);
+        const resulteArray = []
+        hotelList.map((item) => {
+            if ((item.hotel_name).toString().toLowerCase().includes((event.target.value).toLowerCase())) resulteArray.push(item)
+        })
+        dispatch(setFilteredHotels(resulteArray))
     }
 
     const filters = useSelector((state) => state.search.filters)
@@ -206,7 +204,7 @@ export const HotelSearchFilters = () => {
                         InputProps={{
                             endAdornment: (
                                 <InputAdornment position="end" >
-                                    <button onClick={() => searchPropertyHandler()} type='button' style={{ backgroundColor: "white", border: "none", cursor: "pointer" }} >
+                                    <button type='button' style={{ backgroundColor: "white", border: "none" }} >
                                         <SearchOutlined />
                                     </button>
                                 </InputAdornment>

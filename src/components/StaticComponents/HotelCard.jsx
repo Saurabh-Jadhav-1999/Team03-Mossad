@@ -6,9 +6,7 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import React from "react";
 import styles from './SuggestedHotels.module.css'
 
-export const HotelCard = (props) => {
-
-  console.log("Hotel Card: ", props.details);
+export const SuggestedHotelCard = (props) => {
 
   return (
     <Grid item lg={3}>
@@ -19,7 +17,7 @@ export const HotelCard = (props) => {
         />
         <Box className={styles.ratingDiv}>
           <StarOutlinedIcon className={styles.starIcon} />
-          <Typography component={'h4'}>{props.details.average_rating}</Typography>
+          <Typography component={'h4'} >{props.details.average_rating}/5 Rating</Typography>
           {/* <Typography component={'h5'}>({props.details.review})</Typography> */}
         </Box>
         <Typography component={'h2'}>

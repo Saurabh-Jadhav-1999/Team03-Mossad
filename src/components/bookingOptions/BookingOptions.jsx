@@ -161,6 +161,7 @@ export const BookingOptions = (props) => {
                     checkin={"1"}
                     date={checkin}
                     onChange={(e) => { }}
+                    check_out={false}
                   />
                 </Box>
                 <Box className={styles.datePicker}>
@@ -174,6 +175,7 @@ export const BookingOptions = (props) => {
                     checkin={"0"}
                     className={styles.datePicker}
                     date={checkout}
+                    check_out={true}
                   />
                 </Box>
               </Stack>
