@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { token } from "./token";
 
 /*initializing the state variables*/
 const initialState = {
@@ -10,12 +9,12 @@ const initialState = {
 
 export const fetchSuggestedHotels = createAsyncThunk(
   "suggestedHotels/fetchSuggestedHotels",
-  async (_, thunkAPI) => {
+  async (token, thunkAPI) => {
     try {
       const config = {
         headers: {
           "x-auth-token":
-            "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6ImpvaG5kb2VAZ21haWwuY29tIiwidXNlcl9pZCI6MX0.8ZJAWETPMMyxQygChY7t3d1GdrxGo16UQ_MkF6D-OGg",
+            token,
         },
       };
 
@@ -24,10 +23,10 @@ export const fetchSuggestedHotels = createAsyncThunk(
       return axios
         .post(
           "https://hotelbooking-backend.herokuapp.com/topFiveSuggestionsForUser",
-          bodyParameters, config 
+          bodyParameters, config
         )
         .then((response) => {
-          console.log(response.data, "response data");
+          // console.log(response.data, "response data");
           return response.data;
         });
     } catch (error) {
@@ -35,6 +34,7 @@ export const fetchSuggestedHotels = createAsyncThunk(
     }
   }
 );
+
 /* Creating reducers for setting state variables */
 export const suggestedHotelsSlice = createSlice({
   name: "suggestedHotels",
@@ -53,8 +53,7 @@ export const suggestedHotelsSlice = createSlice({
     },
     [fetchSuggestedHotels.fulfilled]: (state, action) => {
       state.status = "succeeded";
-    //   console.log(action, "action from fulfilled");
-        state.suggestedHotels = action.payload;
+      state.suggestedHotels = action.payload;
     },
   },
 });
