@@ -1,3 +1,4 @@
+//Confirmation Page
 import React, { Fragment } from "react";
 import styles from "./Confirmation.module.css";
 import { Box, Typography, Grid, Button } from "@mui/material";
@@ -12,7 +13,7 @@ const Confirmation = () => {
   function navigate(path) {
     Navigate(path);
   }
-
+//Retrieved values from slices
   const bookingdetails = useSelector((state) => state.bookNow.finalbooking);
   const hoteldetails = useSelector(state => state.getHotelDetails.hotelDetails);
   const checkin = useSelector((state) => state.search.checkIn);
@@ -30,7 +31,7 @@ const Confirmation = () => {
 
     return (reservationCinYear === reservationCoutYear) ? (checkIn + " - " + checkOut + " " + reservationCinYear) : checkIn + " " + reservationCinYear + " - " + checkOut + " " + reservationCoutYear
   }
-
+//Room type names set according to the roomtype variable
   let room_type = "";
   switch (roomtype) {
     case "double_room":
@@ -48,7 +49,7 @@ const Confirmation = () => {
     default:
       break;
   }
-
+//Breadcrumbs links for navigation
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -95,6 +96,7 @@ const Confirmation = () => {
 
   return (
     <Fragment>
+      {/* Loader condition*/}
       {status == "loading" ? (
         <div>
           <Loading />
