@@ -14,14 +14,14 @@ export const HotelSearchList = () => {
   const hotelList = useSelector((state) => state.search.hotellist);
   const filters = useSelector((state) => state.search.filters)
   const budgetFilters = useSelector((state) => state.search.budgetFilters)
-  const priceRangeFilters = useSelector((state) => state.search.priceRangeFilters)
   const filteredHotels = useSelector((state) => state.search.filteredHotels)
+  
 
   //Check if hotels provides selected filters
   const areFiltersAvailable = (arr) => {
     const value = (filters.filter((filter =>
-      (filter === "breakfastAndDinner") ? arr.hotelfacalities[0]?.['breakfast'] && arr.hotelfacalities[0]?.['dinner'] : arr.hotelfacalities[0]?.[filter]))
-    ).length;
+      ((filter === "breakfastAndDinner") ? arr.hotelfacalities[0]?.breakfast && arr.hotelfacalities[0]?.dinner : arr.hotelfacalities[0]?.[filter]))
+    )).length;
     return (value === filters.length) ? true : false;
   }
 
@@ -63,18 +63,16 @@ export const HotelSearchList = () => {
     dispatch(setFilteredHotels(filteredArray))
   }
 
-  // Filter Handler for Filter Properties and Budget Filters
-  const filterHandler = () => {
-    getFilteredArray();
-  }
-
   useEffect(() => {
     dispatch(setFilteredHotels(hotelList))
   }, [hotelList])
 
   useEffect(() => {
-    filterHandler();
-  }, [filters, budgetFilters, priceRangeFilters])
+
+    // Filter Handler for Filter Properties and Budget Filters
+    getFilteredArray();
+
+  }, [filters, budgetFilters])
 
   const status = useSelector((state) => state.search.status);
   return (
@@ -95,7 +93,6 @@ export const HotelSearchList = () => {
                   </div>
                 ) : (
                   (
-                    /* filters.length > 0 || budgetFilters.length > 0 ? */
                     filteredHotels.map((item) => (<HotelDetailsCard key={item.hotel_id} details={item} />))
                   )
                 ))

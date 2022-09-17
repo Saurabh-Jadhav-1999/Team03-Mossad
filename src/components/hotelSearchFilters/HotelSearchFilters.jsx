@@ -110,7 +110,7 @@ const yourBudgetFilterData = [
 const filterValueArr = {
     "No Prepayment": "no_prepayment",
     "Free Cancellation": "free_cancellation",
-    "Breakfast and Dinner": ["breakfastAndDinner"],
+    "Breakfast and Dinner": "breakfastAndDinner",
     // "Breakfast and Dinner": "breakfast",
     // remaining for both breakfast + dinner
     "Outdoor Sports": "out_door_sport",
@@ -145,7 +145,6 @@ export const HotelSearchFilters = () => {
     const [budgetSelector, setBudgetSelector] = useState(budgetFilterState)
 
     useEffect(() => {
-        console.log("Budget Filter state changed: ");
         setBudgetSelector(budgetFilterState)
     }, [budgetFilterState])
 

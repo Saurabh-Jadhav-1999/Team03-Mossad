@@ -30,6 +30,7 @@ export const InputSlider = () => {
 
     const dispatch = useDispatch();
     const [value, setValue] = useState(2000);
+
     const mark = [
         {
             value: 50,
@@ -52,7 +53,10 @@ export const InputSlider = () => {
     };
 
     const handleInputChange = (event) => {
+
         setValue(event.target.value == '' ? '' : Number(event.target.value));
+        dispatch(clearYourBudgetFilters())
+        dispatch(setBudgetFilters([50, event.target.value]))
     };
 
     const handleBlur = (event) => {
@@ -85,6 +89,7 @@ export const InputSlider = () => {
                     disableUnderline={true}
                     onChange={handleInputChange}
                     onBlur={handleBlur}
+                    type={"number"}
                     sx={{
                         width: "33%",
                         height: "30px",
@@ -95,7 +100,9 @@ export const InputSlider = () => {
                         paddingLeft: "4px",
                         paddingTop: "4px",
                         fontSize: "15px",
-                        fontWeight: "550"
+                        fontWeight: "550",
+                        textTransform: "none",
+                        textDecoration: "none"
                     }}
                 />
             </Stack>
