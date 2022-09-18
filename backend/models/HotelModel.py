@@ -117,7 +117,7 @@ hotel_representation_for_review = {
 class Hotel(db.Model):
     hotel_id = db.Column(db.Integer, primary_key=True)
     hotel_name = db.Column(db.String(200), nullable=False)
-    hotel_profile_picture = db.Column(db.String(200), default="https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg")
+    hotel_profile_picture = db.Column(db.String(2000), default="https://images.pexels.com/photos/258154/pexels-photo-258154.jpeg")
     hotel_images = db.Column(db.ARRAY(db.String(2500)))
     description = db.Column(db.String(2000), nullable=False)
     city = db.Column(db.String(200), nullable=False)

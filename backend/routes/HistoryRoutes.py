@@ -38,7 +38,17 @@ class HandleHistory(Resource):
 
 # class for handling topfivesuggested hotel api
 class TopFiveSuggestionsForUser(Resource):
-   def get(self):
+    def get(self):
+        token_result = token_required(request)
+    # print(token_result)
+        if  type(token_result)==dict({}) and "error" in token_result.keys():
+          return token_result
+
+    # call the get search suggestion
+        result=getUserHistory(request.json.get("user_id"))
+        return make_response(result, 200)
+
+    def post(self):
         token_result = token_required(request)
     # print(token_result)
         if  type(token_result)==dict({}) and "error" in token_result.keys():

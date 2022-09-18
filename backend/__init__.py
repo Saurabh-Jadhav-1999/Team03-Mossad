@@ -4,19 +4,11 @@ from flask_restful import  reqparse, Resource, Api, marshal_with
 from flask_cors import CORS
 
 app = Flask(__name__)
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://efcdpwyl:R05Qw_8OiIW0hG_um1xr4blSG4-ar0Bx@rosie.db.elephantsql.com/efcdpwyl"
-
-# db url for testing
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://xcqgjvbd:m2mMRxVQp3X5j6cBgp7YlJgX1Qo3LjuI@rosie.db.elephantsql.com/xcqgjvbd"
-
-# final testing with new facality model and updated code testing
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://nlxvhwkd:8tBh0PJcR6C5U1-o2XyCC89hEh4DQGnv@rosie.db.elephantsql.com/nlxvhwkd"
-
 # new database for testing
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://iwvausdj:e0nz6LyOKpPcJShk3bNncscM_Gx1Htpa@tyke.db.elephantsql.com/iwvausdj"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://iwvausdj:e0nz6LyOKpPcJShk3bNncscM_Gx1Htpa@tyke.db.elephantsql.com/iwvausdj"
 
-# final testing with new facality model and updated code testing
-# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://nlxvhwkd:8tBh0PJcR6C5U1-o2XyCC89hEh4DQGnv@rosie.db.elephantsql.com/nlxvhwkd"
+# final db for last demo 19/09/2022
+app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://yprqsugt:UZtE5dtDGQry7MGm-F226ydOxAyo3brB@rosie.db.elephantsql.com/yprqsugt"
 
 # allow origins
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
