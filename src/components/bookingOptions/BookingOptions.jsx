@@ -27,6 +27,8 @@ import {
   unsetLunchPerPersonPerDay,
   unsetParking,
   finalBookNow,
+  setLunchUsingAdult,
+  setLunchUsingChild
 } from "./../../slices/bookNowSlice";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -53,13 +55,13 @@ export const BookingOptions = (props) => {
 
       default:
         break;
-
     }
   }, [status1]);
 
   const notify1 = () => toast("Booking is in Progress.");
   const notify2 = () => toast("Your hotel has been booked.");
-  const notify3 = () => toast("Booking is rejected, please change your booking options.");
+  const notify3 = () =>
+    toast("Booking is rejected, please change your booking options.");
   const totalcost = useSelector((state) => state.bookNow.totalCost);
   const status = useSelector((state) => state.getHotelDetails.status);
   const hotelid = useSelector((state) => state.getHotelDetails.hotel_id);
@@ -67,10 +69,14 @@ export const BookingOptions = (props) => {
   const checkout = useSelector((state) => state.search.checkOut);
   const adultcount = useSelector((state) => state.search.totalAdult);
   const childcount = useSelector((state) => state.search.totalChild);
-  const lunch_per_person = useSelector(state => state.bookNow.lunch_per_person_per_day);
+  const lunch_per_person = useSelector(
+    (state) => state.bookNow.lunch_per_person_per_day
+  );
   const roomTypeCost = useSelector((state) => state.bookNow.room_type_cost);
-  const diff = useSelector(state => state.search.diff);
-  const roomtype = useSelector(state => state.bookNow.room_type);
+  const diff = useSelector((state) => state.search.diff);
+  const roomtype = useSelector((state) => state.bookNow.room_type);
+  let lunchstatus = 0;
+  lunch_per_person != 0 ? (lunchstatus = 1) : (lunchstatus = 0);
 
   //Extra Features Options for the Book Now component
   const features = [
@@ -102,9 +108,7 @@ export const BookingOptions = (props) => {
 
   return (
     <Fragment>
-      {status == "loading" && setTimeout(() => {
-
-      }, 5000) ? (
+      {status == "loading" && setTimeout(() => {}, 5000) ? (
         <p></p>
       ) : (
         <Paper elevation={0} className={styles.bookingOptionsContainer}>
@@ -145,7 +149,7 @@ export const BookingOptions = (props) => {
                   10% OFF
                 </Button>
               </Grid>
-            </Grid >
+            </Grid>
             <hr className={styles.divider} />
             <Grid item xs={12}>
               <Stack direction={"row"} justifyContent={"space-between"}>
@@ -160,7 +164,7 @@ export const BookingOptions = (props) => {
                     className={styles.datePicker}
                     checkin={"1"}
                     date={checkin}
-                    onChange={(e) => { }}
+                    onChange={(e) => {}}
                     check_out={false}
                   />
                 </Box>
@@ -190,13 +194,26 @@ export const BookingOptions = (props) => {
               <Stack direction={"row"} gap={2}>
                 <Box sx={{ width: "40%" }}>
                   <FormControl fullWidth size="small">
-                    <InputLabel id="label-adult" >Adults</InputLabel>
+                    <InputLabel id="label-adult">Adults</InputLabel>
                     <Select
                       labelId="label-adult"
                       label="Adult"
                       defaultValue={adultcount}
                       style={{ backgroundColor: "#F4F5F7" }}
                       onChange={(e) => {
+                        let new_adult_count = e.target.value;
+
+                        if (lunchstatus == 1) {
+                          console.log(new_adult_count, "adult count inside if");
+                          dispatch(
+                            setLunchUsingAdult({
+                              adultcount,
+                              new_adult_count,
+                              childcount,
+                            })
+                          );
+                        }
+
                         dispatch(setAdultCount(e.target.value));
                       }}
                     >
@@ -216,6 +233,18 @@ export const BookingOptions = (props) => {
                       defaultValue={childcount}
                       style={{ backgroundColor: "#F4F5F7" }}
                       onChange={(e) => {
+                        let new_child_count = e.target.value;
+
+                        if (lunchstatus == 1) {
+                          console.log(new_child_count, "child count inside if");
+                          dispatch(
+                            setLunchUsingChild({
+                              childcount,
+                              new_child_count,
+                              adultcount,
+                            })
+                          );
+                        }
 
                         dispatch(setChildCount(e.target.value));
                       }}
@@ -256,7 +285,6 @@ export const BookingOptions = (props) => {
                                       dispatch(
                                         setAllowToBringPet(e.target.value)
                                       );
-
                                     } else if (!e.target.checked) {
                                       dispatch(
                                         unsetAllowToBringPet(e.target.value)
@@ -267,7 +295,12 @@ export const BookingOptions = (props) => {
                                     if (e.target.checked) {
                                       const lunchprice = e.target.value;
                                       dispatch(
-                                        setLunchPerPersonPerDay({ lunchprice, diff, adultcount, childcount })
+                                        setLunchPerPersonPerDay({
+                                          lunchprice,
+                                          diff,
+                                          adultcount,
+                                          childcount,
+                                        })
                                       );
                                     } else if (!e.target.checked) {
                                       dispatch(
@@ -334,7 +367,7 @@ export const BookingOptions = (props) => {
                       childcount,
                       hotelid,
                       totalcost,
-                      roomtype
+                      roomtype,
                     })
                   );
                 }}
@@ -343,14 +376,14 @@ export const BookingOptions = (props) => {
                 <ToastContainer />
               </Button>
             </Grid>
-          </Grid >
+          </Grid>
           <Grid item xs={12} className={styles.bookingNote}>
             <Typography sx={{ fontSize: "8%" }}>
               You will not get charged yet
             </Typography>
           </Grid>
-        </Paper >
+        </Paper>
       )}
-    </Fragment >
+    </Fragment>
   );
 };

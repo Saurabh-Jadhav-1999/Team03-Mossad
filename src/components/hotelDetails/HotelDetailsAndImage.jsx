@@ -6,17 +6,21 @@ import {Rating} from "@mui/material";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import styles from "./HotelDetailsAndImage.module.css";
 import ImageGrid from "../imageGrid/ImageGrid";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
-
+import Loading from "../loader/Loader";
 export const HotelDetailsAndImage = (props) => {
-  const [img, setImg] = useState(false);
-  setTimeout(() => {
-    setImg(true);
-  }, 4000);
-
   const status = useSelector((state) => state.getHotelDetails.status);
+  const [img, setImg] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      if(status=="succeeded")
+      setImg(true);
+    }, 5000);  
+  }, [status])
+  
+ 
   const hotelrating = (parseFloat(useSelector(state => state.getHotelDetails.hotelDetails.rating)).toFixed(1));
 
   const hoteldetails = useSelector(
@@ -25,6 +29,17 @@ export const HotelDetailsAndImage = (props) => {
 
   return (
     <Fragment>
+       {(status != "succeeded") ? (
+          <div>
+            <Loading />
+            <Typography
+              variant="h5"
+              style={{ fontFamily: "inter", textAlign: "center", margin: "10vh auto" }}
+            >
+              Details are on the way !
+            </Typography>
+          </div>
+        ) :(
       <div>
         <Box className={`${styles.box4}`}>
           <Typography variant="h4" className={`${styles.typo1}`}>
@@ -92,6 +107,7 @@ export const HotelDetailsAndImage = (props) => {
           </Typography>
         </Box>
       </div>
+        )}
     </Fragment>
   );
 };

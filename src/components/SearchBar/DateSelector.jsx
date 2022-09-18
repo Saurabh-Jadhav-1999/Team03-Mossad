@@ -35,7 +35,7 @@ setDateValues([checkin,checkout]);
         value={dateValues}
         format="MM.DD.YYYY"
         onChange={(newValue) => {
-          // setDateValues(newValue);
+    
 
           if (newValue[0] != null && newValue[1] != null) {
             const checkInDateValue = moment(new Date(newValue[0])).format(
@@ -53,7 +53,7 @@ setDateValues([checkin,checkout]);
         renderInput={(startProps, endProps) => (
           <React.Fragment>
             <TextField
-              // value={dateValues[0]}
+      
               format="MM.DD.YYYY"
               className={styles.dateInp}
               {...startProps}
@@ -67,7 +67,7 @@ setDateValues([checkin,checkout]);
             />
 
             <TextField
-              // value={dateValues[1]}
+            
               format="MM/DD/YYYY"
               className={styles.dateInp}
               {...endProps}
@@ -79,29 +79,4 @@ setDateValues([checkin,checkout]);
   );
 }
 
-
-
-// import * as React from "react";
-// import TextField from "@material-ui/core/TextField";
-// import { DateRangePicker, DateRange, DateRangeDelimiter } from "@material-ui/pickers";
-
-// export default function BasicDateRangePicker() {
-//   const [value, setValue] = React.useState<DateRange<Date>>([null, null]);
-
-//   return (
-//     <DateRangePicker
-//       startText="Check-in"
-//       endText="Check-out"
-//       value={value}
-//       onChange={(newValue) => setValue(newValue)}
-//       renderInput={(startProps, endProps) => (
-//         <React.Fragment>
-//           <TextField {...startProps} />
-//           <DateRangeDelimiter> to </DateRangeDelimiter>
-//           <TextField {...endProps} />
-//         </React.Fragment>
-//       )}
-//     />
-//   );
-// }
 
