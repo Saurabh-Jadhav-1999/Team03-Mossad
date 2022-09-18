@@ -24,21 +24,28 @@ class HandleBooking(Resource):
         if "check_in_date" not in data.keys() or  "check_out_date" not in data.keys():
             return {"error": "check_in_date or check_out_date is missing"}, 400
 
-        # convert string date to date format
-        data['check_in_date'] = datetime.datetime.strptime(data['check_in_date'], "%Y-%m-%d")
-        data['check_out_date'] = datetime.datetime.strptime(data['check_out_date'], "%Y-%m-%d")
+        try :
+             # convert string date to date format
+            data['check_in_date'] = datetime.datetime.strptime(data['check_in_date'], "%Y-%m-%d")
+            data['check_out_date'] = datetime.datetime.strptime(data['check_out_date'], "%Y-%m-%d")
+        except ValueError:
+            return make_response({"error": "invalid check_in or check_out date!"}, 400)
 
          # check if check in date is greater than current date
         current_date = getCurrentDate()
         if data['check_in_date'] < current_date or data['check_out_date'] < current_date:
             return make_response({"error":"check_in_date and check_out_date must greater than equal to current date"})
 
-
-
         #check if checkout is less than check in
         if data['check_out_date'] < data['check_in_date']:
             return {"error": "check_in_date must be less than check_out_date"}
         # print(data)
+
+        # check if checkin date is less than 90 days, and checkout date is less than 90days from todays date
+        today = getCurrentDate()
+        if data['check_in_date']>today+datetime.timedelta(days=90) or data['check_out_date']>today+datetime.timedelta(days=90):
+            print('date is more than 90 days')
+            return make_response({"error":"you cannot book hotel 90 days by current date!"}, 400)
 
         validationResult = validateBookingData(data)
         if validationResult.errors:
@@ -66,6 +73,7 @@ class HandleBooking(Resource):
         # print(result)
 
         return make_response(result, 200)
+
     @marshal_with(booking_representation)
     def get(self):
         data = getBookings()
