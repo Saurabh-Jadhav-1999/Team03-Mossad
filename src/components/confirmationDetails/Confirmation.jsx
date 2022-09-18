@@ -213,8 +213,6 @@ const Confirmation = () => {
                     <img
                       className={`${styles.hotelimg}`}
                       src={hoteldetails.hotel_profile_picture}
-                      height="480x"
-                      width="700px"
                       alt=""
                     />
                   </div>
