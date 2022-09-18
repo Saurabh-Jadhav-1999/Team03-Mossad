@@ -16,6 +16,8 @@ const Room = (props) => {
   const roomtypecost = useSelector((state) => state.bookNow.room_type_cost);
   const date1 = new Date(checkin);
   const date2 = new Date(checkout);
+  let OfferRate = (props.hike == true) ? props.offerRate + (props.offerRate * 0.2) : props.offerRate;
+  let BasePrice = (props.hike == true) ? props.basePrice + (props.basePrice * 0.2) : props.basePrice;
   /*Calculating the difference between the checkin and checkout*/
   const Difference_In_Time = date2.getTime() - date1.getTime();
 
@@ -41,40 +43,44 @@ const Room = (props) => {
       </Box>
       <Box className={styles.rightDiv}>
         <Typography className={styles.boldHeading} component="span">
-          ${props.offerRate}
+
+          ${OfferRate}
           <Typography className={styles.offer} component="span">
             /night
           </Typography>
         </Typography>
         {/* If discount is not 0 then only render the elements */
-          props.discount !== 0 && props.basePrice !== undefined ? (
-            <>
-              <Typography component={"span"} className={styles.saveAmt}>
-                {
-                  (props.offerRate) == 0 ? <p>0</p> : (<>
-                    <button
-                      type="button"
-                      disabled
-                      className={`${styles.labelDiscountPercentage}`}
-                    >
-                      10% OFF
-                    </button>
-                    <p>Save ${props.basePrice - props.offerRate}</p></>)}
-              </Typography>
-              <Typography component={"span"} className={styles.offerCondition}>
-                Amount before discount ${props.basePrice}/night
-              </Typography>
-            </>
-          ) : (<></>)}
+        props.discount !==0 &&props.basePrice!==undefined ? (
+          <>
+          <Typography component={"span"} className={styles.saveAmt}>
+            {
+              (props.offerRate) == 0 ? <p>0</p> : (<>
+                <button
+                  type="button"
+                  disabled
+                  className={`${styles.labelDiscountPercentage}`}
+                >
+                  10% OFF
+                </button>
+                <p>Save ${BasePrice - OfferRate}</p></>)}
+          </Typography>
+          <Typography component={"span"} className={styles.offerCondition}>
+            {
+
+            }
+            Amount before discount ${BasePrice}/night
+          </Typography>
+        </>
+        ) :( <></>) }
 
         <button
           type="button"
           className={styles.selectBtn}
           onClick={(e) => {
-            const bp = props.offerRate;
+            const bp = OfferRate;
             if (
               roomtype !== props.roomType &&
-              roomtypecost !== props.offerRate
+              roomtypecost !== OfferRate
             ) {
               if (checkin && checkout !== "") {
                 dispatch(setRoomType(props.roomType));

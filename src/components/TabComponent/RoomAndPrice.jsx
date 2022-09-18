@@ -3,14 +3,21 @@ import styles from "./Room.module.css";
 import React from "react";
 import Room from "./Room";
 import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 const offers = ["Free Wi-fi", "Breakfast for two people", "Non Refundable"];
 export const RoomAndPrice = (props) => {
 
   const room_price_and_types = useSelector(
     (state) => state.getHotelDetails.hotelDetails
   );
+  let location = useLocation();
+
+  const idFromUrl = new URLSearchParams(location.search).get("id");
 
   const hotellist = useSelector((state) => state.search.hotellist);
+  const hotel = hotellist.filter((item) => item.hotel_id == idFromUrl);
+  const dynamic_hike = hotel[0].dynamic_hike;
+
   const filterid = hotellist.filter((item) => item.hotel_id == props.id);
   const discounted_room_type = filterid[0].discounted_room_type;
   const availableRooms = filterid[0].available_room_types;
@@ -80,6 +87,7 @@ export const RoomAndPrice = (props) => {
             offers={offers}
             offerRate={item.room_rate}
             basePrice={item.old_room_rate}
+            hike={dynamic_hike}
           />
         ))
         : (
@@ -94,8 +102,8 @@ export const RoomAndPrice = (props) => {
                   offers={offers}
                   basePrice={item.room_rate}
                   offerRate={item.room_rate}
+                  hike={dynamic_hike}
                 />)
-
           }
           ))}
     </Box>

@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { BookingOptions } from "../bookingOptions/BookingOptions";
 import { HotelDetailsAndImage } from "./HotelDetailsAndImage";
-import { TabBar } from "../tabComponent/TabBar";
+import { TabBar } from "../TabComponent/TabBar";
 import styles from "./HotelDetails.module.css";
 import { Box } from "@mui/system";
 import Breadcrumb from "../breadcrumb/Breadcrumb";
@@ -27,7 +27,7 @@ export const HotelDetails = () => {
   const hoteldetails = useSelector(
     (state) => state.getHotelDetails.hotelDetails
   );
-  const facilities = useSelector((state) => state.getHotelDetails.hotelDetails.hotelfacalities);
+  // const facilities = useSelector((state) => state.getHotelDetails.hotelDetails.hotelfacalities);
 
 
   const breadcrumbs = [
@@ -68,7 +68,7 @@ export const HotelDetails = () => {
     <Fragment>
       <Breadcrumb links={breadcrumbs} style={{ backgroundColor: "white" }} />
       <div className={styles.container}>
-        {(status == "loading" && facilities !== []) ? (
+        {(status != "succeeded") ? (
           <div>
             <Loading />
             <Typography

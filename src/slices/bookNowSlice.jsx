@@ -3,6 +3,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { token } from "./token";
+import { useSelector } from "react-redux";
 /*initializing the state variables*/
 const initialState = {
   hotelId: "",
@@ -103,6 +104,28 @@ export const bookNowSlice = createSlice({
       state.allow_to_bring_pet = parseInt(action.payload);
       state.totalCost += parseInt(action.payload);
     },
+    setLunchUsingDate: (state = initialState, action) => {
+      state.totalCost -= state.lunch_per_person_per_day;
+      state.lunch_per_person_per_day /= action.payload.old_diff;
+      state.lunch_per_person_per_day *= action.payload.Difference_In_Days;
+      state.totalCost += state.lunch_per_person_per_day;
+    },
+    setLunchUsingAdult: (state = initialState, action) => {
+      state.totalCost -= state.lunch_per_person_per_day;
+      state.lunch_per_person_per_day /=
+        action.payload.adultcount + action.payload.childcount;
+      state.lunch_per_person_per_day *=
+        action.payload.new_adult_count + action.payload.childcount;
+      state.totalCost += state.lunch_per_person_per_day;
+    },
+    setLunchUsingChild: (state = initialState, action) => {
+      state.totalCost -= state.lunch_per_person_per_day;
+      state.lunch_per_person_per_day /=
+        action.payload.adultcount + action.payload.childcount;
+      state.lunch_per_person_per_day *=
+        action.payload.adultcount + action.payload.new_child_count;
+      state.totalCost += state.lunch_per_person_per_day;
+    },
     setLunchPerPersonPerDay: (state = initialState, action) => {
       let passengers = 0;
       //if childcount is not 0 then add the childcount to adultcount and calculate lunch per person per day
@@ -135,7 +158,7 @@ export const bookNowSlice = createSlice({
     setRoomTypeCost: (state = initialState, action) => {
       if (state.totalCost !== "") {
         state.totalCost = parseInt(state.totalCost / state.room_type_cost);
-         //add all extra features cost and add them into total cost of total days
+        //add all extra features cost and add them into total cost of total days
         state.totalCost =
           parseInt(action.payload.bp * action.payload.Difference_In_Days) +
           state.allow_to_bring_pet +
@@ -151,7 +174,7 @@ export const bookNowSlice = createSlice({
       state.difference_between_days = action.payload;
     },
   },
-  /* Defining actions for the status of promise returned by the api call*/ 
+  /* Defining actions for the status of promise returned by the api call*/
   extraReducers: {
     [finalBookNow.pending]: (state, action) => {
       state.status = "loading";
@@ -181,5 +204,8 @@ export const {
   unsetParking,
   setRoomTypeCost,
   setRoomType,
+  setLunchUsingAdult,
+  setLunchUsingChild,
+  setLunchUsingDate,
 } = bookNowSlice.actions;
 export default bookNowSlice.reducer;
