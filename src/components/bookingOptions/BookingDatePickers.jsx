@@ -35,7 +35,7 @@ export const BookingDatePickers = (props) => {
                 value={props.date}
                 onChange={handleChange}
                 renderInput={(params) => <TextField {...params} />}
-                minDate={new Date()}
+                minDate={props.check_out === true ? (new Date(new Date().getTime() + 86400000)) : new Date()}
             />
         </LocalizationProvider>
     );

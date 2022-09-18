@@ -1,11 +1,20 @@
 import { HotelSearchFilters } from "../hotelSearchFilters/HotelSearchFilters";
 import { HotelDetailsCard } from "../hotelDetailsCard/HotelDetailsCard";
-import {  Stack } from "@mui/material";
+import { Stack, Paper } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { Fragment, useEffect } from "react";
 import Loading from "../loader/Loader";
 import Typography from "@mui/material/Typography";
-import { setFilteredHotels} from "../../slices/searchSlice";
+import { setFilteredHotels } from "../../slices/searchSlice";
+
+// Logic to render info on empty result list
+// {/* (
+//      hotelList.length < 1 || (filters.length < 1 && filteredHotels || budgetFilters.length < 1) ?
+//     (<Paper style={{ marginLeft: "13vw", display: "grid", justifyContent: "center", marginTop: "15vh", width: "40vw", textAlign: "center", height: "23vh", padding: "1vw", borderRadius: "15px" }}>
+//      <Typography variant="h5" style={{ fontFamily: "inter", marginLeft: "0px", marginTop: "2vh" }}>    Hotels not found ! </Typography>
+//     <Typography variant="h5" style={{ fontFamily: "inter", marginTop: "1vh" }}> Please update your search preferences.</Typography>
+//      </Paper>) : filteredHotels.map((item) => (<HotelDetailsCard key={item.hotel_id} details={item} />))
+//     ) */}
 
 export const HotelSearchList = () => {
 
@@ -15,7 +24,7 @@ export const HotelSearchList = () => {
   const filters = useSelector((state) => state.search.filters)
   const budgetFilters = useSelector((state) => state.search.budgetFilters)
   const filteredHotels = useSelector((state) => state.search.filteredHotels)
-  
+
 
   //Check if hotels provides selected filters
   const areFiltersAvailable = (arr) => {
@@ -71,7 +80,6 @@ export const HotelSearchList = () => {
 
     // Filter Handler for Filter Properties and Budget Filters
     getFilteredArray();
-
   }, [filters, budgetFilters])
 
   const status = useSelector((state) => state.search.status);
@@ -82,19 +90,17 @@ export const HotelSearchList = () => {
         <Stack direction={"column"} spacing={2}>
           {
             status === "rejected" ?
-              (<div style={{ marginLeft: "20vw", display: "grid", justifyContent: "center" }}>
-                <Typography variant="h5" style={{ fontFamily: "inter", marginLeft: "0px" }}>    Hotels not found ! </Typography>
-                <Typography variant="h5" style={{ fontFamily: "inter", }}> Please update your search details.</Typography>
-              </div>) : (
+              (<Paper style={{ marginLeft: "13vw", display: "grid", justifyContent: "center", marginTop: "15vh", width: "40vw", textAlign: "center", height: "23vh", padding: "1vw", borderRadius: "15px" }}>
+                <Typography variant="h5" style={{ fontFamily: "inter", marginLeft: "0px", marginTop: "2vh" }}>    Hotels not found ! </Typography>
+                <Typography variant="h5" style={{ fontFamily: "inter", marginTop: "1vh" }}> Please update your search preferences.</Typography>
+              </Paper>) : (
                 status === "loading" ? (
-                  <div style={{ marginLeft: "20vw" }}>
+                  <div style={{ marginLeft: "12vw" }}>
                     <Loading />
-                    <Typography variant="h5" style={{ fontFamily: "inter", textAlign: "center", margin: "10vh -10" }}>Wait a moment, we are finding the best hotels for you!</Typography>
+                    <Typography variant="h5" style={{ fontFamily: "inter", textAlign: "center", margin: "15vh -12", marginTop: "7vh" }}>Wait a moment, we are finding the best hotels for you!</Typography>
                   </div>
                 ) : (
-                  (
-                    filteredHotels.map((item) => (<HotelDetailsCard key={item.hotel_id} details={item} />))
-                  )
+                  filteredHotels.map((item) => (<HotelDetailsCard key={item.hotel_id} details={item} />))
                 ))
           }
         </Stack >

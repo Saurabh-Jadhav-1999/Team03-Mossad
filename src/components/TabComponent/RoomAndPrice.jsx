@@ -5,7 +5,7 @@ import Room from "./Room";
 import { useSelector } from "react-redux";
 const offers = ["Free Wi-fi", "Breakfast for two people", "Non Refundable"];
 export const RoomAndPrice = (props) => {
-  
+
   const room_price_and_types = useSelector(
     (state) => state.getHotelDetails.hotelDetails
   );
@@ -38,8 +38,6 @@ export const RoomAndPrice = (props) => {
     },
   ];
 
- 
-
   let discountedRooms = roomtypes.map((item) => {
     if (discounted_room_type.includes(item.room_type)) {
       return {
@@ -48,54 +46,54 @@ export const RoomAndPrice = (props) => {
         old_room_rate: item.room_rate,
       };
     }
-    else{
+    else {
 
     }
     return item;
   });
 
- let newDiscountedRoom=[];
- let nameIndex=[];
- discountedRooms.map((item)=>{
-   if((item.hasOwnProperty("old_room_rate"))===true){
-    newDiscountedRoom.push(item);
-   }
-   else{
-         nameIndex.push(item);
-   }
-   
- })
-let tmp=[...newDiscountedRoom,...nameIndex];
-discountedRooms=tmp;
- return (
+  let newDiscountedRoom = [];
+  let nameIndex = [];
+  discountedRooms.map((item) => {
+    if ((item.hasOwnProperty("old_room_rate")) === true) {
+      newDiscountedRoom.push(item);
+    }
+    else {
+      nameIndex.push(item);
+    }
+
+  })
+  let tmp = [...newDiscountedRoom, ...nameIndex];
+  discountedRooms = tmp;
+  return (
     <Box className={styles.mainContainer}>
       <Typography className={styles.heading} component="span">
         Select Room
       </Typography>
       {discounted_room_type.length != 0
         ? discountedRooms.map((item) => (
-            <Room
-              name={item.name}
-              key={item.room_type}
-              roomType={item.room_type}
-              offers={offers}
-              offerRate={item.room_rate}
-              basePrice={item.old_room_rate}
-            />
-          ))
+          <Room
+            name={item.name}
+            key={item.room_type}
+            roomType={item.room_type}
+            offers={offers}
+            offerRate={item.room_rate}
+            basePrice={item.old_room_rate}
+          />
+        ))
         : (
-        roomtypes.map((item) => (
+          roomtypes.map((item) => (
             <Room
-             discount={0}
+              discount={0}
               name={item.name}
               key={item.room_type}
               roomType={item.room_type}
               offers={offers}
-              basePrice={item.room_rate }
+              basePrice={item.room_rate}
               offerRate={item.room_rate}
-           
+
             />
-           
+
           )))}
     </Box>
   );

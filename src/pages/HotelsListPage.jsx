@@ -21,7 +21,6 @@ export const HotelsListPage = () => {
       key="2"
       color="inherit"
       href="/search-hotels"
-      // onClick={()=> navigate('HotelList')}
       style={{ textDecoration: "none", color: "black" }}
     >
       Hotel List

@@ -7,15 +7,16 @@
   margin-left: 2rem;
 }
 
-.headingLabel{
+.headingLabel {
   font-family: 'Inter';
   font-style: normal;
   font-weight: 600 !important;
   color: black !important;
+  margin-left: -1rem !important;
 }
 
 .TabHeadings {
-  color: #326bff  !important;
+  color: #326bff !important;
   border-color: #326bff !important;
 }
 

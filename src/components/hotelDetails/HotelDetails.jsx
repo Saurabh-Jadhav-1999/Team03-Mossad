@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect } from "react";
 import { BookingOptions } from "../bookingOptions/BookingOptions";
 import { HotelDetailsAndImage } from "./HotelDetailsAndImage";
-import { TabBar } from "../TabComponent/TabBar";
+import { TabBar } from "../tabComponent/TabBar";
 import styles from "./HotelDetails.module.css";
 import { Box } from "@mui/system";
 import Breadcrumb from "../breadcrumb/Breadcrumb";
@@ -28,8 +28,8 @@ export const HotelDetails = () => {
     (state) => state.getHotelDetails.hotelDetails
   );
   const facilities = useSelector((state) => state.getHotelDetails.hotelDetails.hotelfacalities);
- 
-  
+
+
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -68,7 +68,7 @@ export const HotelDetails = () => {
     <Fragment>
       <Breadcrumb links={breadcrumbs} style={{ backgroundColor: "white" }} />
       <div className={styles.container}>
-        {(status == "loading" && facilities!==[]) ?  (
+        {(status == "loading" && facilities !== []) ? (
           <div>
             <Loading />
             <Typography
@@ -83,7 +83,7 @@ export const HotelDetails = () => {
             <HotelDetailsAndImage details={hoteldetails} />
             <Box className={styles.bottomDiv}>
               <TabBar id={idFromUrl} description={hoteldetails} />
-              <BookingOptions   />
+              <BookingOptions />
             </Box>
           </>
         )}

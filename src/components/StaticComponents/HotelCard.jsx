@@ -6,34 +6,31 @@ import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import React from "react";
 import styles from './SuggestedHotels.module.css'
 
-export const HotelCard = (props) => {
-//   console.log(props);
+export const SuggestedHotelCard = (props) => {
+
   return (
     <Grid item lg={3}>
       <Paper className={styles.cardContainer}>
         <img
-          src="https://www.bing.com/th?id=OIP.bYImvu-5uLtP9vVXDZKq1QHaE8&w=306&h=204&c=8&rs=1&qlt=90&o=6&dpr=1.5&pid=3.1&rm=2"
+          src={props.details.hotel_profile_picture}
           alt=""
         />
         <Box className={styles.ratingDiv}>
-            <StarOutlinedIcon className={styles.starIcon}/>
-          <Typography component={'h4'}>{props.details.rating}</Typography>
-          <Typography component={'h5'}>({props.details.review})</Typography>
+          <StarOutlinedIcon className={styles.starIcon} />
+          <Typography component={'h4'} >{props.details.average_rating}/5 Rating</Typography>
+          {/* <Typography component={'h5'}>({props.details.review})</Typography> */}
         </Box>
         <Typography component={'h2'}>
-            {props.details.hotelName}    
-             <Button className={styles.basePrice}>
-                ${props.details.basePrice}
-            </Button>
+          {props.details.hotel_name}
+          <Button className={styles.basePrice}>
+            ${props.details.base_price}
+          </Button>
         </Typography>
         <Typography component={'h3'}>
-                {props.details.city},{props.details.state}
-            </Typography>
-        
-        <Box className={styles.locationDiv}>
-            <LocationOnOutlinedIcon className={styles.locationIcon} />
-            {props.details.address}
-        </Box>
+          <LocationOnOutlinedIcon className={styles.locationIcon} />
+          {props.details.hotel_city},{props.details.hotel_state}
+        </Typography>
+
       </Paper>
     </Grid>
   );

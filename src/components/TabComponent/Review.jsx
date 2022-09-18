@@ -6,7 +6,7 @@ import styles from "./Review.module.css";
 export const Review = (props) => {
   return (
     <Box className={styles.mainDiv}>
-      <Paper className={styles.reviewCard}>
+      <Paper className={styles.reviewCard} elevation={0}>
         <Box className={styles.innerDiv}>
           <Box className={styles.imgDiv}>
             <img src={props.imgPath} alt="pic not found" />

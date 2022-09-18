@@ -71,7 +71,7 @@ export const fetchCityList = createAsyncThunk(
           "x-auth-token": token,
         },
       };
-      console.log(location, "location from axios");
+      // console.log(location, "location from axios");
       const bodyParameters = {
         city_name: location,
       };
@@ -83,7 +83,7 @@ export const fetchCityList = createAsyncThunk(
           config
         )
         .then((response) => {
-          console.log(response.data, "response data");
+          // console.log(response.data, "response data");
           return response.data;
         });
     } catch (error) {
