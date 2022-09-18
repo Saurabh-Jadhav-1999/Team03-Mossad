@@ -1,16 +1,17 @@
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import { Box } from "@mui/system";
 import React from "react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "./PersonSelector.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setAdultCount, setChildCount } from "../../slices/searchSlice";
 import arrow from '../../assets/images/ArrowImg.png'
+
 export const PersonSelector = () => {
   const [adult, setAdult] = useState(1);
   const [child, setChild] = useState(0);
-  const adultcount=useSelector(state=>state.search.totalAdult);
-  const childcount=useSelector(state=>state.search.totalChild);
+  const adultcount = useSelector(state => state.search.totalAdult);
+  const childcount = useSelector(state => state.search.totalChild);
   const dispatch = useDispatch();
   function handleAdultChange(event) {
     dispatch(setAdultCount(event.target.value));
@@ -20,10 +21,10 @@ export const PersonSelector = () => {
     dispatch(setChildCount(event.target.value));
     setChild(event.target.value);
   }
-useEffect(() => {
-  setAdult(adultcount);
-  setChild(childcount);
-}, [adultcount,childcount])
+  useEffect(() => {
+    setAdult(adultcount);
+    setChild(childcount);
+  }, [adultcount, childcount])
   return (
     <Box className={styles.selectBox}>
       <FormControl fullWidth className={styles.Inp}>

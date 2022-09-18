@@ -13,7 +13,8 @@ export const RoomAndPrice = (props) => {
   const hotellist = useSelector((state) => state.search.hotellist);
   const filterid = hotellist.filter((item) => item.hotel_id == props.id);
   const discounted_room_type = filterid[0].discounted_room_type;
-
+  const availableRooms = filterid[0].available_room_types;
+  console.log(availableRooms)
 
   const roomtypes = [
     {
@@ -82,19 +83,21 @@ export const RoomAndPrice = (props) => {
           />
         ))
         : (
-          roomtypes.map((item) => (
-            <Room
-              discount={0}
-              name={item.name}
-              key={item.room_type}
-              roomType={item.room_type}
-              offers={offers}
-              basePrice={item.room_rate}
-              offerRate={item.room_rate}
+          roomtypes.map((item) => {
+            if (availableRooms.includes(item.room_type))
+              return (
+                < Room
+                  discount={0}
+                  name={item.name}
+                  key={item.room_type}
+                  roomType={item.room_type}
+                  offers={offers}
+                  basePrice={item.room_rate}
+                  offerRate={item.room_rate}
+                />)
 
-            />
-
-          )))}
+          }
+          ))}
     </Box>
   );
 };

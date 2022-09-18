@@ -5,11 +5,12 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { DesktopDatePicker } from '@mui/x-date-pickers/DesktopDatePicker';
 import moment from 'moment/moment';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setCheckIn, setCheckOut } from '../../slices/searchSlice';
 
 export const BookingDatePickers = (props) => {
 
+    const checkIn = useSelector((state => state.search.checkIn))
     const dispatch = useDispatch();
 
     const handleChange = (newValue) => {
@@ -35,7 +36,7 @@ export const BookingDatePickers = (props) => {
                 value={props.date}
                 onChange={handleChange}
                 renderInput={(params) => <TextField {...params} />}
-                minDate={props.check_out === true ? (new Date(new Date().getTime() + 86400000)) : new Date()}
+                minDate={props.check_out === true ? (new Date(new Date(checkIn).getTime() + 86400000)) : new Date()}
             />
         </LocalizationProvider>
     );

@@ -1,14 +1,15 @@
 import React, { Fragment } from "react";
-import { Typography} from "@mui/material";
+import { Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import StarIcon from '@mui/icons-material/Star';
-import {Rating} from "@mui/material";
+import { Rating } from "@mui/material";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import styles from "./HotelDetailsAndImage.module.css";
 import ImageGrid from "../imageGrid/ImageGrid";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import CircularProgress from "@mui/material/CircularProgress";
+import Loading from "../loader/Loader"
 
 export const HotelDetailsAndImage = (props) => {
   const [img, setImg] = useState(false);
@@ -25,6 +26,18 @@ export const HotelDetailsAndImage = (props) => {
 
   return (
     <Fragment>
+    {
+      (status == "loading") ? (
+      <div>
+        <Loading />
+        <Typography
+          variant="h5"
+          style={{ fontFamily: "inter", textAlign: "center", margin: "10vh auto" }}
+        >
+          Details are on the way !
+        </Typography>
+      </div>
+      ):(
       <div>
         <Box className={`${styles.box4}`}>
           <Typography variant="h4" className={`${styles.typo1}`}>
@@ -59,7 +72,7 @@ export const HotelDetailsAndImage = (props) => {
             <ImageGrid links={hoteldetails.hotel_images} stat={status} />
           )}
         </Box>
-        <Box className={`${styles.tagbox}`} sx={{textAlign: "center"}}>
+        <Box className={`${styles.tagbox}`} sx={{ textAlign: "center" }}>
           <div className={`${styles.tags1}`}>{hoteldetails.rating}</div>
           <div className={`${styles.tags2}`} >Perfect</div>
           <div className={`${styles.tags3}`}>Hotels</div>
@@ -72,10 +85,10 @@ export const HotelDetailsAndImage = (props) => {
               value={hoteldetails.rating}
               precision={0.1}
               readOnly
-              style={{ 
+              style={{
                 color: "#ff9c09",
-                fontSize:"25px"
-            }}
+                fontSize: "25px"
+              }}
             />
 
           </div>
@@ -92,6 +105,7 @@ export const HotelDetailsAndImage = (props) => {
           </Typography>
         </Box>
       </div>
+      )}
     </Fragment>
   );
 };

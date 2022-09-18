@@ -2,11 +2,11 @@ import { Box, Paper, Typography } from "@material-ui/core";
 import styles from "./Room.module.css";
 import React from "react";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
-import { Grid,Button } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import { setDiffBetDays } from "../../slices/searchSlice";
 import { setRoomType, setRoomTypeCost } from "../../slices/bookNowSlice";
 import { useSelector, useDispatch } from "react-redux";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Room = (props) => {
   const dispatch = useDispatch();
@@ -47,26 +47,25 @@ const Room = (props) => {
           </Typography>
         </Typography>
         {/* If discount is not 0 then only render the elements */
-        props.discount !==0 &&props.basePrice!==undefined ? (
-          <> 
-            <Typography component={"span"} className={styles.saveAmt}>
-             {
-             (props.offerRate)==0?<p>0</p>:(<>
-             {/* <Button
-              variant="contained"
-              disabled
-              disableElevation
-              className={`${styles.labelDiscountPercentage}`}
-            >
-              10% OFF
-            </Button> */}
-            <p>Save ${props.basePrice - props.offerRate}</p></>)}
-            </Typography>
-            <Typography component={"span"} className={styles.offerCondition}>
-              Amount before discount ${props.basePrice}/night
-            </Typography>
-          </>
-        ) :( <></>) }
+          props.discount !== 0 && props.basePrice !== undefined ? (
+            <>
+              <Typography component={"span"} className={styles.saveAmt}>
+                {
+                  (props.offerRate) == 0 ? <p>0</p> : (<>
+                    <button
+                      type="button"
+                      disabled
+                      className={`${styles.labelDiscountPercentage}`}
+                    >
+                      10% OFF
+                    </button>
+                    <p>Save ${props.basePrice - props.offerRate}</p></>)}
+              </Typography>
+              <Typography component={"span"} className={styles.offerCondition}>
+                Amount before discount ${props.basePrice}/night
+              </Typography>
+            </>
+          ) : (<></>)}
 
         <button
           type="button"
@@ -77,16 +76,17 @@ const Room = (props) => {
               roomtype !== props.roomType &&
               roomtypecost !== props.offerRate
             ) {
-              if(checkin&&checkout!==""){
-              dispatch(setRoomType(props.roomType));
-              dispatch(setRoomTypeCost({ bp, Difference_In_Days }))}
-             else{
-              toast.error("Please select CheckIn and CheckOut Dates");
-             }
+              if (checkin && checkout !== "") {
+                dispatch(setRoomType(props.roomType));
+                dispatch(setRoomTypeCost({ bp, Difference_In_Days }))
+              }
+              else {
+                toast.error("Please select CheckIn and CheckOut Dates");
+              }
             }
           }}
         >
-          
+
           select{" "}
         </button>
       </Box>

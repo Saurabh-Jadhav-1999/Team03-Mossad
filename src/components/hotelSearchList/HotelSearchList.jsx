@@ -74,6 +74,7 @@ export const HotelSearchList = () => {
 
   useEffect(() => {
     dispatch(setFilteredHotels(hotelList))
+    console.log(hotelList);
   }, [hotelList])
 
   useEffect(() => {

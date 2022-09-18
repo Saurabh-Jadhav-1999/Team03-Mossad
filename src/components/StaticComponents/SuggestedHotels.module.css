@@ -1,10 +1,11 @@
 .suggestedHotelsMainBox {
-  margin: 19vh 4vw 5vh 4vw !important;
+  margin: 0 4vw 5vh 4vw !important;
   /* background-color: aquamarine; */
   font-family: "Inter" !important;
   font-style: normal !important;
   /* background-color: aliceblue; */
 }
+
 .suggestedHotelsMainBox h1 {
   font-weight: 700;
   font-size: 1.5vw !important;
@@ -33,15 +34,17 @@
   align-items: flex-start !important;
   justify-content: space-between !important;
 }
+
 .cardContainer h3 {
   font-weight: 500 !important;
   font-size: medium !important;
   margin: 0.5vh 0 !important;
 }
+
 .cardContainer img {
   border-radius: 17px !important;
-    width: 19vw !important;
-    height: 30vh !important;
+  width: 19vw !important;
+  height: 30vh !important;
 
 }
 
@@ -52,11 +55,13 @@
   margin: 2vh 0 !important;
   font-size: medium !important;
 }
+
 .ratingDiv h4 {
   font-weight: 600 !important;
   font-size: small !important;
   margin-left: 0.5vw !important;
 }
+
 .ratingDiv h5 {
   font-size: small !important;
   color: #878686 !important;
@@ -67,13 +72,14 @@
   color: #ff9c09 !important;
   font-size: medium !important;
 }
+
 .locationDiv {
   display: flex !important;
   flex-direction: row !important;
   align-items: flex-start !important;
   font-family: "Inter" !important;
   font-style: normal !important;
-  font-size: medium!important;
+  font-size: medium !important;
   margin: 2vh 0 !important;
 
 }
@@ -82,6 +88,7 @@
   color: #787575 !important;
   font-size: larger !important;
 }
+
 .basePrice {
   background-color: #5183fe !important;
   color: white !important;
