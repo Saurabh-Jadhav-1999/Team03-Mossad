@@ -51,10 +51,12 @@
   color: white !important;
   font-size: 13px;
   line-height: 18px;
-  border-radius: 35px !important;
-  height: 28px;
+  border-radius: 30px !important;
+  border: none;
+  height: 5vh;
+  padding: 1vh;
   margin-top: -7.7vh !important;
-  margin-left: -10px !important;
+  margin-right: 3vw !important;
 }
 
 .rightDiv {

@@ -71,7 +71,7 @@ export const fetchCityList = createAsyncThunk(
           "x-auth-token": token,
         },
       };
-      // console.log(location, "location from axios");
+
       const bodyParameters = {
         city_name: location,
       };
@@ -83,13 +83,11 @@ export const fetchCityList = createAsyncThunk(
           config
         )
         .then((response) => {
-          // console.log(response.data, "response data");
           return response.data;
         });
     } catch (error) {
       return error;
     }
-
   }
 );
 /* Creating reducers for setting state variables */
@@ -137,7 +135,7 @@ export const searchSlice = createSlice({
       state.diff = parseInt(action.payload);
     },
     setCityList: (state = initialState, action) => {
-      state.citylist=action.payload;
+      state.citylist = action.payload;
     },
   },
   /* Defining actions for the status of promise returned by the api call*/

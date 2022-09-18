@@ -1,13 +1,15 @@
 import { LandingHotelPicture } from "../components/landingHotelPicture/LandingHotelPicture";
 import { FeaturedDestinations } from "../components/featuredDestinations/FeaturedDestinations";
 import "react-toastify/dist/ReactToastify.css";
-import { SuggestedHotels } from "../components/staticComponents/SuggestedHotels";
+import { SuggestedHotels } from "../components/StaticComponents/SuggestedHotels";
 import { fetchSuggestedHotels } from "../slices/suggestedHotelsSlice";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { TrendingCities } from "../components/staticComponents/TrendingCities";
-import { TravelYourPassion } from "../components/staticComponents/TravelYourPassion";
-import { ExploreTheWorld } from "../components/staticComponents/ExploreTheWorld";
+import { TrendingCities } from "../components/StaticComponents/TrendingCities";
+import { TravelYourPassion } from "../components/StaticComponents/TravelYourPassion";
+import { SearchBestPlaces } from "../components/StaticComponents/SearchBestPlaces";
+import { ExploreTheWorld } from "../components/StaticComponents/ExploreTheWorld";
+
 export const LandingPage = () => {
   const dispatch = useDispatch();
   const status = useSelector((state) => state.suggestedHotels.status);
@@ -26,10 +28,11 @@ export const LandingPage = () => {
           {status === "succeeded" && loginStatus !== null && (
             <SuggestedHotels />
           )}
-          <FeaturedDestinations sx={{ marginTop: "50vh" }} />
-          <ExploreTheWorld />
-          <TrendingCities />
         </div>
+        <SearchBestPlaces />
+        <FeaturedDestinations sx={{ marginTop: "50vh" }} />
+        <ExploreTheWorld />
+        <TrendingCities />
         <TravelYourPassion />
       </div>
     </>
