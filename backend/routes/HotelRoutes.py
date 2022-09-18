@@ -197,6 +197,11 @@ def getHotels():
     # build user history
     addHistory({"user_id":data['user_id'],"location":data['city_name']})
 
+    # concat availableHotelList to priorityHotelList
+    priorityHotelList.extend(availableHotelList)
+
+    newdata = showAvailableHotels(priorityHotelList)
+
     # check if available rooms are less than 20% of all avilable rooms if yes apply discount
     if  len(hotels)>1 and  len(availableHotelList) <= (len(hotels)-int(len(hotels)*0.8)):
         print('must apply price increment for hotels')
@@ -204,10 +209,7 @@ def getHotels():
         return make_response(newdata, 200)
         # return make_response([showAvailableHotels(availableHotelList), {"dynamic_hike_price":True}], 200)
         
-    # concat availableHotelList to priorityHotelList
-    priorityHotelList.extend(availableHotelList)
-
-    newdata = showAvailableHotels(priorityHotelList)
+    
     # newdata.append({"dynamic_hike_price":False})
     return make_response(newdata, 200)
     # return make_response({"dynamic_hike_price":False,"hotel_list":showAvailableHotels(availableHotelList)}, 200)
