@@ -133,7 +133,7 @@ export const HotelSearchFilters = () => {
     const searchPropertyButtonHandler = (event) => {
         const resulteArray = []
         hotelList.map((item) => {
-            if ((item.hotel_name).toString().toLowerCase().includes((event.target.value).toLowerCase())) resulteArray.push(item)
+            if ((item.hotel_name).toString().trim().toLowerCase().includes((event.target.value).trim().toLowerCase())) resulteArray.push(item)
         })
         dispatch(setFilteredHotels(resulteArray))
     }
