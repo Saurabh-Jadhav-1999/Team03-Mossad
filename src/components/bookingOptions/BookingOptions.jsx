@@ -204,7 +204,7 @@ export const BookingOptions = (props) => {
                         let new_adult_count = e.target.value;
 
                         if (lunchstatus == 1) {
-                          console.log(new_adult_count, "adult count inside if");
+                         
                           dispatch(
                             setLunchUsingAdult({
                               adultcount,
@@ -236,7 +236,7 @@ export const BookingOptions = (props) => {
                         let new_child_count = e.target.value;
 
                         if (lunchstatus == 1) {
-                          console.log(new_child_count, "child count inside if");
+                        
                           dispatch(
                             setLunchUsingChild({
                               childcount,

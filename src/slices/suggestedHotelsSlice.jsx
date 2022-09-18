@@ -13,8 +13,7 @@ export const fetchSuggestedHotels = createAsyncThunk(
     try {
       const config = {
         headers: {
-          "x-auth-token":
-            token,
+          "x-auth-token": token,
         },
       };
 
@@ -23,10 +22,10 @@ export const fetchSuggestedHotels = createAsyncThunk(
       return axios
         .post(
           "https://hotelbooking-backend.herokuapp.com/topFiveSuggestionsForUser",
-          bodyParameters, config
+          bodyParameters,
+          config
         )
         .then((response) => {
-          // console.log(response.data, "response data");
           return response.data;
         });
     } catch (error) {

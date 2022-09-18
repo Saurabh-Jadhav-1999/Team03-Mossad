@@ -27,7 +27,7 @@ const Facility = (props) => {
       `/hotel-details/?id=${props.details.hotel_id}&city_name=${props.details.city}`
     );
   }
-    // console.log("In facilities",props.details);
+ 
   return (
     <Box className={styles.facilityDiv}>
       <Typography className={styles.iconDiv}>

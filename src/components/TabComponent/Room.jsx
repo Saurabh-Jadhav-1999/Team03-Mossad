@@ -16,6 +16,8 @@ const Room = (props) => {
   const roomtypecost = useSelector((state) => state.bookNow.room_type_cost);
   const date1 = new Date(checkin);
   const date2 = new Date(checkout);
+  let OfferRate=(props.hike==true)?props.offerRate+(props.offerRate*0.2):props.offerRate;
+  let BasePrice=(props.hike==true)?props.basePrice+(props.basePrice*0.2):props.basePrice;
   /*Calculating the difference between the checkin and checkout*/
   const Difference_In_Time = date2.getTime() - date1.getTime();
 
@@ -41,7 +43,8 @@ const Room = (props) => {
       </Box>
       <Box className={styles.rightDiv}>
         <Typography className={styles.boldHeading} component="span">
-          ${props.offerRate}
+         
+          ${OfferRate}
           <Typography className={styles.offer} component="span">
             /night
           </Typography>
@@ -60,10 +63,13 @@ const Room = (props) => {
             >
               10% OFF
             </Button> */}
-            <p>Save ${props.basePrice - props.offerRate}</p></>)}
+            <p>Save ${BasePrice - OfferRate}</p></>)}
             </Typography>
             <Typography component={"span"} className={styles.offerCondition}>
-              Amount before discount ${props.basePrice}/night
+              {
+                
+              }
+              Amount before discount ${BasePrice}/night
             </Typography>
           </>
         ) :( <></>) }
@@ -72,10 +78,10 @@ const Room = (props) => {
           type="button"
           className={styles.selectBtn}
           onClick={(e) => {
-            const bp = props.offerRate;
+            const bp = OfferRate;
             if (
               roomtype !== props.roomType &&
-              roomtypecost !== props.offerRate
+              roomtypecost !== OfferRate
             ) {
               if(checkin&&checkout!==""){
               dispatch(setRoomType(props.roomType));
