@@ -38,6 +38,7 @@ def validateHistoryDataWithHotel(data):
 # add new history in history model
 def addHistory(data):   
     row1 = db.session.query(SearchHistory).filter(and_(SearchHistory.user_id == data['user_id'], SearchHistory.location == data['location'],SearchHistory.hotel_id==None)).first()
+   #if user is already searched for particular location
     if row1 is not None:
         row1.number_times=row1.number_times+1
         row1.search_date=datetime.datetime.utcnow()

@@ -20,7 +20,7 @@ class HandleBooking(Resource):
 
 
         data = request.json
-        # check if checkin , checkout date is present
+        # check if checkin , checkout date is not present
         if "check_in_date" not in data.keys() or  "check_out_date" not in data.keys():
             return {"error": "check_in_date or check_out_date is missing"}, 400
 

@@ -1,5 +1,3 @@
-
-
 from backend import app, db
 from backend.services.HistoryServices import validateHistoryData, addHistory, getHistory, getUserHistory
 from backend.models.HotelModel import searchHistory_representation, searchHistory_representation_with_hotel
@@ -24,13 +22,6 @@ class HandleHistory(Resource):
 
     # route to add new history
     def post(self):
-        data=request.json
-        data.update({"search_date":datetime.datetime.utcnow()})
-        validateData = validateHistoryData(request.json) # validate incoming data
-        if validateData.errors:
-            return make_response(validateData.errors, 400) # return error if validation fails
-        history = addHistory(request.json) # adding new history
-    
         # token validtion code 
         token_result = token_required(request)
         if  isinstance(token_result, dict)  and "error" in token_result.keys():
@@ -48,8 +39,7 @@ class HandleHistory(Resource):
 # class for handling topfivesuggested hotel api
 class TopFiveSuggestionsForUser(Resource):
    def get(self):
-        token_result = token_required(request)
-   
+        token_result = token_required(request)   
         if  type(token_result)==dict({}) and "error" in token_result.keys():
           return token_result
 

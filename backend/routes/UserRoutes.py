@@ -7,7 +7,6 @@ from backend.services.UserServices import isUserExists, addNewUser, validateLogi
 import jwt
 from backend.auth.authToken import token_required
 from backend.services.HistoryServices import getUserHistory
-
 from backend.services.HistoryServices import getUserHistory
 
 # post request parser
