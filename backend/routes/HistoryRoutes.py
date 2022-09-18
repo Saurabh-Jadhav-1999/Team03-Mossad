@@ -13,12 +13,11 @@ def showHistory(data):
 
 # class to handle /history api request's
 class HandleHistory(Resource):
-    
     # route to get all the history
     @marshal_with(searchHistory_representation_with_hotel)
     def get(self):
         data = getHistory() # get all the history
-        return data
+        return data, 200
 
     # route to add new history
     def post(self):
@@ -29,7 +28,8 @@ class HandleHistory(Resource):
             return make_response(token_result, 400)
 
         data=request.json
-        data.update({"search_date":datetime.datetime.utcnow()})
+        #data.update({​​"search_date":datetime.datetime.utcnow()}​​)
+        data.update({"search_date":datetime.datetime.utcnow()}) # add current date and time to request body
         validateData = validateHistoryData(request.json) # validate incoming data
         if validateData.errors:
             return make_response(validateData.errors, 400) # return error if validation fails
@@ -44,11 +44,11 @@ class TopFiveSuggestionsForUser(Resource):
           return token_result
 
     # call the get search suggestion
-        result=getUserHistory(request.json.get("user_id"))
+        result = getUserHistory(request.json.get("user_id"))
         return make_response(result, 200)
 
 
-
+# route to get the all the history in SearchHistory table
 app.route("/history", methods=['POST'])
 def historyAdding():
 

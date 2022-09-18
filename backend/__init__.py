@@ -24,15 +24,15 @@ app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://iwvausdj:e0nz6LyOKpPcJShk3bNncscM_Gx1Htpa@tyke.db.elephantsql.com/iwvausdj"
 
 # final testing with new facality model and updated code testing
-#app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://nlxvhwkd:8tBh0PJcR6C5U1-o2XyCC89hEh4DQGnv@rosie.db.elephantsql.com/nlxvhwkd"
+# app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://nlxvhwkd:8tBh0PJcR6C5U1-o2XyCC89hEh4DQGnv@rosie.db.elephantsql.com/nlxvhwkd"
 
 # allow origins
 cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
-app.config['SECRET_KEY'] = '578c61c660c50e32f4de9edcbbf4c191'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True # disable warnings of sqlalchemy 
+app.config['SECRET_KEY'] = '578c61c660c50e32f4de9edcbbf4c191' # adding secret key to app configuration 
 
-api = Api(app)
+api = Api(app) # api object 
 
 try:
     db = SQLAlchemy(app) # create db object

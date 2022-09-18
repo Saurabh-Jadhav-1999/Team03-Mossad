@@ -1,11 +1,10 @@
-from tabnanny import check
 from flask_restful import marshal_with, Resource, reqparse, fields
 from flask import abort, request, make_response
 from backend.models.HotelModel import User, Hotel, hotel_representation, review_representation, SearchHistory
 from backend.models.UserModel import user_representation
 from backend import db, app
 from backend.services.HotelServices import validateHotelData, addNewHotel, getAllHotels, validateCityName, getCitiesByName, validateGetHotels, getHotelsByCityName, showAvailableHotels, getPerticularHotelById
-from backend.services.BookingServices import checkHotelAvailability, mayuriLogic
+from backend.services.BookingServices import checkHotelAvailability
 from backend.services.ReviewServices import averageRating
 from backend.services.HistoryServices import addHistoryByHotelId
 from backend.models.HotelModel import hotel_representation
@@ -33,10 +32,11 @@ class HotelHandler(Resource):
         result = getAllHotels() # get the hotels
         return result, 200
     
-# method to get city list
+# city representation for converting to serialize object using marshel_with
 city_representation = {
     "cities":fields.List(fields.String)
 }
+# method to get city list
 @marshal_with(city_representation)
 def showCityList(data):
     return data
@@ -47,13 +47,12 @@ def getCityList():
     # token validtion code 
     token_result = token_required(request)
     if  isinstance(token_result, dict)  and "error" in token_result.keys():
-        print('error found')
         return make_response(token_result, 400) # return error if something wrong with token validation
     
     validationResult = validateCityName(request.json) # validate the input data from user
 
     if validationResult.errors:
-        return make_response(validationResult.errors, 400)
+        return make_response(validationResult.errors, 400) # return error if validation fails
 
     cityListResult = getCitiesByName(request.json['city_name']) # get the list of cities 
 
@@ -69,15 +68,22 @@ def getCityListByPost():
   # token validtion code 
     token_result = token_required(request)
     if  isinstance(token_result, dict)  and "error" in token_result.keys():
-        print('error found')
         return make_response(token_result, 400) # return error if something wrong with token validation
     
+
     validationResult = validateCityName(request.json) # validate the input data from user
 
-    if validationResult.errors:
-        return make_response(validationResult.errors, 400)
+    data = request.json
 
-    cityListResult = getCitiesByName(request.json['city_name']) # get the list of cities 
+    if len(data['city_name'].strip()) == 0:
+        return make_response({"error":"please enter valid city_name"}, 400)
+
+    city_name = data['city_name'].strip() # strip the leading and trailing spaces
+
+    if validationResult.errors:
+        return make_response(validationResult.errors, 400) # return error if validation fails
+
+    cityListResult = getCitiesByName(city_name) # get the list of cities 
 
     if len(cityListResult) == 0:
         return make_response("", 400) # if no cities found then return 400 error with no result
@@ -95,7 +101,6 @@ def getHotels():
     # token validtion code 
     token_result = token_required(request)
     if  isinstance(token_result, dict)  and "error" in token_result.keys():
-        print('error found')
         return make_response(token_result, 400)
 
     data = request.json # store the data passed by user in dictionary
@@ -119,11 +124,15 @@ def getHotels():
     if data['check_in_date'] < current_date or data['check_out_date'] < current_date:
         return make_response({"error":"check_in_date and check_out_date must greater than equal to current date"}, 400)
 
-
     # add validation check_in_date >= current date and check_out_date >= current_date
     if data['check_out_date'] < data['check_in_date']:
         return {"error": "invalid check_in, check_out date"}, 400
     
+    # check if check_in_date and check_out_date is less than equal to 90 days from todays date
+    date_after_ninty_day = getCurrentDate()+timedelta(days=90)
+    if data['check_in_date'] > date_after_ninty_day or data['check_out_date'] > date_after_ninty_day:
+        return {"error": "invalid check_in, check_out date cannot search for hotel dates after 90 days"}, 400
+
     validationResult = validateGetHotels(data) # validate all other fields
 
     if validationResult.errors:
@@ -166,7 +175,7 @@ def getHotels():
         # remove discounted roomtype from available list and add into response    
         lst = list(set(lst).difference(set(discounted_room)))
 
-        newhotel.update({"available_room_types":lst})
+        newhotel.update({"available_room_types":lst}) # adding available room type list to response
         newhotel.update({"rating":rating[0]}) #adding rating to hotel
         newhotel.update({"total_reviews":rating[1]}) # adding total reviews for hotel
 
@@ -179,16 +188,19 @@ def getHotels():
     # build user history
     addHistory({"user_id":data['user_id'],"location":data['city_name']})
 
+   
+    # concat availableHotelList to priorityHotelList
+    priorityHotelList.extend(availableHotelList)
+
+    newdata = showAvailableHotels(priorityHotelList) # get the serializable format to data
+
     # check if available rooms are less than 20% of all avilable rooms if yes apply discount
     if  len(hotels)>1 and  len(availableHotelList) <= (len(hotels)-int(len(hotels)*0.8)):
         print('must apply price increment for hotels')
         # availableHotelList.append("dynamic_price_hike")
         return make_response(newdata, 200)
         
-    # concat availableHotelList to priorityHotelList
-    priorityHotelList.extend(availableHotelList)
 
-    newdata = showAvailableHotels(priorityHotelList)
     # newdata.append({"dynamic_hike_price":False})
     return make_response(newdata, 200)
     # return make_response({"dynamic_hike_price":False,"hotel_list":showAvailableHotels(availableHotelList)}, 200)
@@ -197,16 +209,15 @@ def getHotels():
 def getHotelByHotelId():
      # token validtion code 
     token_result = token_required(request)
-
     if  isinstance(token_result, dict)  and "error" in token_result.keys():
         print('error found')
         return make_response(token_result, 400) # return error if token authorization fails
     
-    data = request.json
+    data = request.json # get the data passed by user in request body
     if data is not None and 'hotel_id' not in data.keys():
-         return make_response({"error":"hotel_id is missing"}, 400)
+         return make_response({"error":"hotel_id is missing"}, 400) # return error hotel_id was provided in body
    
-    data['hotel_id'] = int(data['hotel_id'])
+    data['hotel_id'] = int(data['hotel_id']) # convert string hotel_id to int
     # validate incoming data
     validationResult = validateHistoryDataWithHotel(data)
     if validationResult.errors:

@@ -44,24 +44,26 @@ class HandleBooking(Resource):
         if validationResult.errors:
             # print('returning error')
             print(validationResult.errors)
-            return make_response(validationResult.errors, 400)
+            return make_response(validationResult.errors, 400) # return error if validation error occurs
+        
+        # print(validationResult.document)
 
         # check if user exists
         user = getPerticularUser(data['user_id'])
         if not user:
-            return make_response("user not found", 404)
+            return make_response("user not found", 404) # return error if user not exits
 
         # check if hotel exists
         hotel = getPerticularHotelById(data['hotel_id'])
         if not hotel:
-            return make_response("hotel not found", 400)
+            return make_response("hotel not found", 400) # return error if hotel not present
 
-        result = addBooking(data, user, hotel)
+        result = addBooking(data, user, hotel) # add new booking 
         
         if  isinstance(result, dict) and "error" in result.keys():
-            return make_response(result, 400)
+            return make_response(result, 400) # return error if any error occured while adding new booking
 
-        print(result)
+        # print(result)
 
         return make_response(result, 200)
     @marshal_with(booking_representation)

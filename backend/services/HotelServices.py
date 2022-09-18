@@ -28,8 +28,7 @@ hotel_schema = {
     "exclusive_room_rate": {"type":"integer", "required":False},
     "economy_room_rate": {"type":"integer", "required":False},
     "double_room_rate": {"type":"integer", "required":False},
-    "premium_room_rate": {"type":"integer", "required":False}
-   
+    "premium_room_rate": {"type":"integer", "required":False},
 }
 
 # data representation for new hotel list

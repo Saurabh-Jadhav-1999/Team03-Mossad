@@ -88,7 +88,7 @@ hotel_representation = {
     "double_room_rate":fields.Integer,
     "economy_room_rate":fields.Integer,
     "premium_room_rate":fields.Integer,
-    "hotelfacalities": fields.Nested(facality_representation)
+    "hotelfacalities": fields.Nested(facality_representation) # nested field facality_representation
 }
 
 # review model data representation object
@@ -139,10 +139,11 @@ class Hotel(db.Model):
     double_room_capacity = db.Column(db.Integer, default=0)
     premium_room_capacity = db.Column(db.Integer, default=0)
     average_rating = db.Column(db.Float, default=0)#new field
-    hotelfacalities = db.relationship("Facality", backref="hotelfacality")
-    hotelreviews = db.relationship('Review', backref="reviewed")
-    hotel_booking = db.relationship('Booking', backref="hotelconcerned") #Booking
+    hotelfacalities = db.relationship("Facality", backref="hotelfacality") # relationship with Facality model
+    hotelreviews = db.relationship('Review', backref="reviewed") # relationship with Review model
+    hotel_booking = db.relationship('Booking', backref="hotelconcerned") #  relation with Booking model
 
+    # initialize the model fields
     def __init__(self, data) -> None:
         self.hotel_name = data['hotel_name']
         self.description = data['description']
@@ -153,6 +154,7 @@ class Hotel(db.Model):
         self.address = data['address']
         self.hotel_images = data['hotel_images']
 
+        # check for all non required field if present then add
         if "hotel_profile_picture" in data.keys():
             self.hotel_profile_picture = data['hotel_profile_picture']
 
@@ -206,8 +208,8 @@ class Review(db.Model):
     rating = db.Column(db.Integer, nullable=False)
     description = db.Column(db.String, nullable=False)
     datetime_posted = db.Column(db.DateTime)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
-    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))  # relation with user table
+    hotel_id  = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id")) # relation with hotel table
 
 
 # booking representation
@@ -226,6 +228,7 @@ booking_representation = {
     "hotelconcerned": fields.Nested(hotel_representation)
 }
 
+# booking temprory table for holding many to many relationship with user and booking table
 # model for booking a hotel
 class Booking(db.Model):
     b_id = db.Column(db.Integer, primary_key=True)
@@ -239,8 +242,8 @@ class Booking(db.Model):
     economy_count= db.Column(db.Integer, default=0)
     double_count = db.Column(db.Integer, default=0)
     premium_count = db.Column(db.Integer, default=0)
-    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id"))
-    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id"))
+    user_id = db.Column(db.Integer, db.ForeignKey("user.user_id")) # relation with User model
+    hotel_id = db.Column(db.Integer, db.ForeignKey("hotel.hotel_id")) # relation with Hotel model
 
 #search history representation
 searchHistory_representation = {
