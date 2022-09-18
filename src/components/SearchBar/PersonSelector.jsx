@@ -5,7 +5,6 @@ import { useState,useEffect } from "react";
 import styles from "./PersonSelector.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { setAdultCount, setChildCount } from "../../slices/searchSlice";
-import arrow from '../../assets/images/ArrowImg.png'
 export const PersonSelector = () => {
   const [adult, setAdult] = useState(1);
   const [child, setChild] = useState(0);

@@ -26,7 +26,7 @@ async function loginUser(credentials) {
         password,
       }
     );
-    console.log("response", response);
+    // console.log("response", response);
     return response.data;
   } catch (error) {
     console.log(error, "error from loginuser");
@@ -70,12 +70,11 @@ export default function Login() {
       if (!token) {
         failMsg();
       } else {
-        // console.log(token,"token from login")
+        console.log(token,"token from login")
         setTok(token);
         localStorage.setItem("token", token["x-auth-token"]);
         localStorage.setItem("name", token['user_name']);
         dispatch(setToken({ token }));
-
         toast.success("Login Successful");
       }
     }
