@@ -75,7 +75,6 @@ export default function Login() {
         localStorage.setItem("token", token["x-auth-token"]);
         localStorage.setItem("name", token['user_name']);
         dispatch(setToken({ token }));
-
         toast.success("Login Successful");
       }
     }

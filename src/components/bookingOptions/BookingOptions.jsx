@@ -30,7 +30,7 @@ import {
   setLunchUsingAdult,
   setLunchUsingChild
 } from "./../../slices/bookNowSlice";
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 export const BookingOptions = (props) => {
@@ -199,6 +199,7 @@ export const BookingOptions = (props) => {
                       labelId="label-adult"
                       label="Adult"
                       defaultValue={adultcount}
+                      value={adultcount}
                       style={{ backgroundColor: "#F4F5F7" }}
                       onChange={(e) => {
                         let new_adult_count = e.target.value;
@@ -220,6 +221,8 @@ export const BookingOptions = (props) => {
                       <MenuItem value={1}>1</MenuItem>
                       <MenuItem value={2}>2</MenuItem>
                       <MenuItem value={3}>3</MenuItem>
+                      <MenuItem value={4}>4</MenuItem>
+                      <MenuItem value={5}>5</MenuItem>
                     </Select>
                   </FormControl>
                 </Box>
@@ -373,7 +376,7 @@ export const BookingOptions = (props) => {
                 }}
               >
                 Book Now
-                <ToastContainer />
+                {/* <ToastContainer /> */}
               </Button>
             </Grid>
           </Grid>

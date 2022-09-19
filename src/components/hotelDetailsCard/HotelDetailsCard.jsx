@@ -6,7 +6,6 @@ import Facility from "./Facility";
 import styles from "./HotelDetailsCard.module.css";
 import { HotelImage } from "./HotelImage";
 
-
 export const HotelDetailsCard = (props) => {
 
   const checkInDate = useSelector((state) => state.search.checkIn)

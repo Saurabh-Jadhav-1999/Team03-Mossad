@@ -11,7 +11,7 @@ import moment from "moment/moment";
 const CityDetails = (props) => {
 
   const formateDate = (date) => {
-    return moment(new Date(date)).format("DD/MM/YYYY");
+    return moment(new Date(date)).format("MM/DD/YYYY");
   };
   
   return (

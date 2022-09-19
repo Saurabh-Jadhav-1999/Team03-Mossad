@@ -4,25 +4,25 @@ import React from "react";
 import Room from "./Room";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-const offers = ["Free Wi-fi", "Breakfast for two people", "Non Refundable"];
-export const RoomAndPrice = (props) => {
 
+let normalOffer = ["Free Wi-fi", "Flat screen", "Non-refundable"];
+const premiumOffer = [...normalOffer, "Breakfast", "Airconditioning"];
+
+export const RoomAndPrice = (props) => {
   const room_price_and_types = useSelector(
     (state) => state.getHotelDetails.hotelDetails
   );
   let location = useLocation();
 
   const idFromUrl = new URLSearchParams(location.search).get("id");
- 
-
 
   const hotellist = useSelector((state) => state.search.hotellist);
-  const hotel=hotellist.filter((item)=>item.hotel_id==idFromUrl);
-  const dynamic_hike=hotel[0].dynamic_hike;
+  const hotel = hotellist.filter((item) => item.hotel_id == idFromUrl);
+  const dynamic_hike = hotel[0].dynamic_hike;
 
   const filterid = hotellist.filter((item) => item.hotel_id == props.id);
   const discounted_room_type = filterid[0].discounted_room_type;
-
+  const availableRooms = filterid[0].available_room_types;
 
   const roomtypes = [
     {
@@ -54,9 +54,7 @@ export const RoomAndPrice = (props) => {
         room_rate: item.room_rate - item.room_rate / 10,
         old_room_rate: item.room_rate,
       };
-    }
-    else {
-
+    } else {
     }
     return item;
   });
@@ -64,14 +62,12 @@ export const RoomAndPrice = (props) => {
   let newDiscountedRoom = [];
   let nameIndex = [];
   discountedRooms.map((item) => {
-    if ((item.hasOwnProperty("old_room_rate")) === true) {
+    if (item.hasOwnProperty("old_room_rate") === true) {
       newDiscountedRoom.push(item);
-    }
-    else {
+    } else {
       nameIndex.push(item);
     }
-
-  })
+  });
   let tmp = [...newDiscountedRoom, ...nameIndex];
   discountedRooms = tmp;
   return (
@@ -85,26 +81,36 @@ export const RoomAndPrice = (props) => {
             name={item.name}
             key={item.room_type}
             roomType={item.room_type}
-            offers={offers}
+            offers={
+              item.name === "Premium Room" || item.name === "Exclusive Room"
+                ? premiumOffer
+                : normalOffer
+            }
             offerRate={item.room_rate}
             basePrice={item.old_room_rate}
             hike={dynamic_hike}
-        />
+          />
         ))
         : (
-          roomtypes.map((item) => (
-            <Room
-              discount={0}
-              name={item.name}
-              key={item.room_type}
-              roomType={item.room_type}
-              offers={offers}
-              basePrice={item.room_rate}
-              offerRate={item.room_rate}
-              hike={dynamic_hike}
-            />
-
-          )))}
+          roomtypes.map((item) => {
+            if (availableRooms.includes(item.room_type))
+              return (
+                < Room
+                  discount={0}
+                  name={item.name}
+                  key={item.room_type}
+                  roomType={item.room_type}
+                  offers={
+                    item.name === "Premium Room" || item.name === "Exclusive Room"
+                      ? premiumOffer
+                      : normalOffer
+                  }
+                  basePrice={item.room_rate}
+                  offerRate={item.room_rate}
+                  hike={dynamic_hike}
+                />)
+          }
+          ))}
     </Box>
   );
 };

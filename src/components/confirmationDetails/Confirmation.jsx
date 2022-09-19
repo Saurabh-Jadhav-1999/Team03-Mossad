@@ -196,7 +196,7 @@ const Confirmation = () => {
                             <div className={`${styles.rightPane}`}>
                               <Box>{bookingdetails.b_id}</Box>
                               <Box>
-                                {moment(new Date(checkin)).format("DD.MM.YYYY")}
+                                {moment(new Date(checkin)).format("MM/DD/YYYY")}
                               </Box>
                               <Box>${bookingdetails.total_cost}</Box>
                               <Box>Credit card</Box>
@@ -213,8 +213,6 @@ const Confirmation = () => {
                     <img
                       className={`${styles.hotelimg}`}
                       src={hoteldetails.hotel_profile_picture}
-                      height="480x"
-                      width="700px"
                       alt=""
                     />
                   </div>
@@ -227,7 +225,7 @@ const Confirmation = () => {
               href="/"
             >
               Back to Home Page
-            </Button>{" "}
+            </Button>
           </div>
         </div>
       )}

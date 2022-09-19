@@ -20,9 +20,9 @@ const totalcost=useSelector(state=>state.bookNow.totalCost);
 
     const lunch_per_person = useSelector(
         (state) => state.bookNow.lunch_per_person_per_day
-      );
-      let lunchstatus = 0;
-      lunch_per_person != 0 ? (lunchstatus = 1) : (lunchstatus = 0);
+    );
+    let lunchstatus = 0;
+    lunch_per_person != 0 ? (lunchstatus = 1) : (lunchstatus = 0);
     const dispatch = useDispatch();
 
     const handleChange = (newValue) => {
@@ -44,7 +44,7 @@ const totalcost=useSelector(state=>state.bookNow.totalCost);
                 const date2 = new Date(checkout);
                 const Difference_In_Time = date2.getTime() - date1.getTime();
                 const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-                dispatch(setLunchUsingDate({old_diff,Difference_In_Days}));
+                dispatch(setLunchUsingDate({ old_diff, Difference_In_Days }));
                 dispatch(setDiffBetDays(parseInt(Difference_In_Days)));
             }
         }
@@ -66,10 +66,10 @@ const totalcost=useSelector(state=>state.bookNow.totalCost);
                 const date2 = new Date(checkOutDateValue);
                 const Difference_In_Time = date2.getTime() - date1.getTime();
                 const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
-                dispatch(setLunchUsingDate({old_diff,Difference_In_Days}));
+                dispatch(setLunchUsingDate({ old_diff, Difference_In_Days }));
                 dispatch(setDiffBetDays(parseInt(Difference_In_Days)));
-                
-               
+
+
             }
         }
     };
@@ -78,11 +78,11 @@ const totalcost=useSelector(state=>state.bookNow.totalCost);
 
         <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DesktopDatePicker
-                inputFormat="DD/MM/YYYY"
+                inputFormat="MM/DD/YYYY"
                 value={props.date}
                 onChange={handleChange}
                 renderInput={(params) => <TextField {...params} />}
-                minDate={props.check_out === true ? (new Date(new Date().getTime() + 86400000)) : new Date()}
+                minDate={props.check_out === true ? (new Date(new Date(checkIn).getTime() + 86400000)) : new Date()}
             />
         </LocalizationProvider>
     );

@@ -1,11 +1,13 @@
 import { HotelSearchFilters } from "../hotelSearchFilters/HotelSearchFilters";
 import { HotelDetailsCard } from "../hotelDetailsCard/HotelDetailsCard";
-import { Stack, Paper } from "@mui/material";
+import { Stack, Paper, Box,Button} from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { Fragment, useEffect } from "react";
+import { Fragment, useEffect, useState } from "react";
 import Loading from "../loader/Loader";
 import Typography from "@mui/material/Typography";
 import { setFilteredHotels } from "../../slices/searchSlice";
+import styles from './HotelSearchList.module.css'
+import loadingIcon  from  '../../assets/images/loadingIcon.png'
 
 // Logic to render info on empty result list
 // {/* (
@@ -24,6 +26,8 @@ export const HotelSearchList = () => {
   const filters = useSelector((state) => state.search.filters)
   const budgetFilters = useSelector((state) => state.search.budgetFilters)
   const filteredHotels = useSelector((state) => state.search.filteredHotels)
+  const [showMore, setshowMore] = useState(true);
+  const [displayList, setDisplayList] = useState([]);
 
 
   //Check if hotels provides selected filters
@@ -73,14 +77,46 @@ export const HotelSearchList = () => {
   }
 
   useEffect(() => {
+
     dispatch(setFilteredHotels(hotelList))
+
+    // Handle number of hotel cards
+    const firstThree = hotelList.map((item, index) => {
+      if (index < 3) {
+        return <HotelDetailsCard key={item.hotel_id} details={item} />;
+      }
+    });
+    setDisplayList(firstThree);
+    setshowMore((hotelList.length < 3) ? false : true)
+
   }, [hotelList])
 
   useEffect(() => {
 
     // Filter Handler for Filter Properties and Budget Filters
     getFilteredArray();
+
+    // Handle number of hotel cards
+    const firstThree = filteredHotels.map((item, index) => {
+      if (index < 3) {
+        return <HotelDetailsCard key={item.hotel_id} details={item} />;
+      }
+    });
+
+    setDisplayList(firstThree);
+    setshowMore((filteredHotels.length < 3) ? false : true)
+    
   }, [filters, budgetFilters])
+
+
+  function showAllBtnHandler() {
+    const showAllHotels = filteredHotels.map((item) => (
+      <HotelDetailsCard key={item.hotel_id} details={item} />
+    ));
+
+    setDisplayList(showAllHotels);
+    setshowMore(false);
+  }
 
   const status = useSelector((state) => state.search.status);
   return (
@@ -100,7 +136,21 @@ export const HotelSearchList = () => {
                     <Typography variant="h5" style={{ fontFamily: "inter", textAlign: "center", margin: "15vh -12", marginTop: "7vh" }}>Wait a moment, we are finding the best hotels for you!</Typography>
                   </div>
                 ) : (
-                  filteredHotels.map((item) => (<HotelDetailsCard key={item.hotel_id} details={item} />))
+                  // filteredHotels.map((item) => (<HotelDetailsCard key={item.hotel_id} details={item} />))
+                  <>
+                    {displayList}
+                    {showMore && (
+                      <Box className={styles.viewAllBtn}>
+                        <Button
+                          className={styles.Btn}
+                          onClick={showAllBtnHandler}
+                        >
+                          <img src={loadingIcon} className={styles.btnIcon} alt="" />
+                          View All
+                        </Button>
+                      </Box>
+                    )}
+                  </>
                 ))
           }
         </Stack >

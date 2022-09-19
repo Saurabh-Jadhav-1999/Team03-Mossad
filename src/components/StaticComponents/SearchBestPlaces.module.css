@@ -1,0 +1,74 @@
+.searchBestPlaces {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    width: 100vw !important;
+    margin: 15vh 0 !important;
+    margin-bottom: 5vh !important;
+    font-family: "Inter" !important;
+    font-style: normal !important;
+}
+
+.searchBestPlaces h2 {
+    font-weight: 700 !important;
+    font-size: 2.2vw !important;
+    margin: 0 auto !important;
+    margin-bottom: 1vw !important;
+}
+
+.searchBestPlaces h5 {
+    font-weight: 600 !important;
+    font-size: 1vw !important;
+    color: #B3B3B4;
+    font-family: "Inter" !important;
+    font-style: normal !important;
+}
+
+.imgCardContainer {
+    margin-top: 15px !important;
+    /* margin-left: 300px !important;
+    margin-right: 200px !important; */
+    width: 90vw !important;
+}
+
+.imgCard {
+    background: #FBFBFB !important;
+    width: 17vw !important;
+    height: 16vh !important;
+    margin-bottom: 25px !important;
+    border: 1px solid #E7E7E9 !important;
+}
+
+.imgCard_img {
+    width: 3vw !important;
+    height: 3vw !important;
+    border-radius: 20px;
+}
+
+.imgCard img {
+    margin-top: 10px !important;
+    margin-left: 10px !important;
+    border-radius: 5px;
+}
+
+.title {
+    font-family: 'Inter' !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    line-height: 19px !important;
+    color: #000000 !important;
+    margin-left: 10px !important;
+    margin-top: 10px !important;
+}
+
+.numberOfHotels {
+    font-family: 'Inter' !important;
+    font-style: normal !important;
+    font-weight: 600 !important;
+    font-size: 10px !important;
+    line-height: 12px !important;
+    color: #73757A !important;
+    margin-left: 10px !important;
+    margin-top: 5px !important;
+}

@@ -2,11 +2,11 @@ import { Box, Paper, Typography } from "@material-ui/core";
 import styles from "./Room.module.css";
 import React from "react";
 import CheckOutlinedIcon from "@mui/icons-material/CheckOutlined";
-import { Grid,Button } from "@mui/material";
+import { Grid, Button } from "@mui/material";
 import { setDiffBetDays } from "../../slices/searchSlice";
 import { setRoomType, setRoomTypeCost } from "../../slices/bookNowSlice";
 import { useSelector, useDispatch } from "react-redux";
-import {  toast } from "react-toastify";
+import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 const Room = (props) => {
   const dispatch = useDispatch();
@@ -16,8 +16,8 @@ const Room = (props) => {
   const roomtypecost = useSelector((state) => state.bookNow.room_type_cost);
   const date1 = new Date(checkin);
   const date2 = new Date(checkout);
-  let OfferRate=(props.hike==true)?props.offerRate+(props.offerRate*0.2):props.offerRate;
-  let BasePrice=(props.hike==true)?props.basePrice+(props.basePrice*0.2):props.basePrice;
+  let OfferRate = (props.hike == true) ? props.offerRate + (props.offerRate * 0.2) : props.offerRate;
+  let BasePrice = (props.hike == true) ? props.basePrice + (props.basePrice * 0.2) : props.basePrice;
   /*Calculating the difference between the checkin and checkout*/
   const Difference_In_Time = date2.getTime() - date1.getTime();
 
@@ -32,7 +32,14 @@ const Room = (props) => {
         <Typography className={styles.offerCondition} component={"p"}>
           Offer Conditions
         </Typography>
-        <Grid container direction={"column"}>
+        <Grid
+          container
+          className={styles.serviceDiv}
+          rowSpacing={1}
+          columnSpacing={2}
+          direction={"column"}
+          lg={4}
+        >
           {props.offers.map((offer) => (
             <Grid item className={styles.offerDiv} key={offer}>
               <CheckOutlinedIcon className={styles.checkedIcon} />
@@ -43,7 +50,7 @@ const Room = (props) => {
       </Box>
       <Box className={styles.rightDiv}>
         <Typography className={styles.boldHeading} component="span">
-         
+
           ${OfferRate}
           <Typography className={styles.offer} component="span">
             /night
@@ -51,27 +58,26 @@ const Room = (props) => {
         </Typography>
         {/* If discount is not 0 then only render the elements */
         props.discount !==0 &&props.basePrice!==undefined ? (
-          <> 
-            <Typography component={"span"} className={styles.saveAmt}>
-             {
-             (props.offerRate)==0?<p>0</p>:(<>
-             {/* <Button
-              variant="contained"
-              disabled
-              disableElevation
-              className={`${styles.labelDiscountPercentage}`}
-            >
-              10% OFF
-            </Button> */}
-            <p>Save ${BasePrice - OfferRate}</p></>)}
-            </Typography>
-            <Typography component={"span"} className={styles.offerCondition}>
-              {
-                
-              }
-              Amount before discount ${BasePrice}/night
-            </Typography>
-          </>
+          <>
+          <Typography component={"span"} className={styles.saveAmt}>
+            {
+              (props.offerRate) == 0 ? <p>0</p> : (<>
+                <button
+                  type="button"
+                  disabled
+                  className={`${styles.labelDiscountPercentage}`}
+                >
+                  10% OFF
+                </button>
+                <p>Save ${BasePrice - OfferRate}</p></>)}
+          </Typography>
+          <Typography component={"span"} className={styles.offerCondition}>
+            {
+
+            }
+            Amount before discount ${BasePrice}/night
+          </Typography>
+        </>
         ) :( <></>) }
 
         <button
@@ -83,17 +89,17 @@ const Room = (props) => {
               roomtype !== props.roomType &&
               roomtypecost !== OfferRate
             ) {
-              if(checkin&&checkout!==""){
-              dispatch(setRoomType(props.roomType));
-              dispatch(setRoomTypeCost({ bp, Difference_In_Days }))}
-             else{
-              toast.error("Please select CheckIn and CheckOut Dates");
-             }
+              if (checkin && checkout !== "") {
+                dispatch(setRoomType(props.roomType));
+                dispatch(setRoomTypeCost({ bp, Difference_In_Days }))
+              }
+              else {
+                toast.error("Please select CheckIn and CheckOut Dates");
+              }
             }
           }}
         >
-          
-          select{" "}
+          Select
         </button>
       </Box>
     </Paper>
