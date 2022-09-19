@@ -9,12 +9,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setCheckIn, setCheckOut } from '../../slices/searchSlice';
 import { setLunchUsingDate } from '../../slices/bookNowSlice';
 import { setDiffBetDays } from '../../slices/searchSlice';
+import { setTotalCostUsingDate } from '../../slices/bookNowSlice';
 export const BookingDatePickers = (props) => {
     const checkin=useSelector(state=>state.search.checkIn);
     const checkout=useSelector(state=>state.search.checkOut);
     const old_diff=useSelector(state=>state.search.diff);
   /*Calculating the difference between the checkin and checkout*/
-
+const totalcost=useSelector(state=>state.bookNow.totalCost);
 
 
     const lunch_per_person = useSelector(
@@ -30,6 +31,14 @@ export const BookingDatePickers = (props) => {
                 "YYYY-MM-DD"
             );
             dispatch(setCheckIn(checkInDateValue), () => { });
+            if(totalcost!=""){
+                const date1 = new Date(checkInDateValue);
+                const date2 = new Date(checkout);
+                const Difference_In_Time = date2.getTime() - date1.getTime();
+                const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+                dispatch(setTotalCostUsingDate({old_diff,Difference_In_Days,totalcost}));
+                dispatch(setDiffBetDays(parseInt(Difference_In_Days)));
+            }
             if(lunchstatus==1){
                 const date1 = new Date(checkInDateValue);
                 const date2 = new Date(checkout);
@@ -38,13 +47,20 @@ export const BookingDatePickers = (props) => {
                 dispatch(setLunchUsingDate({old_diff,Difference_In_Days}));
                 dispatch(setDiffBetDays(parseInt(Difference_In_Days)));
             }
-           
         }
         else {
             const checkOutDateValue = moment(new Date(newValue)).format(
                 "YYYY-MM-DD"
             );
             dispatch(setCheckOut(checkOutDateValue), () => { });
+            if(totalcost!=""){
+                const date1 = new Date(checkin);
+                const date2 = new Date(checkOutDateValue);
+                const Difference_In_Time = date2.getTime() - date1.getTime();
+                const Difference_In_Days = Difference_In_Time / (1000 * 3600 * 24);
+                dispatch(setTotalCostUsingDate({old_diff,Difference_In_Days,totalcost}));
+                dispatch(setDiffBetDays(parseInt(Difference_In_Days)));
+            }
             if(lunchstatus==1){
                 const date1 = new Date(checkin);
                 const date2 = new Date(checkOutDateValue);
