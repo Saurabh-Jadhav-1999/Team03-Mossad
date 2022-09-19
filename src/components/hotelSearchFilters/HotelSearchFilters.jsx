@@ -131,11 +131,11 @@ export const HotelSearchFilters = () => {
     const hotelList = useSelector((state => state.search.hotellist))
 
     const searchPropertyButtonHandler = (event) => {
-        const resulteArray = []
+        const resultArray = []
         hotelList.map((item) => {
-            if ((item.hotel_name).toString().trim().toLowerCase().includes((event.target.value).trim().toLowerCase())) resulteArray.push(item)
+            if ((item.hotel_name).toString().trim().toLowerCase().includes((event.target.value).trim().toLowerCase())) resultArray.push(item)
         })
-        dispatch(setFilteredHotels(resulteArray))
+        dispatch(setFilteredHotels(resultArray))
     }
 
     const filters = useSelector((state) => state.search.filters)

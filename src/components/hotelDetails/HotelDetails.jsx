@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchHotelDetails } from "./../../slices/getHotelDetailsSlice";
 import Loading from "../loader/Loader";
 import { Typography } from "@material-ui/core";
+import { resetSlice } from "./../../slices/bookNowSlice"
 
 export const HotelDetails = () => {
   let dispatch = useDispatch();
@@ -48,6 +49,9 @@ export const HotelDetails = () => {
       color="inherit"
       href="/search-hotels"
       style={{ textDecoration: "none", color: "grey" }}
+      onClick={() => {
+        dispatch(resetSlice())
+      }}
     >
       Hotel List
     </Link>,

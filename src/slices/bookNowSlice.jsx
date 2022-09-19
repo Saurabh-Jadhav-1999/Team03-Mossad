@@ -87,6 +87,11 @@ export const bookNowSlice = createSlice({
   name: "bookNowRoom",
   initialState: initialState,
   reducers: {
+    resetSlice: (state) => {
+      state.totalCost = "";
+      state.room_type_cost = 0;
+      state.room_type = "";
+    },
     setHotelId: (state = initialState, action) => {
       state.hotelId = action.payload;
     },
@@ -104,7 +109,7 @@ export const bookNowSlice = createSlice({
       state.allow_to_bring_pet = parseInt(action.payload);
       state.totalCost += parseInt(action.payload);
     },
-    
+
     setLunchUsingDate: (state = initialState, action) => {
       state.totalCost -= state.lunch_per_person_per_day;
       state.lunch_per_person_per_day /= action.payload.old_diff;
@@ -171,9 +176,9 @@ export const bookNowSlice = createSlice({
         state.totalCost = action.payload.bp * action.payload.Difference_In_Days;
       }
     },
-    setTotalCostUsingDate:(state=initialState,action)=>{ 
-     state.totalCost-=parseInt(state.room_type_cost*action.payload.old_diff);   
-     state.totalCost=parseInt(state.room_type_cost*action.payload.Difference_In_Days);
+    setTotalCostUsingDate: (state = initialState, action) => {
+      state.totalCost -= parseInt(state.room_type_cost * action.payload.old_diff);
+      state.totalCost = parseInt(state.room_type_cost * action.payload.Difference_In_Days);
     },
     setDiffBetDays: (state = initialState, action) => {
       state.difference_between_days = action.payload;
@@ -212,6 +217,7 @@ export const {
   setLunchUsingAdult,
   setLunchUsingChild,
   setLunchUsingDate,
-  setTotalCostUsingDate
+  setTotalCostUsingDate,
+  resetSlice
 } = bookNowSlice.actions;
 export default bookNowSlice.reducer;
