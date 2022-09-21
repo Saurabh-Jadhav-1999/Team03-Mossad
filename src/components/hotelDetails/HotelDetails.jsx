@@ -79,7 +79,7 @@ export const HotelDetails = () => {
     <Fragment>
       <Breadcrumb links={breadcrumbs} style={{ backgroundColor: "white" }} />
       <div className={styles.container}>
-        {(status != "succeeded") ? (
+        {(status === "loading") ? (
           <div>
             <Loading />
             <Typography
