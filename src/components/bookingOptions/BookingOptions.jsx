@@ -342,7 +342,7 @@ export const BookingOptions = (props) => {
                   component={"span"}
                   className={styles.totalBookingPrice}
                 >
-                  ${totalcost}
+                  ${totalcost ? totalcost : 0}
                 </Typography>
               </Stack>
             </Grid>

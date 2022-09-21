@@ -179,7 +179,7 @@ export const bookNowSlice = createSlice({
     },
     setTotalCostUsingDate: (state = initialState, action) => {
       state.totalCost -= parseInt(state.room_type_cost * action.payload.old_diff);
-      state.totalCost = parseInt(state.room_type_cost * action.payload.Difference_In_Days);
+      state.totalCost += parseInt(state.room_type_cost * action.payload.Difference_In_Days);
     },
     setDiffBetDays: (state = initialState, action) => {
       state.difference_between_days = action.payload;
