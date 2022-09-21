@@ -238,7 +238,7 @@ export const HotelSearchFilters = () => {
                                 {/* {Search filters options END} */}
 
                                 {filters.filterType == 'Popular Hotels' && <Box className="priceRangeFilterContainer">
-                                    <hr style={{ marginLeft: '-0px', width: '90%', color: '#D1D4D9', marginTop: "8%" }} />
+                                    <hr style={{ marginLeft: '-0px', width: '90%', color: '#D1D4D9', marginTop: "8%", marginBottom: "2%" }} />
                                     <Typography className={styles.searchPropertyHeader} sx={{ marginTop: "8%" }}>
                                         Price Range
                                     </Typography>
