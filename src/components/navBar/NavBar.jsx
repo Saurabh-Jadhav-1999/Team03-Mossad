@@ -1,6 +1,14 @@
 import React from "react";
 import styles from "./NavBar.module.css";
-import { AppBar, Stack, Toolbar, Box, Button } from "@mui/material";
+import {
+  AppBar,
+  Stack,
+  Toolbar,
+  Box,
+  Button,
+  Select,
+  MenuItem,
+} from "@mui/material";
 import { LanguageLogo } from "../../assets/icons/Language";
 import { Logo } from "../../assets/icons/Logo";
 import { Notification } from "../../assets/icons/Notification";
@@ -45,16 +53,19 @@ export const NavBar = () => {
                 <img src={userImg} alt="Adam Grant"></img>
               </Box>
               <Box className={styles.userName}>{user}</Box>
-              {/* <LoginOptionIcon> */}
-              <Button
+              <Select
+              IconComponent={() => <LoginOptionIcon />}
+                // startIcon={<LoginOptionIcon />}
                 onClick={() => {
                   localStorage.removeItem("token");
                   localStorage.removeItem("name");
                   window.location.reload(false);
                 }}
               >
-                <LogoutIcon />
-              </Button>
+                <MenuItem>
+                  <LogoutIcon />
+                </MenuItem>
+              </Select>
               {/* </LoginOptionIcon> */}
             </>
           ) : (
