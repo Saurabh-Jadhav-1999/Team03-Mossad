@@ -25,7 +25,8 @@ const Facility = (props) => {
     console.log("Hotel ID: ",props.details.hotel_id)
     dispatch(setCityName(props.details.city));
     navigate(
-      `/hotel-details/?id=${props.details.hotel_id}&city_name=${props.details.city}`
+      // `/hotel-details/?id=${props.details.hotel_id}&city_name=${props.details.city}`
+      "/hotel-details/"
     );
   }
 

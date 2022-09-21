@@ -16,8 +16,11 @@ export const HotelDetails = () => {
   let dispatch = useDispatch();
   let location = useLocation();
 
-  const idFromUrl = new URLSearchParams(location.search).get("id");
-  const cityNameFromUrl = new URLSearchParams(location.search).get("setCityName");
+  // const idFromUrl = new URLSearchParams(location.search).get("id");
+  // const cityNameFromUrl = new URLSearchParams(location.search).get("setCityName");
+
+  const idFromUrl = useSelector((state) => state.getHotelDetails.hotel_id)
+  const cityNameFromUrl = useSelector((state) => state.getHotelDetails.city_name)
 
   useEffect(() => {
     return () => {
