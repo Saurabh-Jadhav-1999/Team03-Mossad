@@ -23,7 +23,8 @@ export default function DateSelector() {
   }, [checkin, checkout]);
 
   const setStoreDate = (date, dateType) => {
-    dateType === "checkin" ? dispatch(setCheckIn(date)) : dispatch(setCheckOut(date))
+    const formattedDate = moment(new Date(date)).format("YYYY-MM-DD");
+    dateType === "checkin" ? dispatch(setCheckIn(formattedDate)) : dispatch(setCheckOut(formattedDate))
   }
 
   return (
@@ -47,8 +48,8 @@ export default function DateSelector() {
               "YYYY-MM-DD"
             );
 
-            dispatch(setCheckIn(checkInDateValue), () => { });
-            dispatch(setCheckOut(checkOutDateValue), () => { });
+            dispatch(setCheckIn(checkInDateValue));
+            dispatch(setCheckOut(checkOutDateValue));
           }
         }}
         renderInput={(startProps, endProps) => (
