@@ -1,0 +1,29 @@
+.selectBox{
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-around !important;
+    width: 16vw !important;
+    margin-left: 1vw!important;
+}
+
+.Inp{
+    width: 13vw !important;
+    background: #F0F1F2;
+    border: "1px solid #CAC8C8" !important;
+    position: relative !important;
+    z-index: 1 !important;
+    margin-right: 1.1vw !important; 
+}
+.arrow{
+    z-index: 99 !important;
+    border-radius: 100% !important;
+    max-height: 2vw !important;
+    max-width: 2vw !important;
+    position: relative;  
+    background: #FFFFFF !important; 
+    /* align-self: center; */
+    border: 2px solid rgb(255, 255, 255) !important;
+    margin: 0 -0.5vw !important;
+    
+}

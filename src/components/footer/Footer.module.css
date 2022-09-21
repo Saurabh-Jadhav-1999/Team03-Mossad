@@ -1,0 +1,123 @@
+.container {
+  width: 100vw !important;
+}
+
+.container1 {
+  margin-top: 5rem;
+  height: 18vh;
+  width: 76vw !important;
+  background-color: #326bff;
+  border-radius: 17px;
+  align-items: center;
+  display: flex;
+  margin-left: 10vw;
+}
+
+.getOffersLabel {
+  color: white;
+  margin-left: 4vw;
+  font-family: Inter, sans-serif;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 45px;
+}
+
+.txtfldAndBtnContainer {
+  display: flex;
+  margin-left: 7vw;
+  align-self: right;
+  background-color: white;
+  width: 47vw;
+  height: 10vh;
+  border-radius: 4px;
+}
+
+.input1 {
+  width: 13vw !important;
+  border-bottom: 0px !important;
+
+  padding: 7px;
+  margin-top: 1% !important;
+  margin-left: 2.5vw !important;
+}
+
+.button1 {
+  color: white !important;
+  background-color: black !important;
+
+  align-self: center;
+  margin-left: 42% !important;
+
+  width: 11vw;
+  height: 7vh;
+  border-radius: 8px !important;
+}
+
+.subscribeLabel {
+  font-family: Inter, sans-serif;
+  font-style: bolder;
+
+  font-size: 11px;
+  line-height: 24px;
+}
+.topPane {
+  z-index: 1;
+  position: relative;
+}
+.bottomPane {
+  z-index: 99;
+  max-width: 100%;
+  height: 70vh !important;
+
+  margin-top: -5% !important;
+
+  height: 30vh;
+}
+.gridcontainer1 {
+  margin-left: 12vw !important;
+  width: auto !important;
+}
+
+.boximg {
+  background-color: #eaeaeb;
+  width: 50% !important;
+}
+
+.label2 {
+  margin-top: 10px;
+  font-size: 10px;
+  font-weight: bold;
+  width: 15vw;
+  color: grey;
+  margin-top: 22px;
+}
+.hotelLogoAndDes {
+  display: grid;
+  margin-top: 22vh;
+  font-weight: bold !important;
+}
+.servicesBox,
+.supportBox,
+.businessBox {
+  width: 10vw !important;
+  font-weight: bold !important;
+  font-size: 20px;
+  margin-top: 22vh;
+  padding: 0% !important;
+}
+
+.servicesContainer,
+.supportContainer,
+.businessContainer {
+  width: 10vw;
+  margin-top: 3vh;
+  font-size: 12px;
+  line-height: 20px;
+  color: grey;
+  line-height: 26px;
+  padding: 0 !important;
+}
+
+.getOffersContainer {
+  margin: 0;
+}

@@ -1,0 +1,220 @@
+.container {
+  margin-bottom: 40vh;
+
+  background-color: #fafafc;
+}
+
+.greetingContainer {
+  margin-top: 2%;
+  margin-bottom: 1.5%;
+  margin-left: 2%;
+  font-weight: bolder !important;
+
+}
+
+.confirmMsgContainer {
+  margin-bottom: 6vh;
+  margin-left: 2%;
+}
+
+.greeting,
+.confirmMsg {
+  font-size: 100;
+
+  font-weight: bold !important;
+}
+
+.ratingReviews {
+  font-weight: bold !important;
+  display: flex !important;
+  justify-content: center;
+
+}
+
+.roomType {
+  font-size: 20px;
+  margin-left: 3% !important;
+  font-weight: bold !important;
+  line-height: 1.9 !important;
+}
+
+.div3 {
+  color: grey;
+  margin-left: 5px;
+}
+
+.leftPaneAndImageContainer {
+  display: flex;
+  margin-top: 2%;
+}
+
+.gridcontainer1 {
+  margin: 0;
+  display: grid;
+}
+
+.griditem {
+  display: flex;
+}
+
+.box1 {
+  display: grid;
+  margin-left: 5%;
+  background-color: #f4f4f6;
+  border-radius: 8px;
+  font-size: 13px;
+  width: 60vw;
+  height: 13vh;
+  line-height: 20px;
+}
+
+.datesHeader {
+  margin-left: 8%;
+  margin-top: 5%;
+  font-weight: bold;
+}
+
+.dates {
+  margin-left: 8%;
+  color: grey;
+  font-weight: bold;
+}
+
+.box2 {
+  display: grid;
+  background-color: #f4f4f6;
+  border-radius: 8px;
+  font-size: 13px;
+  width: 42vw;
+  height: 13vh;
+  line-height: 20px;
+  margin-left: 35px;
+}
+
+.travelersHeader {
+  margin-left: 8%;
+  margin-top: 5%;
+  font-weight: bold;
+}
+
+.travelers {
+  margin-left: 8%;
+  margin-top: -8%;
+  color: grey;
+  font-weight: bold;
+}
+
+.griditem1 {
+  margin-left: 2% !important;
+  margin-top: -2% !important;
+  width: 32.5vw;
+  align-items: center !important;
+  align-self: center;
+  align-content: center;
+  height: 70%;
+
+  background-color: #f4f4f6;
+
+  border-radius: 17px;
+}
+
+.reserveDetailsContainer {
+  margin-left: 2%;
+  margin-top: 13% !important;
+  display: grid;
+
+}
+
+.box3 {
+  margin-left: 4vw;
+  margin-top: 4% !important;
+}
+
+.reserveDetialsHeaderContainer {
+  margin-left: 2%;
+  margin-top: 10% !important;
+}
+
+.reserveDetailsHeader {
+  font-weight: bold;
+  font-size: 30px;
+  margin-left: -7%;
+
+}
+
+.typo4 {
+
+  font-weight: bold;
+  margin-top: 10% !important;
+}
+
+.bookingDetailsContainer {
+  display: flex;
+  margin-top: -6% !important;
+  line-height: 5vh;
+  margin-bottom: 15%;
+  margin-left: -5%;
+  font-size: 16px;
+}
+
+.leftPane {
+  color: grey;
+  font-weight: bold;
+}
+
+.rightPane {
+  margin-left: 8vw;
+  font-weight: bold;
+}
+
+.imageContainer {
+  margin-left: -60vw;
+}
+
+.button1 {
+  color: white;
+  background-color: #3c71ff;
+  margin-top: 5vh !important;
+  font-weight: bold !important;
+  height: 60px;
+  padding: 13px;
+  width: fit-content !important;
+  margin-left: 4% !important;
+  border-radius: 40px !important;
+}
+
+.hotelLocationContainer {
+  margin: 2% !important;
+
+}
+
+.ratingReviewsContainer {
+  display: flex !important;
+  justify-content: flex-start;
+  margin-top: 3vh;
+  margin-left: 2%;
+}
+
+.starimg {
+  margin-right: 4px;
+  width: 30px !important;
+  height: 30px !important;
+
+}
+
+.hotelimg {
+  border-radius: 30px;
+  max-width: 750px !important;
+  max-height: 480px !important;
+  height: 480px !important;
+  width: 700px !important;
+}
+
+.hotelrating {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 2% !important;
+  font-size: 16px;
+  color: grey !important;
+  margin-left: 5px;
+}

@@ -1,0 +1,74 @@
+.facilityDiv {
+ 
+  width: 37vw !important;
+  height: 50% !important;
+  display: flex;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  font-family: "Inter" !important;
+  font-style: normal !important;
+  padding-bottom: 2px !important;
+}
+
+.icon {
+  color: #929090 !important;
+  margin-right: 15px !important;
+  font-size: 20px !important;
+  font-family: "Inter" !important;
+  font-style: normal !important;
+} 
+
+.iconDiv {
+  font-size: 15px !important;
+  padding: 0.7vh 0;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  margin-left: 2vw !important;
+  font-size: 2vh !important;
+  max-width: 22vw !important;
+}
+
+.btnDiv {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-around !important;
+  margin: 1vw 2vh 1vh 4vw !important;
+}
+
+.btnPrice {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #eaebec !important;
+  border-radius: 30px !important;
+  font-weight: 600 !important;
+  width: 12vw !important;
+  padding: 1vh !important;
+  border: none;
+  text-transform: none !important;
+ 
+}
+.btnBook {
+  width: 12vw;
+  padding: 2.5vh !important;
+  /* height: 4vw; */
+  background: #3c71ff !important;
+  border-radius: 30px !important;
+  color: white !important;
+  border: none;
+  font-weight: 600 !important;
+}
+
+.btnPrice span {
+  font-weight: 700 !important;
+  font-size: 3vh !important;
+}
+.capacity {
+  font-size: 2vh !important;
+  color: #9b9a9a;
+  margin: 10px 10px 0 10px !important;
+  font-weight: 600 !important;
+}

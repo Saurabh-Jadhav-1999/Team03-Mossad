@@ -1,0 +1,95 @@
+.trendingCitiesContainer {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  background-color: #eaeaeb !important;
+  /* height: 80vh !important; */
+  width: 100vw !important;
+  margin: 15vh 0 !important;
+  font-family: "Inter" !important;
+  font-style: normal !important;
+  padding: 10vh !important;
+}
+
+.trendingCitiesContainer h2 {
+  font-weight: 700 !important;
+  font-size: 2.2vw !important;
+  margin: 0 auto !important;
+}
+
+.trendingCitiesContainer h5 {
+  font-weight: 600 !important;
+  font-size: 1.2vw !important;
+  color: #73757a;
+}
+
+.card {
+  display: flex !important;
+  flex-direction: row !important;
+  /* justify-content: space-between !important; */
+  align-items: flex-start !important;
+  height: 25vh !important;
+  width: 40vw !important;
+  border-radius: 1vw !important;
+  padding: 1.5vw !important;
+  /* background-color: aquamarine !important; */
+}
+
+.card img {
+  height: 20vh !important;
+  width: 12vw !important;
+  border-radius: 1vw !important;
+  /* margin-left: -2vw !important; */
+}
+
+.ratingDiv {
+  display: flex !important;
+  flex-direction: row !important;
+  justify-content: flex-start !important;
+  align-items: center !important;
+}
+
+.dataDiv {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: space-between !important;
+  margin: 0 0 0 4vw !important;
+  height: 100% !important;
+
+}
+
+.dataDiv h3 {
+  font-weight: 600 !important;
+  font-size: medium !important;
+}
+
+.dataDiv h6 {
+  margin: 0 0.3vw 0 0.5vw !important;
+  font-weight: 600 !important;
+  font-size: 1vw !important;
+}
+
+.starIcon {
+  color: #ff9c09 !important;
+  font-size: medium !important;
+}
+
+.perNightLable {
+  font-weight: 600 !important;
+  font-size: 1vw !important;
+  color: #878686 !important;
+}
+
+.amount {
+  font-weight: 600 !important;
+  font-size: 1.5vw !important;
+}
+
+.bookBtn {
+  background-color: #326bff !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 0.3vw !important;
+  padding: 1vh 2vh !important;
+}

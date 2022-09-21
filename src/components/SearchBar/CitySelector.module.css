@@ -1,0 +1,12 @@
+.selectInp{
+    background: #F0F1F2;
+    border: "1px solid #CAC8C8" !important;
+    position: relative !important;
+    width: 18vw !important;
+    z-index: 99 !important;
+    /* margin-left:2vw !important;   */
+  };
+  .txtfld1{
+    border-radius: 100% !important;
+    border: "1px solid #CAC8C8" !important;
+  }

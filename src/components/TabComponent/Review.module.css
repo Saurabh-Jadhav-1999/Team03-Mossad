@@ -1,0 +1,79 @@
+.reviewCard {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  margin: 2vh 0 2vh 0.8vw !important;
+  padding: 2vh 0 !important;
+  width: 62vw;
+  margin-top: 8vh !important;
+  border: 1px solid #E1DFDF !important;
+  border-radius: 10px !important;
+}
+
+.userComment {
+  font-size: 10px;
+  color: #a4a3a3 !important;
+  font-size: 12px !important;
+  margin: 2vh 0 3vh 0 !important;
+}
+
+.innerDiv {
+  margin: 2vh !important;
+}
+
+.rightDiv {
+
+  margin: 2vh 4vw !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: space-between !important;
+  /* height: 4vh !important; */
+}
+
+.detailsDiv {
+  /* display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-around; */
+  margin-left: 1vw;
+}
+
+
+.imgDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  width: 20vw;
+}
+
+.userName {
+  font-weight: 800 !important;
+  font-family: "Inter" !important;
+  font-style: normal !important;
+  font-size: 12px !important;
+}
+
+.userDetails {
+  color: #a4a3a3 !important;
+  font-size: 12px !important;
+}
+
+.imgDiv img {
+  height: 70px !important;
+  width: 70px !important;
+}
+
+
+
+.button {
+  background: #e7effc !important;
+  border-radius: 20px !important;
+  font-weight: 600 !important;
+  font-size: 15px !important;
+  line-height: 18px !important;
+  color: #326bff !important;
+  /* margin: 0 2vw; */
+  padding: 1vh 2vw !important;
+  text-transform: none !important;
+}

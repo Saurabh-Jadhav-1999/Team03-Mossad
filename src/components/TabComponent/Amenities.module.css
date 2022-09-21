@@ -1,0 +1,26 @@
+.heading {
+    font-size: large !important;
+    font-weight: 700 !important;
+    font-style: normal;
+    padding: 25px 0;
+  }
+  .iconStyle{
+    margin-right: 30px;
+    color: #323232;
+  }
+  .aminitiesRow{
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    padding: 2vh 0 !important;
+    padding-right: 2vw !important;
+    font-size: 12px !important;
+  }
+  .amenitiesDiv{
+      margin-top: 4vh;
+      border: none;
+      border-top: 1px solid #D1D4D9;
+      width: 58vw;
+    
+   
+  }

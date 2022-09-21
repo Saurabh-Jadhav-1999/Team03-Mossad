@@ -1,0 +1,116 @@
+.mainContainer {
+  width: 63vw !important;
+}
+
+.heading {
+  font-size: x-large !important;
+  font-weight: 600 !important;
+  font-style: normal !important;
+  margin-left: 1.2vw !important;
+}
+
+.roomBox {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  /* width: 50vw; */
+  padding: 15px 15px;
+  margin: 3vh !important;
+  border: 1px solid #E1DFDF !important;
+  border-radius: 10px !important;
+  height: 25vh !important;
+  /* background-color: #89898c !important; */
+}
+
+.boldHeading {
+  display: flex !important;
+  align-items: center !important;
+  /* margin: vh 0; */
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 20px !important;
+
+}
+
+.offer {
+  color: #89898c;
+  font-size: 15px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.offerCondition {
+  color: #89898c;
+  font-size: 11px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.labelDiscountPercentage {
+  background: #326BFF !important;
+  color: white !important;
+  font-size: 13px;
+  line-height: 18px;
+  border-radius: 30px !important;
+  border: none;
+  height: 5vh;
+  padding: 1vh;
+  margin-top: -7.7vh !important;
+  margin-right: 3vw !important;
+}
+
+.rightDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: space-between;
+  width: 25vw;
+}
+
+.leftDiv {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.saveAmt {
+  color: #ff9c09;
+  font-size: large;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.selectBtn {
+  background: #3c71ff !important;
+  border-radius: 9px;
+  border: none;
+  color: white !important;
+  padding: 5% !important;
+  width: 6.5vw !important;
+  text-transform: none !important;
+  font-weight: 400 !important;
+}
+
+
+
+.checkedIcon {
+  color: #13ac2b !important;
+  margin-right: 15px !important;
+  height: 15px !important;
+}
+
+.icon {
+  margin-right: -1 !important;
+}
+.serviceDiv{
+  margin-top: 1vh !important;
+  height:15vh !important;
+  width: 42vw!important;
+
+}
+.offerDiv {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  font-size: 1vw !important;
+}

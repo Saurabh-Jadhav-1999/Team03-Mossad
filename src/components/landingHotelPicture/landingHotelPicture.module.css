@@ -1,0 +1,28 @@
+.landingHotelImageContainer img{
+    width: 100% !important;
+    height: 35% !important;
+    z-index: 99 !important;
+}
+
+.imageCaption {
+    position: absolute;
+    width: 354px;
+    height: 174px;
+    margin-top: 7vh;
+    margin-left: 5vw;
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 48px;
+    line-height: 58px;
+    color: #000000;
+}
+
+.searchBar{
+    margin-bottom: 6vh !important;
+    margin-left: 10% !important;
+    margin-top: -4.6% !important;
+    position: absolute !important;
+    z-index: 1 !important;
+    /* background-color: red !important; */
+}

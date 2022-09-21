@@ -1,0 +1,37 @@
+.travelYourPassionImages{
+    border-radius: 15px;
+    height:110% !important
+}
+.travelYourPassionImageContainer{
+margin-top: 8% !important;
+justify-content:center ;
+align-items:center ;
+}
+.imgListItem{
+    margin-left:40px;
+    height: 50px;
+    overflow:hidden !important;
+    /* overflow-x: hidden !important;
+    overflow: hidden !important;
+    overflow-wrap: hidden; */
+}
+.imgGridHeaderContainer{
+    margin-bottom: 6% !important;
+}
+
+.imgGridHeader{
+    font-family: Inter !important;
+    font-weight: 700 !important;
+    font-size: 25px !important;
+    margin-bottom: 2% !important;
+}
+
+.imgGridDesc{
+    margin-top: 4% !important;
+font-family: Inter !important;
+font-size: 10px !important;
+font-weight: 600 !important;
+line-height: 17px !important ;
+letter-spacing: 0em !important;
+color: #73757A !important;
+}

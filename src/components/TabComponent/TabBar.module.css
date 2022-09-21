@@ -1,0 +1,34 @@
+.tabContainer {
+  width: 60vw !important;
+  font-family: "Inter";
+  font-style: normal;
+  border-top: 1px solid #d1d4d9 !important;
+  border-bottom: 1px solid #d1d4d9 !important;
+  margin-left: 2rem;
+}
+
+.headingLabel {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 600 !important;
+  color: black !important;
+  margin-left: -1rem !important;
+}
+
+.TabHeadings {
+  color: #326bff !important;
+  border-color: #326bff !important;
+}
+
+.tabDetail {
+  width: 60vw;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+}
+
+.reviewHeading {
+  font-weight: 600 !important;
+  font-size: 20px !important;
+  font-family: "Inter" !important;
+  font-style: normal !important;
+}
