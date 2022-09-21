@@ -21,6 +21,7 @@ export const HotelDetails = () => {
 
   useEffect(() => {
     return () => {
+      console.log("ID, CITY recieved: ", idFromUrl, cityNameFromUrl)
       dispatch(fetchHotelDetails({ idFromUrl, cityNameFromUrl }));
     };
   }, []);

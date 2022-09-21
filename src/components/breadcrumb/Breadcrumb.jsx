@@ -15,5 +15,4 @@ export const Breadcrumb = (props) => {
   );
 };
 
-
 export default Breadcrumb;

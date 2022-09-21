@@ -23,15 +23,7 @@ export default function DateSelector() {
   }, [checkin, checkout]);
 
   const setStoreDate = (date, dateType) => {
-    
-    // date = new Date(date);
-    console.log(date)
-
-    // if (date[0]["$d"] !== "Invalid Date") {
-    //   dateType === "checkin" ? dispatch(setCheckIn(date)) : dispatch(setCheckOut(date))
-    // }
-    // else console.log("Invalid Date: ",date[0]["$d"])
-
+    dateType === "checkin" ? dispatch(setCheckIn(date)) : dispatch(setCheckOut(date))
   }
 
   return (
@@ -45,6 +37,7 @@ export default function DateSelector() {
         clearable
         value={dateValues}
         format="MM/DD/YYYY"
+        onBlur={() => console.log("on blur date range picker")}
         onChange={(newValue) => {
           if (newValue[0] != null && newValue[1] != null && newValue[0]["$d"] !== "Invalid Date" && newValue[1]["$d"] !== "Invalid Date") {
             const checkInDateValue = moment(new Date(newValue[0])).format(
@@ -65,7 +58,7 @@ export default function DateSelector() {
               className={styles.dateInp}
               {...startProps}
               style={{ backgroundColor: "white" }}
-              onChange={(event) => setStoreDate(event.target.value, "checkin")}
+              onBlur={(event) => setStoreDate(event.target.value, "checkin")}
             />
             <Box
               className={styles.arrow}
@@ -77,7 +70,7 @@ export default function DateSelector() {
             <TextField
               format="MM/DD/YYYY"
               className={styles.dateInp}
-              onChange={(event) => setStoreDate(event.target.value, "checkout")}
+              onBlur={(event) => setStoreDate(event.target.value, "checkout")}
               {...endProps}
             />
           </React.Fragment>
