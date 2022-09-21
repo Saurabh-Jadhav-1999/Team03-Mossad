@@ -23,10 +23,10 @@ export const HotelDetails = () => {
   const cityNameFromUrl = useSelector((state) => state.getHotelDetails.city_name)
 
   useEffect(() => {
-    return () => {
-      console.log("ID, CITY recieved: ", idFromUrl, cityNameFromUrl)
-      dispatch(fetchHotelDetails({ idFromUrl, cityNameFromUrl }));
-    };
+
+    console.log("ID, CITY recieved: ", idFromUrl, cityNameFromUrl)
+    dispatch(fetchHotelDetails({ idFromUrl, cityNameFromUrl }));
+
   }, []);
 
   const hoteldetails = useSelector(
@@ -75,6 +75,7 @@ export const HotelDetails = () => {
   ];
 
   const status = useSelector((state) => state.getHotelDetails.status);
+
   return (
     <Fragment>
       <Breadcrumb links={breadcrumbs} style={{ backgroundColor: "white" }} />
