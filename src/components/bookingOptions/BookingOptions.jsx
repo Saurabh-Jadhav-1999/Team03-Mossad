@@ -352,17 +352,19 @@ export const BookingOptions = (props) => {
                 fullWidth
                 className={styles.btnBookNow}
                 onClick={() => {
-                  dispatch(
-                    finalBookNow({
-                      checkin,
-                      checkout,
-                      adultcount,
-                      childcount,
-                      hotelid,
-                      totalcost,
-                      roomtype,
-                    })
-                  );
+                  (roomtype === "") ?
+                    toast.error("Please select a room first!") :
+                    dispatch(
+                      finalBookNow({
+                        checkin,
+                        checkout,
+                        adultcount,
+                        childcount,
+                        hotelid,
+                        totalcost,
+                        roomtype,
+                      })
+                    );
                 }}
               >
                 Book Now

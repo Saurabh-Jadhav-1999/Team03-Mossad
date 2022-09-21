@@ -87,10 +87,11 @@ export const bookNowSlice = createSlice({
   name: "bookNowRoom",
   initialState: initialState,
   reducers: {
-    resetSlice: (state) => {
+    resetBookingSlice: (state) => {
       state.totalCost = "";
       state.room_type_cost = 0;
       state.room_type = "";
+      state.status = "";
     },
     setHotelId: (state = initialState, action) => {
       state.hotelId = action.payload;
@@ -183,6 +184,9 @@ export const bookNowSlice = createSlice({
     setDiffBetDays: (state = initialState, action) => {
       state.difference_between_days = action.payload;
     },
+    resetBookingStatus: (state = initialState) => {
+      state.status = "";
+    }
   },
   /* Defining actions for the status of promise returned by the api call*/
   extraReducers: {
@@ -218,6 +222,7 @@ export const {
   setLunchUsingChild,
   setLunchUsingDate,
   setTotalCostUsingDate,
-  resetSlice
+  resetBookingSlice,
+  resetBookingStatus
 } = bookNowSlice.actions;
 export default bookNowSlice.reducer;

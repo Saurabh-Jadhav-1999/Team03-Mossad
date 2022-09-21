@@ -7,7 +7,7 @@ import { AdapterDayjs } from "@mui/x-date-pickers-pro/AdapterDayjs";
 import { DateRangePicker } from "@mui/x-date-pickers-pro/DateRangePicker";
 import styles from "./DateSelector.module.css";
 import { Box } from "@mui/material";
-import moment from "moment/moment";
+import moment from 'moment/moment';
 import { useSelector, useDispatch } from "react-redux";
 import { setCheckIn, setCheckOut } from "../../slices/searchSlice";
 
@@ -17,9 +17,22 @@ export default function DateSelector() {
 
   const checkin = useSelector((state) => state.search.checkIn);
   const checkout = useSelector((state) => state.search.checkOut);
+
   useEffect(() => {
     setDateValues([checkin, checkout]);
   }, [checkin, checkout]);
+
+  const setStoreDate = (date, dateType) => {
+    
+    // date = new Date(date);
+    console.log(date)
+
+    // if (date[0]["$d"] !== "Invalid Date") {
+    //   dateType === "checkin" ? dispatch(setCheckIn(date)) : dispatch(setCheckOut(date))
+    // }
+    // else console.log("Invalid Date: ",date[0]["$d"])
+
+  }
 
   return (
     <LocalizationProvider
@@ -31,9 +44,9 @@ export default function DateSelector() {
         disablePast
         clearable
         value={dateValues}
-        format="MM.DD.YYYY"
+        format="MM/DD/YYYY"
         onChange={(newValue) => {
-          if (newValue[0] != null && newValue[1] != null) {
+          if (newValue[0] != null && newValue[1] != null && newValue[0]["$d"] !== "Invalid Date" && newValue[1]["$d"] !== "Invalid Date") {
             const checkInDateValue = moment(new Date(newValue[0])).format(
               "YYYY-MM-DD"
             );
@@ -41,17 +54,18 @@ export default function DateSelector() {
               "YYYY-MM-DD"
             );
 
-            dispatch(setCheckIn(checkInDateValue), () => {});
-            dispatch(setCheckOut(checkOutDateValue), () => {});
+            dispatch(setCheckIn(checkInDateValue), () => { });
+            dispatch(setCheckOut(checkOutDateValue), () => { });
           }
         }}
         renderInput={(startProps, endProps) => (
           <React.Fragment>
             <TextField
-              format="MM.DD.YYYY"
+              format="MM/DD/YYYY"
               className={styles.dateInp}
               {...startProps}
               style={{ backgroundColor: "white" }}
+              onChange={(event) => setStoreDate(event.target.value, "checkin")}
             />
             <Box
               className={styles.arrow}
@@ -63,6 +77,7 @@ export default function DateSelector() {
             <TextField
               format="MM/DD/YYYY"
               className={styles.dateInp}
+              onChange={(event) => setStoreDate(event.target.value, "checkout")}
               {...endProps}
             />
           </React.Fragment>

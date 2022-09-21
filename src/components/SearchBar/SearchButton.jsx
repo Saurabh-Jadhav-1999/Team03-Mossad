@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchHotelList } from "../../slices/searchSlice";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import moment from 'moment/moment';
 
 export const SearchButton = () => {
   const dispatch = useDispatch();
@@ -31,10 +32,16 @@ export const SearchButton = () => {
       return;
     }
 
-    if (checkIn === checkOut && (checkIn !== null || checkOut !== null)) {
+    if (checkIn <= moment(new Date()).format("YYYY-MM-DD")) {
+      toast.error("Check-in date should be greater than today's date!");
+      return;
+    }
+
+    if (checkOut <= checkIn && (checkIn !== null || checkOut !== null)) {
       toast.error("Check-out date should be greater than check-in date..!");
       return;
     }
+
 
     dispatch(
       fetchHotelList({ location, checkIn, checkOut, adultcount, childcount })
