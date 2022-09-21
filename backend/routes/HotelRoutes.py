@@ -75,13 +75,13 @@ def getCityListByPost():
 
     data = request.json
 
+    data = request.json
+
     if len(data['city_name'].strip()) == 0:
         return make_response({"error":"please enter valid city_name"}, 400)
 
     city_name = data['city_name'].strip() # strip the leading and trailing spaces
 
-    if validationResult.errors:
-        return make_response(validationResult.errors, 400) # return error if validation fails
 
     cityListResult = getCitiesByName(city_name) # get the list of cities 
 
@@ -127,6 +127,10 @@ def getHotels():
     # add validation check_in_date >= current date and check_out_date >= current_date
     if data['check_out_date'] < data['check_in_date']:
         return {"error": "invalid check_in, check_out date"}, 400
+
+    # add validation for cannot book hotel before 90 days
+    if data['check_in_date'] > getCurrentDate()+timedelta(days=90) or data['check_out_date'] > getCurrentDate()+timedelta(days=90):
+        return make_response({"error":"check_in_date or check_out_date is more than 90 days"}, 400)
     
     # check if check_in_date and check_out_date is less than equal to 90 days from todays date
     date_after_ninty_day = getCurrentDate()+timedelta(days=90)
@@ -188,11 +192,10 @@ def getHotels():
     # build user history
     addHistory({"user_id":data['user_id'],"location":data['city_name']})
 
-   
     # concat availableHotelList to priorityHotelList
     priorityHotelList.extend(availableHotelList)
 
-    newdata = showAvailableHotels(priorityHotelList) # get the serializable format to data
+    newdata = showAvailableHotels(priorityHotelList)
 
     # check if available rooms are less than 20% of all avilable rooms if yes apply discount
     if  len(hotels)>1 and  len(availableHotelList) <= (len(hotels)-int(len(hotels)*0.8)):
@@ -200,7 +203,7 @@ def getHotels():
         # availableHotelList.append("dynamic_price_hike")
         return make_response(newdata, 200)
         
-
+    
     # newdata.append({"dynamic_hike_price":False})
     return make_response(newdata, 200)
     # return make_response({"dynamic_hike_price":False,"hotel_list":showAvailableHotels(availableHotelList)}, 200)
