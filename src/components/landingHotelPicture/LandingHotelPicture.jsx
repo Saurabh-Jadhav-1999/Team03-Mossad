@@ -1,5 +1,5 @@
 import styles from './landingHotelPicture.module.css'
-import {SearchBar} from '../searchBar/SearchBar'
+import {SearchBar} from '../SearchBar/SearchBar'
 
 export const LandingHotelPicture = () => {
     return <div className={styles.landingHotelImageContainer}>

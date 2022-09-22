@@ -1,27 +1,33 @@
 //Confirmation Page
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import styles from "./Confirmation.module.css";
 import { Box, Typography, Grid, Button } from "@mui/material";
 import Breadcrumb from "../../components/breadcrumb/Breadcrumb";
 import { Link, Navigate } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import moment from "moment/moment";
 import Loading from "../loader/Loader";
 import StarIcon from "@mui/icons-material/Star";
+import { resetBookingSlice } from "./../../slices/bookNowSlice"
 
 const Confirmation = () => {
   function navigate(path) {
     Navigate(path);
   }
-//Retrieved values from slices
+
+  const dispatch = useDispatch();
+
+  //Retrieved values from slices
   const bookingdetails = useSelector((state) => state.bookNow.finalbooking);
   const hoteldetails = useSelector(state => state.getHotelDetails.hotelDetails);
   const checkin = useSelector((state) => state.search.checkIn);
   const checkout = useSelector((state) => state.search.checkOut);
   const roomtype = useSelector((state) => state.bookNow.room_type);
+  const hotel_id = useSelector((state) => state.getHotelDetails.hotel_id)
+  const city_name = useSelector((state => state.getHotelDetails.city_name))
   const status = useSelector((state) => state.bookNow.status);
 
-  // Format Date as required on the Confirmation Page refer to: figma screen
+  // Format Date as required on the Confirmation Page, refer to: figma screen
   // Ex. September 15 - September 22 2022
   const formatDate = () => {
     const checkIn = moment(new Date(checkin)).format('MMMM DD')
@@ -31,7 +37,8 @@ const Confirmation = () => {
 
     return (reservationCinYear === reservationCoutYear) ? (checkIn + " - " + checkOut + " " + reservationCinYear) : checkIn + " " + reservationCinYear + " - " + checkOut + " " + reservationCoutYear
   }
-//Room type names set according to the roomtype variable
+
+  //Room type names set according to the roomtype variable
   let room_type = "";
   switch (roomtype) {
     case "double_room":
@@ -49,7 +56,7 @@ const Confirmation = () => {
     default:
       break;
   }
-//Breadcrumbs links for navigation
+  //Breadcrumbs links for navigation
   const breadcrumbs = [
     <Link
       underline="hover"
@@ -73,15 +80,23 @@ const Confirmation = () => {
       Hotel List
     </Link>,
     <Link
-      to="/hotel-details"
+      to={
+        {
+          pathname: "/hotel-details",
+          search: `?id=${hotel_id}&city_name=${city_name}`
+        }
+      }
       underline="hover"
       key="3"
       color="inherit"
       href="/search-hotels"
       style={{ textDecoration: "none", color: "grey" }}
+      onClick={() => {
+        dispatch(resetBookingSlice())
+      }}
     >
       Hotel Details
-    </Link>,
+    </Link >,
     <Link
       to="/booking-confirmation"
       underline="hover"
@@ -148,7 +163,7 @@ const Confirmation = () => {
             </Typography>
           </div>
           <div>
-      
+
             <div>
               <div className={`${styles.leftPaneAndImageContainer}`}>
                 <Grid

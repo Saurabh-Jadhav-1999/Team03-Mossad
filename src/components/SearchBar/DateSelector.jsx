@@ -17,9 +17,22 @@ export default function DateSelector() {
 
   const checkin = useSelector((state) => state.search.checkIn);
   const checkout = useSelector((state) => state.search.checkOut);
+
   useEffect(() => {
     setDateValues([checkin, checkout]);
   }, [checkin, checkout]);
+
+  const setStoreDate = (date, dateType) => {
+    // date = new Date(date);
+    console.log(`${date}  ${dateType}`);
+
+    // if (date[0]["$d"] !== "Invalid Date") {
+    dateType === "checkin"
+      ? dispatch(setCheckIn(date))
+      : dispatch(setCheckOut(date));
+    // }
+    // else console.log("Invalid Date: ",date[0]["$d"])
+  };
 
   return (
     <LocalizationProvider
@@ -31,9 +44,14 @@ export default function DateSelector() {
         disablePast
         clearable
         value={dateValues}
-        format="MM.DD.YYYY"
+        format="MM/DD/YYYY"
         onChange={(newValue) => {
-          if (newValue[0] != null && newValue[1] != null) {
+          if (
+            newValue[0] != null &&
+            newValue[1] != null &&
+            newValue[0]["$d"] !== "Invalid Date" &&
+            newValue[1]["$d"] !== "Invalid Date"
+          ) {
             const checkInDateValue = moment(new Date(newValue[0])).format(
               "YYYY-MM-DD"
             );
@@ -48,10 +66,11 @@ export default function DateSelector() {
         renderInput={(startProps, endProps) => (
           <React.Fragment>
             <TextField
-              format="MM.DD.YYYY"
+              format="MM/DD/YYYY"
               className={styles.dateInp}
               {...startProps}
               style={{ backgroundColor: "white" }}
+              onChange={(event) => setStoreDate(event.target.value, "checkin")}
             />
             <Box
               className={styles.arrow}
@@ -63,6 +82,7 @@ export default function DateSelector() {
             <TextField
               format="MM/DD/YYYY"
               className={styles.dateInp}
+              onChange={(event) => setStoreDate(event.target.value, "checkout")}
               {...endProps}
             />
           </React.Fragment>

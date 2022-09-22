@@ -85,17 +85,17 @@ const yourBudgetFilterData = [
             },
             {
                 id: 2,
-                filterName: '$75 to 300',
+                filterName: '$75 to $300',
                 range: [75, 300]
             },
             {
                 id: 3,
-                filterName: '$300 to 500',
+                filterName: '$300 to $500',
                 range: [300, 500]
             },
             {
                 id: 4,
-                filterName: '$500 to 1000',
+                filterName: '$500 to $1000',
                 range: [1000, 500]
             },
             {
@@ -131,11 +131,11 @@ export const HotelSearchFilters = () => {
     const hotelList = useSelector((state => state.search.hotellist))
 
     const searchPropertyButtonHandler = (event) => {
-        const resulteArray = []
+        const resultArray = []
         hotelList.map((item) => {
-            if ((item.hotel_name).toString().trim().toLowerCase().includes((event.target.value).trim().toLowerCase())) resulteArray.push(item)
+            if ((item.hotel_name).toString().trim().toLowerCase().includes((event.target.value).trim().toLowerCase())) resultArray.push(item)
         })
-        dispatch(setFilteredHotels(resulteArray))
+        dispatch(setFilteredHotels(resultArray))
     }
 
     const filters = useSelector((state) => state.search.filters)

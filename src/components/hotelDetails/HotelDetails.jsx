@@ -10,13 +10,14 @@ import { useSelector, useDispatch } from "react-redux";
 import { fetchHotelDetails } from "./../../slices/getHotelDetailsSlice";
 import Loading from "../loader/Loader";
 import { Typography } from "@material-ui/core";
+import { resetBookingSlice } from "./../../slices/bookNowSlice"
 
 export const HotelDetails = () => {
   let dispatch = useDispatch();
   let location = useLocation();
 
   const idFromUrl = new URLSearchParams(location.search).get("id");
-  const cityNameFromUrl = new URLSearchParams(location.search).get("city_name");
+  const cityNameFromUrl = new URLSearchParams(location.search).get("setCityName");
 
   useEffect(() => {
     return () => {
@@ -48,6 +49,9 @@ export const HotelDetails = () => {
       color="inherit"
       href="/search-hotels"
       style={{ textDecoration: "none", color: "grey" }}
+      onClick={() => {
+        dispatch(resetBookingSlice())
+      }}
     >
       Hotel List
     </Link>,
@@ -58,6 +62,9 @@ export const HotelDetails = () => {
       color="inherit"
       href="/hotel-details"
       style={{ textDecoration: "none", color: "black" }}
+      onClick={() => {
+        dispatch(resetBookingSlice())
+      }}
     >
       Hotel Details
     </Link>,

@@ -87,6 +87,12 @@ export const bookNowSlice = createSlice({
   name: "bookNowRoom",
   initialState: initialState,
   reducers: {
+    resetBookingSlice: (state) => {
+      state.totalCost = "";
+      state.room_type_cost = 0;
+      state.room_type = "";
+      state.status = "";
+    },
     setHotelId: (state = initialState, action) => {
       state.hotelId = action.payload;
     },
@@ -104,6 +110,7 @@ export const bookNowSlice = createSlice({
       state.allow_to_bring_pet = parseInt(action.payload);
       state.totalCost += parseInt(action.payload);
     },
+
     setLunchUsingDate: (state = initialState, action) => {
       state.totalCost -= state.lunch_per_person_per_day;
       state.lunch_per_person_per_day /= action.payload.old_diff;
@@ -170,9 +177,16 @@ export const bookNowSlice = createSlice({
         state.totalCost = action.payload.bp * action.payload.Difference_In_Days;
       }
     },
+    setTotalCostUsingDate: (state = initialState, action) => {
+      state.totalCost -= parseInt(state.room_type_cost * action.payload.old_diff);
+      state.totalCost = parseInt(state.room_type_cost * action.payload.Difference_In_Days);
+    },
     setDiffBetDays: (state = initialState, action) => {
       state.difference_between_days = action.payload;
     },
+    resetBookingStatus: (state = initialState) => {
+      state.status = "";
+    }
   },
   /* Defining actions for the status of promise returned by the api call*/
   extraReducers: {
@@ -207,5 +221,8 @@ export const {
   setLunchUsingAdult,
   setLunchUsingChild,
   setLunchUsingDate,
+  setTotalCostUsingDate,
+  resetBookingSlice,
+  resetBookingStatus
 } = bookNowSlice.actions;
 export default bookNowSlice.reducer;

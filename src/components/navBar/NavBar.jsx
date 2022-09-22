@@ -1,29 +1,19 @@
 import React from "react";
 import styles from "./NavBar.module.css";
-import {
-  AppBar,
-  Stack,
-  Toolbar,
-  Box,
-  Button,
-  Select,
-  MenuItem,
-} from "@mui/material";
+import { AppBar, Stack, Toolbar, Box, Button } from "@mui/material";
 import { LanguageLogo } from "../../assets/icons/Language";
 import { Logo } from "../../assets/icons/Logo";
 import { Notification } from "../../assets/icons/Notification";
 import Login from "./../loginModal/Login";
 import { useSelector } from "react-redux";
 import LogoutIcon from "@mui/icons-material/Logout";
-import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import johnImg from "./JohnImg.png";
 import AnnaImg from "./AnnaImg.png";
-import { useState } from "react";
-import { LoginOptionIcon } from "../../assets/icons/LoginOptions";
+// import { useState } from "react";
 export const NavBar = () => {
-  const token = useSelector((state) => state.login.token);
+  // const token = useSelector((state) => state.login.token);
   const user = useSelector((state) => state.login.user_name);
-  const [showLogin, setShowLogin] = useState(true);
+  // const [showLogin, setShowLogin] = useState(true);
 
   const userImg = user === "John Doe" ? johnImg : AnnaImg;
   return (
@@ -53,20 +43,15 @@ export const NavBar = () => {
                 <img src={userImg} alt="Adam Grant"></img>
               </Box>
               <Box className={styles.userName}>{user}</Box>
-              <Select
-              IconComponent={() => <LoginOptionIcon />}
-                // startIcon={<LoginOptionIcon />}
+              <Button
                 onClick={() => {
                   localStorage.removeItem("token");
                   localStorage.removeItem("name");
                   window.location.reload(false);
                 }}
               >
-                <MenuItem>
-                  <LogoutIcon />
-                </MenuItem>
-              </Select>
-              {/* </LoginOptionIcon> */}
+                <LogoutIcon />
+              </Button>
             </>
           ) : (
             <Login />

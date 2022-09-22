@@ -27,7 +27,7 @@ const Facility = (props) => {
       `/hotel-details/?id=${props.details.hotel_id}&city_name=${props.details.city}`
     );
   }
- 
+
   return (
     <Box className={styles.facilityDiv}>
       <Typography className={styles.iconDiv}>
@@ -72,7 +72,7 @@ const Facility = (props) => {
             type="button"
             // to="/hotel-details"
             className={styles.btnBook}
-            onClick={() => handleSubmit(props.rate)}
+            onClick={() => handleSubmit(props)}
           >
             Book Now
           </button>

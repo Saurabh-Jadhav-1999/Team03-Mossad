@@ -108,7 +108,7 @@ export const BookingOptions = (props) => {
 
   return (
     <Fragment>
-      {status == "loading" && setTimeout(() => {}, 5000) ? (
+      {status == "loading" && setTimeout(() => { }, 5000) ? (
         <p></p>
       ) : (
         <Paper elevation={0} className={styles.bookingOptionsContainer}>
@@ -139,16 +139,6 @@ export const BookingOptions = (props) => {
                   /night
                 </Typography>
               </span>
-              <Grid item>
-                <Button
-                  variant="contained"
-                  disabled
-                  disableElevation
-                  className={styles.labelDiscountPercentage}
-                >
-                  10% OFF
-                </Button>
-              </Grid>
             </Grid>
             <hr className={styles.divider} />
             <Grid item xs={12}>
@@ -164,7 +154,7 @@ export const BookingOptions = (props) => {
                     className={styles.datePicker}
                     checkin={"1"}
                     date={checkin}
-                    onChange={(e) => {}}
+                    onChange={(e) => { }}
                     check_out={false}
                   />
                 </Box>
@@ -205,7 +195,7 @@ export const BookingOptions = (props) => {
                         let new_adult_count = e.target.value;
 
                         if (lunchstatus == 1) {
-                         
+
                           dispatch(
                             setLunchUsingAdult({
                               adultcount,
@@ -239,7 +229,7 @@ export const BookingOptions = (props) => {
                         let new_child_count = e.target.value;
 
                         if (lunchstatus == 1) {
-                        
+
                           dispatch(
                             setLunchUsingChild({
                               childcount,
@@ -362,17 +352,19 @@ export const BookingOptions = (props) => {
                 fullWidth
                 className={styles.btnBookNow}
                 onClick={() => {
-                  dispatch(
-                    finalBookNow({
-                      checkin,
-                      checkout,
-                      adultcount,
-                      childcount,
-                      hotelid,
-                      totalcost,
-                      roomtype,
-                    })
-                  );
+                  (roomtype === "") ?
+                    toast.error("Please select a room first!") :
+                    dispatch(
+                      finalBookNow({
+                        checkin,
+                        checkout,
+                        adultcount,
+                        childcount,
+                        hotelid,
+                        totalcost,
+                        roomtype,
+                      })
+                    );
                 }}
               >
                 Book Now
