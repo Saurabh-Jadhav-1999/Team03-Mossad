@@ -56,6 +56,13 @@ export const HotelSearchList = () => {
     }
 
     let minValue = Math.min(...rates);
+
+    /** This is where I need to apply a loop for budget filters
+     *  Psuedo code:
+     * 1. get min value
+     * 2. iterate it through all budget range filters array
+     * 3. return true if range matches
+     */
     return (minValue >= budgetFilters[0] && minValue <= budgetFilters[1]);
   }
 
@@ -66,6 +73,7 @@ export const HotelSearchList = () => {
 
   useEffect(() => {
     dispatch(setFilteredHotels(hotelList))
+    getFilteredArray();
   }, [hotelList])
 
   useEffect(() => {
