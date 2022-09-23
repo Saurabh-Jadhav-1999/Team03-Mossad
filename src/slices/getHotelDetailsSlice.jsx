@@ -33,6 +33,7 @@ export const fetchHotelDetails = createAsyncThunk(
           config
         )
         .then((response) => {
+          console.log("Response: ", response.data)
           return response.data;
 
 
@@ -60,13 +61,15 @@ export const getHotelDetailsSlice = createSlice({
       state.imgsLoaded = action.payload;
     }
   },
-   /* Defining actions for the status of promise returned by the api call*/ 
+  /* Defining actions for the status of promise returned by the api call*/
   extraReducers: {
     [fetchHotelDetails.pending]: (state, action) => {
+      console.log("Status Loading")
       state.status = "loading";
     },
     [fetchHotelDetails.fulfilled]: (state, action) => {
       state.status = "succeeded";
+      console.log("Fullfilled: ", action.payload)
       state.hotelDetails = action.payload;
     },
   },

@@ -119,9 +119,9 @@ const filterValueArr = {
     "Infinity Pool": "swimming_pool",
     "Spa": "spa",
     "Less than $75": [50, 75],
-    "$75 to 300": [75, 300],
-    "$300 to 500": [300, 500],
-    "$500 to 1000": [500, 1000],
+    "$75 to $300": [75, 300],
+    "$300 to $500": [300, 500],
+    "$500 to $1000": [500, 1000],
     "Greater than $1000": [1000, 10000]
 }
 
@@ -238,7 +238,7 @@ export const HotelSearchFilters = () => {
                                 {/* {Search filters options END} */}
 
                                 {filters.filterType == 'Popular Hotels' && <Box className="priceRangeFilterContainer">
-                                    <hr style={{ marginLeft: '-0px', width: '90%', color: '#D1D4D9', marginTop: "8%" }} />
+                                    <hr style={{ marginLeft: '-0px', width: '90%', color: '#D1D4D9', marginTop: "8%", marginBottom: "2%" }} />
                                     <Typography className={styles.searchPropertyHeader} sx={{ marginTop: "8%" }}>
                                         Price Range
                                     </Typography>

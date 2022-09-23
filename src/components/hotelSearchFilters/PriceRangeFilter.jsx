@@ -40,6 +40,7 @@ export const InputSlider = () => {
       label: "$2000",
     },
   ];
+  
   const handleSliderChange = (event, newValue) => {
     dispatch(clearYourBudgetFilters());
     dispatch(setBudgetFilters([50, newValue]));

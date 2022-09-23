@@ -23,15 +23,10 @@ export default function DateSelector() {
   }, [checkin, checkout]);
 
   const setStoreDate = (date, dateType) => {
-    // date = new Date(date);
-    console.log(`${date}  ${dateType}`);
-
-    // if (date[0]["$d"] !== "Invalid Date") {
+    const formattedDate = moment(new Date(date)).format("YYYY-MM-DD");
     dateType === "checkin"
-      ? dispatch(setCheckIn(date))
-      : dispatch(setCheckOut(date));
-    // }
-    // else console.log("Invalid Date: ",date[0]["$d"])
+      ? dispatch(setCheckIn(formattedDate))
+      : dispatch(setCheckOut(formattedDate));
   };
 
   return (
@@ -45,6 +40,7 @@ export default function DateSelector() {
         clearable
         value={dateValues}
         format="MM/DD/YYYY"
+        onBlur={() => console.log("on blur date range picker")}
         onChange={(newValue) => {
           if (
             newValue[0] != null &&
@@ -59,8 +55,8 @@ export default function DateSelector() {
               "YYYY-MM-DD"
             );
 
-            dispatch(setCheckIn(checkInDateValue), () => {});
-            dispatch(setCheckOut(checkOutDateValue), () => {});
+            dispatch(setCheckIn(checkInDateValue));
+            dispatch(setCheckOut(checkOutDateValue));
           }
         }}
         renderInput={(startProps, endProps) => (
@@ -70,7 +66,7 @@ export default function DateSelector() {
               className={styles.dateInp}
               {...startProps}
               style={{ backgroundColor: "white" }}
-              onChange={(event) => setStoreDate(event.target.value, "checkin")}
+              onBlur={(event) => setStoreDate(event.target.value, "checkin")}
             />
             <Box
               className={styles.arrow}
@@ -82,7 +78,7 @@ export default function DateSelector() {
             <TextField
               format="MM/DD/YYYY"
               className={styles.dateInp}
-              onChange={(event) => setStoreDate(event.target.value, "checkout")}
+              onBlur={(event) => setStoreDate(event.target.value, "checkout")}
               {...endProps}
             />
           </React.Fragment>

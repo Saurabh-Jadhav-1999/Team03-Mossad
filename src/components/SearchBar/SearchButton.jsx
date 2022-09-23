@@ -37,7 +37,9 @@ export const SearchButton = () => {
     }
 
     if (checkIn < moment(new Date()).format("YYYY-MM-DD")) {
-      toast.error("Check-in date should be greater than today's date!");
+      toast.error(
+        "Check-in date should be greater than or equal to today's date!"
+      );
       return;
     }
 

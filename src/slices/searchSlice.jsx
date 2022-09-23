@@ -18,9 +18,9 @@ const initialState = {
   budgetFilters: [],
   yourBudgetFilters: {
     "Less than $75": false,
-    "$75 to 300": false,
-    "$300 to 500": false,
-    "$500 to 1000": false,
+    "$75 to $300": false,
+    "$300 to $500": false,
+    "$500 to $1000": false,
     "Greater than $1000": false,
   },
   filteredHotels: [],

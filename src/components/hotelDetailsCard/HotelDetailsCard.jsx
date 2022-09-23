@@ -9,7 +9,7 @@ import { HotelImage } from "./HotelImage";
 export const HotelDetailsCard = (props) => {
   const checkInDate = useSelector((state) => state.search.checkIn);
   const checkOutDate = useSelector((state) => state.search.checkOut);
-  console.log("Card", props);
+  // console.log("Card", props);
   return (
     <Grid container className={styles.hotelDetailBox}>
       <Grid container>

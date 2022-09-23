@@ -14,11 +14,11 @@ export const RoomAndPrice = (props) => {
   );
   let location = useLocation();
 
-  const idFromUrl = new URLSearchParams(location.search).get("id"); 
+  const idFromUrl = new URLSearchParams(location.search).get("id");
 
   const hotellist = useSelector((state) => state.search.hotellist);
   const hotel = hotellist.filter((item) => item.hotel_id == idFromUrl);
-  const dynamic_hike = hotel[0].dynamic_hike!==undefined?hotel[0].dynamic_hike:false;;
+  const dynamic_hike = hotel[0]?.dynamic_hike ? hotel[0].dynamic_hike : false;
 
   const filterid = hotellist.filter((item) => item.hotel_id == props.id);
   const discounted_room_type = filterid[0].discounted_room_type;

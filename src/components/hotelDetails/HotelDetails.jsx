@@ -16,13 +16,17 @@ export const HotelDetails = () => {
   let dispatch = useDispatch();
   let location = useLocation();
 
-  const idFromUrl = new URLSearchParams(location.search).get("id");
-  const cityNameFromUrl = new URLSearchParams(location.search).get("setCityName");
+  // const idFromUrl = new URLSearchParams(location.search).get("id");
+  // const cityNameFromUrl = new URLSearchParams(location.search).get("setCityName");
+
+  const idFromUrl = useSelector((state) => state.getHotelDetails.hotel_id)
+  const cityNameFromUrl = useSelector((state) => state.getHotelDetails.city_name)
 
   useEffect(() => {
-    return () => {
-      dispatch(fetchHotelDetails({ idFromUrl, cityNameFromUrl }));
-    };
+
+    console.log("ID, CITY recieved: ", idFromUrl, cityNameFromUrl)
+    dispatch(fetchHotelDetails({ idFromUrl, cityNameFromUrl }));
+
   }, []);
 
   const hoteldetails = useSelector(
@@ -71,11 +75,12 @@ export const HotelDetails = () => {
   ];
 
   const status = useSelector((state) => state.getHotelDetails.status);
+
   return (
     <Fragment>
       <Breadcrumb links={breadcrumbs} style={{ backgroundColor: "white" }} />
       <div className={styles.container}>
-        {(status != "succeeded") ? (
+        {(status === "loading") ? (
           <div>
             <Loading />
             <Typography
